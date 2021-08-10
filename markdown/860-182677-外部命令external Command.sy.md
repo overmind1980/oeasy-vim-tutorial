@@ -4,15 +4,15 @@ version: 1.0
 enable_checker: true
 ---
 
-# 文件格式 fileformat
+# 外部命令  external
 
 ## 回忆
 
-- 这次研究的是global
+- 上次研究的是global
 - `:[range]global/{pattern}/{command}`
-	- range是执行的范围
-	- pattern是搜索的模式
-	- command执行的命令
+	- `range` 是执行的范围
+	- `pattern` 是搜索的模式
+	- `command` 执行的命令
 - 命令有很多
 	- d 删除
 	- m 移动
@@ -21,7 +21,7 @@ enable_checker: true
 	- s 替换
 	- sort 排序
 	- update 更新
-- global是很好用的内部命令
+- `global` 是很好用的内部命令
 - vim还可以执行外部命令呢！
 - 怎么玩呢？🤔
 
@@ -54,7 +54,7 @@ enable_checker: true
 ![图片描述](https://doc.shiyanlou.com/courses/uid1190679-20210802-1627866158517)
 
 - `:.!tr '[:lower:]' '[:upper:]'`
-	- `.!`` 
+	- `.!` 
 		- 当前行执行外部命令`
 	- `!tr '[:lower:]' '[:upper:]'`
 		- 调用外部命令把小写字母translate成大写字母
@@ -84,15 +84,15 @@ enable_checker: true
 	- `column -t` 用空格隔开
 
 ## 总结
-- 这次我们尝试了一下各种在vi中执行的程序
-- 可以排序
-- 可以改大小写
-- 还可以用管道
-- 直接对于缓冲buffer文件进行操作
-- 还是很方便的
+- 这次我们尝试了一下各种在vi中执行外部程序
+    - 可以排序
+    - 可以改大小写
+    - 还可以用管道
+    - 直接对于缓冲buffer文件进行操作
+    - 还是很方便的
 - 其实还有一个外部命令很重要
-- 根据内容搜索grep
-- 这个怎么和vim配合呢？🤔
+    - 根据内容搜索grep
+    - 这个怎么和vim配合呢？🤔
 - 下次再说！
 
 

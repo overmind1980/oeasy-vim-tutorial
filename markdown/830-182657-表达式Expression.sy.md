@@ -4,11 +4,11 @@ version: 1.0
 enable_checker: true
 ---
 
-# 文件格式 fileformat
+# 表达式 expression
 
 ## 回忆
 
-- 关于函数function，我们回忆一下
+- 关于 `函数function` ，我们回忆一下
 	- 可以查询
 	- 可以新建
 	- 可以调用
@@ -19,11 +19,11 @@ enable_checker: true
 	- 可以并发运行宏
 	- 可以递归执行宏
 	- 可以自动定义
-- 我往buffuer里面写点东西，可以么？🤔
+- 我想往`buffuer`里面写点东西，可以么？🤔
 
 ### 追加函数
 
-- 应该如何去找关于写buffer的函数呢？
+- 应该如何去找关于写 `buffer` 的函数呢？
 - `:h`
 	-  找到用户手册41.6
 	-  找到这一类的函数
@@ -46,8 +46,10 @@ enable_checker: true
 - `:call append(1,"3333oeasy o2z o3z o4z")`
 
 - 结论是可以插入
-- 一次在指定位置插一行 
-- 原来的在本行以下的下移一行
+- 一次在指定位置插一行
+- 如果想要插入最上面一行
+    - 使用`:call append(0,"在第一行插入")`
+
 
 ### 插入框架
 
@@ -61,9 +63,12 @@ enable_checker: true
 - 先把这段函数复制下来
 
 ### ftplugin文件类型插件
-
-- `mkdir -p ~/.vim/ftplugin`
-- `vi ~/.vim/ftplugin/java.vim`
+- 使用文件类型插件有两种方式
+- 所有用户共享文件类型插件
+    - `vi /usr/share/vim/vim81/ftplugin/java.vim`
+- 当前用户独有的文件类型插件
+    - `mkdir -p ~/.vim/ftplugin`
+    - `vi ~/.vim/ftplugin/java.vim`
 
 ![图片描述](https://doc.shiyanlou.com/courses/uid1190679-20210801-1627786108823)
 
@@ -71,17 +76,16 @@ enable_checker: true
 - 保存并退出
 
 ### 文件类型初始化
-
-- `vi Oeasy.css`
-- `:call Initial()`
-- 找不到命令
-
-
-- `vi Oeasy.java`
-- `:call Initial()`
-- 插入成功
-- 但是这个不够通用
-- 要是能关联当前文件的文件名作为类名就好了
+- 在css文件中调用函数
+    - `vi Oeasy.css`
+    - `:call Initial()`
+    - 找不到命令
+- 在java文件中调用函数
+    - `vi Oeasy.java`
+    - `:call Initial()`
+    - 插入成功
+    - 但是这个不够通用
+    - 要是能关联当前文件的文件名作为类名就好了
 
 ### 使用文件名
 - `:echo expand('%:t:r')`
@@ -96,12 +100,12 @@ enable_checker: true
 
 ### 表达式
 - 怎么执行正常模式的命令呢？
-- `:h :normal`
+    - `:h :normal`
 
 ![图片描述](https://doc.shiyanlou.com/courses/uid1190679-20210801-1627788217688)
 
 - `:normal gg=G`
-- 试验成功
+    - 试验成功
 - `normal gg=G`是一个命令表达式
 - 但是怎么在函数里面执行这个表达式呢？
 
@@ -140,11 +144,11 @@ enable_checker: true
 - `:call Id()`
 - `:map ... :call Id()<CR>`
 - `:10,30>>`
-- `idt`
+- `...`
 
 ## 总结
 
-- 关于函数function
+- 关于 函数`function`
 	- 可以调用别的函数
 		- `:call append(0,"oeasy o2z o3z")`
 	- 还可以执行表达式

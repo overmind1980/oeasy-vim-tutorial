@@ -1,6 +1,8 @@
 #vimtutorial
 是oeasy制作的的一套关于vim的教程
-可以在https://www.lanqiao.cn/teacher/courses/2840做实验，密码FJWYIMGB
+可以在https://www.lanqiao.cn/teacher/courses/2840做实验
+邀请码FJWYIMGB
+
 [010-存活下来](./markdown/010-49420-存活下来.sy.md)
 [020-使用帮助](./markdown/020-50041-使用帮助.sy.md)
 [030-打开文件](./markdown/030-50043-打开文件.sy.md)

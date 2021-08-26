@@ -1,6 +1,6 @@
 #vimtutorial
 是oeasy制作的的一套关于vim的教程
-可以在https://www.lanqiao.cn/teacher/courses/2840做实验
+可以在 https://www.lanqiao.cn/teacher/courses/2840 做实验
 邀请码FJWYIMGB
 - 理解模式
     - 初步接触

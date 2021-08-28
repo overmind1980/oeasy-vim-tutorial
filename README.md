@@ -1,7 +1,6 @@
-- vimtutorial是oeasy制作的的一套关于vim的教程
-- Github地址→https://github.com/overmind1980/vimtutorial
-- Gitee地址→https://gitee.com/overmind1980/vimtutorial
-- 蓝桥实验楼地址→https://www.lanqiao.cn/courses/2840 邀请码FJWYIMGB#vimtutorial
+- [Github地址](https://github.com/overmind1980/vimtutorial)
+- [Gitee地址](https://gitee.com/overmind1980/vimtutorial)
+- [蓝桥实验楼 邀请码FJWYIMGB](https://www.lanqiao.cn/courses/2840)
 - 理解模式
     - 初步接触
         - [010-存活下来](./markdown/010-49420-存活下来.sy.md)

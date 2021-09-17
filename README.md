@@ -1,5 +1,5 @@
-- [Github地址] (https://github.com/overmind1980/vimtutorial)
-- [Gitee地址] (https://gitee.com/overmind1980/vimtutorial)
+- [Github地址] (https://github.com/overmind1980/oeasyvim)
+- [Gitee地址] (https://gitee.com/overmind1980/oeasyvim)
 - [蓝桥实验楼 邀请码FJWYIMGB] (https://www.lanqiao.cn/courses/2840)
 - 理解模式
     - 初步接触

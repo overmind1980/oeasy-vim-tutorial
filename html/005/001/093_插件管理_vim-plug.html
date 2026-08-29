@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：插件管理器vim-plug，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解插件管理 vim-plug。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 插件管理, vim-plug, 插件管理器vim-plug">
+    <meta property="og:title" content="oeasy Vim编辑器教程：插件管理器vim-plug，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解插件管理 vim-plug。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="vim-plug">插件管理器vim-plug</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次我们把vim升级了<ul>
+<li>用的是源码编译的方法</li>
+</ul>
+</li>
+<li>主流程   <ul>
+<li>直接下载源码</li>
+<li>配置</li>
+<li>编译并安装</li>
+</ul>
+</li>
+<li>后续<ul>
+<li>然后设置了软连接</li>
+<li>配置了颜色方案</li>
+</ul>
+</li>
+<li>配置里面最后一部分是关于插件的</li>
+<li>插件怎么玩呢？</li>
+</ul>
+<h3 id="_2">查看配置</h3>
+<ul>
+<li>这里好像注释掉了一个函数</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500094877.png" /></p>
+<ul>
+<li>所使用的语法就是vim-plug的语法</li>
+<li>plug的意思是插</li>
+<li>负责的是一些插件</li>
+</ul>
+<h3 id="_3">查看插件源码</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500234858.png" /></p>
+<ul>
+<li>我们按照说明文档提供的方法</li>
+<li>准备安装vim-plug</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500247528.png" /></p>
+<h3 id="_4">安装插件</h3>
+<div class="highlight"><pre><span></span><code><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">fLo</span><span class="w"> </span><span class="o">~/.</span><span class="n">vim</span><span class="o">/</span><span class="n">autoload</span><span class="o">/</span><span class="n">plug</span><span class="o">.</span><span class="n">vim</span><span class="w"> </span><span class="o">--</span><span class="n">create</span><span class="o">-</span><span class="n">dirs</span><span class="w"> </span>\
+<span class="w">    </span><span class="n">images</span><span class="o">/</span><span class="n">plug</span><span class="o">.</span><span class="n">png</span>
+</code></pre></div>
+
+<ul>
+<li>只有一个文件</li>
+<li>很快就装进来了</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500344271.png" /></p>
+<h3 id="_5">取消注释</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500384272.png" /></p>
+<ul>
+<li>将244行以后</li>
+<li>取消注释</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500460642.png" /></p>
+<ul>
+<li>目前有一个nerdtree的插件</li>
+<li>保存并运行当前vim文件</li>
+<li>怎么安装插件呢</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500931418.png" /></p>
+<h3 id="_6">安装插件</h3>
+<ul>
+<li>PlugInstall</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500564578.png" /></p>
+<ul>
+<li>命令运行后</li>
+<li>会在左边添加一个浮动窗口</li>
+<li>显示安装情况</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500571877.png" /></p>
+<ul>
+<li>装完了也会有个提示</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500781028.png" /></p>
+<ul>
+<li>还有什么样的命令呢</li>
+</ul>
+<h3 id="_7">更多命令</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661500998798.png" /></p>
+<ul>
+<li>我们可以试试这个:PlugStatus</li>
+<li>查看插件状态</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501029289.png" /></p>
+<ul>
+<li>确实查看了状态为ok</li>
+<li>如果要删除呢？</li>
+</ul>
+<h3 id="_8">调整</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501286600.jpg" /></p>
+<ul>
+<li>可以删除没有列出的插件</li>
+<li>先把246行注释掉</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501374932.png" /></p>
+<ul>
+<li>尝试删除</li>
+</ul>
+<h3 id="_9">删除</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501441412.png" /></p>
+<ul>
+<li>这回就真删除了</li>
+<li>因为不在列表里了</li>
+<li>当然还可以再添加</li>
+<li>前提是把注释去掉</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501539144.png" /></p>
+<ul>
+<li>这个特征字符串什么意思?<ul>
+<li>scrooloose/nerdtree</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">特征字符串</h3>
+<ul>
+<li>特征显然是可以连接到一个github地址的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661501962929.jpg" /></p>
+<ul>
+<li>在最初的时候<ul>
+<li>人们从vim.org下载插件的tarball文件</li>
+<li>解压并手动安装</li>
+<li>插件多了、版本多了容易乱</li>
+<li>不清楚对应关系</li>
+</ul>
+</li>
+<li>后来<ul>
+<li>人们从github下载</li>
+<li>还可以查看文档和交互</li>
+<li>但是下载到本地之后还是容易乱</li>
+<li>升级的时候不知道对应关系</li>
+<li>不知道删哪个</li>
+</ul>
+</li>
+<li>目前<ul>
+<li>使用vim-plug之类的插件管理器</li>
+<li>来自动化地管理插件</li>
+<li>每个插件一个文件夹</li>
+<li>非常清晰</li>
+<li>易于管理</li>
+</ul>
+</li>
+<li>具体在那个文件夹呢？</li>
+</ul>
+<h3 id="_11">具体位置</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661502913495.jpg" /></p>
+<ul>
+<li>自动化还有什么好处呢？</li>
+</ul>
+<h3 id="_12">自动更新</h3>
+<ul>
+<li>:PlugUpgrade<ul>
+<li>可以更新本体</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661502186479.jpg" /></p>
+<ul>
+<li>
+<p>:PlugUpdate </p>
+<ul>
+<li>可以更新所选定的插件</li>
+</ul>
+</li>
+<li>
+<p>:PlugDiff </p>
+<ul>
+<li>查看更新了的插件有什么差别</li>
+</ul>
+</li>
+</ul>
+<h2 id="_13">总结</h2>
+<ul>
+<li>我们这次研究了插件管理器vim-plug</li>
+<li>这个插件可以管理插件<ul>
+<li>添加</li>
+<li>删除</li>
+<li>升级</li>
+</ul>
+</li>
+<li>每个插件在自己的文件夹里<ul>
+<li>一般在~/.vim/plugged</li>
+</ul>
+</li>
+<li>有什么好玩的插件可以装呢？🤔</li>
+<li>下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

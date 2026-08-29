@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：屏位行号，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解屏位行号。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 屏位行号">
+    <meta property="og:title" content="oeasy Vim编辑器教程：屏位行号，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解屏位行号。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">屏位行号</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们主要讲的翻页</li>
+<li><code>:set scrolloff=2</code> 控制上下留天留地</li>
+<li>上下翻页（这个最常用）</li>
+<li><kbd>ctrl</kbd> + <kbd>f</kbd> 向下一屏</li>
+<li>
+<p><kbd>ctrl</kbd> + <kbd>b</kbd> 向上一屏</p>
+</li>
+<li>
+<p>上下移屏一行</p>
+</li>
+<li><kbd>ctrl</kbd> + <kbd>e</kbd> 屏幕向上一行</li>
+<li>
+<p><kbd>ctrl</kbd> + <kbd>y</kbd> 屏幕向下一行</p>
+</li>
+<li>
+<p>上下移屏一段</p>
+</li>
+<li><kbd>ctrl</kbd> + <kbd>u</kbd> 向上半屏</li>
+<li><kbd>ctrl</kbd> + <kbd>d</kbd> 向下半屏</li>
+<li>移动数量和 <code>scroll</code> 相关</li>
+<li>上述翻页都可以用 <code>[count]</code> 翻倍</li>
+</ul>
+<h3 id="_3">屏幕位置</h3>
+<ul>
+<li><code>:h H</code> 可以找到在屏幕位置不动时，移动光标的办法</li>
+<li><kbd>H</kbd> - <code>Head</code> 移动到屏幕的顶端</li>
+<li><kbd>M</kbd> - <code>Middle</code> 移动到屏幕的中间</li>
+<li><kbd>L</kbd> - <code>Low</code> 移动到屏幕的底部</li>
+<li>会保持屏幕位置不变,把光标移动到允许的高中低位置
+<img alt="图片描述" src="images/uid1190679-20210705-1625459961509.png" /></li>
+</ul>
+<h3 id="_4">到达底端</h3>
+<p><img alt="图片描述" src="images/uid1190679-20201002-1601648769113.png" /></p>
+<ul>
+<li><kbd>L</kbd>无法到底?<ul>
+<li><code>:set scrolloff?</code></li>
+<li><code>:set scrolloff=0</code></li>
+</ul>
+</li>
+<li><kbd>L</kbd>到底</li>
+</ul>
+<h3 id="_5">计算偏移</h3>
+<ul>
+<li><kbd>2</kbd> <kbd>H</kbd> 会移动到距离屏幕最顶端 第2行 的位置</li>
+<li><kbd>3</kbd> <kbd>L</kbd> 会移动到距离屏幕最底端 倒数第3行 的位置</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625460067940.png" /></p>
+<h3 id="_6">光标固定</h3>
+<ul>
+<li><code>:h zt</code> <ul>
+<li>可以光标保持当前位置，移动屏幕，让光标出现在顶部</li>
+</ul>
+</li>
+<li><kbd>z</kbd> <kbd>t</kbd> <ul>
+<li>出现在光标在屏幕顶部</li>
+<li><code>top</code> </li>
+<li>光标在函数名上</li>
+<li>直接看到函数的函数体</li>
+</ul>
+</li>
+<li><kbd>z</kbd> <kbd>z</kbd> <ul>
+<li>光标在屏幕中间</li>
+</ul>
+</li>
+<li><kbd>z</kbd> <kbd>b</kbd> <ul>
+<li>光标出现在屏幕底部</li>
+<li><code>bottom</code> </li>
+</ul>
+</li>
+<li>光标位置受到 <code>scrolloff</code> 影响</li>
+<li>屏位和光标所在行还有一个小细节</li>
+</ul>
+<h3 id="_7">位置细节</h3>
+<ul>
+<li>下图最下面一行百分比为32%</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636444317615.png" /></p>
+<ul>
+<li>在只移动光标不移动屏位的情况下</li>
+<li>下图最下面一行百分比为34%</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636444329057.png" /></p>
+<ul>
+<li>上面两图屏位相同</li>
+<li>但是光标在不同的位置时<kbd>ctrl-g</kbd>得到的位置百分比不同</li>
+<li>这应该如何理解呢？</li>
+</ul>
+<h3 id="_8">状态横条</h3>
+<ul>
+<li>我们看一下定义</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636444506775.png" /></p>
+<ul>
+<li>状态横条的百分比是当前屏位在整个文档中行的相对位置</li>
+<li>那我们在来看一下<kbd>ctrl-g</kbd></li>
+</ul>
+<h3 id="ctrl-g">ctrl-g</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636444638937.png" /></p>
+<ul>
+<li><kbd>ctrl-g</kbd>中输出的是光标所在位置在整体文件中的相对比例</li>
+<li>这些东西一般不会遇到</li>
+<li>遇到就像这样查文档就可以解决疑问</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>上次讲的翻页</li>
+<li>这次先让屏幕位置固定，移动光标</li>
+<li><kbd>H</kbd> - <code>Head</code> 移动到屏幕的顶端</li>
+<li><kbd>M</kbd> - <code>Middle</code> 移动到屏幕的中间</li>
+<li>
+<p><kbd>L</kbd> - <code>Low</code> 移动到屏幕的底部</p>
+</li>
+<li>
+<p>然后让光标固定，移动屏幕的位置</p>
+</li>
+<li><kbd>z</kbd> <kbd>t</kbd> - <code>top</code> </li>
+<li><kbd>z</kbd> <kbd>z</kbd> - 光标在屏幕中间</li>
+<li><kbd>z</kbd> <kbd>b</kbd> - <code>bottom</code>    </li>
+<li>还有什么快速移动的方法吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：剪切进入，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解剪切进入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 剪切进入">
+    <meta property="og:title" content="oeasy Vim编辑器教程：剪切进入，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解剪切进入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">剪切进入</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们了解到了各种寄存器</li>
+<li><code>:reg</code><ul>
+<li>无名寄存器<code>""</code></li>
+<li>数字寄存器<code>"0-"9</code></li>
+<li>行内删除专用寄存器<code>"-</code></li>
+<li>指定寄存器<code>"a-"z</code>、<code>"A-"Z</code></li>
+<li>3个只读寄存器<code>":</code>、<code>".</code>、<code>"%</code><ul>
+<li><code>".</code> 里面存储着上次插入的内容</li>
+<li><code>"%</code> 里面存储着当前文件的名字</li>
+<li><code>":</code> 里面存储着刚刚执行的命令</li>
+</ul>
+</li>
+<li>轮换文件寄存器<code>"#</code></li>
+<li>表达式寄存器<code>"=</code></li>
+<li>选择和拖拽寄存器<code>"*</code>、<code>"+</code>、<code>"~</code></li>
+<li>黑洞寄存器<code>"-</code></li>
+<li>搜索模式寄存器<code>"/</code></li>
+</ul>
+</li>
+<li>插入模式下<kbd>ctrl</kbd>+<kbd>r</kbd> 再加寄存器名称</li>
+<li>可以粘贴指定寄存器中的内容</li>
+<li><kbd>d</kbd>、<kbd>x</kbd>、<kbd>y</kbd>、<kbd>p</kbd>都在在正常模式</li>
+<li>删除之后能否自动切换进入插入模式呢？🤔</li>
+<li>翻帮助查到这个命令好像叫做 <kbd>s</kbd> </li>
+</ul>
+<h3 id="_3">找到手册📕</h3>
+<ul>
+<li>想要知道 <kbd>s</kbd> 的作用，就要查一查</li>
+<li>也可以用 <code>:h s</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612078150297.png" /></p>
+<ul>
+<li>这个<kbd>s</kbd>和<kbd>x</kbd>有点像<ul>
+<li>都是删除当前字符</li>
+<li>都是默认放入无名寄存器<code>""</code></li>
+<li>如果设定某个命名寄存器，就放入命名寄存器</li>
+<li>都可以通过<code>[count]</code>翻倍</li>
+</ul>
+</li>
+<li>不同在于删除之后的的模式<ul>
+<li><kbd>x</kbd> 保持在 <code>普通模式</code></li>
+<li><kbd>s</kbd>进入到了 <code>插入模式</code></li>
+</ul>
+</li>
+<li>这其实很爽</li>
+<li>
+<p>因为很多时候删除了之后就是希望进入插入模式的！！！</p>
+</li>
+<li>
+<p><kbd>S</kbd>是删除当前这一行，然后进入<code>插入模式</code></p>
+<ul>
+<li>相当于<kbd>d</kbd><kbd>$</kbd><kbd>i</kbd></li>
+</ul>
+</li>
+</ul>
+<h3 id="c">有用的<code>c</code></h3>
+<ul>
+<li><code>c</code> 的意思是<code>change</code></li>
+<li>这个<kbd>c</kbd>和<kbd>d</kbd>有点像<ul>
+<li>都是删除当前内容</li>
+<li>都是默认放入无名寄存器<code>""</code></li>
+<li>如果设定某个命名寄存器，就放入命名寄存器</li>
+<li>都可以通过<code>[count]</code>翻倍</li>
+<li>而且都支持<code>motion</code></li>
+</ul>
+</li>
+<li>不同之处就是就是完成工作后<ul>
+<li><kbd>d</kbd> 保持在<code>普通模式</code></li>
+<li><kbd>c</kbd>进入到了<code>插入模式</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612078966278.png" /></p>
+<ul>
+<li>比如我想把<code>hello world!</code>变成<code>hello oeasy</code></li>
+<li>那么我需要<ul>
+<li><kbd>d</kbd><kbd>w</kbd>删除到当前单词word词尾</li>
+<li><kbd>i</kbd>然后再进入插入模式</li>
+<li>输入oeasy</li>
+<li>然后<kbd>esc</kbd>完成</li>
+</ul>
+</li>
+<li>现在我只需要<ul>
+<li><kbd>c</kbd><kbd>w</kbd>删除到当前单词word词尾</li>
+<li>直接进入插入模式</li>
+<li>输入oeasy</li>
+<li>然后<kbd>esc</kbd>完成，一气呵成</li>
+</ul>
+</li>
+<li>如果要删除的位置很远</li>
+<li>可以考虑<kbd>c</kbd><kbd>f</kbd><kbd>t</kbd></li>
+<li>配合<kbd>.</kbd>来操作</li>
+</ul>
+<h3 id="_4">配合重复</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625536487246.png" /></p>
+<ul>
+<li>n是下一个</li>
+<li>.是cwfive<kbd>esc</kbd></li>
+</ul>
+<h3 id="in">in操作</h3>
+<ul>
+<li>这次我们的光标位置在这个单词中间</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612079377883.png" /></p>
+<ul>
+<li>我如果想要删除world怎么办？<ul>
+<li>我需要先<kbd>b</kbd>回词头</li>
+<li><kbd>c</kbd><kbd>w</kbd>删除到词尾</li>
+<li>这还是有点麻烦</li>
+</ul>
+</li>
+<li>现在只需要一句话  <ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>w</kbd>就可以一气呵成</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210909-1631144837136.png" /></p>
+<h3 id="in_1">in</h3>
+<ul>
+<li>不论光标在单词里面什么位置</li>
+<li>只要是这个 <code>word</code> 范围内的都可以删除</li>
+<li>这个时候如果是 <code>ciW</code> 意味着不是 <code>word</code> 而是 <code>WORD</code></li>
+<li>类似的还有·<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>(</kbd>、<kbd>c</kbd><kbd>i</kbd><kbd>(</kbd>删除小括号里面的</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210909-1631144895501.png" /></p>
+<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>[</kbd>、<kbd>c</kbd><kbd>i</kbd><kbd>]</kbd>删除中括号里面的</li>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>"</kbd>删除双引号里面的  </li>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>'</kbd>删除单引号里面的  </li>
+<li>这在编程时是非常实用的！！！🤓</li>
+</ul>
+<h3 id="_5">文字对象</h3>
+<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>s</kbd>删除当前这句</li>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>p</kbd>删除当前这段</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625535250617.png" /></p>
+<h3 id="tag">tag块标签</h3>
+<div class="highlight"><pre><span></span><code>git clone http://gitee.com/overmind1980/oeasyvim.git
+cd oeasyvim
+vi oeasy.html
+</code></pre></div>
+
+<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>t</kbd><ul>
+<li>删除tag里面的内容</li>
+</ul>
+</li>
+<li><kbd>c</kbd><kbd>a</kbd><kbd>t</kbd><ul>
+<li>删除包括标签本身</li>
+</ul>
+</li>
+<li><kbd>c</kbd><kbd>2</kbd><kbd>i</kbd><kbd>t</kbd>删除两层标签里面的 <ul>
+<li>这个功能在<code>html</code>、<code>xml</code>很有效率</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625535344273.png" /></p>
+<h3 id="block">block块</h3>
+<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>{</kbd>、<kbd>c</kbd><kbd>i</kbd><kbd>}</kbd><ul>
+<li>删除大括号里面的</li>
+</ul>
+</li>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>B</kbd><ul>
+<li>也有同样的效果 </li>
+<li><kbd>c</kbd><kbd>2</kbd><kbd>i</kbd><kbd>{</kbd>、<kbd>c</kbd><kbd>2</kbd><kbd>i</kbd><kbd>}</kbd>删除两层大括号里面的 </li>
+<li></li>
+<li>这个功能也可以和 <kbd>d</kbd>、<kbd>y</kbd>配合，非常爽！！</li>
+<li>大规模程序块控制</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625535720189.png" /></p>
+<h3 id="ia">关于<code>i</code>和<code>a</code>的整理</h3>
+<ul>
+<li><code>h aw</code>可以看到相关资料</li>
+<li><code>w</code> word 小词</li>
+<li><code>W</code> Word 大词</li>
+<li><code>s</code> sentence 句子</li>
+<li><code>p</code> paragraph 段落</li>
+<li><code>(</code> 、<code>)</code> 小括号</li>
+<li><code>[</code> 、<code>]</code> 中括号</li>
+<li><code>{</code> 、<code>}</code> 大括号</li>
+<li><code>t</code> tag 标签<ul>
+<li><code>it</code> 标签内部 不包含标签</li>
+<li><code>at</code> 标签外部 包含标签</li>
+</ul>
+</li>
+<li><code>"</code>、<code>'</code> 引号</li>
+</ul>
+<h3 id="_6">细节</h3>
+<ul>
+<li>
+<p><kbd>s</kbd></p>
+<ul>
+<li>相当于<kbd>c</kbd><kbd>l</kbd></li>
+<li>也相当于<kbd>d</kbd><kbd>l</kbd>，再进入插入模式</li>
+</ul>
+</li>
+<li>
+<p><kbd>S</kbd></p>
+<ul>
+<li>删除当前行<kbd>d</kbd><kbd>$</kbd></li>
+<li>再进入插入模式</li>
+</ul>
+</li>
+<li>
+<p><kbd>C</kbd></p>
+<ul>
+<li>相当于<kbd>c</kbd><kbd>$</kbd></li>
+<li>也相当于<kbd>d</kbd><kbd>$</kbd>，再进入插入模式</li>
+<li>也就是<kbd>D</kbd>，再进入插入模式</li>
+</ul>
+</li>
+<li>
+<p><kbd>c</kbd><kbd>c</kbd>就是</p>
+<ul>
+<li>删除当前行并进入插入模式</li>
+<li>等同于<kbd>S</kbd></li>
+</ul>
+</li>
+<li>
+<p><kbd>2</kbd><kbd>C</kbd></p>
+<ul>
+<li>相当于删除两行，再进入插入模式</li>
+<li>也就是<kbd>2</kbd><kbd>D</kbd>，再进入插入模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>这次我们学到的最有用的就是<kbd>c</kbd><ul>
+<li>他和<kbd>d</kbd>的区别就是删除之后进入到插入模式</li>
+<li><kbd>c</kbd>可以配合<code>motion</code></li>
+<li>可以用<kbd>c</kbd><kbd>i</kbd><kbd>w</kbd>来快速删除当前光标所在的单词</li>
+</ul>
+</li>
+<li>可<kbd>i</kbd>和<kbd>a</kbd>的文字块<ul>
+<li><code>w</code> word 小词</li>
+<li><code>W</code> Word 大词</li>
+<li><code>s</code> sentence 句子</li>
+<li><code>p</code> paragraph 段落</li>
+<li><code>(</code> 、<code>)</code> 小括号</li>
+<li><code>[</code> 、<code>]</code> 中括号</li>
+<li><code>{</code> 、<code>}</code> 大括号</li>
+<li><code>t</code> tag 标签<ul>
+<li><code>it</code> 标签内部 不包含标签</li>
+<li><code>at</code> 标签外部 包含标签</li>
+</ul>
+</li>
+<li><code>"</code>、<code>'</code> 引号</li>
+</ul>
+</li>
+<li>还有没有更快速的办法进行编辑吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

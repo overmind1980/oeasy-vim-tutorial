@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：可视化编辑，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解行可视化。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 行可视化, 可视化编辑">
+    <meta property="og:title" content="oeasy Vim编辑器教程：可视化编辑，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解行可视化。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">可视化编辑</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们了解到可视模式</li>
+<li>其实可视化对应三种子模式<ul>
+<li>字符可视模式 <kbd>v</kbd></li>
+<li>行可视模式 大写<kbd>V</kbd></li>
+<li>块可视模式<kbd>ctrl</kbd>+<kbd>v</kbd></li>
+</ul>
+</li>
+<li>我们先来了解字符可视化模式<ul>
+<li>快捷键 <kbd>v</kbd></li>
+<li>可配合各种<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+</ul>
+</li>
+<li>快速操作<ul>
+<li>选中了之后可以进行以下操作<ul>
+<li><kbd>d</kbd></li>
+<li><kbd>c</kbd></li>
+<li><kbd>y</kbd></li>
+</ul>
+</li>
+<li>可以用<kbd>"</kbd><kbd>a</kbd>使用指定寄存器</li>
+</ul>
+</li>
+<li>可以用<code>i</code>和<code>a</code>快速选择范围<ul>
+<li>w 小词 W 大词</li>
+<li>（）[] {} 各种括号</li>
+<li>t 标签，编写网页的时候很有用</li>
+<li>s 句子 p 段落</li>
+<li>b 小括号，这个编写程序的时候很有用</li>
+<li>B 大括号，编写程序的时候很有用</li>
+<li>" ' `引号内 </li>
+</ul>
+</li>
+<li>以上是 <code>字符</code> 可视化模式</li>
+<li>那么 <code>行</code> 可视化模式是什么意思呢？</li>
+</ul>
+<h3 id="_3">切换模式</h3>
+<ul>
+<li>我们上次从正常模式切换到字符可视化模式用的是小写<kbd>v</kbd></li>
+<li>如果想切回来呢？<ul>
+<li>再摁下一下<kbd>v</kbd></li>
+<li>或者<kbd>esc</kbd></li>
+<li>或者<kbd>ctrl</kbd>+<kbd>c</kbd></li>
+</ul>
+</li>
+<li>这次我们切换到行编辑模式，用大写<kbd>V</kbd><ul>
+<li>可以看到左下角提示，"---   可视·<code>行</code>   ---"</li>
+<li>切换过来之后可以快速的使用<code>motion</code>控制结束行的位置</li>
+<li>可以使用<code>33G</code>跳转位置　</li>
+</ul>
+</li>
+<li>也可以用<kbd>o</kbd>，切换选区首尾字符</li>
+<li>选区选好之后可以做操作了</li>
+</ul>
+<h3 id="_4">操作方法</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625537036387.png" /></p>
+<ul>
+<li>行可视化模式选择的内容是<code>行</code></li>
+<li><kbd>V</kbd><kbd>j</kbd><kbd>j</kbd>可以选中3行<ul>
+<li><kbd>V</kbd> 选中当前行</li>
+<li><kbd>j</kbd> 加选下面一行</li>
+<li><kbd>j</kbd> 再加选一行</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">基本操作</h3>
+<ul>
+<li>我们选择好了很多行之后怎么办呢？</li>
+<li>我们选好选取之后，就可以<ul>
+<li><kbd>d</kbd></li>
+<li><kbd>c</kbd></li>
+<li><kbd>y</kbd></li>
+</ul>
+</li>
+<li>这和字符可视化模式一样的</li>
+<li>可以使用<ul>
+<li><kbd>D</kbd></li>
+<li><kbd>C</kbd></li>
+<li><kbd>Y</kbd></li>
+</ul>
+</li>
+<li>对 <code>行</code> 可视化模式，大小写没什么区别</li>
+<li>不过对 <code>字符</code> 可视化模式，还是有区别的</li>
+</ul>
+<h3 id="_6">使用命令行</h3>
+<ul>
+<li>用命令行模式</li>
+<li>就像字符可视化模式一样</li>
+<li>比如我<kbd>:</kbd></li>
+<li>左下角会出现:'&lt;,'&gt;就是从选区开头，到选区结尾<ul>
+<li>'&lt; 选区开头</li>
+<li>'&gt; 选区结尾</li>
+</ul>
+</li>
+<li>然后我们摁下<kbd>d</kbd>回车<ul>
+<li>就把选区范围内都删除了</li>
+</ul>
+</li>
+<li>我们可以<code>:h '&lt;</code> 查看相应手册</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612319096194.png" /></p>
+<ul>
+<li><code>'&lt;</code> 这种形式很像标记啊</li>
+<li>就像ma做标记、'a跳转到标记那样</li>
+<li>能否看看'&lt;是否也是一个标记</li>
+</ul>
+<h3 id="_7">选区标记</h3>
+<ul>
+<li>做好选区</li>
+<li><code>:marks &lt;&gt;</code>查看标记</li>
+<li>可以查找到选区的开始和结束标记mark</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628334324285.png" /></p>
+<ul>
+<li>这刚好标记在了选取的开始结束位置</li>
+<li>想要恢复选区应该怎么办？</li>
+</ul>
+<h3 id="_8">恢复选区</h3>
+<ul>
+<li>做好了选区</li>
+<li>进入了命令行模式</li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd> 丢失了选区</li>
+<li>想要恢复</li>
+<li><code>'&lt;v'&gt;</code><ul>
+<li><code>'&lt;</code> 跳到原选区开头</li>
+<li><code>v</code> 进入字符可视化模式</li>
+<li><code>'&gt;</code> 跳到原选区结尾</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">选区内替换</h3>
+<ul>
+<li>在选择好文本范围后，可以在选区范围内控制查找替换<ul>
+<li>也就是说把<code>:'&lt;,'&gt;</code>作为<code>range</code>来使用</li>
+</ul>
+</li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> <ul>
+<li>范围内批量替换subtitute</li>
+</ul>
+</li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/gc</code> <ul>
+<li>范围内批量替换并需要确认confirm</li>
+</ul>
+</li>
+<li><code>:'&lt;,'&gt;g/^.*drwxwr.*$/d</code> <ul>
+<li>范围内有<code>drwxwr</code>的直接删除delete</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">合并多行</h3>
+<ul>
+<li>可以用<kbd>J</kbd>把这好多行合并成<code>1</code>行</li>
+<li>可以查询帮助<code>:h v_J</code> 可视模式下的J的作用</li>
+<li>除了行可视化之外，字符可视化也可以J将多行合成一行</li>
+<li>简单说就是把回车换行删除掉</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612324004732.png" /></p>
+<h2 id="_11">总结</h2>
+<ul>
+<li>这次我们了解到行可视模式<ul>
+<li>行可视模式 <kbd>V</kbd></li>
+<li>也可配合各种<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+</ul>
+</li>
+<li>选区的开头和结尾是<code>mark标记</code><ul>
+<li>开头是 '&lt;</li>
+<li>结尾是 '&gt;</li>
+</ul>
+</li>
+<li>可以在选区内进行替换和删除<ul>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> 范围内批量替换</li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/gc</code> 范围内批量替换待确认</li>
+<li><code>:'&lt;,'&gt;g/^.*drwxwr.*$/d</code> 范围内有<code>drwxwr</code>的直接删除</li>
+<li>选中了之后可以进行<kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd>等操作</li>
+<li>可以用<kbd>"</kbd><kbd>a</kbd>使用指定寄存器</li>
+</ul>
+</li>
+<li>可以合并多行<ul>
+<li>用<kbd>J</kbd>把这好多行合并成<code>1</code>行</li>
+</ul>
+</li>
+<li>这次是<code>行</code>可视化模式</li>
+<li>那么<code>块</code>可视化模式又是什么意思呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

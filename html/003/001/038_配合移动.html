@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：快速删除，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解配合移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 配合移动, 快速删除">
+    <meta property="og:title" content="oeasy Vim编辑器教程：快速删除，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解配合移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">快速删除</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>以前知道可以在插入状态下使用 <kbd>del</kbd>、<kbd>退格</kbd> 进行删除</li>
+<li>现在知道了默认状态下使用通过 <code>x</code> 删除字符</li>
+<li>可以在 <code>x</code> 前面使用<code>[count]</code>进行翻倍<ul>
+<li>如<code>10x</code></li>
+<li>删除的字符存储在 <code>""</code> 寄存器中</li>
+<li>可以用 <code>:reg</code> 查看寄存器状态</li>
+</ul>
+</li>
+<li>默认状态可以使用 <code>X</code> 退格<ul>
+<li>删除的字符也在 <code>""</code> 寄存器中</li>
+</ul>
+</li>
+<li>我们掌握了在 vi 中删除字符的各种方法</li>
+<li>后面还有啥呢？🤔</li>
+</ul>
+<h2 id="_3">删除字符</h2>
+<p><img alt="图片描述" src="images/uid1190679-20210129-1611880688346.png" /></p>
+<ul>
+<li>我们发现 dd 可以删除一行</li>
+<li>试一试？！🤪</li>
+</ul>
+<h3 id="_4">删除的内容</h3>
+<ul>
+<li>删除的东西放到哪里呢？<code>:reg</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210129-1611880847320.png" /></p>
+<ul>
+<li>就放在默认寄存器<code>""</code>里面</li>
+<li>还可以加 <code>[count]</code> 进行翻倍</li>
+<li><code>5dd</code> 可以删除 5 行，删除之后，仍然把被删除的内容放到了 <code>""</code> 寄存器</li>
+<li>那这个 d<code>{motion}</code> 是什么意思呢？</li>
+</ul>
+<h3 id="_5">运动帮助</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210129-1611881145129.png" /></p>
+<ul>
+<li>我们可以查询 <code>motion</code> 的文档呀！！！</li>
+<li><code>h motion</code></li>
+<li><code>motion</code> 就是光标运动</li>
+<li>比如我们 <code>G</code> 就直接到文档最后一行</li>
+<li><code>dG</code> 就是从光标当前位置删除到最后一行，太爽了！🤪</li>
+<li><code>gg</code> 是到最开始的一行</li>
+<li><code>dgg</code> 就是从光标位置到最开始都删除掉了！！！</li>
+<li><code>ggdG</code> 就是从头删到尾</li>
+<li><code>8G</code> 就是到第8行</li>
+<li><code>d8G</code> 就是从光标位置到第8行都删除</li>
+<li>如果总共只有4行，怎么办？</li>
+<li>如果总共4行，<code>8G</code>就是到最后一行</li>
+<li>所以，此时<code>d8G</code>就是什么，你懂的？</li>
+<li>试一试🤪</li>
+</ul>
+<h3 id="_6">上下左右</h3>
+<ul>
+<li>光标运动的方式是 <code>hjkl</code></li>
+<li>这些都是 <code>motion</code></li>
+</ul>
+<p><img alt="hjkl" src="images/hjkl.png" /></p>
+<ul>
+<li>如果前面是 <code>d</code></li>
+<li>比如 <code>dj</code></li>
+<li>d 代表删除</li>
+<li>j 移动到下一行</li>
+<li>dj 代表从当前光标行删除到下一行</li>
+<li>总共删除两行</li>
+<li>比如 <code>dl</code></li>
+<li>删除当前光标字符</li>
+<li>也就是 <code>x</code></li>
+<li>比如 <code>dh</code></li>
+<li>删除当前光标前面的字符</li>
+<li>退格</li>
+<li>也就是 <code>X</code></li>
+<li>但是当光标位于特殊位置的时候<ul>
+<li>又会有不同</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">边缘位置</h3>
+<ul>
+<li>如果是在:<ul>
+<li>尾行执行dj</li>
+<li>首行执行dk<ul>
+<li>不会执行删除行操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果是在<ul>
+<li>行尾执行dl<ul>
+<li>最后一个字符被删除，光标左移</li>
+</ul>
+</li>
+<li>行首执行字符dh<ul>
+<li>不会执行删除</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">翻倍因素</h3>
+<ul>
+<li>如果 <code>d8j</code></li>
+<li><code>d</code> 就是删除</li>
+<li><code>8j</code> 从当前光标位置到往下的<code>8</code>行</li>
+<li><code>d8j</code> 将所过之处都删了</li>
+<li>
+<p>如果光标所在下面没有超过8行，则删除到底</p>
+<ul>
+<li>除非是vim -u NONE的情况下。</li>
+<li>文件只有4行，如果执行d8j则不会有删除效果</li>
+<li>bash中的vim会报警告声</li>
+</ul>
+</li>
+<li>
+<p>同样的 <code>d7k</code></p>
+<ul>
+<li><code>d</code> 是删除</li>
+<li><code>7k</code> 是往上7行</li>
+<li>连同当前行总共8行</li>
+<li>这范围里都删了</li>
+</ul>
+</li>
+<li>思考一下</li>
+<li><code>d8h</code>、<code>d4l</code> 分别是干什么？ 🤔</li>
+</ul>
+<h3 id="_9">按单词删</h3>
+<ul>
+<li><code>wbe</code> 还记得是什么意思么？</li>
+<li>不记得的话，就 <code>h w</code></li>
+<li>如果光标在词头的话</li>
+<li><code>w</code> 是到下一个 <code>word</code> 的开头</li>
+<li><code>b</code> 是到上一个 <code>word</code> 的开头</li>
+<li><code>e</code> 是到当前 <code>word</code> 的结尾</li>
+</ul>
+<p><img alt="e2" src="images/whatisecommand.png" /></p>
+<h3 id="_10">练习</h3>
+<ul>
+<li>所以我们知道</li>
+<li><code>dw</code> 是从当前位置删除到下一个 <code>word</code> 的开头（删除包括中间的空格）</li>
+<li><code>d3w</code> 是从当前位置删除到下 3 个 <code>word</code> 的开头</li>
+<li><code>3dw</code> 是从当前位置做 <code>3</code> 次 <code>dw</code></li>
+<li><code>3d2w</code> 是把 <code>d2w</code> 做 <code>3</code> 次</li>
+<li><code>de</code> 是从当前位置删除到当前 <code>word</code> 的结尾（不删除空格）</li>
+<li><code>d4e</code> 是从当前位置删除到下4个 <code>word</code> 的结尾（包括当前单词）</li>
+<li><code>db</code> 是删除前面的 <code>word</code> </li>
+<li><code>d2b</code> 是前面 <code>2</code> 个 word </li>
+<li>以上是当前光标在词头的情况</li>
+<li>如果当前光标在词中？</li>
+</ul>
+<h3 id="_11">光标在词中</h3>
+<ul>
+<li>如果光标在词中的话</li>
+<li><code>w</code> 是到下一个 <code>word</code> 的开头</li>
+<li><code>b</code> 是到当前 <code>word</code> 的开头</li>
+<li><code>e</code> 是到当前 <code>word</code> 的结尾</li>
+</ul>
+<p><img alt="e3" src="images/einword.png" /></p>
+<ul>
+<li>移动到那里就删到哪里！</li>
+<li>b是保留当前光标字符往前删的</li>
+<li>这个还得注意 <code>word</code> 和 <code>WORD</code> 的区别</li>
+</ul>
+<h3 id="_12">大词小词</h3>
+<p><img alt="count" src="images/wordWord.png" />
+- 大小词定义
+  - <code>word</code>包括空格和各种标点作为分隔符
+  - <code>WORD</code>只有空格被认作分割符
+  - 比如<code>text-indent</code>
+    - 就是 <code>3个word</code>
+    - 也是 <code>1个WORD</code>
+  - <code>dW</code> 就可以直接删除这个，这个很方便，尤其标识符里面有很多下划线的情况
+- 说出大天也没有用，这个就得动手练！👊</p>
+<h3 id="_13">行头行尾</h3>
+<p><img alt="WEB" src="images/StartEnd2.png" /></p>
+<ul>
+<li>行头</li>
+<li><kbd>^</kbd> 是到本行第一个非空字符</li>
+<li>
+<p><kbd>0</kbd> 是到本行第一个字符，不管是不是空格</p>
+</li>
+<li>
+<p>行尾</p>
+</li>
+<li><kbd>$</kbd> 跳到本行最后一个字符，即使他是空格</li>
+<li><kbd>g</kbd><kbd>_</kbd> 是到本行最后一个非空字符</li>
+<li>两个按键要依次按下</li>
+<li>
+<p>如果忘了就要 <code>:h</code> 查询一下 </p>
+</li>
+<li>
+<p>删除呢？</p>
+</li>
+<li><code>d^</code> 就是删除到本行第一个非空字符,当前字符保留</li>
+<li><code>d0</code> 就是从当前位置删除到本行第一个字符（不管他是否是空格）,当前字符还是保留着</li>
+<li><code>2d^</code> 就是将 <code>d^</code> 执行 <code>2</code> 遍,其实和执行一遍没有区别，还是删一行</li>
+<li><code>d2^</code> 就是 <code>d</code> 到 <code>2^</code> 和 <code>d</code> 到 <code>^</code>，其实一样的，还是删一行</li>
+<li><kbd>d</kbd> <kbd>$</kbd> 从光标删除到行尾，包括光标所在的当前字符</li>
+<li><kbd>d</kbd> <kbd>$</kbd> 还有一种做法<kbd>D</kbd></li>
+</ul>
+<h3 id="_14">删到行尾</h3>
+<ul>
+<li><code>:h D</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612056852406.png" /></p>
+<ul>
+<li><kbd>D</kbd> 本身就是 <kbd>d</kbd> <kbd>$</kbd> </li>
+<li>定位的方法还有行内查找</li>
+</ul>
+<h3 id="_15">行内查找</h3>
+<p><img alt="findo" src="images/findoch.png" /></p>
+<ul>
+<li>通过<kbd>f</kbd><kbd>o</kbd>直接就跳到了右边的 <code>o</code> 字符</li>
+<li><code>dfo</code> 就是从当前位置 <code>d</code> 到 <code>fo</code> 的位置</li>
+<li><code>fo</code> 的位置就是从当前位置向前 <code>f</code> 到的第 <code>1</code> 个 <code>o</code> 的位置</li>
+<li>光标当前字符也删除</li>
+<li><code>d2fo</code> 就是从当前位置 <code>d</code> 到 <code>2fo</code> 的位置</li>
+<li><code>fo</code> 的位置就是从当前位置向前 <code>f</code> 到的第 <code>2</code> 个 <code>o</code>  的位置</li>
+<li><code>2dfo</code> 就是将 <code>dfo</code> 执行 <code>2</code> 遍</li>
+<li><code>dfo</code> 就是从当前位置 <code>d</code> 到 <code>fo</code> 的位置</li>
+<li><code>fo</code> 的位置就是从当前位置向前 <code>f</code> 到的第 <code>1</code> 个 <code>o</code> 的位置</li>
+<li>这两个结果其实一样</li>
+</ul>
+<p><img alt="2fo" src="images/2findogoon.png" /></p>
+<h3 id="_16">反向查找</h3>
+<ul>
+<li>反向查找的话是 <code>F</code></li>
+</ul>
+<p><img alt="findnext" src="images/findback.png" /></p>
+<ul>
+<li><code>dFo</code> 是从当前位置删除到 <code>Fo</code> 的位置</li>
+<li><code>Fo</code> 的位置是从当前位置反向查找 <code>F</code> 第 <code>1</code> 个 <code>o</code> 的位置</li>
+<li>当前光标所在字符保留</li>
+<li><code>dF2o</code> 的位置是从当前位置删除到 <code>F2o</code> 的位置</li>
+<li><code>F2o</code> 的位置是从当前位置反向查找 <code>F</code> 第 <code>2</code> 个 <code>o</code> 的位置</li>
+<li>当前字符保留</li>
+<li><code>2dFo</code> 就是将 <code>dFo</code> 执行 <code>2</code> 遍</li>
+<li><code>dFo</code> 就是从当前位置 <code>d</code> 到<code>Fo</code>的位置</li>
+<li><code>Fo</code> 的位置就是从当前位置反向查找 <code>F</code> 到的第 <code>1</code> 个 <code>o</code> 的位置</li>
+</ul>
+<h3 id="_17">配合重复</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625536365539.png" /></p>
+<ul>
+<li>.可以重复上次操作</li>
+<li>如上图的df&gt;</li>
+<li>.就是再执行df&gt;一次</li>
+<li>可以在<code>oeasy.java</code>里面练习一下👊</li>
+</ul>
+<h3 id="_18">行内贴靠</h3>
+<ul>
+<li>除了 <code>f</code> 之外我们还有 <code>t</code></li>
+<li><kbd>f</kbd> <kbd>e</kbd> 是把光标移动到 <code>e</code> 上面<ul>
+<li>是跳转到</li>
+</ul>
+</li>
+<li><kbd>t</kbd> <kbd>e</kbd> 是把光标移动到 <code>e</code> 之前的字符上面<ul>
+<li>是贴靠到</li>
+</ul>
+</li>
+</ul>
+<p><img alt="helpt" src="images/tejumptille.png" /></p>
+<ul>
+<li><code>dt(</code> 是指从当前位置删除到 <code>t(</code></li>
+<li><code>t(</code> 是指贴靠到 <code>(</code></li>
+<li><code>t</code>谁就是要贴靠到谁</li>
+<li>这个可以翻倍吗？</li>
+</ul>
+<h3 id="_19">贴靠翻倍</h3>
+<ul>
+<li>可以！</li>
+<li>这个也可以通过 <code>[count]</code> 翻倍</li>
+<li><kbd>2</kbd> <kbd>t</kbd><kbd>o</kbd> </li>
+<li><code>till</code> 第 2 个 <code>o</code></li>
+</ul>
+<p><img alt="tillgoon" src="images/tilljump.png" /></p>
+<ul>
+<li>d2to 可以删除到 红色的l</li>
+<li>d3to 可以删除到 紫色的w</li>
+<li>不但可以翻倍</li>
+<li>而且可以重复<kbd>.</kbd></li>
+<li>距离看不清的时候就用<kbd>.</kbd></li>
+</ul>
+<h3 id="_20">跳跃和贴靠</h3>
+<ul>
+<li>和 <code>f</code> 相关的是跳跃</li>
+<li>向<code>前</code> 跳跃是<kbd>f</kbd></li>
+<li>向<code>后</code>跳跃是<kbd>F</kbd></li>
+<li>和 <code>t</code> 相关的是贴靠</li>
+<li>向<code>前</code> 贴靠是 <kbd>t</kbd></li>
+<li>向<code>后</code> 贴靠是 <kbd>T</kbd></li>
+<li>和 <code>小写</code> 相关的是 <code>向前</code></li>
+<li><code>向前</code> 跳跃是 <kbd>f</kbd></li>
+<li><code>向前</code> 贴靠是 <kbd>t</kbd></li>
+<li>和 <code>大写</code> 相关的是 <code>向后</code></li>
+<li><code>向后</code> 跳跃是 <kbd>F</kbd></li>
+<li><code>向后</code> 贴靠是 <kbd>T</kbd></li>
+</ul>
+<h3 id="_21">全文查找</h3>
+<ul>
+<li>全文查找的两个命令是 <kbd>/</kbd> 和 <kbd>?</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159566345.png" /></p>
+<ul>
+<li>/Code 让所有匹配的字符串高亮显示</li>
+<li>如果想要删除到下一个Code应该如何呢？</li>
+</ul>
+<h3 id="_22">删除到下一个匹配的位置</h3>
+<ul>
+<li>光标在2,13的位置</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159566345.png" /></p>
+<ul>
+<li><code>d/Code</code> 如何执行？</li>
+<li>摁下 <kbd>d</kbd>，注意状态栏</li>
+<li><kbd>/</kbd>然后状态栏只显示 <code>/</code></li>
+<li>输入 <code>Code</code> 注意状态栏</li>
+<li>文中查找 <code>Code</code> 并且高亮显示</li>
+<li>摁下 <code>回车</code> 把从当前光标一直到高亮显示的 <code>Code</code> 的位置</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159643748.png" /></p>
+<h3 id="_23">反向查找删除</h3>
+<ul>
+<li>先 <kbd>u</kbd> 回来<ul>
+<li>光标仍在2,13</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159566345.png" /></p>
+<ul>
+<li>反向查找的话就是 <kbd>?</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159702768.png" /></p>
+<ul>
+<li>可以加翻倍 <code>[count]</code> 吗？<ul>
+<li>可以的 <code>2d/Code</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159808239.png" /></p>
+<h3 id="_24">重复删除过程</h3>
+<ul>
+<li>恢复到原始状态<ul>
+<li>光标置于1,8</li>
+<li>d/Code</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159945356.png" /></p>
+<ul>
+<li>删除之后</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676159992314.png" /></p>
+<ul>
+<li><kbd>.</kbd>重复查找删除</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676160031429.png" /></p>
+<ul>
+<li><kbd>.</kbd>重复查找删除</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230212-1676160060376.png" /></p>
+<ul>
+<li>动手试一下！！！👊</li>
+</ul>
+<h3 id="_25">文本区块</h3>
+<ul>
+<li>使用 {、}，让光标前后移动段落</li>
+<li>使用(、)，让光标前后移动句子</li>
+<li>可以使用 <code>[count]</code> 翻倍</li>
+<li><code>:h }</code> 来查看文档</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201003-1601720755701.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20201003-1601720937461.png" /></p>
+<ul>
+<li>这些也是 <code>motion</code> 可以和 <code>d</code> 配合</li>
+<li>比如 <code>d{</code>、<code>d3)</code></li>
+</ul>
+<h2 id="_26">总结</h2>
+<ul>
+<li>
+<p>我们大幅度地复习了整个 <code>motion</code>：</p>
+</li>
+<li>
+<p>直接运动</p>
+<ul>
+<li><kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> </li>
+</ul>
+</li>
+<li>
+<p>行运动</p>
+<ul>
+<li>首行<kbd>g</kbd> <kbd>g</kbd> </li>
+<li>末行<kbd>G</kbd></li>
+<li>第n行<kbd>n</kbd> <kbd>G</kbd> </li>
+</ul>
+</li>
+<li>
+<p>单词运动 <code>wbe</code></p>
+<ul>
+<li><kbd>w</kbd> 是到下一个 <code>word</code> 的开头</li>
+<li><kbd>b</kbd> 是到当前 <code>word</code> 的开头</li>
+<li><kbd>e</kbd> 是到当前 <code>word</code> 的结尾</li>
+<li>除了 <code>word</code> 之外还有 <code>WORD</code></li>
+</ul>
+</li>
+<li>
+<p>行头行尾</p>
+<ul>
+<li><kbd>^</kbd> 是到本行第一个非空字符</li>
+<li><kbd>0</kbd> 是到本行第一个字符，不管是不是空格</li>
+<li><kbd>g</kbd><kbd>_</kbd> 是到本行最后一个非空字符</li>
+<li><kbd>$</kbd> 跳到本行最后一个字符，即使他是空格</li>
+</ul>
+</li>
+<li>
+<p>行内跳跃和贴靠</p>
+<ul>
+<li>向 <code>前</code> 跳跃是<kbd>f</kbd></li>
+<li>向 <code>后</code> 跳跃是<kbd>F</kbd></li>
+<li>向 <code>前</code> 贴靠是<kbd>t</kbd></li>
+<li>向 <code>后</code> 贴靠是<kbd>T</kbd></li>
+</ul>
+</li>
+<li>
+<p>全文查找</p>
+<ul>
+<li>查找的话就是 <kbd>/</kbd></li>
+<li>反向查找的话就是 <kbd>?</kbd> </li>
+</ul>
+</li>
+<li>
+<p>文本区块</p>
+<ul>
+<li><kbd>{</kbd>、<kbd>}</kbd> 按段落移动</li>
+<li><kbd>(</kbd>、<kbd>)</kbd> 按句子移动</li>
+</ul>
+</li>
+<li>
+<p>这些 <code>motion</code> 都可以 <kbd>d</kbd>配合使用</p>
+</li>
+<li>完成快速删除的工作</li>
+<li>过程中还可以使用 <code>[count]</code> 进行翻倍</li>
+<li>删除的内容，放在 <code>""</code> 寄存器中</li>
+<li>可以配合重复<kbd>.</kbd></li>
+<li>那这个东西删了</li>
+<li>放在寄存器里</li>
+<li>我想粘贴到别的地方</li>
+<li>怎么办呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：基本移动，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解基本移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖我们首先看看正常模式下的命令键盘图等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 基本移动">
+    <meta property="og:title" content="oeasy Vim编辑器教程：基本移动，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解基本移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖我们首先看看正常模式下的命令键盘图等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">基本移动</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li><kbd>i</kbd>、<kbd>I</kbd> 在前面插入文本</li>
+<li><kbd>a</kbd>、<kbd>A</kbd> 在后面插入文本</li>
+<li><kbd>o</kbd>、<kbd>O</kbd> 换行插入文本</li>
+<li><kbd>o</kbd> 其实是 <kbd>A</kbd> <kbd>回车</kbd></li>
+<li><kbd>O</kbd> 其实是 <kbd>k</kbd> <kbd>o</kbd></li>
+<li><kbd>O</kbd> 也是 <kbd>k</kbd> <kbd>A</kbd> <kbd>回车</kbd></li>
+</ul>
+<p><img alt="ism" src="images/insert-mode-3.png" /></p>
+<h3 id="_3">模式切换小技巧</h3>
+<ul>
+<li>比如你在一句话的中间，并处于插入模式，此时你想要写下一行</li>
+<li>从插入模式到正常模式要用 <kbd>esc</kbd></li>
+<li>但是 <kbd>esc</kbd> 距离基本起手势太遥远了</li>
+<li>可以用 <kbd>ctrl</kbd> + <kbd>c</kbd> 来替代</li>
+<li>左手小拇指 <kbd>ctrl</kbd> + <kbd>c</kbd></li>
+<li>然后 <kbd>A</kbd> <kbd>回车</kbd></li>
+<li>可这仍然很慢</li>
+<li>有没有更有效率的方法呢？</li>
+</ul>
+<h3 id="-">插入-普通模式</h3>
+<ul>
+<li><code>插入普通模式</code> <ul>
+<li>就是让你执行一次 <code>普通模式</code> 的命令</li>
+<li>比如插入模式下</li>
+<li>光标在行中间 </li>
+<li><kbd>ctrl</kbd> + <kbd>o</kbd>进入插入普通模式</li>
+<li><kbd>o</kbd> </li>
+<li>然后继续保持在 <code>插入模式</code> </li>
+</ul>
+</li>
+</ul>
+<p><img alt="insertnormal" src="images/insertnormal.png" /></p>
+<h3 id="_4">帮助手册</h3>
+<ul>
+<li><code>插入普通模式</code> 帮助手册在<ul>
+<li><code>:h i_ctrl-o</code> </li>
+<li><code>插入模式i</code> 下的<kbd>ctrl</kbd> + <kbd>o</kbd></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210829-1630243791110.png" /></p>
+<ul>
+<li>比如想保存个文件<ul>
+<li>可以 <kbd>ctrl</kbd> + <kbd>o</kbd> 进入插入普通模式</li>
+<li>然后执行 <kbd>:</kbd>+<kbd>w</kbd> 继续进行插入</li>
+</ul>
+</li>
+<li>我们去下载个项目来练习操作</li>
+<li>去哪下载呢？</li>
+</ul>
+<h3 id="github">github</h3>
+<ul>
+<li>这就要去传说中的github了<ul>
+<li>点击链接https://github.com</li>
+<li>可以在本地的浏览器中打开</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220925-1664078946374.png" /></p>
+<ul>
+<li>这个网站是世界制作软件的地方</li>
+<li>这里确实有各种各样的源代码<ul>
+<li>linux</li>
+<li>python</li>
+<li>blender</li>
+<li>等等各种开源的仓库都在这里</li>
+<li>用社交的方式开发和迭代</li>
+</ul>
+</li>
+<li>值得注册(signup)和深度使用<ul>
+<li>注意蓝桥云系统中不能访问邮箱</li>
+<li>需要在本地得到邮箱验证码</li>
+</ul>
+</li>
+<li>那oeasy的python教程的代码在哪呢？</li>
+</ul>
+<h3 id="_5">搜索</h3>
+<ul>
+<li>搜索oeasy+vim</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373398693.jpg" /></p>
+<ul>
+<li>可以找到这个项目仓库</li>
+<li>然后点开这个项目仓库的连接</li>
+</ul>
+<h3 id="_6">仓库细节</h3>
+<ul>
+<li>仓库上方有三个基本按钮</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373553494.jpg" /></p>
+<ul>
+<li>star 点赞<ul>
+<li>为项目点赞</li>
+<li>用实际行动支持这个项目</li>
+<li>期待着您为oeasy点个⭐️</li>
+<li>这样也便于再次找到</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220925-1664080238403.png" /></p>
+<ul>
+<li>另外两个按钮干什么用呢？</li>
+</ul>
+<h3 id="fork">fork</h3>
+<ul>
+<li>fork 复制项目<ul>
+<li>把当前这个项目复制到自己的项目库中</li>
+<li>这样更容易找到</li>
+<li>在当前项目基础上可以做修改做出自己项目</li>
+<li>也可以反哺(pull-request)源项目</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373684686.png" /></p>
+<ul>
+<li>这是github生命力的源泉<ul>
+<li>各种项目不断遗传变异</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373829678.jpg" /></p>
+<ul>
+<li>点击绿色按钮可以生成自己的仓库</li>
+<li>watch按钮表示什么呢？</li>
+</ul>
+<h3 id="watch">watch</h3>
+<ul>
+<li>watch 观察<ul>
+<li>就是你对这个项目有疯狂的兴趣</li>
+<li>这个项目的一举一动你都要接到通知</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373879289.png" /></p>
+<ul>
+<li>
+<p>可以选择通知级别</p>
+<ul>
+<li>Paricipating and @mentions<ul>
+<li>相关的或者被@到了才通知</li>
+</ul>
+</li>
+<li>All Activity<ul>
+<li>所有都通知</li>
+</ul>
+</li>
+<li>Ignore<ul>
+<li>拒绝一切通知</li>
+</ul>
+</li>
+<li>Custom<ul>
+<li>定制通知类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>这个项目具体怎么下载呢？</p>
+</li>
+</ul>
+<h3 id="_7">下载项目</h3>
+<ul>
+<li>点击那个复制按钮</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664373987087.jpg" /></p>
+<ul>
+<li>链接就被复制到了剪贴板</li>
+<li>
+<p>再按下图所示</p>
+<ul>
+<li>将命令粘贴到下图位置</li>
+<li>并点击保存</li>
+</ul>
+</li>
+<li>
+<p>这样就把复制的文本粘贴到了网页中蓝桥云的系统剪贴板</p>
+</li>
+</ul>
+<h3 id="_8">粘贴</h3>
+<ul>
+<li>打开终端</li>
+<li>先输入git clone</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220925-1664081695926.jpg" /></p>
+<ul>
+<li>然后鼠标右键调出菜单</li>
+<li>点击终端菜单的Paste命令</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664374511587.png" /></p>
+<ul>
+<li>回车运行<ul>
+<li>进行下载</li>
+</ul>
+</li>
+<li>如果不能下载<ul>
+<li>可以<kbd>ctrl</kbd>+<kbd>c</kbd>取消</li>
+<li>反复多试几次</li>
+<li>如果还不行的话</li>
+</ul>
+</li>
+</ul>
+<h3 id="git">设置git</h3>
+<ul>
+<li>也许是缓冲区不足造成的</li>
+<li>可以对git的缓冲区进行设置</li>
+</ul>
+<div class="highlight"><pre><span></span><code>git config --global http.postBuffer 524288000
+</code></pre></div>
+
+<ul>
+<li>或者减小项目的大小</li>
+<li>只下载根下一层的东西</li>
+</ul>
+<div class="highlight"><pre><span></span><code>git clone [项目链接] --depth 1
+</code></pre></div>
+
+<ul>
+<li>试着下载下来</li>
+<li>这样就可以打开文档了</li>
+<li>文档在哪呢？</li>
+</ul>
+<h3 id="_9">进入目录</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664374706652.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>oeasy-vim-tutorial
+vi<span class="w"> </span>tomsawyer.txt
+</code></pre></div>
+
+<ul>
+<li>打开文档</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220928-1664374754031.png" /></p>
+<ul>
+<li>把手放到键盘上</li>
+</ul>
+<h3 id="_10">命令分布</h3>
+<p>我们首先看看正常模式下的命令键盘图</p>
+<p><img alt="help move" src="images/vi-keyboard.gif" /></p>
+<ul>
+<li>基本上个按键都有对应的命令</li>
+<li>命令可以分为大写和小写两种</li>
+<li><code>iao</code> 进入插入模式（已经解锁）</li>
+<li><code>hjkl</code> 进行移动（已经解锁）</li>
+</ul>
+<h3 id="_11">起手势</h3>
+<p><img alt="help move" src="images/fingerPosition.png" /></p>
+<ul>
+<li>记不住命令怎么办？</li>
+<li>淘宝可以搜索 vim 的键盘膜或者贴纸</li>
+<li>但我感觉没用<ul>
+<li>字太小</li>
+<li>伤屏幕</li>
+<li>依赖性</li>
+</ul>
+</li>
+<li>还得靠自己熟练之后自然记忆</li>
+<li>左手食指放在<kbd>f</kbd></li>
+<li>右手食指放在<kbd>j</kbd> </li>
+<li>不管是游泳、弹琴、跑步还是打乒乓球<ul>
+<li>正确的基本姿势会减少运动伤害</li>
+<li>让你的上限更高</li>
+<li>肌肉记忆沉淀下来，逐渐变为某些标准</li>
+</ul>
+</li>
+<li>这些标准是每个新手都要遵循的<ul>
+<li>这可不是简单的循规蹈矩</li>
+<li>而是体会着前人的智慧和经验</li>
+</ul>
+</li>
+<li>这会让你后期更厉害</li>
+</ul>
+<h3 id="_12">移动命令</h3>
+<p><img alt="help move" src="images/ADM3A-keyboard.jpg" /></p>
+<ul>
+<li>起手势是盲打的基本姿势</li>
+<li>手轻轻放在中间那行上方一点点 </li>
+<li>我们知道由于历史的原因 <code>hjkl</code> 对应着移动的命令</li>
+<li>正常模式下<ul>
+<li>有必要把右手四指基本位从 <code>jkl;</code> 移动到 <code>hjkl</code> 吗？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">保持起手势</h3>
+<ul>
+<li>我认为没有必要改变盲打姿势<ul>
+<li>右手食指是可以控制两个方向位的</li>
+<li>继续保持起手势</li>
+</ul>
+</li>
+<li><code>hjkl</code> 右手默认位使用概率非常大</li>
+<li>保持指尖的敏感性<ul>
+<li>手指会比眼睛更早知道打错字了</li>
+<li>还有更多神奇的移动命令等待你来解锁</li>
+</ul>
+</li>
+</ul>
+<p><img alt="hjkl" src="images/hjkl.png" /></p>
+<h3 id="_14">强制起手式</h3>
+<ul>
+<li>打开当前用户的vim配置文件</li>
+</ul>
+<div class="highlight"><pre><span></span><code>vi<span class="w"> </span>~/.vimrc
+</code></pre></div>
+
+<ul>
+<li>
+<p>在前面添加上四句</p>
+<ul>
+<li><code>map &lt;Left&gt; &lt;Nop&gt;</code></li>
+<li><code>map &lt;Right&gt; &lt;Nop&gt;</code></li>
+<li><code>map &lt;Up&gt; &lt;Nop&gt;</code></li>
+<li><code>map &lt;Down&gt; &lt;Nop&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>map是按键映射</p>
+<ul>
+<li>我们把上下左右方向键映射为<code>&lt;Nop&gt;空</code></li>
+<li>就是什么也不做</li>
+<li>保存并关闭vim</li>
+<li>然后我们发现上下左右方向键都不好用了</li>
+</ul>
+</li>
+</ul>
+<h2 id="_15">总结</h2>
+<ul>
+<li>我们这次强化了起手势</li>
+<li>回忆了基本的移动方式 <code>hjkl</code></li>
+<li>除 <code>hjkl</code> 外,还有什么移动命令效率更高吗？</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

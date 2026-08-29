@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：范围控制，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解vim诞生。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖| 年月 | 版本 | 事件 |  | -- | -- | -- |   |1991 Nov 2  | Vim 1.14|First release on Fred Fish disk 591|  |1992  ...">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, vim诞生, 范围控制">
+    <meta property="og:title" content="oeasy Vim编辑器教程：范围控制，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解vim诞生。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖| 年月 | 版本 | 事件 |  | -- | -- | -- |   |1991 Nov 2  | Vim 1.14|First release on Fred Fish disk 591|  |1992  ...">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">范围控制</h1>
+<h2 id="_2">回忆</h2>
+<ul>
+<li>上次了解到块可视模式
+    -<kbd>ctrl</kbd>+<kbd>v</kbd><ul>
+<li>左下角<code>-- 可视 块 --</code></li>
+<li>然后配合<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+<li>这个块可以有四个顶点</li>
+<li><kbd>O</kbd>横向切换</li>
+</ul>
+</li>
+<li>可以在选区内进行编辑和替换<ul>
+<li>可以直接<kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd></li>
+<li>或者<kbd>D</kbd>、<kbd>C</kbd>、<kbd>Y</kbd></li>
+<li>也可以直接编辑<ul>
+<li><code>:'&lt;,'&gt;d</code></li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> 范围内批量替换</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以在块·可视化模式下替换<ul>
+<li><code>:'&lt;,'&gt;s/\%Vg/graphic/g</code></li>
+<li>'&lt;,'&gt;表示范围</li>
+<li>s表示substitute</li>
+<li>\%V表示在块内</li>
+</ul>
+</li>
+<li>文本编辑终于告一段落</li>
+<li>这个可视化块儿模式不来自于vi</li>
+<li>而是来自于他的克隆vim</li>
+<li>vim是如何诞生的呢？🤔</li>
+</ul>
+<h3 id="_3">前情回顾</h3>
+<ul>
+<li><code>vi</code> 是除 <code>ed</code> 之外唯一与 <code>BSD Unix</code> 捆绑的文本编辑器<ul>
+<li><code>Emacs</code> 可能会花费数百美元</li>
+<li>这是在 <code>GNU Emacs</code> 之前</li>
+<li>所以 <code>vi</code> 变得非常流行</li>
+</ul>
+</li>
+<li>但 <code>vi</code> 是 <code>ed</code> 的直接衍生版本<ul>
+<li>这意味着如果没有<code>AT&amp;T</code> 的源代码</li>
+<li>源代码就不能被修改</li>
+</ul>
+</li>
+<li>这促使一些人创建了 <code>vi</code> 的开源版本<ul>
+<li><code>STEVIE</code> （专门为 <code>VI</code> 爱好者的 <code>ST</code> 编辑器）出现于1987年</li>
+<li><code>Elvis</code> 出现于 1990 年</li>
+<li><code>nvi</code> 出现于 1994 年</li>
+<li>微软dos上也有了类似的东西<ul>
+<li>行编辑器edlin</li>
+<li>全屏编辑器edit</li>
+</ul>
+</li>
+<li>其中一些克隆版本添加了额外的功能</li>
+<li>如语法高亮和窗口分离</li>
+</ul>
+</li>
+<li>众多克隆中比较出色的是<code>Elvis</code><ul>
+<li>它的许多功能被整合到 <code>Vim</code> 中</li>
+<li>因为许多 <code>Elvis</code> 用户推动了这些功能的加入</li>
+</ul>
+</li>
+<li>GUI变得开始流行<ul>
+<li>但是也有人给 <code>Elvis</code> 加了一个图形用户界面</li>
+<li>然后就当商业软件来卖</li>
+<li>这些人没有写<code>Elvis</code>却挣了很多钱</li>
+<li>而<code>Elvis</code>无法得到相应的资源和回馈</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651323677538.png" /></p>
+<ul>
+<li>2003年后Elvis 2.2这个版本到此为止</li>
+<li>没有继续更新</li>
+</ul>
+<h3 id="vim">vim缘起</h3>
+<ul>
+<li>在荷兰 1985年<ul>
+<li>Delft大学</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651304791195.png" /></p>
+<ul>
+<li>Bram Moolenaar 出生在荷兰<ul>
+<li>就在郁金香盛开的地方</li>
+<li>在大学学习电子工程</li>
+<li>电烙铁非常熟练</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651305165615.png" /></p>
+<ul>
+<li>当时计算机相比电子工程<ul>
+<li>还是非常小众的边缘科学</li>
+<li>软件更是小众</li>
+</ul>
+</li>
+<li>当时有一个实践课<ul>
+<li>课上只有一个电脑</li>
+<li>电脑上的编辑器是vi</li>
+<li>他觉得vi很难用</li>
+<li>跟老师去抱怨</li>
+<li>老师解决办法是<ul>
+<li>给了他一页纸cheat code操作说明</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>就这样他开始被迫学习vi<ul>
+<li>毕业设计选是unix操作系统上的多进程架构</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">毕业</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651319231837.png" /> </p>
+<ul>
+<li>毕业后去了<code>Venlo</code> ，在城市东部</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651305135366.png" /></p>
+<h3 id="venlo">Venlo</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651305482694.png" /></p>
+<ul>
+<li>毕业后<code>Bram Moolenaar</code>去了Oce<ul>
+<li>一家影印公司工作做工程师 </li>
+</ul>
+</li>
+<li>想要为他全新的 <code>Amiga 2000</code> 准备一款类似于 <code>vi</code> 的编辑器<ul>
+<li><code>Moolenaar</code> 已经习惯了在大学时使用的 <code>Unix</code> 系统上的 <code>vi</code> </li>
+<li>当时他 已经对 <code>vi</code> 了如指掌</li>
+<li>所以在 1988 年</li>
+<li>他找遍了所有可以用的vi克隆</li>
+</ul>
+</li>
+</ul>
+<h3 id="vi">找到vi</h3>
+<ul>
+<li>后来<code>Moolenaar</code> 偶然接触到接触到 <code>STEVIE</code> <ul>
+<li>缘于其曾经出现在一个叫 <code>Fred Fish</code> 的磁盘上</li>
+<li><code>Fred Fish</code> 是一名美国程序员</li>
+<li>每个月都会寄出一张软盘</li>
+<li>内含为 <code>Amiga</code> 平台提供的精选可用开源软件</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612232002004.jpg" />
+（Bram Moolenaar，2006 年加入 Google）</p>
+<ul>
+<li>有点类似于国内曾经的软件指南<ul>
+<li>任何人只要支付邮费就可以得到一张这样的磁盘</li>
+<li>有若干版本的 <code>STEVIE</code> 曾在 <code>Fred Fish</code> 磁盘上发布</li>
+<li><code>Moolenaar</code> 使用的 <code>STEVIE</code> 版本在 <code>Fred Fish 256</code> 号磁盘上发布</li>
+</ul>
+</li>
+</ul>
+<h3 id="mooleanaar">Mooleanaar</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651305552458.png" /></p>
+<ul>
+<li>他的姓氏来自于驾驶风车的人<ul>
+<li>风车(风力驱动的磨坊)</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220429-1651234254434.png" /></p>
+<ul>
+<li><code>Moolenaar</code> 喜欢 <code>STEVIE</code><ul>
+<li>但很快就注意到其缺失了很多 <code>vi</code> 命令</li>
+<li>因此，在第一次发布 <code>Vim</code> 时</li>
+<li><code>Moolenaar</code> 优先考虑了 <code>vi</code> 的兼容性</li>
+</ul>
+</li>
+<li>当时已经有其他人编写了一系列的 <code>vi</code> patches(补丁)<ul>
+<li>当运行一个合适的 <code>vi</code> 兼容编辑器时</li>
+<li>可以求解随机生成的迷宫</li>
+<li><code>Moolenaar</code> 能够让这些宏在 <code>Vim</code> 中运行</li>
+<li><code>Elvis</code> 此时也和 <code>vim</code> 互相借鉴</li>
+</ul>
+</li>
+<li>1991年<ul>
+<li><code>Vim</code> 以 <code>Vi模仿者(Vi IMitation)</code> 为名第一次发布于 <code>Fred Fish 591</code> 号磁盘</li>
+<li><code>Moolenaar</code> 添加了一些特性（包括多级撤销和解决编译器错误的“<code>quickfix</code>”模式）</li>
+<li>这意味着 <code>Vim</code> 已经完成了对 <code>Vi</code> 的重构</li>
+</ul>
+</li>
+<li>
+<p>在 1993 年</p>
+<ul>
+<li>通过 FTP 发布 <code>Vim 2.0</code> 之前</li>
+<li><code>Vim</code> 都仍以 <code>Vi模仿者</code> 的身份存在</li>
+</ul>
+</li>
+<li>
+<p>和其他许多<code>“vi克隆版本”</code>一样</p>
+<ul>
+<li><code>Vim</code> 始于在一个无法使用 <code>vi</code> 的平台上复现 <code>vi</code> 的一个尝试</li>
+</ul>
+</li>
+</ul>
+<h3 id="vivim">从vi到vim</h3>
+<ul>
+<li>在众多互联网合作者的帮助下<ul>
+<li>Moolenaar<code>稳健地在</code>Vim` 中加入了一些功能</li>
+<li><code>Vim 2.0</code> 引入了对 <code>wrap</code> 选项的支持</li>
+<li>以及对长行文本进行水平滚动的支持</li>
+</ul>
+</li>
+<li>受到了 <code>vi克隆nvi</code> 的启发<ul>
+<li><code>Vim 3.0</code> 增加了对分割窗口和缓冲区的支持</li>
+<li><code>Vim</code> 现在还将每个缓冲区保存到交换文件中以避免程序崩溃造成文件丢失</li>
+</ul>
+</li>
+<li><code>Vim 5.0</code> 中<ul>
+<li><code>Vim</code> 支持语法高亮显示</li>
+<li>Vim 的受欢迎程度也在不断增长</li>
+<li>一些人把他移植到 <code>MS-DOS</code>、 <code>Windows</code>、<code>Mac</code></li>
+<li>甚至被移植到 <code>Unix</code> 与原来的 <code>vi</code> 竞争</li>
+</ul>
+</li>
+<li><code>Vim</code>的含义也变成了<code>Vi IMproved</code>(Vi 改进版)<ul>
+<li>最初代表的是<code>模拟版 Vi</code></li>
+</ul>
+</li>
+<li>有了更多的人用<ul>
+<li>也有了更多的反馈 </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651305683020.png" /></p>
+<h3 id="_5">反馈</h3>
+<ul>
+<li>
+<p>1998年11月</p>
+<ul>
+<li>进行了一项调查</li>
+<li>允许Vim用户投票支持对Vim的更改</li>
+<li>这样就可以很好地了解用户想要添加的内容</li>
+<li>以下是前六名：<ol>
+<li>添加折叠（仅显示文本的选定部分）</li>
+<li>垂直分体式窗户（并排）</li>
+<li>为多种语言（如“cindent”）添加可配置的自动缩进</li>
+<li>解决所有问题，无论大小；让Vim更健壮</li>
+<li>添加与Perl兼容的搜索模式</li>
+<li>搜索跨越边界的模式</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>前三项和第六项已在Vim 6.0中实现</p>
+</li>
+<li>搜索模式已经扩展到包括所有Perl特性</li>
+<li>并不直接与Perl兼容</li>
+<li>这将导致向后兼容性问题</li>
+<li>可以看到vim已经发展起来了</li>
+<li>那么vim算是开源软件么？</li>
+<li>使用什么样的协议呢？</li>
+</ul>
+<h3 id="_6">协议</h3>
+<ul>
+<li>并不是GNU 通用公共许可证 (GPL)<ul>
+<li>因为gpl限制性更强</li>
+<li>尽管它声称确定了软件的自由</li>
+<li>但限制了您可以进行的更改</li>
+</ul>
+</li>
+<li>也就是说<ul>
+<li>可以进行更改</li>
+<li>但分发修改后的软件时</li>
+<li>您必须使修改后的源也可用</li>
+<li>因此，人们不能自由地将这些变化的代码只留给自己</li>
+</ul>
+</li>
+<li>Elvis的遭遇使得bram在思考使用什么版权</li>
+<li>是否是完全开源呢？<ul>
+<li>Bram不同意所有软件都应该是免费和开源的想法<ul>
+<li>Bram认识的所有从事自由软件工作的人都以某种方式以商业软件为生<ul>
+<li>要么是全职工作</li>
+<li>要么是通过学习以后找到工作</li>
+</ul>
+</li>
+<li>如果没有商业软件，这些人将如何谋生？</li>
+<li>过于激进是不行的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>是否闭源呢？<ul>
+<li>最早Elvis和类似的东西是开源的</li>
+<li>而且linux的成功也证明大体量长周期的系统性开发是可以开源的</li>
+<li>Bram总结了一个项目开源人数的公式</li>
+<li>available = interested x ability x motivation<ul>
+<li>available可以开发的人</li>
+<li>interested 有兴趣的<ul>
+<li>取决于现有软件是否又贵又不好</li>
+<li>这里软件是否是人人都要用</li>
+</ul>
+</li>
+<li>ability 有能力的 <ul>
+<li>取决于这个软件的目标对象</li>
+<li>如果目标是软件工程师用的软件</li>
+<li>那个系数会大幅增高</li>
+</ul>
+</li>
+<li>motivation 愿意开发的 <ul>
+<li>这是本公式最大的变数</li>
+<li>起心动念最难参透</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这公式都整出来了<ul>
+<li>到底是开源还是闭源？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">共存</h3>
+<ul>
+<li>Bram认为免费的开源软件和商业软件将共存<ul>
+<li>大多数商业软件不能是开源的<ul>
+<li>因为公司将失去对竞争对手的优势</li>
+<li>创建源代码非常昂贵</li>
+<li>公司不希望让其他人免费获得结果</li>
+<li>由于软件专利和版权是一种非常薄弱的保护在大多数情况下</li>
+<li>对源代码保密仍然是最佳选择</li>
+<li>不幸的是，这意味着您无法学习商业软件的实施方式</li>
+<li>也无法在您购买的程序中添加功能或修复错误</li>
+<li>一个解决方案可以是使大部分程序开源</li>
+<li>并将一小部分但必不可少的部分保密</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bram决定所有Vim更改都必须告知Bram<ul>
+<li>Bram可以确定这些更改对大多数人有用<ul>
+<li>并将它们包含在 Vim 中</li>
+</ul>
+</li>
+<li>或者决定这些变化只有很小的受众<ul>
+<li>并允许公司从他们的工作中赚一点钱</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这都是前辈经验之谈和肺腑之言</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651283953496.png" /></p>
+<h3 id="_8">发展</h3>
+<ul>
+<li>在 1980 年代末和整个 1990 年代<ul>
+<li>程序员一度发起了“编辑器战争”</li>
+<li>将 <code>Emacs</code> 用户与 <code>vi</code> （即最终的 <code>Vim</code> ）用户进行了对比</li>
+<li>虽然 <code>Emacs</code> 肯定仍有一些追随者</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651330129429.png" /></p>
+<ul>
+<li>2006 年<ul>
+<li><code>Vim</code> 被 <code>Linux Journal</code> 读者评为最受欢迎的编辑器</li>
+<li>根据 2018 年 <code>Stack Overflow</code> 的开发者调查<ul>
+<li><code>Vim</code> 是最受欢迎的文本模式（即终端模拟器）编辑器</li>
+<li>受用于 25.8% 的软件开发人员(和 40% 的 Sysadmin / DevOps 人员)</li>
+<li>只有 4.1% 的受访者使用 Emacs</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651318516629.png" /></p>
+<h3 id="_9">整体回顾</h3>
+<table>
+<thead>
+<tr>
+<th>年月</th>
+<th>版本</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1991 Nov 2</td>
+<td>Vim 1.14</td>
+<td>First release (on Fred Fish disk #591)</td>
+</tr>
+<tr>
+<td>1992</td>
+<td>Vim 1.22</td>
+<td>Port to Unix.  Vim now competes with Vi</td>
+</tr>
+<tr>
+<td>1994 Aug 12</td>
+<td>Vim 3.0</td>
+<td>Support for multiple buffers and windows</td>
+</tr>
+<tr>
+<td>1996 May 29</td>
+<td>Vim 4.0</td>
+<td>Graphical User Interface (largely by Robert Webb)</td>
+</tr>
+<tr>
+<td>1998</td>
+<td>Feb 19</td>
+<td>Vim 5.0</td>
+</tr>
+<tr>
+<td>2001 Sep 26</td>
+<td>Vim 6.0</td>
+<td>folding, plugins, vertical split</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><code>Vim</code> 是如何变得如此成功的？</p>
+<ul>
+<li>显然，人们喜欢 <code>Vim</code> 所提供的特性</li>
+<li>但我认为，<code>Vim</code> 背后的悠久历史表明了它的优势远不仅仅体现在其功能集上</li>
+<li><code>Vim</code> 的代码库可以追溯到 1988 年</li>
+<li>当时 <code>Moolenaar</code> 开始研究它</li>
+</ul>
+</li>
+<li>
+<p>某种程度上要感谢 <code>Bill Joy</code> 和 <code>Bram Moolenaar</code> 对向后兼容性非比寻常的关注</p>
+<ul>
+<li>才使好的想法逐渐积累起来</li>
+<li>从这个意义上说</li>
+<li><code>vim文本编辑器</code> 是运行时间最长、最成功的开源项目之一</li>
+<li>跨越项目的项目</li>
+<li>得益于计算机世界中一些最伟大的思想贡献</li>
+<li>创业公司无视所有先例来创造颠覆性的新软件固然很厉害</li>
+<li>但 <code>Vim</code> 提醒我们</li>
+<li>这种协作和增量的方式同样能产生奇迹</li>
+</ul>
+</li>
+<li>向前辈致以敬意！</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651317811783.png" /></p>
+<h3 id="_10">总结</h3>
+<ul>
+<li>vim表面上是一个软件<ul>
+<li>其实他也有深厚的历史</li>
+<li>跨越了时代、项目和版本</li>
+<li>在年代的穿透中有一种源远流长的感觉</li>
+<li>新芽必发于陈</li>
+</ul>
+</li>
+<li>让我想到一句老话<ul>
+<li>孰能浊以止，静之徐清？</li>
+<li>孰能安以久，动之徐生？</li>
+<li>保此道者不欲盈</li>
+<li>夫唯不盈<ul>
+<li>故能敝而新成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结一下前几节学习的可视化模式吧？🤔</li>
+<li>下次再说！👋🏻</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：查找细节，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解参数替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 参数替换, 查找细节">
+    <meta property="og:title" content="oeasy Vim编辑器教程：查找细节，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解参数替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">查找细节</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>进行了模式匹配批量替换的的操作</li>
+<li>替换单词<ul>
+<li><code>:%s/\&lt;a.*d\&gt;/oeasy/g</code></li>
+</ul>
+</li>
+<li>转义字符<ul>
+<li><code>%s/^\/\/.*$/d</code></li>
+</ul>
+</li>
+<li>删除空行<ul>
+<li><code>:g/^\s*$//d</code> </li>
+</ul>
+</li>
+<li>还有替换还有一些什么玩法吗？🤔</li>
+</ul>
+<h3 id="_3">前后颠倒</h3>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<h3 id="markdownhtml">markdown变html</h3>
+<ul>
+<li>要把 <code>markdown</code> 文件中的 <code>*斜体*</code></li>
+<li>变成 <code>html</code> 中的 <code>&lt;em&gt;斜体&lt;/em&gt;</code></li>
+<li>先写框架<ul>
+<li><code>s///gc</code></li>
+<li>修改基本框架</li>
+<li><code>s/\*.*\*//gc</code> </li>
+<li>匹配模式</li>
+<li>先试一下，是否有高亮匹配</li>
+<li>如果没有就<code>:se hls</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627442031522.png" /></p>
+<h3 id="_4">原子化</h3>
+<ul>
+<li><code>:s/\*\(.*\)\*//gc</code><ul>
+<li>给待替换部分加上括号<ul>
+<li>将其明确</li>
+<li>将其原子化</li>
+</ul>
+</li>
+<li>给括号转义</li>
+<li>看是否能匹配</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627442223291.png" /></p>
+<ul>
+<li>仍然能够查找到</li>
+<li>下面就是替换部分</li>
+<li><code>:s/\*\(.*\)\*/&lt;em&gt;\1&lt;/em&gt;/gc</code><ul>
+<li><code>\1</code>就是括号中的原子内容</li>
+<li>把待替换模式放上去</li>
+</ul>
+</li>
+<li><code>s/\*\(.*\)\*/&lt;em&gt;\1&lt;\/em&gt;/gc</code><ul>
+<li>将需要转义的内容转义</li>
+</ul>
+</li>
+<li>回车，替换成功！</li>
+</ul>
+<h3 id="_5">使用参数</h3>
+<ul>
+<li>还是把html文件转化为md文件</li>
+<li>我需要把<code>&lt;h1&gt;</code>替换为<code>- 空格</code><ul>
+<li>先搜索<code>/&lt;h1&gt;</code>，可以搜到，说明尖括号不用转义</li>
+<li>再搜索<code>/&lt;h1&gt;.*&lt;/h1&gt;</code></li>
+<li>可以匹配</li>
+</ul>
+</li>
+<li>开始写</li>
+<li><code>:%s///gc</code><ul>
+<li>上框架</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h1&gt;.*&lt;/h1&gt;//gc</code><ul>
+<li>基础内容</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h1&gt;(.*)&lt;/h1&gt;//gc</code><ul>
+<li>加括号</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h1&gt;\(.*\)&lt;\/h1&gt;//gc</code><ul>
+<li>转义</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h1&gt;\(.*\)&lt;\/h1&gt;/- \1/gc</code><ul>
+<li><code>\1</code>就是搜索中用转义括号括起来的东西</li>
+</ul>
+</li>
+<li>如果要把<code>&lt;h2&gt;</code>替换为<code>-</code>怎么办？</li>
+<li>如何修改<ul>
+<li><code>:%s/&lt;h2&gt;\(.*\)&lt;\/h2&gt;/        - \1/g</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">替换空格</h3>
+<ul>
+<li>在markdown文件中<ul>
+<li>如果链接中有空格</li>
+<li>则链接失效</li>
+<li>我们需要把空格替换为%20</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211102-1635811760815.png" /></p>
+<ul>
+<li>`6,11s/(\d{5}-\d{6}) /\1%20/gc<ul>
+<li>6,11s 在6-11行进行substitute替换</li>
+<li><code>\(\d\{5}-\d\{6}\)</code> <ul>
+<li>前面五个数字</li>
+<li>横杠-</li>
+<li>后面六个数字</li>
+<li>空格</li>
+<li>括号把空格前面的数字和横杠原子化</li>
+</ul>
+</li>
+<li><code>\1%20</code><ul>
+<li>把原子化内容放回来</li>
+<li>空格变成%20</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以优化么？</li>
+</ul>
+<h3 id="_7">优化</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220808-1659968745009.png" /></p>
+<ul>
+<li><code>:%s/\(.\/.*\) /\1%20/gc</code><ul>
+<li><code>\(.\/.*\)</code><ul>
+<li>以<code>./</code>开头的任意多个字符(.*)</li>
+<li>后跟一个空格</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>\1%20</code><ul>
+<li>把<code>./</code>开头的任意多个字符(.*)放回来</li>
+<li>空格变成%20</li>
+</ul>
+</li>
+<li>如果有多个字符就多替换几次</li>
+</ul>
+<h3 id="_8">多个参数</h3>
+<ul>
+<li>原来的列表<ul>
+<li><code>Joe,John</code></li>
+<li><code>oeasy,oyeah</code></li>
+</ul>
+</li>
+<li>需要的列表<ul>
+<li><code>John Joe</code></li>
+<li><code>oyeah oeasy</code></li>
+</ul>
+</li>
+<li>需要前后对调，还要去掉逗号</li>
+<li><code>%s///gc</code><ul>
+<li><code>:%s</code> 在所有的范围内</li>
+</ul>
+</li>
+<li><code>%s/.*,.*//gc</code><ul>
+<li>中间有逗号分开</li>
+</ul>
+</li>
+<li><code>%s/(.*),(.*)//gc</code><ul>
+<li>用括弧原子化</li>
+</ul>
+</li>
+<li><code>%s/([^,]*),([^,]*)//gc</code><ul>
+<li>括弧里的原子中不能有逗号</li>
+</ul>
+</li>
+<li><code>%s/\([^,]*\),\([^,]*\)//gc</code><ul>
+<li>转义</li>
+<li><code>\([^,]*\),\([^,]*\)</code>原来的列表<ul>
+<li><code>([^,]*\)</code> 前面的第一个原子，内容为除了逗号之外的字符</li>
+<li><code>,</code> 分隔符逗号</li>
+<li><code>([^,]*\)</code> 前面的第二个原子，内容为除了逗号之外的字符</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高亮显示匹配的话</li>
+<li><code>:%s/\([^,]*\),\([^,]*\)/\2 \1/gc</code><ul>
+<li><code>\2 \1</code><ul>
+<li>把原来的两个原子前后对调</li>
+<li>中间加上空格</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>完成对调</li>
+</ul>
+<h3 id="a">如果是a标签呢？</h3>
+<ul>
+<li><code>&lt;a href="http://oeasy.org"&gt;o&lt;/a&gt;</code>变成<code>[o](http://oeasy.org)</code></li>
+<li>这里面需要两个参数<ul>
+<li>链接网址<code>http://oeasy.org</code></li>
+<li>链接文本o</li>
+</ul>
+</li>
+<li>尝试搜索<ul>
+<li><code>/&lt;a href=.*&gt;.*&lt;/a&gt;</code> 不可以搜素到</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637143941684.png" /></p>
+<ul>
+<li><code>/&lt;a href=".*"&gt;.*&lt;\/a&gt;</code> 可以搜素到，说明<code>/</code>需要转义</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637143994830.png" /></p>
+<ul>
+<li>给<code>/&lt;a href="(.*)"&gt;(.*)&lt;\/a&gt;</code>把括号、斜杠、引号前面加上转义字符<code>\</code><ul>
+<li><code>/&lt;a href=\"\(.*\)\"&gt;\(.*\)&lt;\/a&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637144076644.png" /></p>
+<h3 id="_9">进行替换</h3>
+<ul>
+<li>然后写批量替换</li>
+<li><code>:%s///gc</code><ul>
+<li>框架</li>
+</ul>
+</li>
+<li><code>%s/&lt;a href=\".*\"&gt;//gc</code></li>
+<li><code>%s/&lt;a href=\".*\"&gt;.*&lt;\/a&gt;//gc</code><ul>
+<li>有高亮匹配，证明模式ok</li>
+</ul>
+</li>
+<li><code>%s/&lt;a href=\"(.*)\"&gt;(.*)&lt;\/a&gt;//gc</code><ul>
+<li>参数原子化</li>
+</ul>
+</li>
+<li><code>%s/&lt;a href=\"\(.*\)\"&gt;\(.*\)&lt;\/a&gt;//gc</code><ul>
+<li>转义</li>
+</ul>
+</li>
+<li><code>%s/&lt;a href=\"\(.*\)\"&gt;\(.*\)&lt;\/a&gt;/[\2](\1)/gc</code><ul>
+<li><code>\1</code>对应第<code>1</code>个小括号里面匹配的东西</li>
+<li><code>\2</code>对应第<code>2</code>个小括号里面匹配的东西</li>
+<li>然后就可以进行批量替换了</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">问题</h3>
+<ul>
+<li><code>&lt;a href="http://oeasy.org"&gt;o&lt;/a&gt;asdf&lt;a href="http://oeasy.org"&gt;o&lt;/a&gt;</code><ul>
+<li>这句话有两个超链接</li>
+<li>但是替换之后</li>
+<li>却变成了一个超链接</li>
+<li>这怎么办？</li>
+</ul>
+</li>
+<li>贪婪匹配与非贪婪匹配<ul>
+<li><code>.*</code>对应的是贪婪匹配 greedy </li>
+<li><code>.{-}</code>对应的是非贪婪匹配 non-greedy</li>
+<li>会匹配第一个符合条件的</li>
+</ul>
+</li>
+<li>什么是贪婪匹配？</li>
+</ul>
+<h3 id="_11">贪婪匹配</h3>
+<ul>
+<li>把 <code>md</code> 中的<code>**重点文字**和**重点**</code> </li>
+<li>变成 <code>html</code> 中的 <code>&lt;strong&gt;重点文字&lt;/strong&gt;</code></li>
+<li>注意他把这两个分开了</li>
+<li><code>\*\*.\{-}\*\*</code><ul>
+<li><code>\*\*</code> 代表前两个星号</li>
+<li><code>.</code> 的数量是<code>\{-}</code></li>
+<li><code>\*\*</code>代表后两个星号</li>
+</ul>
+</li>
+<li><code>.</code> 的数量是<code>\{-}</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627440416158.png" /></p>
+<ul>
+<li>根据这个我们来写替换语句</li>
+<li><code>:s///gc</code></li>
+<li><code>:s/**(.*)**//gc</code><ul>
+<li>给需要转义的字符转义</li>
+</ul>
+</li>
+<li><code>:s/\*\*\(.*\)\*\*//gc</code><ul>
+<li>思路就是<code>把.*变成.\{-}</code> </li>
+<li>把贪婪变成非贪婪</li>
+</ul>
+</li>
+<li><code>:s/\*\*\(.\{-}\)\*\*//gc</code><ul>
+<li>把替换的元素放上 </li>
+</ul>
+</li>
+<li><code>:s/\*\*(.\{-})\*\*/&lt;strong&gt;\1&lt;\/strong&gt;/gc</code></li>
+<li>尝试一下</li>
+<li>根据这个，是否能解决一行中有多个<code>&lt;a&gt;元素</code>的问题</li>
+</ul>
+<h3 id="_12">匹配模式</h3>
+<ul>
+<li><code>:%s///g</code></li>
+<li><code>:%s/&lt;a href=\".*\"&gt;.*&lt;\/a&gt;//g</code></li>
+<li><code>:%s/&lt;a href=\"(.*)\"&gt;(.*)&lt;\/a&gt;//g</code></li>
+<li><code>:%s/&lt;a href=\"\(.*\)\"&gt;\(.*\)&lt;\/a&gt;//g</code></li>
+<li><code>:%s/&lt;a href=\"\(.\{-}\)\"&gt;\(.\{-}\)&lt;\/a&gt;//g</code><ul>
+<li>这步就是<code>把.*变成.\{-}</code></li>
+</ul>
+</li>
+<li><code>:%s/&lt;a href=\"\(.\{-\})\"&gt;\(.\{-\}\)&lt;\/a&gt;/[\2]\1/g</code></li>
+</ul>
+<h3 id="_13">如果是<img>标签呢</h3>
+<ul>
+<li>需要把<code>&lt;img src="http://oeasy.org/o.png" title="o" /&gt;</code>替换为<code>![o](http://oeasy.org/o.png)</code></li>
+<li>先尝试匹配</li>
+<li><code>/&lt;img src=\"\(.*\)\" title=\"\(.*\)\" \/&gt;</code></li>
+<li>也就是<code>/&lt;img src="(.*)" title=(.*)"&gt;</code>给引号、括号、斜杠都加上转义<code>/</code></li>
+<li>匹配成功之后开始替换</li>
+<li><code>:%s/&lt;img src=\"\(.*\)\" title=\"\(.*\)\" \/&gt;/[!\2]\1</code></li>
+<li>如果一行有多个img怎么办？</li>
+<li>还得把贪婪的变成非贪婪的 </li>
+<li>最多可以有多少个参数呢</li>
+</ul>
+<h3 id="_14">参数数量</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220505-1651752273948.png" /></p>
+<ul>
+<li>\0是整个匹配的模式</li>
+<li>\1-\9都是括号里面匹配的模式</li>
+</ul>
+<h3 id="_15">手册案例</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220505-1651752389976.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20220505-1651751686433.png" /></p>
+<h3 id="_16">练习</h3>
+<div class="highlight"><pre><span></span><code>地势坤000000
+地雷复000001
+地水师000010
+地泽临000011
+地山谦000100
+地火明夷000101
+地风升000110
+地天泰000111
+雷地豫001000
+震为雷001001
+雷水解001010
+雷泽归妹001011
+雷山小过001100
+雷火丰001101
+雷风恒001110
+雷天大壮001111
+水地比010000
+水雷屯010001
+坎为水010010
+水泽节010011
+水山蹇010100
+水火即济010101
+水风井010110
+水天需010111
+泽地萃011000
+泽雷随011001
+泽水困011010
+兑为泽011011
+泽山咸011100
+泽火革011101
+泽风大过011110
+泽天夬011111
+山地剥100000
+山雷颐100001
+山水蒙100010
+山泽损100011
+艮为山100100
+山火贲100101
+山风蛊100110
+山天大畜100111
+火地晋101000
+火雷噬嗑101001
+火水未济101010
+火泽睽101011
+火山旅101100
+离为火101101
+火风鼎101110
+火天大有101111
+风地观110000
+风雷益110001
+风水涣110010
+风泽中孚110011
+风山渐110100
+风火家人110101
+巽为风110110
+风天小畜110111
+天地否111000
+天雷无妄111001
+天水讼111010
+天泽履111011
+天山遁111100
+天火同人111101
+天风姤111110
+天行健（乾）111111
+</code></pre></div>
+
+<ul>
+<li>要把这对应关系做成python字典的形式</li>
+<li>应该怎么办？</li>
+</ul>
+<h2 id="_17">总结</h2>
+<ul>
+<li>我们学习了关于模式匹配中使用参数<ul>
+<li>别着急</li>
+<li>先列框架</li>
+<li>在一步一步填充进去皮肉</li>
+<li>注意转义</li>
+<li>冷静仔细</li>
+<li>不断看着高亮的反馈</li>
+</ul>
+</li>
+<li>单个参数<ul>
+<li><code>:%s/&lt;h2&gt;\(.*\)&lt;\/h2&gt;/        - \1/g</code></li>
+</ul>
+</li>
+<li>多个参数<ul>
+<li><code>:%s/&lt;img src=\"\(.*\)\" title=\"\(.*\)\" \/&gt;/[!\2]\1</code></li>
+</ul>
+</li>
+<li>非贪婪匹配<ul>
+<li><code>:%s/&lt;a href=\"\(.\{-\})\"&gt;\(.\{-\}\)&lt;\/a&gt;/[\2]\1/g</code></li>
+</ul>
+</li>
+<li>我们介绍一种更神奇的模式，可视化编辑模式🤔</li>
+<li>下次再说 👋</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220906-1662429269055.png" /></p>
+    </div>
+</body>
+</html>

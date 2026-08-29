@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：命令 command，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解命令 command。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖command! -range=% Comment call Comment<line1>,<line2>等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 命令, command">
+    <meta property="og:title" content="oeasy Vim编辑器教程：命令 command，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解命令 command。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖command! -range=% Comment call Comment<line1>,<line2>等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="command">命令 command</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>关于 函数<code>function</code><ul>
+<li>可以调用别的函数<ul>
+<li><code>:call append(0,"oeasy o2z o3z")</code></li>
+</ul>
+</li>
+<li>还可以执行表达式<ul>
+<li><code>:call execute(gg=G)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这样就可以把一系列的操作封装到一个函数里面<ul>
+<li>然后在命令行模式调用就可以了</li>
+<li>但如果我想不用`:call Init()"</li>
+<li>而是像<code>:ls</code>一样执行<code>:init</code>，可能么？🤔</li>
+</ul>
+</li>
+</ul>
+<h3 id="_2">命令列表</h3>
+<ul>
+<li><code>ls</code> 是一个 命令<code>command</code></li>
+<li>我们可以 <code>:command</code> 查看所有用户定义的命令</li>
+<li>也可以 <code>:command TOhtml</code> 查询指定的命令<ul>
+<li>这个TOhtml命令可以按照当前的颜色模式把文件输出成html文件</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627796439440.png" /></p>
+<h3 id="command_1">自定义命令command</h3>
+<ul>
+<li><code>:command DeleteFirst :1delete</code><ul>
+<li><code>:command</code> 自定义命令command</li>
+<li>自定义命令 叫做 - <code>DeleteFirst</code> </li>
+<li>自定义命令DeleteFirst 对应的操作 - <code>:1delete</code> 删除第1行</li>
+</ul>
+</li>
+<li>执行命令<ul>
+<li><code>:DeleteFirst</code></li>
+<li>执行成功</li>
+<li>第一行被删掉</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627797060452.png" /></p>
+<h3 id="command_2">再定一个命令command</h3>
+<ul>
+<li><code>:command Delete5Lines :.,+5delete</code><ul>
+<li>尝试从当前行开始删除5行</li>
+</ul>
+</li>
+<li><code>:Delete5Lines</code><ul>
+<li>可以调用</li>
+<li>但是总共删除6行</li>
+<li>要注意删除从当前行到当前行下方第5行</li>
+<li>总共6行</li>
+<li><kbd>u</kbd> 回来修改</li>
+</ul>
+</li>
+<li><code>:command! Delete5Lines :.,+4delete</code><ul>
+<li>使用!重新定义命令command</li>
+</ul>
+</li>
+<li><code>:Delete5Lines</code><ul>
+<li>执行成功</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">恢复选区命令</h3>
+<ul>
+<li><code>:normal '&lt;v'&gt;</code><ul>
+<li>用 <code>normal</code> 模式执行后续命令</li>
+<li><code>'&lt;</code> 跳到原选区开头</li>
+<li><code>v</code> 进入字符可视化</li>
+<li><code>'&gt;</code> 跳到原选区结尾</li>
+</ul>
+</li>
+<li><code>command RestoreSelection :normal '&lt;v'&gt;&lt;cr&gt;</code><ul>
+<li>command 定义命令</li>
+<li>RestoreSelection 命令名称</li>
+<li>normal '<v'><cr><ul>
+<li>normal 模式下执行命令</li>
+<li><cr> 回车</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尝试恢复选区<ul>
+<li><code>:RestoreSelection</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628335051867.png" /></p>
+<h3 id="_4">最初的函数</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627795332877.png" /></p>
+<ul>
+<li><code>:call Init()</code><ul>
+<li>调用函数  </li>
+<li>注意一定是在java文件中定义这个命令</li>
+<li>因为这个函数放在了java的ftplugin中</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">使用命令调用函数</h3>
+<ul>
+<li>
+<p><code>:command Init :call Init()</code></p>
+<ul>
+<li>命令定义Init</li>
+<li>执行<code>:call Init()</code></li>
+</ul>
+</li>
+<li>
+<p><code>:Init</code></p>
+<ul>
+<li>执行命令</li>
+</ul>
+</li>
+<li><code>:command Init</code><ul>
+<li>观察命令</li>
+<li>这些命令和前面的删除命令很类似</li>
+<li>都没有参数</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627797402691.png" /></p>
+<ul>
+<li>其实应该定义的时候更加明确命令参数</li>
+</ul>
+<h3 id="_6">明确参数</h3>
+<ul>
+<li><code>:h command</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627797731872.png" /></p>
+<ul>
+<li>明确指定0个参数<ul>
+<li><code>:command! -nargs=0 DeleteFirst :1delete</code></li>
+<li><code>:command! -nargs=0 Delete5Lines :.,+4delete</code></li>
+</ul>
+</li>
+<li>那如果有个命令是一个参数的怎么办呢？</li>
+</ul>
+<h3 id="_7">一个参数</h3>
+<ul>
+<li><code>:command -nargs=1 Say :echo "&lt;args&gt;"</code><ul>
+<li>command定义一个命令</li>
+<li>只有一个参数</li>
+<li>作用是把Say后面的参数echo出来</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627798562784.png" /></p>
+<h3 id="_8">命令执行</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627798848239.png" /></p>
+<ul>
+<li><code>:Say oeasy say easy</code><ul>
+<li>后面的三个单词作为一个参数</li>
+</ul>
+</li>
+<li>想在字符串里面使用引号的话<ul>
+<li>需要进行转义</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">多个参数调用函数</h3>
+<ul>
+<li>定义函数</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627803257931.png" /></p>
+<ul>
+<li>实验函数<ul>
+<li><code>:call Oeasy("oeasy","o2z","o3z")</code></li>
+<li>成功，函数没有问题</li>
+</ul>
+</li>
+<li>定义命令<ul>
+<li><code>:command -nargs=* Oeasy :call Oeasy(&lt;args&gt;)</code></li>
+<li>命令Oeasy执行函数Oeasy</li>
+</ul>
+</li>
+<li>执行命令<ul>
+<li><code>:Oeasy "111","222","333"</code></li>
+<li>执行命令成功</li>
+</ul>
+</li>
+<li>但是不能执行<ul>
+<li><code>:Oeasy 111,222,333</code></li>
+</ul>
+</li>
+<li>
+<p>重新定义命令</p>
+<ul>
+<li><code>:command! -nargs=* Oeasy :call Oeasy(&lt;q-args&gt;)</code></li>
+<li>注意这里command!是重新定义命令</li>
+<li>Oeasy aaa bbb ccc</li>
+<li>执行命令成功</li>
+</ul>
+</li>
+<li>
+<p>执行命令</p>
+</li>
+</ul>
+<h3 id="range">命令范围range</h3>
+<ul>
+<li><code>:h command</code></li>
+<li><code>/range</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627799345398.png" /></p>
+<ul>
+<li><code>:command -range SaveIt :&lt;line1&gt;,&lt;line2&gt;write! save_file</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627799505465.png" /></p>
+<ul>
+<li>当然还可以把他变成带参数的</li>
+<li><code>:command -range -nargs=1 SaveIt :&lt;line1&gt;,&lt;line2&gt;write! &lt;args&gt;</code></li>
+</ul>
+<h3 id="_10">注释命令</h3>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="p">!</span> Comment<span class="p">(</span>line1<span class="p">,</span> line2<span class="p">)</span> 
+    <span class="k">execute</span> <span class="k">a</span>:line1.<span class="s1">','</span>.<span class="k">a</span>:line2.<span class="s1">'s/^/#/'</span> 
+<span class="k">endfunction</span> 
+
+command<span class="p">!</span> <span class="p">-</span><span class="k">range</span><span class="p">=</span>% Comment <span class="k">call</span> Comment<span class="p">(&lt;</span>line1<span class="p">&gt;,&lt;</span>line2<span class="p">&gt;)</span> 
+</code></pre></div>
+
+<h3 id="_11">删除和清空命令</h3>
+<ul>
+<li><code>:delcommand SaveIt</code><ul>
+<li>删除命令</li>
+</ul>
+</li>
+<li><code>:comclear</code><ul>
+<li>清空命令</li>
+</ul>
+</li>
+<li>我们最后总结一下吧</li>
+</ul>
+<h2 id="_12">总结</h2>
+<ul>
+<li>我们可以自己定义命令command</li>
+<li>也可以执行自定义的命令</li>
+<li>可以修改删除命令</li>
+<li>命令可以带上<ul>
+<li>参数 </li>
+<li>范围</li>
+</ul>
+</li>
+<li>除了自定义命令之外</li>
+<li>系统也有一些built-in的命令</li>
+<li>系统有什么好玩的命令么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

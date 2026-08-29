@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：批处理操作，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解批处理操作。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 批处理操作">
+    <meta property="og:title" content="oeasy Vim编辑器教程：批处理操作，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解批处理操作。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">批处理操作</h1>
+<h2 id="_2">回忆上次</h2>
+<ul>
+<li>我们上次参数列表 <code>arguments list</code></li>
+<li>所谓参数列表指的是 <code>vim</code> 打开的 <code>参数列表</code></li>
+<li>参数会加载到内存中成为 <code>buffer</code></li>
+<li>参数的控制<ul>
+<li><code>:arga filename</code>添加 <code>参数</code></li>
+<li>此操作支持*可以打开多个文件</li>
+<li><code>:argd filename</code>来删除<code>参数</code></li>
+<li><code>:args</code> 查询参数列表</li>
+</ul>
+</li>
+<li>缓冲的控制<ul>
+<li><code>:bd filename</code>来删除<code>缓存</code></li>
+<li><code>:e filename</code>来打开<code>缓存</code></li>
+<li><code>ls</code>可以列出缓存列表</li>
+</ul>
+</li>
+<li>可以在<code>terminal</code>中配合<code>find</code>来找到文件<ul>
+<li>然后作为参数给<code>vim</code></li>
+<li><code>sudo find / -mindepth 3 -maxdepth 4 -name passwd | xargs vi</code></li>
+</ul>
+</li>
+<li>精准地控制了参数列表或者缓冲列表</li>
+<li>这两个列表可以怎么用呢？🤔</li>
+</ul>
+<h3 id="_3">做实验</h3>
+<ul>
+<li>新建一个文件夹 test</li>
+<li>mkdir test</li>
+<li>进入 test 目录</li>
+<li>cd test</li>
+<li>新建两个文件</li>
+<li>i.py 负责输入 input</li>
+<li>o.py 负责输出 output</li>
+<li><code>vi -o i.py o.py</code></li>
+<li>-o 的意思是同时打开两个窗口</li>
+<li>两个窗口分别打开两个文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220520-1653040848818.png" /></p>
+<h3 id="_4">同时插入</h3>
+<ul>
+<li><code>:windo normal I#!/usr/bin/python3</code></li>
+<li>两个窗口同时插入 <code>#!/usr/bin/python3</code><ul>
+<li><code>:</code> 进入命令行模式</li>
+<li><code>windo</code> 在每个窗口都执行命令</li>
+<li><code>normal I#!/usr/bin/python3</code> 执行的命令是正常模式下 <code>I#!/usr/bin/python3</code><ul>
+<li><code>I</code> 在行头插入文本</li>
+<li><code>#!/usr/bin/python3</code> 插入的具体文本 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220520-1653040988682.png" /></p>
+<ul>
+<li>插入默认打开方式</li>
+<li>然后分别输出i、o</li>
+</ul>
+<h3 id="_5">分别输出</h3>
+<ul>
+<li><code>:windo normal oprint("i")</code><ul>
+<li>两个窗口同时再插入新行 print("i")</li>
+<li><code>:</code> 进入命令行模式</li>
+<li><code>windo</code> 在每个窗口都执行命令</li>
+<li><code>normal oprint("i")</code> 执行的命令执行的命令是正常模式下 <code>oprint("i")</code><ul>
+<li><code>o</code> 换行并插入文本</li>
+<li><code>print("i")</code> 插入的具体文本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220520-1653041067970.png" /></p>
+<h3 id="_6">切换窗口</h3>
+<ul>
+<li><kbd>ctrl</kbd>+<kbd>k</kbd> 切换到上方windows</li>
+<li><kbd>ctrl</kbd>+<kbd>j</kbd> 切换到下方windows<ul>
+<li>把 <code>o.py</code> 中输出的<code>i</code>  修改成 <code>o</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220520-1653041197073.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20220520-1653041309186.png" /></p>
+<ul>
+<li>这两个分别运行是没有问题的</li>
+</ul>
+<h3 id="3">同时打开3个文件</h3>
+<ul>
+<li><code>vi -o o1 o2 o3</code></li>
+<li><code>:windo normal I oeasy</code><ul>
+<li><code>windo</code>所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>I oeasy</code>插入<code>oeasy</code></li>
+</ul>
+</li>
+<li><code>:windo normal oprint("i")</code><ul>
+<li><code>windo</code>所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>o</code> 换行</li>
+<li><code>print("i")</code> 输入 print("i")</li>
+</ul>
+</li>
+<li><code>:windo normal "%p</code><ul>
+<li><code>windo</code>所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>"%p</code> 粘贴各自文件名</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">批量替换</h3>
+<ul>
+<li><code>:windo %s/oeasy/o2z/g</code><ul>
+<li><code>windo</code> 所有窗口都进行</li>
+<li><code>%s/oeasy/o2z/g</code> 把<code>oeasy</code>替换为<code>o2z</code></li>
+<li>然后可以<code>:wall</code> 全部保存</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">批量细节</h3>
+<ul>
+<li>可以设置 <code>range</code><ul>
+<li>这个指的是<code>window</code>编号</li>
+<li><code>:1,3windo normal Ioeasy</code></li>
+</ul>
+</li>
+<li>可以执行批处理序列,用<code>|</code>隔开各个命令<ul>
+<li><code>:windo %s/oeasy/o2z/g｜ %s/o2z/o3z/g</code></li>
+<li>这样就可以执行两条替换命令了</li>
+<li><code>:windo set nolist nofoldcolumn | normal zn</code></li>
+<li><code>: windo set fileencoding=utf-8 | update</code>自动更新</li>
+</ul>
+</li>
+</ul>
+<h3 id="bufdo">bufdo</h3>
+<ul>
+<li>除了<code>windo</code></li>
+<li>我们还可以对每一个<code>buffer</code>执行命令<ul>
+<li><code>:bufdo %s/oeasy/o2z/g</code></li>
+<li>在当前<code>window</code> 遍历每个<code>buffer</code></li>
+<li>可以设置<code>hidden</code>隐藏 修改后的<code>buffer</code></li>
+<li>或 <code>autowrite</code> 自动保存</li>
+</ul>
+</li>
+<li>可<code>:ls</code>、<code>:buffers</code> <ul>
+<li>查看当前的<code>buffers</code>列表</li>
+</ul>
+</li>
+<li>可删除<code>buffers</code>缓冲文件<ul>
+<li><code>:bd1</code></li>
+<li><code>:bd o2z.txt</code> </li>
+</ul>
+</li>
+<li>可打开新的<code>buffer</code>缓冲文件<ul>
+<li><code>e .</code></li>
+</ul>
+</li>
+<li>可以选择缓冲文件<ul>
+<li><code>:b1</code></li>
+</ul>
+</li>
+<li>如果打开文件的时候发现很多是swap文件怎么办？</li>
+</ul>
+<h3 id="swap">解决swap文件问题</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220607-1654579568837.png" /></p>
+<ul>
+<li>ls XXX/.*.java.s??<ul>
+<li>就可以查询XXX下存在的这些swp文件</li>
+<li>这些文件会给XXX.java添加前缀和后缀</li>
+<li>前缀是. 让此文件为隐藏文件</li>
+<li>后缀是.swp等，作为buffer保存的备份存在</li>
+</ul>
+</li>
+<li>rm -f XXX/.*.java.s??<ul>
+<li>可以删除这些swap文件</li>
+<li>然后在进行替换就好了</li>
+</ul>
+</li>
+</ul>
+<h3 id="argdo">argdo</h3>
+<ul>
+<li>我们还有一种批量执行命令的方式<ul>
+<li><code>:argdo %s/oeasy/o2z/g</code></li>
+</ul>
+</li>
+<li>打开.c文件,设置文件格式并更新<ul>
+<li><code>:args *.c</code>                              </li>
+<li><code>:argdo set ff=unix | update</code></li>
+</ul>
+</li>
+<li>打开<code>.c</code>或<code>.h</code>文件，批量替换并更新<ul>
+<li><code>:args *.[ch]</code>                     </li>
+<li><code>:argdo %s/\&lt;my_foo\&gt;/My_Foo/ge | update</code></li>
+</ul>
+</li>
+<li>查看相应的参数文件列表<ul>
+<li>可以用<code>:args</code> </li>
+</ul>
+</li>
+<li>删除参数文件<ul>
+<li>可以用<code>:argd</code> </li>
+</ul>
+</li>
+<li>添加参数文件<ul>
+<li>可以用<code>:arga</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>这次有三种批量替换，分别是<ul>
+<li><code>:windo</code></li>
+<li><code>:bufdo</code></li>
+<li><code>:argdo</code></li>
+</ul>
+</li>
+<li>执行的<code>{cmd}</code>可以用<code>｜</code>按顺序增加<ul>
+<li><code>update</code> 自动更新</li>
+<li><code>:set autowrite</code> 自动写入</li>
+<li><code>:set hidden</code> 可以隐藏未保存 <code>buffer</code></li>
+</ul>
+</li>
+<li>分别对应的<code>window</code>、<code>buffers</code>、<code>arguments</code></li>
+<li>各有各自的列表、切换、删除、增加的方式</li>
+<li>多文件多窗口还有什么可玩的么？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

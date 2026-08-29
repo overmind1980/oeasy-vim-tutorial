@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：替换模式，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解替换模式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 替换模式">
+    <meta property="og:title" content="oeasy Vim编辑器教程：替换模式，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解替换模式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">替换模式</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们学到的最有用的就是<kbd>c</kbd><ul>
+<li>他和<kbd>d</kbd>的区别就是删除之后进入到插入模式</li>
+<li><kbd>c</kbd>可以配合<code>motion</code></li>
+<li>可以用<kbd>c</kbd><kbd>i</kbd><kbd>w</kbd>来快速删除当前光标所在的单词</li>
+</ul>
+</li>
+<li>可<kbd>i</kbd>和<kbd>a</kbd> 配合的文字块<ul>
+<li><code>w</code> word 小词</li>
+<li><code>W</code> Word 大词</li>
+<li><code>s</code> sentence 句子</li>
+<li><code>p</code> paragraph 段落</li>
+<li><code>(</code> 、<code>)</code> 小括号</li>
+<li><code>[</code> 、<code>]</code> 中括号</li>
+<li><code>{</code> 、<code>}</code> 大括号</li>
+<li><code>t</code> tag 标签<ul>
+<li><code>it</code> 标签内部 不包含标签</li>
+<li><code>at</code> 标签外部 包含标签</li>
+</ul>
+</li>
+<li><code>"</code>、<code>'</code> 引号</li>
+</ul>
+</li>
+<li>还有没有更快速的办法进行编辑吗？🤔</li>
+</ul>
+<h3 id="_3">动手练习</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612080964312.png" /></p>
+<ul>
+<li>当前光标在<code>e</code>上面，如上图<ul>
+<li>如果我们<kbd>d</kbd><kbd>f</kbd><kbd>o</kbd>,会如何？<ul>
+<li><kbd>esc</kbd>撤回来</li>
+</ul>
+</li>
+<li>如果我们<kbd>d</kbd><kbd>t</kbd><kbd>o</kbd>,会如何？<ul>
+<li><kbd>esc</kbd>撤回来</li>
+</ul>
+</li>
+<li>如果我们<kbd>d</kbd><kbd>i</kbd><kbd>{</kbd>,会如何？<ul>
+<li><kbd>esc</kbd>撤回来</li>
+</ul>
+</li>
+<li>如果我们<kbd>d</kbd><kbd>F</kbd><kbd>o</kbd>,会如何？<ul>
+<li><kbd>esc</kbd>撤回来</li>
+</ul>
+</li>
+<li>如果我们<kbd>d</kbd><kbd>2</kbd><kbd>f</kbd><kbd>o</kbd>,会如何？<ul>
+<li>这些都可以试一下，玩一下？</li>
+</ul>
+</li>
+<li>还有什么可以很神奇的操作吗？</li>
+<li>各种试试，把结果告诉我！</li>
+</ul>
+</li>
+<li>这次我们要研究更快速的模式，替换模式</li>
+</ul>
+<h3 id="_4">找到手册📕</h3>
+<ul>
+<li>还是在<code>change.txt</code>里面上下翻，找到了<kbd>r</kbd></li>
+<li>可以用<code>:h r</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612095573659.png" /></p>
+<ul>
+<li>看起来是什么不对，就直接放到那个位置</li>
+<li>然后 <kbd>r</kbd> 成想要的 </li>
+</ul>
+<h3 id="_5">来试一下</h3>
+<ul>
+<li>可以用r来进行修改</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625536164760.png" />   </p>
+<h3 id="_6">再试试</h3>
+<ul>
+<li>把光标放在<code>oeasy</code>中的<code>a</code>上，模式处于普通模式</li>
+<li><kbd>r</kbd><kbd>1</kbd></li>
+<li>就会把原来的<code>a</code>替换为<code>1</code></li>
+<li>如果要把<code>1</code>替换为一个回车换行</li>
+<li>就要<kbd>r</kbd><kbd>回车</kbd></li>
+<li>支持<code>[count]</code>，比如<code>4r2</code>,替换4个字符，都变成2</li>
+<li>就像下面这样</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625536175720.png" /></p>
+<h3 id="_7">替换模式</h3>
+<ul>
+<li>这次我们来看看大写<kbd>R</kbd></li>
+<li><code>:h R</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612096055820.png" /></p>
+<ul>
+<li>在正常模式下，用<kbd>R</kbd>进入改写模式</li>
+<li>可以在左下角状态栏观察到</li>
+<li>然后光标在<code>oeasy</code>的<code>a</code>上面</li>
+<li>写入<code>1234</code></li>
+<li>我们看到原来的文字被替换掉了</li>
+</ul>
+<h3 id="_8">大小写的改写</h3>
+<ul>
+<li>我们常用的其实还有个人物</li>
+<li>就是改大小写</li>
+<li>这个是 <code>~</code></li>
+<li>可以 <code>:h ~</code> 查询手册</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612096295044.png" /></p>
+<h3 id="tilde">tilde</h3>
+<ul>
+<li>这个符号叫做~波浪号(tilde)</li>
+<li>把光标放在某个字符上</li>
+<li>摁下<kbd>~</kbd></li>
+<li>大写变小写，小写变大写</li>
+<li>这个<kbd>~</kbd>还支持 <code>[count]</code><ul>
+<li>比如<kbd>2</kbd><kbd>～</kbd></li>
+<li>把两个字符都设置~</li>
+</ul>
+</li>
+<li><kbd>g</kbd> <kbd>~</kbd> 就支持<code>motion</code><ul>
+<li>这个很实用</li>
+</ul>
+</li>
+<li>如果设置<code>:set tildeop</code><ul>
+<li><kbd>～</kbd> 就支持<code>motion</code></li>
+<li>比如<kbd>～</kbd><kbd>e</kbd></li>
+<li>但是单个字母的大小写修改就不管用了</li>
+<li>需要<kbd>～</kbd><kbd>l</kbd></li>
+<li>其实我们平时还是控制字母大写的情况多</li>
+</ul>
+</li>
+<li>所以<code>:se notildeop</code></li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>这次我们学到了各种的替换模式<ul>
+<li><kbd>r</kbd>，替换当前光标的字符</li>
+<li><kbd>R</kbd>，进入替换模式</li>
+<li><kbd>~</kbd>，改变大小写</li>
+</ul>
+</li>
+<li>这个东西很多，我们需要巩固一下</li>
+<li>下次来个综合练习吧！</li>
+<li>啥综合练习？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

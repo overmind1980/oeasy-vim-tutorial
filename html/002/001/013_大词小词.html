@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：大词小词，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解大词小词。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 大词小词">
+    <meta property="og:title" content="oeasy Vim编辑器教程：大词小词，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解大词小词。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">大词小词</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们上次学习了 <kbd>e</kbd></li>
+<li><kbd>e</kbd> 代表 <code>end</code> 词尾</li>
+</ul>
+<p><img alt="e2" src="images/whatisecommand.png" /></p>
+<h3 id="_3">自有跳跃</h3>
+<ul>
+<li>还可以成倍次数的跳跃 🤸</li>
+</ul>
+<p><img alt="count" src="images/countetimes.png" /></p>
+<ul>
+<li>但其实我是想以一个一个属性地跳跃，有没有方法呢？</li>
+</ul>
+<h2 id="_4">查询帮助</h2>
+<ul>
+<li>没思路的话我们还是得继续查询 <code>:h w</code></li>
+<li>除了 <kbd>w</kbd> 之外</li>
+<li>还有一个 <kbd>W</kbd></li>
+<li>小 <code>w</code> 对应 <code>word</code></li>
+<li>大 <code>W</code> 对应 <code>WORD</code></li>
+<li>都是什么意思？</li>
+<li>继续查询呗！！️📕</li>
+<li><code>:h word</code></li>
+<li>关于大小词的介绍还是在 <code>motion</code> 里面</li>
+</ul>
+<p><img alt="count" src="images/bigWord.png" /></p>
+<h3 id="_5">对比分析</h3>
+<p><img alt="count" src="images/wordWord.png" /></p>
+<ul>
+<li>可以看到小 <kbd>w</kbd> 认为 <code>=</code>、<code>"</code> 都是 <code>word</code> 的分割字符</li>
+<li>大 <kbd>W</kbd> 认为 <code>=</code>、<code>"</code> 都不是 <code>WORD</code> 的分割字符</li>
+<li>只有空格、tab、换行是 <code>WORD</code> 的分割字符。</li>
+<li>这个 <kbd>W</kbd> 还是很舒服的，直接就可以跳属性了</li>
+<li>爽🫖</li>
+</ul>
+<h3 id="_6">相关移动命令</h3>
+<p><img alt="WEB" src="images/WEB.png" /></p>
+<ul>
+<li>不光是 <kbd>w</kbd> 有大词小词</li>
+<li><kbd>e</kbd>、<kbd>b</kbd> 也有大词这回事儿<ul>
+<li><kbd>E</kbd> 向前到下一个 <code>大</code> 词尾</li>
+<li><kbd>B</kbd> 向后到上一个 <code>大</code> 词头</li>
+</ul>
+</li>
+<li>大词的分割字符还是空格、tab、换行</li>
+<li>仔细观察上图</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>我们这次了解了 <code>大词</code> 和 <code>小词</code><ul>
+<li><code>小词</code> 就是我们常规意义的词，被 <code>=</code>、<code>"</code> 等标点分开的词</li>
+<li><code>大词</code> 里面包括了 <code>=</code>、<code>"</code> 等标点，只能被空格、tab、换行分割</li>
+</ul>
+</li>
+<li><kbd>W</kbd>、<kbd>E</kbd>、<kbd>B</kbd> 都可以有大词移动</li>
+<li>但如果我想一步就跳到行头或行尾</li>
+<li>这不一步登天么？</li>
+<li>可能么🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

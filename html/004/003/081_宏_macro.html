@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：宏 macro，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解宏 macro。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, macro">
+    <meta property="og:title" content="oeasy Vim编辑器教程：宏 macro，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解宏 macro。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="macro">宏 macro</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>这次我们了解了编码格式<ul>
+<li>屏幕显示的encoding</li>
+<li>文件保存的fileencoding</li>
+</ul>
+</li>
+<li>不能搞乱了</li>
+<li>一般用什么编的就用什么解</li>
+<li>解铃还须系铃人</li>
+<li>打开不正确的话，就要切到正确的上面</li>
+<li>保存成任何自己想要的编码方式</li>
+<li>vim还有什么能帮助我们快速操作的方法么？🤔</li>
+</ul>
+<h3 id="_2">建立环境</h3>
+<ul>
+<li><code>vi oeasy.c</code></li>
+<li>输入以下内容</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627726592458.png" /></p>
+<h3 id="macro_1">录制宏macro</h3>
+<ul>
+<li><code>qa</code><ul>
+<li>录制叫做<code>a</code>的宏</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627726811173.png" /></p>
+<ul>
+<li>这个记录中 @a 就录制进了vim的宏库</li>
+<li>可以随时调用录制完成的宏</li>
+<li>比如</li>
+<li>I#include "<esc><ul>
+<li>在本行前面插入内容</li>
+</ul>
+</li>
+<li>
+<p>q</p>
+<ul>
+<li>结束录制</li>
+</ul>
+</li>
+<li>
+<p>划重点</p>
+<ul>
+<li>qa 开始录制宏</li>
+<li>q 结束录制宏</li>
+</ul>
+</li>
+<li>录制了宏之后怎么应用呢？</li>
+</ul>
+<h3 id="macro_2">应用宏macro @</h3>
+<ul>
+<li>@a <ul>
+<li>在本行应用这个宏</li>
+</ul>
+</li>
+<li>2@a<ul>
+<li>应用这个macro宏a两次</li>
+</ul>
+</li>
+<li>uuuu<ul>
+<li>撤销4次</li>
+</ul>
+</li>
+<li>
+<p>4@a</p>
+<ul>
+<li>应用这个marcro宏a4次</li>
+</ul>
+</li>
+<li>
+<p>划重点</p>
+<ul>
+<li>qa 开始录制宏</li>
+<li>q 结束录制宏</li>
+<li>@a 应用宏</li>
+</ul>
+</li>
+<li>我们做一个复杂点的</li>
+</ul>
+<h3 id="_3">复杂的宏</h3>
+<ul>
+<li>
+<p>I#inclcude "^[A"^[j</p>
+<ul>
+<li>I#include " 在行头插入引用头</li>
+<li><code>^[</code>就是<kbd>esc</kbd> 从插入模式到正常模式</li>
+<li>A" 在结尾处插入引号</li>
+<li><code>^[</code>就是<kbd>esc</kbd> 从插入模式到正常模式</li>
+<li>j跳转到下一行</li>
+</ul>
+</li>
+<li>
+<p>然后来两行.h的库</p>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640176268082.png" /></p>
+<ul>
+<li><code>2@a</code></li>
+<li>执行两次a宏</li>
+<li>执行结果如下</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640176275386.png" /></p>
+<ul>
+<li>我可以看看宏长什么样子么？</li>
+</ul>
+<h3 id="macro_3">查看宏macro</h3>
+<ul>
+<li><code>:reg</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627727214484.png" /></p>
+<ul>
+<li>"a寄存器里面就是macro宏a的内容<ul>
+<li><code>^[</code>就是<kbd>esc</kbd></li>
+</ul>
+</li>
+<li>不过好像这里面可以进行修改</li>
+</ul>
+<h3 id="macro_4">修改宏macro</h3>
+<ul>
+<li>到最底下找一个空地</li>
+<li>"ap把a寄存器里面的东西粘贴出来</li>
+<li>进行修改</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627727611624.png" /></p>
+<ul>
+<li><code>"byy</code><ul>
+<li>再把本行复制到b寄存器</li>
+</ul>
+</li>
+<li>一路u撤销到一个合适的位置</li>
+<li><code>@b</code><ul>
+<li>执行宏b一次</li>
+<li>好像仍然是好使的</li>
+</ul>
+</li>
+<li><code>3@b</code><ul>
+<li>执行b宏3次</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">宏的直接赋值</h3>
+<ul>
+<li><code>:let @z = @a</code> </li>
+<li>这样就可以直接把a寄存器里面的东西直接给z寄存器</li>
+<li>也就相当于宏的赋值</li>
+<li><code>:reg</code>也可以看到宏z赋值之后的状态</li>
+</ul>
+<h3 id="_5">追加寄存器</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640180402031.png" /></p>
+<ul>
+<li>qA<ul>
+<li>追加录制a宏</li>
+</ul>
+</li>
+<li>kA//this is lib.^[jq<ul>
+<li>k 向上一行</li>
+<li>A 在本行尾部追加</li>
+<li>//this is lib 写下注释</li>
+<li>^[ 退出插入模式</li>
+<li>j 向下一行</li>
+<li>q结束录制</li>
+</ul>
+</li>
+<li>追加的内容会追加到a宏里面</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640181112311.png" /></p>
+<h3 id="_6">优化宏</h3>
+<ul>
+<li>这里有个jk先向下再向上</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627732315985.png" /></p>
+<ul>
+<li>可以先粘贴出来然后修改</li>
+<li>最后再复制到a寄存器<ul>
+<li>"ayy</li>
+</ul>
+</li>
+<li>相当于优化了宏</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>关于宏，这次有4个要点<ul>
+<li>qa 开始录制宏</li>
+<li>q 结束录制宏</li>
+<li>@a 应用宏</li>
+<li>qA 追加录制宏</li>
+</ul>
+</li>
+<li>甚至可以编辑宏<ul>
+<li>"ap 把宏作为文本粘贴出来</li>
+<li>编辑之后</li>
+<li>"ayy把新的宏装在进入a寄存器reg</li>
+</ul>
+</li>
+<li>这个宏还可以怎么玩呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

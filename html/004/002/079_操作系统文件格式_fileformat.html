@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：文件系统换行格式 fileformat，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解操作系统文件格式 fileformat。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 操作系统文件格式, fileformat, 文件系统换行格式">
+    <meta property="og:title" content="oeasy Vim编辑器教程：文件系统换行格式 fileformat，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解操作系统文件格式 fileformat。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="fileformat">文件系统换行格式 fileformat</h1>
+<h2 id="_1">回忆保留环境的细节</h2>
+<ul>
+<li>上次我们了解了viminfo</li>
+<li>他能够保存<ul>
+<li>命令行历史</li>
+<li>标记</li>
+<li>寄存器</li>
+</ul>
+</li>
+<li>把他和 <code>:mksession</code> 一起使用就可以完美复原环境了</li>
+<li>还有什么是和环境相关的东西呢？🤔</li>
+</ul>
+<h3 id="_2">文件系统换行格式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627709896045.png" /></p>
+<ul>
+<li>我们可以看到不同的文件系统是有不同的换行符符号的</li>
+<li>主要有三种<ul>
+<li><code>unix</code> - <code>&lt;CarriageReturn&gt;</code> - 对应0x0d</li>
+<li><code>mac</code> - <code>&lt;LineFeed&gt;</code> - 对应0x0a</li>
+<li><code>windows</code> - <code>&lt;LineFeed&gt;</code> - 对应0x0a0d</li>
+</ul>
+</li>
+<li>系统想要解释换行符的时候</li>
+<li>怎么才能知道我用的到底是什么系统呢？</li>
+<li>我们新建并打开一个文档 <code>oeasy.txt</code></li>
+</ul>
+<h3 id="fileformats">文件系统格式列表 <code>fileformats</code></h3>
+<ul>
+<li>可以设定一个 <code>fileformats</code> 文件系统格式选项</li>
+<li>是一个字符串</li>
+<li>vim就以此按照字符串中的系统去分析当前文档</li>
+<li><code>:set fileformats?</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627710011521.png" /></p>
+<h3 id="fileformat_1">文件系统格式fileformat</h3>
+<ul>
+<li>但是最终具体是那种文件系统格式呢？</li>
+<li><code>:set fileformat?</code><ul>
+<li>注意这个没有<code>s</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627710299149.png" /></p>
+<ul>
+<li>文件默认是按照unix的方式保存文件的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627710569426.png" /></p>
+<h3 id="_3">在文件里面写上三行</h3>
+<ul>
+<li>写上三行<ul>
+<li>oeasy</li>
+<li>o2z</li>
+<li>o3z</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627710616433.png" /></p>
+<h3 id="_4">二进制形态观察</h3>
+<ul>
+<li><code>:%!xxd</code><ul>
+<li><code>%</code>所有的行 </li>
+<li>强制转化为二进制形态 </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711008280.png" /></p>
+<p>我们来分析一下</p>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711068599.png" /></p>
+<ul>
+<li><code>%!xxd -r</code>可以变回去</li>
+</ul>
+<h3 id="_5">修改字符</h3>
+<ul>
+<li><code>:%!xxd</code></li>
+<li>找到<code>6f32</code>这个位置<ul>
+<li>对应着<code>o2</code>两个字符</li>
+<li>用<kbd>r</kbd> 9把<code>6f32</code>变成<code>6f39</code></li>
+<li>把 <code>2</code> 变成了 <code>9</code> </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711137801.png" /></p>
+<ul>
+<li>再变回来观察<ul>
+<li><code>:!xxd -r</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711351520.png" /></p>
+<h3 id="_6">修改系统格式</h3>
+<ul>
+<li><code>:set fileformat=dos</code><ul>
+<li>把系统格式设置为<code>dos</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711720279.png" /></p>
+<ul>
+<li><code>:%!xxd</code><ul>
+<li>转化成二进制形态</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711509158.png" /></p>
+<ul>
+<li>我们可以注意到这个时候换行符被解释为<code>0d0a</code><ul>
+<li>我们一般都是本地编辑本地看</li>
+<li>什么时候需要跨系统呢？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">跨系统</h3>
+<ul>
+<li>我们可能从网上下载各种各样的文件</li>
+<li>或者我们在linux上编辑的文件被windows系统打开之后一看<ul>
+<li>全都没有回车</li>
+<li>这就很麻烦</li>
+</ul>
+</li>
+<li>所以我们可以指定当前文件的系统格式</li>
+<li>说起来vi有个快速打开网上文件的方式</li>
+</ul>
+<h3 id="_8">直接打开网络文件</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627711928624.png" /></p>
+<ul>
+<li>把光标放到链接上<ul>
+<li><code>gf</code></li>
+</ul>
+</li>
+<li>就可以gotoFile了</li>
+<li>下面这些协议都支持<ul>
+<li>http</li>
+<li>ftp</li>
+<li>scp</li>
+<li>rcp</li>
+</ul>
+</li>
+<li>回忆一下，跳转到函数定义<code>gd</code></li>
+</ul>
+<h3 id="_9">总结文件格式</h3>
+<ul>
+<li>这次我们了解了文件格式<ul>
+<li>unix</li>
+<li>dos</li>
+<li>mac</li>
+</ul>
+</li>
+<li>不同文件格式对应的换行符不同<ul>
+<li>可以修改当前文件的文件格式</li>
+<li>也可以用二进制来观察</li>
+<li>不同文件格式下</li>
+<li>具体换行符的样子</li>
+</ul>
+</li>
+<li>为什么'6f'就对应字母<code>o</code>?<ul>
+<li>因为这是ascii基本的编码设定</li>
+<li>可中文字符又是如何编码的呢？🤔</li>
+</ul>
+</li>
+<li>下次再说！✋</li>
+</ul>
+    </div>
+</body>
+</html>

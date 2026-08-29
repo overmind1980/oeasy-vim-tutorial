@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：插件管理器coc，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解新插件平台 coc。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 新插件平台, coc, 插件管理器coc">
+    <meta property="og:title" content="oeasy Vim编辑器教程：插件管理器coc，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解新插件平台 coc。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="coc">插件管理器coc</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次了解了nerdtree</li>
+<li>老牌的资源管理器</li>
+<li>但是好像好久不更新了</li>
+<li>有什么替代品么？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661505303443.png" /></p>
+<ul>
+<li>好像是一个叫做coc-explorer的东西</li>
+<li>那是个啥？</li>
+</ul>
+<h3 id="_2">分析</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507382551.png" /></p>
+<ul>
+<li>找到仓库</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507414179.png" /></p>
+<ul>
+<li>这个coc-explore又基于coc</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507423439.png" /></p>
+<h3 id="_3">插件平台</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507485684.png" /></p>
+<ul>
+<li>这样好像是个插件平台</li>
+<li>我们选择编译安装</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507569177.jpg" /></p>
+<h3 id="_4">安装</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507654834.png" /></p>
+<ul>
+<li>先保存并运行 ~/.vimrc</li>
+<li>如果提示报错了的话<ul>
+<li>先新建文件夹</li>
+<li>mkdir -p ~/.vim/plugged</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507706822.jpg" /></p>
+<h3 id="_5">查看状态</h3>
+<ul>
+<li>PlugStatus</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661507774189.png" /></p>
+<ul>
+<li>这样就装上了coc这个插件平台</li>
+<li>首先可以进行一些默认配置</li>
+</ul>
+<h3 id="_6">配置</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661522026737.png" /></p>
+<ul>
+<li>把README中的推荐配置</li>
+<li>粘贴到~/.vimrc结尾</li>
+<li>然后又应该如何安装插件呢？</li>
+</ul>
+<h3 id="_7">运行配置</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661522126810.png" /></p>
+<ul>
+<li>左边会加一个侧边栏</li>
+</ul>
+<h3 id="_8">安装插件</h3>
+<ul>
+<li><code>:q</code> 先退出左边这个浮动窗口</li>
+<li><code>:CocInstall coc-json</code></li>
+<li>安装json插件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661523497443.png" /></p>
+<h3 id="_9">找到插件位置</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661523686863.png" /></p>
+<ul>
+<li>我们写一个json</li>
+</ul>
+<h3 id="_10">报错</h3>
+<ul>
+<li>写一个错误的json</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661524657498.png" /></p>
+<ul>
+<li>他会报错</li>
+<li>报错文本如果看不清楚的话<ul>
+<li>在~/.vimrc中</li>
+<li>:highlight CocErrorFloat ctermfg=White guifg=#ffffff</li>
+</ul>
+</li>
+<li>除了coc-json外</li>
+<li>coc还给各种文件格式提供<ul>
+<li>报错</li>
+<li>补全</li>
+<li>提示</li>
+</ul>
+</li>
+<li>基于vscode的lsp</li>
+<li>效果和vscode一致</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>我们这次研究了新插件平台Coc</li>
+<li>Coc可以用vim-plug安装</li>
+<li>安装之后</li>
+<li>可以在Coc之上再安装各种插件</li>
+<li>比如coc-json</li>
+<li>可以进行<ul>
+<li>报错</li>
+<li>补全</li>
+<li>提示</li>
+<li>各种操作</li>
+</ul>
+</li>
+<li>好像真的不错？还有啥好玩的？🤔</li>
+<li>下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

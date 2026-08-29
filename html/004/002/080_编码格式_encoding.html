@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：文件格式 fileformat，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解编码格式 encoding。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 编码格式, encoding, 文件格式, fileformat">
+    <meta property="og:title" content="oeasy Vim编辑器教程：文件格式 fileformat，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解编码格式 encoding。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="fileformat">文件格式 fileformat</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次我们了解了文件格式<ul>
+<li>unix</li>
+<li>dos</li>
+<li>mac</li>
+</ul>
+</li>
+<li>不同文件格式对应的换行符不同<ul>
+<li>可以修改当前文件的文件格式</li>
+<li>也可以用二进制来观察</li>
+<li>不同文件格式下</li>
+<li>具体换行符的样子</li>
+</ul>
+</li>
+<li>为什么'6f'就对应字母<code>o</code>?<ul>
+<li>因为这是ascii基本的编码设定</li>
+<li>可中文字符又是如何编码的呢？🤔</li>
+</ul>
+</li>
+</ul>
+<h3 id="ascii">插入ascii字符</h3>
+<ul>
+<li>我们新建一个<code>oeasy.txt</code><ul>
+<li><kbd>i</kbd>进入插入模式</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> 65</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> 66</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> 67</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> 68</li>
+<li><kbd>esc</kbd> 退出</li>
+</ul>
+</li>
+<li>屏幕上可以见到插入了 <code>ABCD</code> 四个字符</li>
+<li>这就是使用ascii具体编码来插入字符</li>
+<li>那我能用其他的进制</li>
+<li>比如八进制和十六进制来插入ascii字符么？</li>
+<li><code>:h i_ctrl-v</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627693873823.png" /></p>
+<h3 id="ascii_1">用其他进制插入ascii字符</h3>
+<ul>
+<li>使用八进制<ul>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> o117 </li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> o101</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> o105</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> o123</li>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> o131</li>
+</ul>
+</li>
+<li>使用十六进制<ul>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> x41</li>
+</ul>
+</li>
+<li>能否用这个方式插入中文么？</li>
+<li>先查一下</li>
+</ul>
+<h3 id="unicode">插入unicode字符</h3>
+<ul>
+<li>输入<kbd>ctrl</kbd>+<kbd>v</kbd> u4e00<ul>
+<li>可以看到插入了中文字符</li>
+<li>具体二进制是如何存储的呢？</li>
+</ul>
+</li>
+<li><code>:.!xxd</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627694993749.png" /></p>
+<ul>
+<li>为什么会是这样呢？</li>
+</ul>
+<h3 id="_2">编码模式</h3>
+<ul>
+<li>那这个东西怎么具体存储和操作呢？<ul>
+<li>这个unicode编码是0x4e00</li>
+<li>存储的时候需要避免和ascii中的前127个字符混淆</li>
+<li>需要用utf-8的方式存储</li>
+<li>状态栏上也可以看出此文件的编码格式</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640160285599.png" /></p>
+<ul>
+<li>默认是utf-8</li>
+</ul>
+<h3 id="utf-8">utf-8 编码格式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210228-1614485114416.png" /></p>
+<ul>
+<li>一(4E00) 属于第三行的范围</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210403-1617424477908.png" /></p>
+<ul>
+<li>所以<ul>
+<li><code>e4b880</code>对应着<code>一</code></li>
+<li><code>0a</code> 对应着 <code>&lt;LF&gt;</code><ul>
+<li>也就是linefeed</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627694993749.png" /></p>
+<ul>
+<li>完美对应上了</li>
+<li>除了utf-8之外还有别的编码格式么？</li>
+</ul>
+<h3 id="_3">查看当前语言和编码</h3>
+<ul>
+<li><code>:language</code>可以查看当前编码格式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627695548480.png" /></p>
+<h3 id="_4">修改编码</h3>
+<ul>
+<li><code>:set encoding=unicode</code></li>
+<li>设置之后再观察变化</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640160556231.png" /></p>
+<ul>
+<li>这个ucs-2就是utf-16</li>
+<li>ucs-4就是utf-32</li>
+<li>上面的编码变成了4e00</li>
+<li>还有什么其他编码么？</li>
+</ul>
+<h3 id="_5">其他编码</h3>
+<ul>
+<li><code>:set encoding=latin1</code><ul>
+<li>修改之后，状态栏的中文不认识了</li>
+<li>屏幕的字符也变了模样</li>
+<li>其实他这是用<code>latin1</code>来解释<code>e4b880</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640160708311.png" /></p>
+<ul>
+<li>这个是拉丁字符的编码</li>
+<li>我们再试试支持中文的</li>
+</ul>
+<h3 id="gb2312">gb2312</h3>
+<ul>
+<li><code>:set encoding=gb2312</code><ul>
+<li>换成中文gb2312</li>
+<li>文件存储形式没变</li>
+<li>解释方式变了</li>
+<li>我们也无法理解</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640160802347.png" /></p>
+<ul>
+<li><code>:set encoding=utf-8</code><ul>
+<li>改回来了</li>
+<li>我们又可以看到<code>一</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640160850108.png" /></p>
+<ul>
+<li><code>:set encoding=gb2312</code><ul>
+<li>又来</li>
+<li>硬要说他是<code>gb2312</code>的编码</li>
+</ul>
+</li>
+<li>然后就保存</li>
+<li>以上都发生在内存里面</li>
+<li>保存到硬盘里面</li>
+<li>如何控制他的编码格式呢？</li>
+</ul>
+<h3 id="_6">文件编码格式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627697869181.png" /></p>
+<ul>
+<li><code>fenc</code>其实就是<ul>
+<li><code>fileencoding</code></li>
+<li><code>fileencoding</code> 和 <code>coding</code> 有什么不同呢？</li>
+</ul>
+</li>
+<li><code>encoding</code><ul>
+<li>是在屏幕显示字符时的所用编码格式</li>
+<li>是读取内容并放入内存缓冲buffer中的编码</li>
+</ul>
+</li>
+<li><code>fileencoding</code> 是保存文件时<ul>
+<li>在硬盘上保存二进制文件的编码格式</li>
+<li>是硬盘上的编码</li>
+<li>我们用<code>utf-8</code>写下了<code>一</code></li>
+<li>内存中对应<code>e4b880</code></li>
+</ul>
+</li>
+<li><code>:set encoding=gb2312</code> <ul>
+<li>这是在用gb2312编码格式解码utf-8编码的二进制序列</li>
+<li>把<code>e4b880</code>理解为<code>涓~</code>并显示在屏幕上</li>
+</ul>
+</li>
+<li><code>:set fileencoding=gb2312</code> <ul>
+<li>根据gb2312</li>
+<li>把<code>涓~</code>在硬盘上写成<code>e4b880</code></li>
+</ul>
+</li>
+<li><code>vi oeasy.txt</code><ul>
+<li>根据utf-8  </li>
+<li>把<code>e4b880</code>理解为<code>一</code>并显示在屏幕上</li>
+</ul>
+</li>
+<li>如果我就想写一个gb2312的<code>一</code>到硬盘</li>
+<li>怎么办呢？</li>
+</ul>
+<h3 id="gb2312_1">使用gb2312</h3>
+<ul>
+<li><code>:set encoding=gb2312</code><ul>
+<li>之后在插入模式下输入一</li>
+</ul>
+</li>
+<li><code>:set fileencoding=gb2312</code> <ul>
+<li>注意状态栏的变化</li>
+</ul>
+</li>
+<li>这是要在内存中和硬盘上都使用gb2312编码格式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627698696768.png" /></p>
+<ul>
+<li><code>:%!xxd</code><ul>
+<li>这次内存中的<code>d2bb</code>在<code>gb2312</code>格式下被理解为<code>一</code></li>
+</ul>
+</li>
+<li><code>:%!xxd -r</code><ul>
+<li>恢复回来</li>
+</ul>
+</li>
+<li><code>:w! o2z.txt</code><ul>
+<li>这次把用<code>gb2312</code>编码<code>一</code>，也就是<code>d2bb</code></li>
+<li>写到了硬盘里</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">打开文件</h3>
+<ul>
+<li><code>vi o2z.txt</code></li>
+<li>只能看到一个<code>h</code><ul>
+<li>好多不可见</li>
+<li>这是在用utf-8编码格式解释gb2312编码后的内容</li>
+</ul>
+</li>
+<li>因为是用<code>utf-8</code>解码<code>gb2312</code>编码的文件</li>
+<li><code>:%!xxd</code><ul>
+<li>可以看到从硬盘读到缓存的内容为<code>d2bb</code></li>
+</ul>
+</li>
+<li><code>%!xxd -r</code><ul>
+<li>恢复回来</li>
+</ul>
+</li>
+<li><code>:set encoding=gb2312</code><ul>
+<li>这次可以看到用<code>gb2312</code>解码<code>d2bb</code>为<code>一</code> </li>
+</ul>
+</li>
+<li>那如果我们都用utf-8来编码呢？</li>
+</ul>
+<h3 id="utf-8_1">utf-8编码</h3>
+<ul>
+<li><code>:set encoding=utf-8</code></li>
+<li><code>:set fileencoding=utf-8</code></li>
+<li>这样都是utf-8编码的内容</li>
+<li>其实还可以设置在内存中<code>unicode</code></li>
+<li>这样更省内存空间</li>
+<li>但如果我我想要把文件编码设置为ascii</li>
+<li>并保存会如何呢？</li>
+</ul>
+<h3 id="e513">E513</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640161644144.png" /></p>
+<ul>
+<li>出现了错误E513</li>
+<li>因为ascii每个字节首位必须是0</li>
+<li>所以这个汉字<code>一</code>无法保存</li>
+<li>所以这个时候如果把filecoding置成空会如何呢？</li>
+</ul>
+<h3 id="_8">修改</h3>
+<ul>
+<li><code>:set fileencoding=</code></li>
+<li><code>:set fileencoding?</code></li>
+<li><code>:set encoding?</code></li>
+<li>这个时候<code>encoding</code>是<code>ucs-2</code></li>
+<li>这是什么意思？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640162295146.png" /></p>
+<h3 id="_9">编码含义</h3>
+<ul>
+<li><code>help encoding-name</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211222-1640162325897.png" /></p>
+<ul>
+<li>看起来就是unicode编码</li>
+<li>那其实我可以把当前文档保存为<ul>
+<li>utf-8 <code>:set fileencoding=utf-8</code></li>
+<li>gb2312 <code>:set fileencoding=gb2312</code></li>
+</ul>
+</li>
+<li>当然反过来</li>
+<li>我如果打开一个文件</li>
+<li>可以通过<ul>
+<li><code>:set encoding=utf-8</code>或者</li>
+<li><code>:set encoding=gb2312</code></li>
+<li>来设置编码确保文件正常观看</li>
+</ul>
+</li>
+</ul>
+<h2 id="_10">总结</h2>
+<ul>
+<li>这次我们了解了编码格式<ul>
+<li>屏幕显示的encoding</li>
+<li>文件保存的fileencoding</li>
+</ul>
+</li>
+<li>不能搞乱了</li>
+<li>一般用什么编的就用什么解</li>
+<li>解铃还须系铃人</li>
+<li>打开不正确的话，就要切到正确的上面</li>
+<li>保存成任何自己想要的编码方式</li>
+<li>vim还有什么能帮助我们快速操作的方法么？🤔</li>
+<li>下次再说！✋</li>
+</ul>
+    </div>
+</body>
+</html>

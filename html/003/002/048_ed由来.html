@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：范围控制，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解ed由来。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖（George Coulouris）等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, ed由来, 范围控制">
+    <meta property="og:title" content="oeasy Vim编辑器教程：范围控制，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解ed由来。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖（George Coulouris）等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">范围控制</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们这次研究了<code>mark</code>的定义和使用<ul>
+<li><code>mb</code>定义</li>
+<li><code>'b</code>跳转</li>
+<li>可以对<code>marks</code>,查询删除</li>
+</ul>
+</li>
+<li>三种<code>marks</code><ul>
+<li>小写 本文件内</li>
+<li>大写 跨文件</li>
+<li>数字 配置文件中</li>
+</ul>
+</li>
+<li>甚至可以在行编辑中，使用标记<ul>
+<li><code>'a,'by</code>从标记a的行复制到标记b的行</li>
+<li><code>'a,'bt.</code>把从a到b的行复制到当前位置</li>
+<li><code>'a,'bm$</code>把从a到b的行移动到文档最后</li>
+</ul>
+</li>
+<li>行编辑模式可真是太方便了！</li>
+<li>可是，你知道吗？</li>
+<li>行编辑模式来自于ed</li>
+<li>是当时的无奈之举？</li>
+<li>怎么回事？🤔</li>
+</ul>
+<h3 id="_3">原始状态</h3>
+<ul>
+<li>我们从时间线捋回去，会发现vi进化过程沿着</li>
+<li>ed-&gt;ex-&gt;vi-&gt;vim</li>
+<li>最早来自于贝尔实验室的<code>Ken Tompson</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612231228805.jpg" /></p>
+<h3 id="qed">QED</h3>
+<ul>
+<li>1966 年，贝尔实验室聘用了 <code>Ken Thompson</code> </li>
+<li><code>Thompson</code>刚刚在加州大学伯克利分校完成了电气工程和计算机科学的硕士学位在伯克利他使用一个名为 <code>QED</code> 的文本编辑器</li>
+<li>该编辑器在 1965 到 1966 年间被开发用于伯克利分时系统</li>
+<li><code>Thompson</code> 到达贝尔实验室后做的第一件事就是为麻省理工学院兼容分时系统重写 <code>QED</code></li>
+<li>他后来又为 <code>Multics</code> 项目写了另一个版本的 <code>QED</code></li>
+<li>在重写过程中，他对程序进行了扩展</li>
+<li>以便用户可以在文件中搜索某一行，并使用正则表达式进行替换。</li>
+</ul>
+<h3 id="_4">开始</h3>
+<ul>
+<li>与伯克利的分时系统一样<ul>
+<li>由麻省理工学院、通用电气和贝尔实验室合作的 <code>Multics</code> 项目试图创建一个可行的商业分时操作系统</li>
+<li>最终，<code>AT&amp;T</code> 认为这个项目毫无进展并退出</li>
+</ul>
+</li>
+<li>在没有分时系统的情况下<ul>
+<li><code>Thompson</code> 和贝尔实验室资深研究员 <code>Dennis Ritchie</code></li>
+<li>开始怀念分时系统所提供的“交互式计算的感觉”</li>
+<li>并着手创建他们自己的版本</li>
+<li>该版本最终发展成为 <code>Unix</code>。1969 年 8 月</li>
+</ul>
+</li>
+<li>在妻子和幼子外出去加州度假时<ul>
+<li><code>Thompson</code> “给操作系统、shell、编辑器和汇编程序分别分配了一个星期”</li>
+<li>将新系统的基本组件组合在一起</li>
+</ul>
+</li>
+</ul>
+<h3 id="ed">ed</h3>
+<ul>
+<li>这个编辑器被称为 <code>ed</code> <ul>
+<li>它是基于 <code>QED</code> 的，但并不完全是 <code>QED</code> 的复现</li>
+<li><code>Thompson</code> 决定放弃某些 <code>QED</code> 的功能</li>
+<li>弱化了对常规的表达式的支持</li>
+<li>因此 ed 只能理解相对简单的正则表达式</li>
+</ul>
+</li>
+<li><code>QED</code> 允许用户打开多个缓冲区同时编辑多个文件<ul>
+<li>但是 <code>ed</code> 一次只使用一个缓冲区</li>
+<li><code>QED</code> 可以执行包含命令的缓冲区</li>
+<li>而 <code>ed</code> 则不能。这些简化可能是必要的</li>
+<li><code>Dennis Ritchie</code> 曾说过</li>
+<li>去掉 <code>QED</code> 的高级正则表达式是“并不大的损失”</li>
+</ul>
+</li>
+</ul>
+<h3 id="ed_1">ed</h3>
+<ul>
+<li><code>ed</code> 现在是 <code>POSIX</code> 规范的一部分</li>
+<li>所以如果你有一个符合 <code>POSIX</code> 的系统</li>
+<li>你的电脑上就安装了 <code>ed</code> </li>
+<li>现在，许多 <code>ed</code> 命令都是 <code>Vim</code> 的一部分</li>
+<li>因此，这就值得摆弄一番了</li>
+<li>你必须使用 <code>w</code> 命令来写入磁盘缓冲区</li>
+<li>必须使用 <code>q</code> 命令来退出编辑器</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628298669904.png" /></p>
+<ul>
+<li>这两个命令可以写在同一行命令中，也就是 <code>wq</code></li>
+<li><code>ed</code> 与 <code>Vim</code> 一样</li>
+<li>是一个模态编辑器</li>
+<li>若要从命令模式进入输入模式</li>
+<li>取决于你试图如何转换文本</li>
+<li>需使用<code>insert 命令（i）、append 命令（a）或 change 命令（c）</code></li>
+<li><code>ed</code> 还引入了 <code>s/foo/bar/g</code> 语法来查找和替换文本</li>
+</ul>
+<h3 id="_5">名字由来</h3>
+<ul>
+<li><code>ed</code> 名字来自于 <code>editor</code> 编辑器<ul>
+<li><code>ed</code> 不允许你编辑开放缓冲区中那些被其他行围绕的行</li>
+<li>也不允许移动光标</li>
+<li>因为 <code>ed</code> 在每次修改的时候都必须重新打印整个文件</li>
+</ul>
+</li>
+<li>在 1969 年<ul>
+<li><code>ed</code> 没有任何机制来“清除”屏幕上的内容</li>
+<li>因为”屏幕“就是一张纸</li>
+<li>所有已经输出的东西都像是已经用墨水打印出来了</li>
+<li>可以使用列表命令（l）要求 <code>ed</code></li>
+<li>打印出一系列的行，但是大多数时候，你都是在你看不到的文本上操作</li>
+<li>因此，使用 <code>ed</code> 就像是尝试用一个低电量的手电筒在黑暗房间中摸索</li>
+<li>每次你只能看到那么一点儿<ul>
+<li>所以必须尽最大努力去记住每件东西的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220429-1651232926948.png" /></p>
+<h3 id="ed_2">来试试 <code>ed</code></h3>
+<ul>
+<li>可以<code>sudo apt install ed</code></li>
+<li>来装一下 <code>vi</code> 的老祖宗<ul>
+<li><code>ls -lah &gt; oeasy.txt</code></li>
+<li><code>ed oeasy.txt</code></li>
+<li><code>1</code>显示第<code>1</code>行</li>
+<li><code>2,5p</code>,显示<code>2</code>到<code>5</code>行</li>
+<li>我们能感觉到显示器其实是一张纸</li>
+<li>这个<code>4,6p</code>命令在<code>vi</code>也能用，含义是<code>print</code></li>
+<li>8s/oeasy/o2z/</li>
+<li>w保存</li>
+<li>q退出</li>
+</ul>
+</li>
+</ul>
+<h3 id="em">文本编辑器 em</h3>
+<ul>
+<li>对 <code>Thompson</code> 和 <code>Ritchie</code> 来说， <code>ed</code> 已经足够好了</li>
+<li>但是其他人则认为它很难用</li>
+<li>而且它作为一个淋漓尽致地表现 <code>Unix</code> 对新手敌意的例子而臭名昭著</li>
+<li>在 1975 年<ul>
+<li>一个名叫<code>George Coulouris</code> 的人`</li>
+<li>这位前辈很神奇,他的爸爸是英国演员，出演过公民凯恩</li>
+<li>在伦敦玛丽皇后学院的 <code>Unix</code> 系统上开发了一个改进版 <code>ed</code></li>
+<li><code>Coulouris</code> 利用他在玛丽女王学院的视频显示器开发他的编辑器</li>
+</ul>
+</li>
+<li>与 <code>ed</code> 不同的是<ul>
+<li><code>Coulouris</code> 的程序允许用户编辑在屏幕中的一行代码</li>
+<li>通过一次次击键的方式来操作行（想象一下在 <code>Vim</code> 中每次编辑一行）</li>
+<li><code>Thompson</code> 拜访玛丽女王学院时</li>
+<li>看到 <code>Coulouris</code> 已经写好的程序</li>
+<li>驳斥道他不需要在编辑文件的时候看到它的状态</li>
+<li>受此启发，<code>Coulouris</code> 将他的程序命名为 <code>em</code></li>
+<li>或者“为凡人而生的编辑器”</li>
+<li><code>the editor for mortals</code>,这也是 <code>em</code> 名字来源。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612231618013.jpg" /></p>
+<p>（George Coulouris）</p>
+<h3 id="_6">荣归故里</h3>
+<ul>
+<li>1975的秋天<ul>
+<li>Ken Thompson休了一个长假<ul>
+<li>回到阔别近十年的母校</li>
+<li>加州大学-伯克利分校</li>
+<li>以访问学者 待一年</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230115-1673791950943.png" /></p>
+<ul>
+<li>开讲unix<ul>
+<li>引发了 <code>BSD Unix</code></li>
+<li>随手做了一个pascal 编译器</li>
+</ul>
+</li>
+<li>并且遇到了一名研究生 <ul>
+<li><code>Bill Joy</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="bill-joy">bill joy</h3>
+<ul>
+<li><code>Bill Joy</code> 大开眼界</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230115-1673792151888.jpg" /></p>
+<ul>
+<li>1976年，一年后<ul>
+<li><code>Coulouris</code> 把 <code>em</code> 引入了加州大学伯克利分校</li>
+<li>在那里他用了一个夏天的时间在 <code>CS</code> 系访学</li>
+</ul>
+</li>
+<li>在伯克利，<code>Coulouris</code> 遇到了<code>Bill Joy</code><ul>
+<li><code>Coulouris</code> 斯向 <code>Joy</code> 展示了 <code>em</code></li>
+</ul>
+</li>
+<li><code>Joy</code> 以 <code>Coulouris</code> 的源代码为基础<ul>
+<li>为扩展 <code>ed</code> 建立了一个名为 <code>ex</code> 的改进版 <code>ed</code></li>
+<li>1978年，1.1 版本的 <code>ex</code> 与第 1 个版本的 <code>BSD Unix</code> 捆绑在一起</li>
+<li><code>ex</code> 在很大程度上与 ed兼容</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20221122-1669078003113.png" /></p>
+<ul>
+<li>我们今天也管底行命令模式叫做<ul>
+<li>ex command-line Mode</li>
+</ul>
+</li>
+</ul>
+<h3 id="ex">ex的新模式</h3>
+<ul>
+<li>但它增加了两种模式<ul>
+<li>“开放”模式<ul>
+<li>这种模式可以使 em 单行编辑成为可能</li>
+</ul>
+</li>
+<li>“可见”模式<ul>
+<li>这种模式会占据整个屏幕</li>
+<li>并且可以像我们今天所习惯的那样</li>
+<li>对整个文件进行实时编辑</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612231640848.jpg" /></p>
+<p>（Bill Joy）</p>
+<h3 id="_7">继承</h3>
+<ul>
+<li>ex遗留到vim的中特性包括<ul>
+<li>当然hjkl是最基本的 </li>
+<li>.exrc进行runcommand配置</li>
+<li>undo撤销虽然只有一层</li>
+<li>可以使用swap备份文件</li>
+<li>可以执行寄存器中的命令</li>
+<li>可以递归的映射</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220429-1651236539039.png" /></p>
+<ul>
+<li>甚至那个时候可以用vim玩迷宫</li>
+<li>用映射去进行移动</li>
+</ul>
+<h3 id="vi">vi</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220429-1651235017062.png" /></p>
+<ul>
+<li>1979 年<ul>
+<li>第 2 版 BSD 引入了一个名为 <code>vi</code> 的可执行文件</li>
+<li>它只在可视模式下打开 <code>ex</code> </li>
+<li><code>vi</code> 名字来自于 <code>visual</code> 可视模式</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">进化</h3>
+<ul>
+<li><code>ex/vi</code> （后来称为 <code>vi</code>）建立了我们现在使用的 <code>Vim</code> 中大多数的约定</li>
+<li>但这些约定当时并不是 <code>ed</code> 的一部分</li>
+<li>Bill Joy 使用的视频终端是 <code>Lear Siegler ADM-3A</code><ul>
+<li>它的键盘没有光标键。而是，<code>h、j、k 和 l</code> 键上绘制光标键</li>
+<li>所以 Bill Joy 在vi 中就使用这些键来进行光标移动</li>
+<li><code>ADM-3A</code>键盘上 <code>escape</code> 键位置是今天我们所使用的键盘上的 <code>tab</code> 键</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612231930343.jpg" /></p>
+<ul>
+<li>这也就解释了<code>esc</code> 虽然很远</li>
+<li>但是会被用来实现像退出当前模式这样高频的操作</li>
+<li>前缀命令的 :字符同样也来自 vi<ul>
+<li>它在常规模式下（即运行 ex 进入的模式）使用 : 作为提示</li>
+<li>这解决了一个 <code>ed</code> 中被长期诟病的问题</li>
+<li>也就是一旦启动之后</li>
+<li>没有任何反馈信息向用户致以问候</li>
+</ul>
+</li>
+<li>在正常模式下<ul>
+<li>保存和退出需要使用现在仍在使用的经典 <code>wq</code></li>
+</ul>
+</li>
+<li>原始 <code>vi</code> 部分还包括<ul>
+<li><code>yanking和putting</code></li>
+<li><code>标记marker</code></li>
+<li>以及用于设置选项的 <code>set</code> 命令</li>
+</ul>
+</li>
+<li>今天在 <code>Vim</code> 中使用的的基本文本编辑过程<ul>
+<li>都是 <code>vi</code> 中使用的特性</li>
+</ul>
+</li>
+</ul>
+<h3 id="vi_1">vi</h3>
+<ul>
+<li><code>vi</code> 是除 <code>ed</code> 之外唯一与 <code>BSD Unix</code> 捆绑的文本编辑器<ul>
+<li><code>Emacs</code> 可能会花费数百美元</li>
+<li>这是在 <code>GNU Emacs</code> 之前</li>
+<li>所以 <code>vi</code> 变得非常流行</li>
+</ul>
+</li>
+<li>但 <code>vi</code> 是 <code>ed</code> 的直接衍生版本<ul>
+<li>这意味着如果没有<code>AT&amp;T</code> 的源代码</li>
+<li>源代码就不能被修改</li>
+</ul>
+</li>
+<li>这促使一些人创建了 <code>vi</code> 的开源版本<ul>
+<li><code>STEVIE</code> （专门为 <code>VI</code> 爱好者的 <code>ST</code> 编辑器）出现于1987年</li>
+<li><code>Elvis</code> 出现于 1990 年</li>
+<li><code>nvi</code> 出现于 1994 年</li>
+<li>微软dos上也有了类似的东西<ul>
+<li>行编辑器edlin</li>
+<li>全屏编辑器edit</li>
+</ul>
+</li>
+<li>其中一些克隆版本添加了额外的功能</li>
+<li>如语法高亮和窗口分离</li>
+</ul>
+</li>
+<li>众多克隆中比较出色的是<code>Elvis</code><ul>
+<li>它的许多功能被整合到 <code>Vim</code> 中</li>
+<li>因为许多 <code>Elvis</code> 用户推动了这些功能的加入</li>
+<li>minix之父Andrew Tanenbaum 甚至把Evlis列为minix默认编辑器</li>
+</ul>
+</li>
+<li>GUI变得开始流行<ul>
+<li>但是也有人给 <code>Elvis</code> 加了一个图形用户界面</li>
+<li>然后就当商业软件来卖</li>
+<li>这些人没有写<code>Elvis</code>却挣了很多钱</li>
+<li>而<code>Elvis</code>无法得到相应的资源和回馈</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651322507803.png" /></p>
+<h2 id="_9">总结</h2>
+<ul>
+<li>我们这次研究 <code>ed</code> 的历史</li>
+<li>为什么会有行编辑器这种东西<ul>
+<li>竟然是当年</li>
+<li>没有显示器只有纸的时代的无奈之举</li>
+<li><code>vim</code> 进化到今天</li>
+<li>依然好用</li>
+<li>而且 <code>ssh</code> 的时候直接 <code>vim</code> 就很方便</li>
+</ul>
+</li>
+<li>命令行还有什么好玩的么？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

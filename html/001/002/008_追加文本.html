@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：追加文本，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解追加文本。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖我们向上翻可以找到 a 命令。等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 追加文本">
+    <meta property="og:title" content="oeasy Vim编辑器教程：追加文本，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解追加文本。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖我们向上翻可以找到 a 命令。等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">追加文本</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们这次深入了 <kbd>i</kbd> 命令<ul>
+<li><kbd>i</kbd> 在当前的光标之前插入</li>
+<li><kbd>I</kbd> 在本行文本的最前面插入</li>
+</ul>
+</li>
+<li>还有一些常用的编辑命令<ul>
+<li><kbd>.</kbd> 重做</li>
+<li><kbd>u</kbd> 撤销</li>
+<li><kbd>ctrl</kbd>+<kbd>r</kbd> 还原</li>
+</ul>
+</li>
+<li>关于插入，还有什么讲究吗？🤔</li>
+</ul>
+<p><img alt="force quit" src="images/vim_mode_change.png" /></p>
+<h3 id="_3">类似的命令</h3>
+<ul>
+<li>还有没有和插入相关的的命令呢？？🤔</li>
+<li>相类似的命令一定在手册的同一个地方！🤨</li>
+<li>我们得还在插入命令的附近找找</li>
+</ul>
+<h2 id="_4">插入命令</h2>
+<ul>
+<li>首先我们找到插入命令的帮助📕</li>
+<li><code>:help insert</code></li>
+<li>简写为 <code>:h i</code></li>
+</ul>
+<p><img alt="force quit" src="images/insert_before.png" /></p>
+<p><strong>我们向上翻可以找到 <code>a</code> 命令。</strong></p>
+<h2 id="_5">追加文本</h2>
+<p><img alt="force quit" src="images/insert_mode_command.png" /></p>
+<ul>
+<li><code>i</code> 和 <code>a</code> 都是 <code>Insert mode commands</code></li>
+<li>插入位置</li>
+<li><code>i</code> 是 <code>before cursor</code> 在光标前插</li>
+<li><code>a</code> 是 <code>after cursor</code> 在光标后插</li>
+<li>对应命令</li>
+<li><code>i</code> 意思是 <code>insert</code></li>
+<li><code>a</code> 意思是 <code>append</code> </li>
+</ul>
+<h3 id="_6">切换模式</h3>
+<ul>
+<li>我们可以 <kbd>a</kbd> 进入插入模式</li>
+<li><kbd>esc</kbd> 回到正常模式</li>
+<li>然后反复切换 <kbd>a</kbd>、<kbd>esc</kbd></li>
+<li>观察左下角提示 </li>
+<li>左下角有<code>--插入--</code> 就是插入模式</li>
+<li>左下角啥都没有就是正常模式</li>
+<li>这就和 <kbd>i</kbd>、<kbd>I</kbd> 很像</li>
+</ul>
+<h3 id="_7">重复、撤销、重做</h3>
+<ul>
+<li>我们可以 <kbd>i</kbd> 进入插入模式</li>
+<li>输入 <code>oeasy 空格</code></li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd> 回到正常模式</li>
+<li>按几次 <kbd>.</kbd> 重复一下插入操作</li>
+<li><kbd>u</kbd> 可以撤销</li>
+<li><kbd>ctrl</kbd>+<kbd>r</kbd> 可以重做</li>
+</ul>
+<h3 id="_8">练习</h3>
+<ul>
+<li>如果我有个网页源文件如下图</li>
+<li>光标在当前绿色的位置</li>
+<li>如果我想在上个感叹句之后插文字，应该用什么命令呢？</li>
+</ul>
+<p><img alt="force quit" src="images/insert_web.png" /></p>
+<ul>
+<li>应该用 <code>i</code> </li>
+<li>在当前的光标之前插入</li>
+<li>如果我想在整行文本之前插入呢？应该用什么？</li>
+<li>用 <code>I</code> </li>
+<li>在光标所在行文本的最前面插入</li>
+<li><code>:h I</code></li>
+</ul>
+<h3 id="_9">继续练习</h3>
+<ul>
+<li>但如果我的光标在下图的位置呢？</li>
+<li>我想在叹号后面插入内容</li>
+</ul>
+<p><img alt="force quit" src="images/insert_web2.png" /></p>
+<ul>
+<li>这个时候应该用 <code>a</code></li>
+<li><code>after cursor</code> 在光标之后所在的叹号之后插入文字</li>
+<li>如果我想在本行最后插入呢？</li>
+<li>用 <code>A</code> 在本行 <strong>最后</strong> 插入</li>
+<li><code>:h A</code></li>
+<li>就像用 <code>I</code> 在本行最前面插入一样</li>
+</ul>
+<h3 id="_10">追加写入</h3>
+<ul>
+<li>如果我们保存了当前文件 <code>oeasy.log</code></li>
+<li>然后退出了 vi</li>
+<li>然后重新进入 vi</li>
+<li>在一个未命名文件中写一些东西，比如</li>
+<li><code>oeasyo2zo3z</code></li>
+<li><code>:w &gt;&gt; oeasy.log</code></li>
+<li>这就是用追加的方式去写这个log文件</li>
+<li>log中的东西还都有</li>
+<li>最新的追加在最后</li>
+<li>与 <code>:w oeasy.log</code> 对比</li>
+<li><code>:w oeasy</code> 是覆盖写入</li>
+<li><code>&gt;&gt;</code> 意味着追加写入</li>
+<li>试试追加<ul>
+<li>我们可以新建一个</li>
+<li>然后追加一些东西写入<code>oeasy.txt</code></li>
+<li>然后我们看看这个<code>oeasy.txt</code></li>
+<li>是不是写进去了 </li>
+</ul>
+</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>除了 <code>i</code>、<code>I</code> 在前面插入文本之外</li>
+<li>我们了解到 <code>a</code>、<code>A</code> 可以在行末插入文本</li>
+<li><code>a</code> 也可以从正常模式切换到插入模式</li>
+</ul>
+<p><img alt="force quit" src="images/insert_ia.png" /></p>
+<ul>
+<li><code>a</code> 插在光标之后</li>
+<li><code>A</code> 插在本行最后</li>
+<li>关于插入，还玩点儿什么吗？🤔</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

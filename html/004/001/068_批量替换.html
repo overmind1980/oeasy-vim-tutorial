@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：批量替换，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解批量替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 批量替换">
+    <meta property="og:title" content="oeasy Vim编辑器教程：批量替换，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解批量替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">批量替换</h1>
+<h2 id="_2">回忆上次</h2>
+<ul>
+<li>我们可以用vimdiff快速的比较文件</li>
+<li>这很实用！！！</li>
+<li>实用的一些跳转方式</li>
+<li>遍历所有的修改change<ul>
+<li><code>]c</code> 下一条修改</li>
+<li><code>[c</code> 上一条修改</li>
+</ul>
+</li>
+<li>遍历所有的函数method<ul>
+<li><code>]m</code> 下一条修改</li>
+<li><code>[m</code> 上一条修改</li>
+</ul>
+</li>
+<li>面对不同点<ul>
+<li>把当前的改成对比的 - do - diff obtain</li>
+<li>把对比的改成当前的 - dp - diff put</li>
+</ul>
+</li>
+<li>关于多窗口</li>
+<li>还有什么好玩的吗？🤔</li>
+</ul>
+<h3 id="2windo">回忆同时打开2个文件执行windo</h3>
+<ul>
+<li><code>vi -o o1 o2</code></li>
+<li><code>:windo normal Ioeasy</code><ul>
+<li><code>windo</code> 所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>Ioeasy</code> 插入<code>oeasy</code></li>
+</ul>
+</li>
+<li><code>:windo normal o</code><ul>
+<li><code>windo</code> 所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>o</code> 换行</li>
+</ul>
+</li>
+<li><code>:windo normal "%p</code><ul>
+<li><code>windo</code> 所有窗口都执行</li>
+<li><code>normal</code> 进入普通模式</li>
+<li><code>"%p</code> 粘贴各自文件名</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">批量替换</h3>
+<ul>
+<li><code>:windo %s/oeasy/o2z/g</code><ul>
+<li><code>windo</code> 所有<code>window</code>窗口都进行</li>
+<li><code>%s/oeasy/o2z/g</code> 把 <code>oeasy</code> 替换为 <code>o2z</code></li>
+<li>然后可以<code>:wqall</code> 全部保存</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">批量细节</h3>
+<ul>
+<li>可以设置<code>range</code>，这个指的是<code>window</code>编号<ul>
+<li><code>:1,3windo normal Ioeasy</code></li>
+</ul>
+</li>
+<li>可以执行批处理序列,用<code>|</code>隔开各个命令<ul>
+<li><code>:windo %s/oeasy/o2z/g｜ %s/o2z/o3z/g</code></li>
+<li>这样就可以执行两条替换命令了</li>
+<li><code>:windo set nolist nofoldcolumn | colorscheme blue</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="bufdo">bufdo</h3>
+<ul>
+<li>除了<code>windo</code></li>
+<li>我们还可以对每一个<code>buffer</code>执行命令<ul>
+<li><code>:bufdo %s/oeasy/o2z/g｜ %s/o2z/o3z/g</code></li>
+<li>可以设置 autowrite 自动保存</li>
+<li>也可以设置 hidden 支持未修改buffer隐藏</li>
+<li>还可以 <code>:bufdo %s/oeasy/o2z/g｜ %s/o2z/o3z/g|update</code> 自动更新</li>
+</ul>
+</li>
+<li>可<code>:ls</code>、<code>:buffers</code> 查看当前的<code>buffers</code>列表</li>
+<li><code>:bd1</code>、<code>:bd o2z.txt</code> 可删除<code>buffers</code></li>
+<li><code>e .</code>可打开新的<code>buffer</code>缓冲</li>
+<li>可以用<code>:b1</code>选择缓存</li>
+</ul>
+<h3 id="argdo">argdo</h3>
+<ul>
+<li>我们还有一种批量执行命令的方式</li>
+<li><code>:argdo %s/oeasy/o2z/g｜ %s/o2z/o3z/g</code></li>
+<li>打开.c文件,设置文件格式并更新<ul>
+<li><code>:args *.c</code>                              </li>
+<li><code>:argdo set ff=unix | update</code></li>
+</ul>
+</li>
+<li>打开<code>.c</code>或<code>.h</code>文件，批量替换并更新<ul>
+<li><code>:args *.[ch]</code>                     </li>
+<li><code>:argdo %s/\&lt;my_foo\&gt;/My_Foo/ge | update</code></li>
+</ul>
+</li>
+<li>可以用<code>:args</code>查看相应的参数列表</li>
+<li>可以用<code>:argd</code>删除参数</li>
+<li>可以用<code>:arga</code>添加参数</li>
+</ul>
+<h3 id="md">把网页文件批量替换md文件</h3>
+<ul>
+<li><code>vi **/*.html</code><ul>
+<li>把2级目录下所有html用vim打开</li>
+</ul>
+</li>
+<li><code>:args</code><ul>
+<li>观察所有参数</li>
+</ul>
+</li>
+<li><code>:argdo %s/&lt;img src=\"\(.\{-}\)\" title=\"\(.\{-}\)\" \/&gt;/[!\2]\1 | update</code><ul>
+<li>替换img标签</li>
+</ul>
+</li>
+<li><code>:argdo %s/&lt;a href=\"\(.\{-\})\"&gt;\(.\{-\}\)&lt;\/a&gt;/[\2]\1/g | update</code><ul>
+<li>替换a标签</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h1&gt;\(.*\)&lt;/h1&gt;/- \1/gc</code><ul>
+<li>替换h1标签</li>
+</ul>
+</li>
+<li><code>:%s/&lt;h2&gt;\(.*\)&lt;/h2&gt;/     - \1/g</code><ul>
+<li>替换h2标签</li>
+</ul>
+</li>
+</ul>
+<h3 id="-zs">之前 - zs</h3>
+<ul>
+<li>要求<ul>
+<li>把 <code>oeasy.org</code> 替换为 <code>oeasy.io</code></li>
+<li>但是 <code>vim.org</code> 不替换</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628414344861.png" /></p>
+<ul>
+<li><code>/oeasy\zs.org</code><ul>
+<li>查找前面有<code>oeasy</code> 的 <code>.org</code></li>
+</ul>
+</li>
+<li><code>:%s/oeasy\zs.org/.io/g</code><ul>
+<li>前面是<code>oeasy</code>的 <code>.org</code>换成 <code>.io</code></li>
+</ul>
+</li>
+<li><code>:%s/\&lt;o.*\zs.org/.io/g</code><ul>
+<li>以 <code>o</code> 为单词开头的 <code>.org</code> 都替换</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628414699850.png" /></p>
+<h3 id="_5">多文件替换</h3>
+<ul>
+<li><code>:argdo %s/\&lt;o.*\zs.org/.io/g | update</code><ul>
+<li>对所有的arguments参数</li>
+<li>执行全文批量替换</li>
+<li>并且更新</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628414850364.png" /></p>
+<ul>
+<li><code>/^\s*\zsif</code><ul>
+<li>开头只有空格和tab的if</li>
+</ul>
+</li>
+<li><code>/\(.\{-}\zsFab\)\{3}</code><ul>
+<li>第三个 <code>Fab</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="-ze">之后 - ze</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628415453485.png" /></p>
+<ul>
+<li><code>end\ze\(if\|for\)</code><ul>
+<li><code>endif</code> 和 <code>endfor</code> 中的 <code>end</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628415522096.png" /></p>
+<h3 id="_6">综合应用</h3>
+<ul>
+<li><code>\&lt;o.*\ze\.o.g</code><ul>
+<li>以 <code>o</code> 开头的</li>
+<li>后面跟 <code>o</code> 什么 <code>g</code> 的</li>
+</ul>
+</li>
+<li><code>:bufdo %s/\&lt;o.*\ze\.o.g/ooo/g</code><ul>
+<li>把以 <code>o</code> 开头的、后面跟 <code>o</code> 什么 <code>g</code> 的单词都换成 <code>ooo</code></li>
+<li>对于所有的 <code>buffers</code></li>
+<li>全文替换 </li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">中文</h3>
+<ul>
+<li>:%s/\v[\u4e00-\u9fff]//g<ul>
+<li>\v是Vim正则表达式的“very magic”模式<ul>
+<li>它允许使用+, ?, |, (), {}, [ ]等特殊字符而无需转义</li>
+</ul>
+</li>
+<li>[\u4e00-\u9fff]<ul>
+<li>表示匹配从\u4e00到\u9fff之间的任意字符</li>
+<li>这个范围基本涵盖了常用的中文字符</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20240329-1711719077745.png" /></p>
+<h2 id="_8">总结</h2>
+<ul>
+<li>这次有三种批量替换，分别是<ul>
+<li><code>:windo</code></li>
+<li><code>:bufdo</code></li>
+<li><code>:argdo</code></li>
+<li>执行的<code>{cmd}</code>可以用<code>｜</code>按顺序增加</li>
+</ul>
+</li>
+<li>分别对应的<ul>
+<li><code>windows</code></li>
+<li><code>buffers</code></li>
+<li><code>arguments</code></li>
+</ul>
+</li>
+<li>各有各自的列表、切换、删除增加的方式</li>
+<li>以什么开始、结束的模式<ul>
+<li><code>zs</code></li>
+<li><code>ze</code></li>
+</ul>
+</li>
+<li>关于 <code>window</code> 窗口容器<ul>
+<li>我们切得越细</li>
+<li>可用的范围越小</li>
+<li>总共 <code>80*24</code> 的屏幕资源很快就用完了</li>
+</ul>
+</li>
+<li>我又想多线程访问</li>
+<li>又想有足够的屏幕来编辑</li>
+<li>那怎么办呢？🤔</li>
+<li>除了window之外还有容器吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：块可视化编辑，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解块可视化。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 块可视化, 块可视化编辑">
+    <meta property="og:title" content="oeasy Vim编辑器教程：块可视化编辑，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解块可视化。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">块可视化编辑</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们了解到行可视模式<ul>
+<li>行可视模式 <kbd>V</kbd></li>
+<li>也可配合各种<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+</ul>
+</li>
+<li>选区的开头和结尾是<code>mark标记</code><ul>
+<li>开头是 '&lt;</li>
+<li>结尾是 '&gt;</li>
+</ul>
+</li>
+<li>可以在选区内进行替换和删除<ul>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> 范围内批量替换</li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/gc</code> 范围内批量替换待确认</li>
+<li><code>:'&lt;,'&gt;g/^.*drwxwr.*$/d</code> 范围内有<code>drwxwr</code>的直接删除</li>
+<li>选中了之后可以进行<kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd>等操作</li>
+<li>可以用<kbd>"</kbd><kbd>a</kbd>使用指定寄存器</li>
+</ul>
+</li>
+<li>可以合并多行<ul>
+<li>用<kbd>J</kbd>把这好多行合并成<code>1</code>行</li>
+</ul>
+</li>
+<li>这次是<code>行</code>可视化模式</li>
+<li>那么<code>块</code>可视化模式又是什么意思呢？🤔</li>
+</ul>
+<h3 id="_3">切换模式</h3>
+<ul>
+<li>块可视模式 <kbd>ctrl</kbd>+<kbd>v</kbd><ul>
+<li>左下角<code>-- 可视 块 --</code></li>
+<li>然后配合<code>motion</code></li>
+</ul>
+</li>
+<li>首尾切换<ul>
+<li><kbd>o</kbd>切换首尾</li>
+<li>这个块可以有四个顶点</li>
+<li><kbd>O</kbd>横向切换</li>
+<li>四个顶点都可以切换到</li>
+</ul>
+</li>
+<li>选择好了之后就可以把选区<kbd>y</kbd>下来<ul>
+<li>然后找到一个空白的地方，<kbd>p</kbd></li>
+<li>我们发现这个块是按照方块的方式粘贴的</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612324477390.png" /></p>
+<h3 id="_4">添加序号</h3>
+<ul>
+<li>用<kbd>ctrl</kbd>+<kbd>v</kbd><ul>
+<li>在行首部分，选择4行1列的方块</li>
+<li>输入<code>I1.&lt;esc&gt;</code></li>
+<li>在行首插入<code>4</code>个<code>1.</code> </li>
+</ul>
+</li>
+<li><kbd>ctrl</kbd>+<kbd>v</kbd>选中下面的<code>3</code>个<code>1</code></li>
+<li><kbd>g</kbd>之后<kbd>ctrl</kbd>+<kbd>a</kbd></li>
+<li>行号变成 <code>1234</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612325047662.png" /></p>
+<ul>
+<li>这在markdown中可以快速制作有序列表</li>
+</ul>
+<h3 id="_5">查找帮助</h3>
+<ul>
+<li>可以<code>:h v_g_ctrl-a</code>查看手册</li>
+<li>意思是查找 <code>visual</code> 模式下的<code>g_ctrl-a</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625456970083.png" /></p>
+<h3 id="_6">再练一次</h3>
+<ul>
+<li>使用命令 <code>:1,11normal I001.</code> <kbd>esc</kbd></li>
+<li><kbd>ctrl</kbd>+<kbd>v</kbd>选中<code>2-11</code>行的开头字符</li>
+<li><kbd>g</kbd>之后<kbd>ctrl</kbd>+<kbd>a</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627439057601.png" /></p>
+<ul>
+<li>到7之后自动跳到10</li>
+<li>这个怎么回事？</li>
+</ul>
+<h3 id="_7">数字格式问题</h3>
+<ul>
+<li><code>:set nrformat?</code><ul>
+<li>查看一下数字格式，其中<ul>
+<li>nr 数字 number</li>
+<li>formats 格式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627439249489.png" /></p>
+<ul>
+<li>原来他把007当作了8进制数octal</li>
+<li><code>:set nrformats-=octal</code><ul>
+<li><code>-octal</code> 去掉8进制格式</li>
+</ul>
+</li>
+<li><code>:set nrformat?</code></li>
+<li>再试试</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627439369242.png" /></p>
+<h3 id="_8">切换首尾</h3>
+<ul>
+<li><kbd>o</kbd><ul>
+<li>切换首尾</li>
+<li>控制选择范围</li>
+</ul>
+</li>
+<li><kbd>O</kbd><ul>
+<li>在同一行中切换选择点</li>
+<li>控制选择范围</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625537294385.png" /></p>
+<h3 id="_9">回忆外部命令</h3>
+<div class="highlight"><pre><span></span><code>#先安装两个软件 fortune和boxes 在&lt;linux&gt;教程那部分有介绍
+sudo apt install fortune boxes
+#使用fortune生成谚语
+fortune -l
+#把谚语通过管道送入boxes
+fortune -l ｜ boxes -d cat
+#进入vi
+:r !fortune -l | boxes -d cat
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627379183357.png" /></p>
+<ul>
+<li>banner 实在太宽了</li>
+<li>我想把它变得窄一点</li>
+</ul>
+<h3 id="_10">范围控制</h3>
+<ul>
+<li>先用块选择的方式，把里面选中</li>
+<li>删除，并放到寄存器a中</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627379754437.png" /></p>
+<ul>
+<li>在最底下粘贴出来</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627379766447.png" /></p>
+<ul>
+<li><code>:set textwidth=50</code></li>
+<li><code>gq21G</code></li>
+<li><code>"ayG</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627379853454.png" /></p>
+<ul>
+<li>然后调整画框</li>
+<li>把内容合理地放上去</li>
+<li>开心</li>
+</ul>
+<h3 id="_11">批量改名的练习</h3>
+<ul>
+<li>首先找到文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618739241836.png" /></p>
+<ul>
+<li>选中前面的块并<kbd>d</kbd>删除</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618739343727.png" /></p>
+<ul>
+<li><kbd>I</kbd>在前面插入<code>mv "</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618739463640.png" /></p>
+<ul>
+<li>同样方法,给后面也加上"</li>
+<li>把名字块复制并粘贴</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618739634006.png" /></p>
+<h3 id="_12">可视块内的批量替换</h3>
+<ul>
+<li>把后面的块选中</li>
+<li>并完成针对于块儿内的替换'&lt;,'&gt;</li>
+<li><code>:'&lt;,'&gt;s/\%Vg/graphic/g</code><ul>
+<li>'&lt;,'&gt;表示范围</li>
+<li>s表示substitute</li>
+<li>\%V表示在块内</li>
+<li>g/graphic表示替换内容</li>
+<li>最后的g表示可重复</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618739774928.png" /></p>
+<h3 id="_13">清理空格</h3>
+<ul>
+<li>下面需要把多余的空格清空一下</li>
+<li>:'&lt;,'&gt;s/desktop\s*"/desktop"/g</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628342411373.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628342486823.png" /></p>
+<ul>
+<li><code>:wq</code>保存退出</li>
+</ul>
+<h3 id="_14">运行</h3>
+<ul>
+<li>替换成功</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210418-1618740826312.png" /></p>
+<ul>
+<li>在本次的例子中并不明显</li>
+<li>在给90多个mp4文件改名的过程中(把空格换成逗号)</li>
+<li>发现真的很方便</li>
+</ul>
+<h3 id="_15">再练一个</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628341753673.png" /></p>
+<ul>
+<li>基础来源于 <code>ls -l &gt; renames.sh</code></li>
+</ul>
+<h2 id="_16">总结</h2>
+<ul>
+<li>今天我们了解到块可视模式
+    -<kbd>ctrl</kbd>+<kbd>v</kbd><ul>
+<li>左下角<code>-- 可视 块 --</code></li>
+<li>然后配合<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+<li>这个块可以有四个顶点</li>
+<li><kbd>O</kbd>横向切换</li>
+</ul>
+</li>
+<li>可以在选区内进行编辑和替换<ul>
+<li>可以直接<kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd></li>
+<li>或者<kbd>D</kbd>、<kbd>C</kbd>、<kbd>Y</kbd></li>
+<li>也可以直接编辑<ul>
+<li><code>:'&lt;,'&gt;d</code></li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> 范围内批量替换</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以在块·可视化模式下替换<ul>
+<li><code>:'&lt;,'&gt;s/\%Vg/graphic/g</code></li>
+<li>'&lt;,'&gt;表示范围</li>
+<li>s表示substitute</li>
+<li>\%V表示在块内</li>
+</ul>
+</li>
+<li>文本编辑终于告一段落</li>
+<li>这个可视化块儿模式不来自于vi</li>
+<li>而是来自于他的克隆vim</li>
+<li>vim是如何发展的呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

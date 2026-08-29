@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：映射map，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解功能键 Fn 映射 map 进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 功能键, Fn, 映射, map, 进阶, 映射map">
+    <meta property="og:title" content="oeasy Vim编辑器教程：映射map，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解功能键 Fn 映射 map 进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="map">映射map</h1>
+<h2 id="_1">回忆上次缩写的细节</h2>
+<ul>
+<li>上次了解到了<code>:map</code>映射</li>
+<li>可以定义映射<ul>
+<li><code>:map ; :</code></li>
+</ul>
+</li>
+<li>查询映射<ul>
+<li><code>:map</code></li>
+<li><code>:map ;</code></li>
+</ul>
+</li>
+<li>还可以取消映射<ul>
+<li><code>:unmap</code></li>
+</ul>
+</li>
+<li>
+<p>可以映射到指定的模式</p>
+<ul>
+<li><code>:map</code> 所有模式</li>
+<li><code>:vmap</code> 可视化模式 visual</li>
+<li><code>:nmap</code> 正常模式 normal</li>
+<li><code>:omap</code> operartor-pending 被定义的键可以作为一个motion来使用</li>
+<li><code>:map!</code> 插入和命令行模式</li>
+<li><code>:imap</code> 插入模式 insert </li>
+<li><code>:cmap</code> 命令行模式 command</li>
+</ul>
+</li>
+<li>
+<p>可以映射到什么也不做</p>
+<ul>
+<li><code>:nmap h &lt;nop&gt;</code></li>
+</ul>
+</li>
+<li>还可以避免再次映射<ul>
+<li><code>:noreabbrev o1z oeasy</code> </li>
+</ul>
+</li>
+<li>最后我们比较了缩写和映射的异同<ul>
+<li>这 <code>缩写</code> 和 <code>映射</code> 都是可以<code>:mkview</code>保存的</li>
+<li>也可以写到<code>~/.vimrc</code>作为基础映射</li>
+<li>还可以写到具体的 <code>filetype</code> 中做一些专门的操作</li>
+</ul>
+</li>
+<li>但是其实101键盘上面很多功能键<ul>
+<li><kbd>f1</kbd>-<kbd>f12</kbd></li>
+<li>我们还没有用上</li>
+</ul>
+</li>
+<li>可以给他们映射上么？🤔</li>
+</ul>
+<h3 id="_2">功能键映射</h3>
+<ul>
+<li>第一个<kbd>f1</kbd>是有映射的<ul>
+<li>如果在终端模式下运行就会到帮助文件</li>
+<li>如果在图形化的终端模式下运行就会到terminal的帮助</li>
+</ul>
+</li>
+<li><kbd>f2</kbd>我们可以映射么？<ul>
+<li><code>:map &lt;F2&gt; gg=G</code></li>
+<li>注意这个时候map空格之后</li>
+<li>可以直接按下<kbd>f2</kbd></li>
+<li>就直接输入<F2></li>
+<li>很好使！</li>
+</ul>
+</li>
+<li>但是我们应该再限制一下,映射只会出现在Normal模式<ul>
+<li><code>:nmap &lt;F2&gt; gg=G</code></li>
+</ul>
+</li>
+<li>我们再试一个</li>
+</ul>
+<h3 id="_3">快速插入日期</h3>
+<ul>
+<li>我们需要在文章最后写一个日期时间<ul>
+<li><code>:map &lt;F2&gt; oDate: &lt;ESC&gt;:read !date&lt;CR&gt;</code></li>
+<li>o的意思是换行插入<ul>
+<li>插入的内容就是<code>Date:</code></li>
+</ul>
+</li>
+<li><kbd>esc</kbd>退回到正常模式</li>
+<li><code>:</code>进入命令模式<ul>
+<li>执行<code>:read !date</code></li>
+<li>把外部命令<code>date</code>的结果read到buffer上</li>
+<li>然后<CR>是回车Carriage</li>
+<li>退回到正常模式</li>
+<li>整个操作完成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>真的能用！！！</li>
+<li>这样就可以快速插入落款日期了</li>
+<li>还可以进行一些修改</li>
+<li><code>:map &lt;F2&gt; oDate: &lt;ESC&gt;:read !date&lt;CR&gt;kJ</code><ul>
+<li><code>k</code>向上一行</li>
+<li><code>J</code>把当前行和下一行链接</li>
+</ul>
+</li>
+<li>如果要求在文本最后插入的话<ul>
+<li><code>:map &lt;F2&gt; GoDate: &lt;ESC&gt;:read !date&lt;CR&gt;</code></li>
+</ul>
+</li>
+<li>其实我们常用的就是程序的编译运行之类的<ul>
+<li>这个映射能干么？</li>
+</ul>
+</li>
+</ul>
+<h3 id="python">运行python程序</h3>
+<ul>
+<li>这次我们用<F5>来干这个事情</li>
+<li>我们先在命令行里面走一遍<ul>
+<li><code>:!python3 %</code></li>
+<li>其中%是当前文件名</li>
+<li>相当于<code>:!python3 oeasy.py</code></li>
+<li><code>:h c_%</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627179943223.png" /></p>
+<ul>
+<li>把他转化为映射<ul>
+<li><code>:map &lt;F5&gt; :!python3 %</code></li>
+</ul>
+</li>
+<li>先保存<ul>
+<li><code>:map &lt;F5&gt; :w&lt;CR&gt;:!python3 %&lt;CR&gt;</code></li>
+</ul>
+</li>
+<li>以后就可以一键运行python程序了</li>
+</ul>
+<h3 id="java">编译并运行java程序</h3>
+<ul>
+<li>仿照上次<ul>
+<li><code>:map &lt;F5&gt; :w&lt;CR&gt;:!javac %&lt;CR&gt;</code></li>
+<li>这样是可以完成编译的</li>
+<li>然而运行的时候我需要</li>
+<li><code>:!java oeasy</code></li>
+<li>这就得去掉后缀</li>
+<li><code>:!java %:t:r</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627180987033.png" /></p>
+<ul>
+<li>
+<p>最终的映射语句是</p>
+<ul>
+<li><code>:map &lt;F5&gt; :w&lt;CR&gt;:!javac %&lt;CR&gt;!java %:t:r&lt;CR&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>保存、编译、运行一气呵成</p>
+</li>
+<li>不过python、java、html都映射到了F5</li>
+<li>能否根据文件类型进行区分呢？</li>
+</ul>
+<h3 id="_4">文件类型映射</h3>
+<ul>
+<li>观察文件类型检测</li>
+<li><code>:filetype</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627184348586.png" /></p>
+<ul>
+<li>具体的文件应该放在哪儿呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627192582101.png" /></p>
+<h3 id="_5">具体操作</h3>
+<ul>
+<li>在<code>~/.vim/ftplugin/</code>下面放入文件类型的配置文件<ul>
+<li><code>~/.vim/ftplugin/java.vim</code>对应java文件</li>
+<li><code>~/.vim/ftplugin/python.vim</code>对应python文件</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627184389264.png" /></p>
+<ul>
+<li>现在我们就分别对于java和python文件定义了F5这个操作</li>
+<li>其实网页编辑也很常见</li>
+<li>如何在网页中一键预览？</li>
+</ul>
+<h3 id="_6">一键预览火狐</h3>
+<ul>
+<li>本终端开火狐<ul>
+<li><code>firefox</code></li>
+<li><code>!firefox</code></li>
+</ul>
+</li>
+<li>首先在终端上可以另开一个火狐进程<ul>
+<li><code>xfce4-terminal -e 'firefox'</code><ul>
+<li>我们的终端是xfce的</li>
+<li>如果是gnome的话也类似</li>
+<li>这可以在终端中新开一个终端</li>
+<li>新终端中运行火狐</li>
+</ul>
+</li>
+<li><code>xfce4-terminal -e 'firefox oeasy.html'</code><ul>
+<li>让火狐浏览你的网页</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>把这套放到vim里面跑一下<ul>
+<li><code>:!xfce4-terminal -e 'firefox %'</code></li>
+<li>成功在vim里跑了起来</li>
+</ul>
+</li>
+<li>然后就是映射map<ul>
+<li><code>:map &lt;F5&gt; :!xfce4-terminal -e 'firefox %'</code></li>
+</ul>
+</li>
+<li>可以的！</li>
+<li>然后把这句话写到 <code>html</code> 的 <code>ftplugin</code> 中</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>这次我们定义了一系列的功能键<ul>
+<li>让他们可以起到作用</li>
+<li>比如保存、编译、运行一键完成</li>
+<li>但是不同的文件类型应该有不同的处理方式</li>
+<li>我们用 <code>filetype</code> 的机制解决了这个问题</li>
+</ul>
+</li>
+<li>这些映射就像缩写和折叠一样<ul>
+<li>可以<code>:mkview</code>保存着</li>
+</ul>
+</li>
+<li>除了功能键之外<ul>
+<li>组合键能映射么？</li>
+<li>比如<kbd>ctrl</kbd>+<kbd>s</kbd>之类的？🤔</li>
+</ul>
+</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

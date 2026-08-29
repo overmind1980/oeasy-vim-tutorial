@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：折叠细节，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解折叠细节。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 折叠细节">
+    <meta property="og:title" content="oeasy Vim编辑器教程：折叠细节，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解折叠细节。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">折叠细节</h1>
+<h2 id="_2">回忆上次</h2>
+<ul>
+<li>上- 这次我们讲的是折叠<ul>
+<li>这是vim6.0时候提供的功能</li>
+<li>目的是把细节忽略</li>
+<li>只显示文档的主干</li>
+</ul>
+</li>
+<li>折叠有很多options<ul>
+<li><code>foldlevel</code> - 显示折叠层次</li>
+<li><code>foldcolumn</code> - 折叠树宽度</li>
+<li><code>foldmethod</code> - 折叠方式<ul>
+<li><code>manual</code> - 手动</li>
+<li><code>indent</code> - 缩进</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>折叠的定义<ul>
+<li><code>zf2j</code><ul>
+<li>当前行和下面两行建立折叠</li>
+</ul>
+</li>
+<li><code>zfa{</code><ul>
+<li>用大括号(包含)建立折叠</li>
+</ul>
+</li>
+<li><code>zfi{</code><ul>
+<li>用大括号(不包含)建立折叠</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>折叠的删除<ul>
+<li><code>zd</code></li>
+</ul>
+</li>
+<li>折叠的打开和关闭<ul>
+<li><code>zo</code> open</li>
+<li><code>zc</code> close</li>
+<li><code>:set foldlevel=1</code> 设置折叠层次</li>
+</ul>
+</li>
+<li>这个缩进折叠可以对于程序文件使用么？🤔</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651290723832.png" /></p>
+<ul>
+<li>动手试试！</li>
+</ul>
+<h3 id="oeasyjava">打开<code>oeasy.java</code></h3>
+<ul>
+<li>设置和查看属性</li>
+<li>折叠的options<ul>
+<li><code>foldmethod</code> 设置为<ul>
+<li>indent - 缩进</li>
+</ul>
+</li>
+<li><code>foldcolumn</code> 折叠树设置为<ul>
+<li>4列</li>
+<li><code>:set foldcolumn=4</code></li>
+</ul>
+</li>
+<li><code>foldlevel</code>折叠层次<ul>
+<li>设置为0 折叠整个class</li>
+<li>设置为1 折叠各个函数</li>
+<li>设置为2 全部打开</li>
+<li>默认设置为99 全部打开</li>
+</ul>
+</li>
+<li><code>:set foldopen=all</code> 也可以直接打开所有折叠</li>
+<li><code>:set foldclose=all</code> 可以直接关闭所有折叠</li>
+</ul>
+</li>
+<li>但是这个东西有快捷键么？</li>
+</ul>
+<h3 id="zrzm">zr和zm</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627089385277.png" /></p>
+<ul>
+<li><code>zr</code><ul>
+<li><code>z</code>是折叠</li>
+<li><code>r</code>是<code>reduce</code> </li>
+<li>让折叠层次<code>fold level</code>减<code>1</code></li>
+<li><code>zR</code> 所有的折叠都打开</li>
+</ul>
+</li>
+<li>zm <ul>
+<li><code>z</code>是折叠</li>
+<li><code>m</code>是<code>more</code></li>
+<li>让折叠层次<code>fold level</code>加<code>1</code></li>
+<li><code>zM</code>所有的折叠都关闭</li>
+</ul>
+</li>
+<li>和<code>zo</code>、<code>zc</code>区别<ul>
+<li><code>zo</code>、<code>zc</code>仅对当前行起作用</li>
+<li><code>zr</code>、<code>zm</code>对所有文字起作用</li>
+</ul>
+</li>
+<li>如果我想对于某些 <code>{range}</code> 起作用，可以么？</li>
+</ul>
+<h3 id="foldopenfoldclose">foldopen、foldclose命令</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627089437415.png" /></p>
+<ul>
+<li>加上！的目的是彻底递归地折叠所有，能折到哪里折到哪里</li>
+<li><code>:.foldopen</code><ul>
+<li>当前行打开折叠 <code>zo</code></li>
+</ul>
+</li>
+<li><code>:%foldclose</code><ul>
+<li>所有都关闭折叠 <code>zc</code></li>
+</ul>
+</li>
+<li><code>:1,15foldopen</code><ul>
+<li>1,15行都折叠 <code>zc</code></li>
+</ul>
+</li>
+<li><code>:33,Gfoldclose!</code><ul>
+<li>33到最后一行彻底折叠   <code>zC</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">更多折叠方法</h3>
+<ul>
+<li>我们可以<code>h foldmethod</code>来观察一下</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627090116304.png" /></p>
+<ul>
+<li>折叠的模式总共有6种<ul>
+<li>手动 -  <code>manual</code></li>
+<li>缩进 -  <code>indent</code></li>
+<li>表达式 - <code>expr</code></li>
+<li>标记 - <code>marker</code></li>
+<li>语法 - <code>syntax</code></li>
+<li>差异 - <code>diff</code></li>
+</ul>
+</li>
+<li>这里面就是 <code>indent</code> 最好用</li>
+<li>帮助手册中的超链接<ul>
+<li>用<kbd>ctrl</kbd>+<kbd>]</kbd>跳入</li>
+<li>用<kbd>ctrl</kbd>+<kbd>o</kbd>跳入</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">表达式折叠</h3>
+<ul>
+<li>首先设置折叠方法为表达式<ul>
+<li><code>:set foldmethod=expr</code></li>
+</ul>
+</li>
+<li>显示出空出来的缩进究竟是tab还是空格<ul>
+<li><code>:set listchars=eol:$,tab:&gt;-,space:_</code></li>
+</ul>
+</li>
+<li>然后设置各种表达式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637750990192.png" /></p>
+<h3 id="_5">设置</h3>
+<ul>
+<li><code>:set foldexpr=getline(v:lnum)[0]== \"\\t\"</code><ul>
+<li>只要这一行的第0个元素是<code>"\t"</code></li>
+<li>但注意双引号和反斜杠都需要转义</li>
+<li>也就是tab键</li>
+<li>那么这行就进入折叠范围</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637751080756.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637751092315.png" /></p>
+<h3 id="_6">空行作为表达式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637751928369.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637751939460.png" /></p>
+<ul>
+<li>下面这两条差不多<ul>
+<li><code>:set foldexpr=getline(v:lnum)=~'^\\s*$'&amp;&amp;getline(v:lnum+1)=~'\\S'?'&lt;1':1</code></li>
+<li><code>:set foldexpr=getline(v:lnum-1)=~'^\\s*$'&amp;&amp;getline(v:lnum)=~'\\S'?'&gt;1':1</code></li>
+</ul>
+</li>
+<li>都可以把把空行分割开的段落都折叠起来<ul>
+<li>后面的是一个表达式</li>
+<li>上一行不是空行并且上一行有非空字符那表达式就是1</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">关于表达式的计算</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637760904522.png" /></p>
+<ul>
+<li><code>:set foldexpr=getline(v:lnum-1)=~'^\\s*$'&amp;&amp;getline(v:lnum)=~'\\S'?'&gt;1':1</code><ul>
+<li><code>:set foldexpr=</code>后面的是一个表达式</li>
+<li>上一行不是空行并且上一行有非空字符那表达式就是1</li>
+<li>这个1就是折叠的层次</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">语法缩进</h3>
+<ul>
+<li>这个比较复杂</li>
+<li>要设置具体的缩进规则的语法文件</li>
+<li>但是一旦设置好了之后</li>
+<li>就一劳永逸了</li>
+<li>一般常用的语言都有现成的syntax.vim</li>
+<li>但是我们也可以自己尝试</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637762283794.png" /></p>
+<h3 id="_9">设置语法折叠</h3>
+<ul>
+<li><code>:syn sync fromstart</code></li>
+<li><code>:set foldmethod=syntax</code></li>
+<li><code>:syn region myFold start="{" end="}" transparent fold</code></li>
+<li>由于这个类有两层大括号</li>
+<li>所以被分成了两级折叠</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211124-1637762379199.png" /></p>
+<ul>
+<li>foldnestmax可以控制最大层数</li>
+</ul>
+<h3 id="_10">标记折叠</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627090924313.png" /></p>
+<ul>
+<li>这个设置方式直接在源文件里面用注释的方式做标记</li>
+<li>优点是特别明确<ul>
+<li>为了更明确可以写清楚折叠的层次</li>
+<li>这样就避免折叠的不封闭</li>
+</ul>
+</li>
+<li>缺点是不易修改<ul>
+<li>而且在源文件里面放那么多不相关的内容</li>
+<li>增大存储、传输、理解的压力</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">例子</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220501-1651373957078.png" /></p>
+<ul>
+<li>这里设置的折叠方法是syntax</li>
+</ul>
+<h3 id="diff">diff折叠</h3>
+<ul>
+<li>主要作用是找到两个文件中不同的部分</li>
+<li>相同的部分就给他折叠了</li>
+<li>这个也是vimdiff主要的foldmethod</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627091137262.png" /></p>
+<ul>
+<li>这么多到底用哪个？<ul>
+<li>indent！就很好</li>
+<li>很多语言缩进就是层次</li>
+<li>缩进就代表逻辑</li>
+</ul>
+</li>
+</ul>
+<h2 id="_12">总结</h2>
+<ul>
+<li>折叠方式很多<ul>
+<li>我们一般就用默认的就行</li>
+<li>indent也很好用</li>
+<li>前提是缩进语法严格到位</li>
+</ul>
+</li>
+<li>打开关闭<ul>
+<li><code>zc</code>、<code>zo</code> 是打开关闭当前行</li>
+<li><code>zm</code>、<code>zr</code> 可以改变foldlevel</li>
+</ul>
+</li>
+<li>配合<code>{range}</code><ul>
+<li><code>:{range}foldopen!</code> 可以在范围内打开行</li>
+<li><code>:{range}foldclose!</code> 可以在范围内关闭行</li>
+</ul>
+</li>
+<li>但是这个折叠</li>
+<li>一关闭vim就没了</li>
+<li>这个折叠状态可以保存住么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

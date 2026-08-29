@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：查找细节，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解匹配替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 匹配替换, 查找细节">
+    <meta property="og:title" content="oeasy Vim编辑器教程：查找细节，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解匹配替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">查找细节</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们学习了 <ul>
+<li>替换 <code>substitude</code> </li>
+</ul>
+</li>
+<li>替换单行<ul>
+<li><code>:s/shiyanlou/oeasy</code> </li>
+</ul>
+</li>
+<li>加上<code>range</code><ul>
+<li><code>:3,5s/shiyanlou/oeasy</code>  </li>
+<li><code>:%s/shiyanlou/oeasy</code>  </li>
+</ul>
+</li>
+<li>加上<code>flag</code><ul>
+<li><code>:3,5s/shiyanlou/oeasy/g</code> 多个替换</li>
+<li><code>:3,5s/shiyanlou/oeasy/gc</code> 多个替换且逐个确认</li>
+</ul>
+</li>
+<li>替换还是很方便的</li>
+<li>但是我想替换中使用正则表达式</li>
+<li>可以么？🤔</li>
+<li>先回忆一下正则表达式模式匹配</li>
+</ul>
+<h3 id="-">模式 - 列举字符</h3>
+<ul>
+<li><code>[abcd]</code>    <ul>
+<li>表示匹配方括号中列举的 </li>
+<li>任意一个 字符</li>
+<li>abcd 中的任意一个字符</li>
+</ul>
+</li>
+<li><code>[a-z]</code><ul>
+<li>可用 `中划线-`` 表示字符范围来减少列举的</li>
+<li><code>[a-d]</code> 等价于 <code>[abcd]</code></li>
+</ul>
+</li>
+<li><code>[^abcd]</code><ul>
+<li>表示匹配除方括号中字符以外的任意字符</li>
+<li>除了 <code>abcd</code>之外的任意字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="-_1">模式 - 常用符号</h3>
+<ul>
+<li><code>.</code>               <ul>
+<li>等价于 <code>[^\n]</code></li>
+<li>除了换行符<code>( \n )</code>以外，表示匹配任意一个字符</li>
+</ul>
+</li>
+<li><code>\l</code>             <ul>
+<li>等价于 <code>[a-z]</code></li>
+<li>表示匹配 任意一个<code>小写字母</code></li>
+<li>意思是lowercase</li>
+</ul>
+</li>
+<li><code>\L</code><ul>
+<li>等价于 <code>[^a-z]</code></li>
+<li>表示匹配 任意一个<code>除小写字母外的其他字符</code></li>
+</ul>
+</li>
+<li><code>\u</code><ul>
+<li>等价于 <code>[A-Z]</code></li>
+<li>表示匹配 任意一个<code>大写字母</code></li>
+<li>意思是uppercase</li>
+</ul>
+</li>
+<li><code>\U</code><ul>
+<li>等价于<code>[^A-Z]</code></li>
+<li>表示匹配 <code>任意一个除大写字母外的其他字符</code></li>
+</ul>
+</li>
+<li><code>\w</code><ul>
+<li>等价于<code>[0-9A-Za-z_]</code></li>
+<li>表示匹配 <code>任意一个字母、数字、下划线</code></li>
+</ul>
+</li>
+<li><code>\W</code><ul>
+<li>等价于<code>[^0-9A-Za-z_]</code></li>
+<li>表示匹配 <code>任意一个字符除了字母、数字、下划线。</code></li>
+</ul>
+</li>
+<li><code>\d</code><ul>
+<li>等价于 <code>[0-9]</code></li>
+<li>表示匹配 <code>任意一个数字</code></li>
+</ul>
+</li>
+<li><code>\D</code><ul>
+<li>等价于<code>[^0-9]</code></li>
+<li>表示匹配<code>任意一个除数字外的其他字符</code></li>
+</ul>
+</li>
+<li><code>\x</code><ul>
+<li>等价于 <code>[0-9A-Fa-f]</code></li>
+<li>表示匹配 <code>任意一个十六进制数字</code></li>
+</ul>
+</li>
+<li><code>\X</code><ul>
+<li>等价于 <code>[^0-9A-Fa-f]</code></li>
+<li>表示匹配 <code>任意一个除十六进制数字外的其他字符</code></li>
+</ul>
+</li>
+<li><code>\s</code><ul>
+<li>包括两种<code>分隔符</code></li>
+<li><code>空格</code> 和 <code>tab</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">帮助手册</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612267005280.png" /></p>
+<h3 id="_4">起止标记</h3>
+<ul>
+<li>
+<p>然后我们明确一下起止标记</p>
+<ul>
+<li><code>^</code>                表示匹配 输入字符串的开始位置 (行首)。</li>
+<li><code>$</code>              表示匹配 输入字符串的结束位置 (行尾)。
+-<code>\&lt;</code>            表示匹配 单词词首。</li>
+<li><code>\&gt;</code>           表示匹配 单词词尾。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">对应单词</h3>
+<ul>
+<li><code>:%s/four/4/g</code> <ul>
+<li>把所有的<code>four</code>替换为<code>4</code></li>
+</ul>
+</li>
+<li>但是同时<code>fourty</code>、<code>fourteen</code> 都匹配了<ul>
+<li>我们可以明确four必须是一个独立单词</li>
+<li>需要<code>:%s/\&lt;four\&gt;/4/g</code></li>
+</ul>
+</li>
+<li>但是同时<code>twenty-four</code><ul>
+<li>还是被替换为<code>twenty-4</code></li>
+</ul>
+</li>
+<li>如果只想精准匹配four<ul>
+<li>前后可以加^$明确开头和结尾。</li>
+<li><code>:%s/^four$/4/g</code>匹配独立的<code>four</code>这个单词</li>
+<li>这样替换就可以了</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637139595528.png" /></p>
+<h3 id="_6">单词匹配</h3>
+<ul>
+<li>如果我们要替换所有的以<code>a</code>开头<code>d</code>结尾的单词<ul>
+<li>并允许在词中进行替换<code>oeasy</code></li>
+<li><code>:%s/\&lt;a.*d\&gt;/oeasy/g</code></li>
+</ul>
+</li>
+<li><code>add</code>、<code>and</code> 被替换</li>
+<li><code>band</code> 不被替换</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637140492623.png" /></p>
+<h3 id="_7">贪婪匹配问题</h3>
+<ul>
+<li>但是 没有注意到<ul>
+<li>贪婪匹配问题</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20250319-1742393783554.png" /></p>
+<ul>
+<li>最终修改为<ul>
+<li><code>:%s/\&lt;a.*d\&gt;/oeasy/g</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20250319-1742393863065.png" /> </p>
+<ul>
+<li>任务完成</li>
+</ul>
+<h3 id="_8">具体案例</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220721-1658375958533.png" /></p>
+<ul>
+<li>我要完成如下这么一个替换</li>
+<li>应该怎么做呢</li>
+<li>🤔</li>
+</ul>
+<h3 id="_9">先查找</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220721-1658376085248.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20220721-1658376092029.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20220721-1658376100602.png" /></p>
+<ul>
+<li>确定查找模式最终为<code>\d\{1,2}.</code></li>
+</ul>
+<h3 id="_10">替换</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220721-1658376239737.png" /></p>
+<ul>
+<li>把查找到的匹配字符串替换为换行</li>
+<li>如果我们想要删除空行</li>
+<li>应该怎么办？</li>
+</ul>
+<h3 id="_11">删除空行</h3>
+<ul>
+<li>首先我们找到空行 <code>/^$</code></li>
+<li>从开头 <code>^</code> 到结尾 <code>$</code> 中间没东西</li>
+<li>找到了以后，我们来替换<ul>
+<li><code>%s/^$//</code>这并不能删除行</li>
+<li>执行了之后空行还是存在</li>
+</ul>
+</li>
+<li>我们可以使用<code>g</code>命令<ul>
+<li><code>:g/^$/d</code></li>
+</ul>
+</li>
+<li>如果开头结尾之间有空格怎么办？<ul>
+<li><code>/^\s*$</code> 先找到匹配</li>
+<li>\s表示空格和tab</li>
+<li>*表示0-任意多个空格或者tab</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211117-1637140047899.png" /></p>
+<ul>
+<li>下面这个命令将这些空格和tab组成的行删除<ul>
+<li><code>:%g/^\s*$/d</code></li>
+</ul>
+</li>
+<li>那能否把空格分割的文本分行</li>
+</ul>
+<h3 id="_12">分行</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220428-1651107447149.png" /></p>
+<ul>
+<li><code>:%s/\s\+/\r/g</code><ul>
+<li><code>%</code>表示所有行</li>
+<li><code>s</code>替换subtitute</li>
+<li><code>\s</code> 空格和tab</li>
+<li><code>\+</code> 一个或一个以上</li>
+<li><code>\r</code> 换行</li>
+<li><code>g</code> 全局 global</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220428-1651107595362.png" /></p>
+<h3 id="trim">头尾trim</h3>
+<ul>
+<li>如果我们想把头或者尾的空格和tab去掉<ul>
+<li>应该怎么办呢？</li>
+</ul>
+</li>
+<li>头部的空格或tab<ul>
+<li><code>^\s*</code></li>
+</ul>
+</li>
+<li>尾部的空格或tab<ul>
+<li><code>\s*$</code></li>
+</ul>
+</li>
+<li>头部或尾部的空格或tab<ul>
+<li><code>^\s*\|\s*$</code></li>
+</ul>
+</li>
+<li>把头部或尾部的空格或tab替换为空<ul>
+<li><code>:%s/^\s*\|\s*$//g</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211118-1637204287223.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20211118-1637204298824.png" /></p>
+<h3 id="_13">转义字符</h3>
+<ul>
+<li>如果我们要删除所有<code>//</code>开头的行<ul>
+<li>这个<code>/</code>需要转义</li>
+<li>先搜索/^\/\/.*$</li>
+</ul>
+</li>
+<li><code>:%s/^\/\/.*$//g</code><ul>
+<li>删除了注释内容</li>
+<li>但是空行还在</li>
+</ul>
+</li>
+<li><code>:g/^\/\/.*$/d</code><ul>
+<li>删除了空行</li>
+<li>但是开头有空格和tab的无法删除</li>
+</ul>
+</li>
+<li><code>:g/^\s*\/\/.*$/d</code><ul>
+<li>把 <code>\\</code> 前面有空格和tab的也删除了 </li>
+</ul>
+</li>
+</ul>
+<h2 id="_14">总结</h2>
+<ul>
+<li>进行了模式匹配批量替换的的操作</li>
+<li>替换单词<ul>
+<li><code>:%s/\&lt;a.*d\&gt;/oeasy/g</code></li>
+</ul>
+</li>
+<li>转义字符<ul>
+<li><code>%s/^\/\/.*$/d</code></li>
+</ul>
+</li>
+<li>删除空行<ul>
+<li><code>:g/^\s*$//d</code> </li>
+</ul>
+</li>
+<li>删除注释行<ul>
+<li><code>:g/^\s*\/\/.*$/d</code></li>
+</ul>
+</li>
+<li>替换还有一些什么玩法吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：命令行效率，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解命令行效率。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 命令行效率">
+    <meta property="og:title" content="oeasy Vim编辑器教程：命令行效率，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解命令行效率。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">命令行效率</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<h2 id="_3">总结</h2>
+<ul>
+<li>我们上次研究的是范围命令执行方法</li>
+<li>批量控制缩进<ul>
+<li><code>:20,40&gt;</code></li>
+</ul>
+</li>
+<li>批量执行普通模式下的命令<ul>
+<li><code>:4,10normal A;</code></li>
+</ul>
+</li>
+<li>直接切换到<code>全屏命令模式</code> <code>ex-mode</code><ul>
+<li><code>Q</code></li>
+</ul>
+</li>
+<li>执行外部命令<ul>
+<li><code>!javac oeasy.java</code></li>
+</ul>
+</li>
+<li>这个方式真的很爽!<ul>
+<li>在 <code>vi</code> 什么都干了！</li>
+</ul>
+</li>
+<li>命令模式本身可以再提高效率吗？🤔</li>
+</ul>
+<h3 id="_4">列出历史</h3>
+<h3 id="_5">使用历史命令</h3>
+<ul>
+<li>在输出命令时<ul>
+<li>方向键<kbd>⬅️️</kbd><kbd>➡️️️</kbd>可以控制左右移动</li>
+<li><kbd>shift</kbd>+<kbd>⬅️️</kbd><kbd>➡️️️</kbd>按照word左右移动光标</li>
+<li><kbd>ctrl</kbd>+<kbd>b</kbd> 到开头begin</li>
+<li><kbd>ctrl</kbd>+<kbd>e</kbd> 到结尾end</li>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> 向前删除一个word<ul>
+<li>这个要特别注意，有的浏览器关闭标签页</li>
+<li>我用火狐🦊一点问题没有</li>
+</ul>
+</li>
+<li><kbd>ctrl</kbd>+<kbd>u</kbd> 删除到开头</li>
+</ul>
+</li>
+<li>方向键<kbd>↑️</kbd><kbd>↓️️️</kbd>可以翻阅历史命令<ul>
+<li>也可以先输入<code>:h s</code>再按下<kbd>↑️</kbd></li>
+<li>可以根据已经有的内容找出<ul>
+<li><code>:h scrolloff</code></li>
+<li><code>:h shiftwidth</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>想要列出所有命令历史怎么办？</li>
+</ul>
+<h3 id="_6">命令历史</h3>
+<ul>
+<li>我们可以列出所有执行过的命令<code>:history</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612238999169.png" /></p>
+<ul>
+<li><code>:h his[tory]</code>可以找到 <code>commandline.txt</code></li>
+<li>可以按照类型查看历史<ul>
+<li><code>:his c</code> 或<code>:his :</code> 命令类历史</li>
+<li><code>:his s</code> 或<code>:his /</code> 或 <code>:his ?</code> 搜索类历史</li>
+<li><code>:his e</code> 或<code>:his =</code> 表达式寄存器类</li>
+<li><code>:his i</code> 或<code>:his @</code> 输入行类</li>
+<li><code>:his d</code> 或<code>:his &gt;</code> debug类</li>
+</ul>
+</li>
+<li>可以加范围<ul>
+<li><code>:his 2,5</code> <code>2-5</code>行命令历史</li>
+<li><code>:his / 3,9</code> 查询类命令历史的<code>3-9</code>条</li>
+<li><code>his -5,-1</code> 最新的<code>5</code>条</li>
+</ul>
+</li>
+<li>总共可以保存多少条命令呢？</li>
+</ul>
+<h3 id="_7">命令数量</h3>
+<ul>
+<li><code>:set history&amp;</code><ul>
+<li>还原为默认历史命令</li>
+</ul>
+</li>
+<li><code>:set history?</code><ul>
+<li>查看这数量是多少？</li>
+<li>50</li>
+</ul>
+</li>
+<li>设置更多命令历史记录<ul>
+<li><code>:set history=1000</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628303408587.png" /></p>
+<h3 id="_8">直接修改命令</h3>
+<ul>
+<li>命令行模式下 <kbd>ctrl</kbd>+<kbd>f</kbd></li>
+<li>或者正常模式下<ul>
+<li><kbd>q</kbd><kbd>:</kbd> 列出历史命令<ul>
+<li><kbd>/</kbd> 在历史命令中搜索</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628304811057.png" /></p>
+<h3 id="_9">新窗口</h3>
+<ul>
+<li>这个窗口有历史的命令<ul>
+<li>可以移动</li>
+<li>可以修改</li>
+</ul>
+</li>
+<li>回车后执行光标所在行的命令</li>
+<li>执行后<ul>
+<li>历史的命令不被修改</li>
+<li>新增一条最新的命令历史记录</li>
+</ul>
+</li>
+<li>我能在命令行里复制粘贴么？</li>
+</ul>
+<h3 id="_10">使用寄存器</h3>
+<ul>
+<li>我能在命令行里复制粘贴么？</li>
+<li>可以查询手册<code>:h c_ctrl-r</code> <ul>
+<li>查询命令模式下的<kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>这和插入模式下使用寄存器一致</li>
+<li>都是<kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>然后再指定寄存器</li>
+</ul>
+</li>
+<li>这样我们就可以在命令行里面使用寄存器了</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612255335506.png" /></p>
+<ul>
+<li>我们先看看寄存器里面有什么？<ul>
+<li><code>:reg</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">使用默认寄存器</h3>
+<ul>
+<li>先<code>:</code>进入命令行模式"<ul>
+<li>然后<kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>然后如果我们这个时候摁下<kbd>"</kbd></li>
+<li>就把默认寄存器里面的内容放入了命令行中</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612255634458.png" /></p>
+<h3 id="_12">使用当前文件名寄存器%</h3>
+<ul>
+<li>如果我们再<code>:</code><ul>
+<li>然后<kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>摁下<kbd>%</kbd>就把文件名放入了命令行中</li>
+<li>比如<code>:!javac</code>的时候</li>
+<li>可以用这种方法把当前文件名输入到命令行中</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20221231-1672453724904.png" /></p>
+<ul>
+<li>不过还是直接最简单<code>:!python3 %</code></li>
+</ul>
+<h3 id="_13">复制路径和文件名</h3>
+<ul>
+<li>读取当前目录并写入当前缓存</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20221231-1672495870794.png" /></p>
+<ul>
+<li>yiW 复制当前大词</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20221231-1672495925566.png" /></p>
+<ul>
+<li>确实已经进入默认寄存器</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20221231-1672495965722.png" /></p>
+<ul>
+<li>:e 之后<ul>
+<li>按下<kbd>ctrl</kbd> + <kbd>r</kbd></li>
+<li>然后选用缺省寄存器<kbd>"</kbd></li>
+<li>就可以把缺省寄存器中存储的数据</li>
+<li>放到命令行编辑器里面</li>
+</ul>
+</li>
+</ul>
+<h2 id="_14">总结</h2>
+<ul>
+<li>命令行的运行光标控制<ul>
+<li>方向键<kbd>⬅️️</kbd><kbd>➡️️️</kbd>可以控制左右移动</li>
+<li><kbd>shift</kbd>+<kbd>⬅️️</kbd><kbd>➡️️️</kbd>按照word左右移动光标</li>
+<li><kbd>ctrl</kbd>+<kbd>b</kbd> 到开头begin</li>
+<li><kbd>ctrl</kbd>+<kbd>e</kbd> 到结尾end</li>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> 向前删除一个word<ul>
+<li>小心关闭窗口！😱</li>
+</ul>
+</li>
+<li><kbd>ctrl</kbd>+<kbd>u</kbd> 删除到开头</li>
+</ul>
+</li>
+<li>历史命令的遍历<ul>
+<li>方向键<kbd>↑️</kbd><kbd>↓️️️</kbd></li>
+</ul>
+</li>
+<li>命令行的历史记录<ul>
+<li><code>:history</code></li>
+<li><code>:his -5</code></li>
+<li><code>:his s</code></li>
+</ul>
+</li>
+<li>进入命令历史记录编辑<ul>
+<li>命令行状态下 <kbd>ctrl</kbd>+<kbd>f</kbd></li>
+<li>或者正常模式下 <kbd>q</kbd><kbd>:</kbd> </li>
+<li>选择、编辑、回车</li>
+</ul>
+</li>
+<li>使用寄存器<ul>
+<li>命令行状态下 <kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>然后输入寄存器的名称就可以了</li>
+</ul>
+</li>
+<li>命令模式可以读写文件吗？🤔</li>
+<li>
+<p>下次再说 👋</p>
+</li>
+<li></li>
+</ul>
+    </div>
+</body>
+</html>

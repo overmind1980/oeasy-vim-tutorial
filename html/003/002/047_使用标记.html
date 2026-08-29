@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：使用标记，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解使用标记。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 使用标记">
+    <meta property="og:title" content="oeasy Vim编辑器教程：使用标记，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解使用标记。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">使用标记</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>有了这个<code>range</code>、<code>address</code>我们可以做很多事情<ul>
+<li>跳转<code>:44</code></li>
+</ul>
+</li>
+<li>复制和剪切<ul>
+<li><code>1,3d</code></li>
+<li><code>3,$y</code></li>
+<li><code>%d o</code></li>
+</ul>
+</li>
+<li>配合搜索<ul>
+<li><code>/oeasy/,$y</code></li>
+<li><code>5;/oeasy/d</code></li>
+</ul>
+</li>
+<li>其实还有一种<code>address</code><ul>
+<li>是 <code>mark</code> 标记</li>
+</ul>
+</li>
+<li>还记得 <code>mark</code>标记 是什么意思？🤔</li>
+</ul>
+<h3 id="_3">查看手册📕</h3>
+<ul>
+<li><code>:h mark</code> 可以查看相应的细节</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612228156060.png" /></p>
+<ul>
+<li>我们可以使用<kbd>m</kbd>来定义一个标记</li>
+<li>比如我们在第 <code>3</code> 行 <kbd>m</kbd><kbd>a</kbd></li>
+<li>我们就在 第 <code>3</code> 行 标记了一个 <code>mark</code> 叫做 <code>a</code></li>
+<li>这个标记能看见么？</li>
+</ul>
+<h3 id="_4">查看标记</h3>
+<ul>
+<li>我们用<code>:marks</code><ul>
+<li>就可以看到里面有了一个新<code>mark</code></li>
+<li>名字叫做<code>a</code></li>
+</ul>
+</li>
+<li>注意这个<code>a</code>包括<ul>
+<li>行、列坐标</li>
+<li>还有具体文本</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612228321562.png" /></p>
+<h3 id="_5">查看具体标记</h3>
+<ul>
+<li><code>:marks abc</code><ul>
+<li>查看具体abc这三个mark</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627046852446.png" /></p>
+<h3 id="_6">跳转到引用</h3>
+<ul>
+<li><kbd>m</kbd><kbd>a</kbd><ul>
+<li>定义了一个名字叫 <code>a</code> 的 <code>mark</code></li>
+</ul>
+</li>
+<li><kbd>'</kbd><kbd>a</kbd><ul>
+<li>可以将光标从任意位置跳转到 标记<code>a</code></li>
+</ul>
+</li>
+<li>注意<ul>
+<li>单引号是跳转到标记</li>
+<li>寄存器是放在后面的</li>
+</ul>
+</li>
+<li>这个也可以配合行命令来操作</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612228601425.png" /></p>
+<ul>
+<li><code>'ay</code> 就是把<code>a</code>标记那行，放入默认寄存器</li>
+<li>可以用<code>:reg</code>查看</li>
+<li><code>'a,'b</code>就是把从<code>a</code>标记那行，到<code>b</code>标记那行<ul>
+<li><code>'a,'b</code> 相当于 <code>3,5</code> 是 {range}</li>
+</ul>
+</li>
+<li>如果我想使用标记</li>
+<li>也想使用寄存器怎么办？</li>
+</ul>
+<h3 id="_7">单双引号</h3>
+<ul>
+<li><code>:'a,'by"o</code><ul>
+<li><code>'a,'b</code> 是 {range}</li>
+<li><code>y</code> 是 yank复制</li>
+<li><code>o</code> 是指定的寄存器</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210922-1632267423839.png" /> </p>
+<ul>
+<li>如下是寄存器情况</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210922-1632267457809.png" /></p>
+<ul>
+<li><code>^J</code> 是换行的标记</li>
+</ul>
+<h3 id="marks">操控marks</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612229513841.png" /></p>
+<ul>
+<li><code>marks</code>不可见，但是可以存储文件信息</li>
+<li>小写字母<code>ma</code><ul>
+<li>用于当前文件 <code>内部</code></li>
+</ul>
+</li>
+<li>大写字母<code>mA</code><ul>
+<li>可以 <code>跨文件</code> 定义 <code>marks</code></li>
+</ul>
+</li>
+<li><code>0-9</code> 的数字标记<ul>
+<li>可以预先放到<code>~/.viminfo</code>的配置文件中</li>
+</ul>
+</li>
+<li>可以查看指定的标记<code>:marks a</code></li>
+<li>也可以删除标记<ul>
+<li><code>:delm(arks) a</code></li>
+<li>甚至清空所有标记，<code>:delm(arks)!</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">常用标记</h3>
+<ul>
+<li><code>'[</code>上一次修改或复制的第一行或第一个字符</li>
+<li><code>']</code> 上一次修改或复制的最后一行或最后一个字符</li>
+<li><code>'&lt;</code> 上一次在可视模式下选取的第一行或第一个字符</li>
+<li><code>'&gt;</code> 上一次在可视模式下选取的最后一行或最后一个字符</li>
+<li><code>''</code>  上一次跳转之前的光标位置</li>
+<li><code>'"</code>  上一次关闭当前缓冲区时的光标位置</li>
+<li><code>'^</code>  上一次插入字符后的光标位置</li>
+<li><code>'.</code>  上一次修改文本后的光标位置</li>
+<li><code>'(</code>  当前句子的开头</li>
+<li><code>')</code>  当前句子的结尾</li>
+<li><code>'{</code>  当前段落的开头</li>
+<li><code>'}</code>  当前段落的结尾</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>我们这次研究了<code>mark</code>的定义和使用<ul>
+<li><code>mb</code>定义</li>
+<li><code>'b</code>跳转</li>
+<li>可以对<code>marks</code>查询</li>
+<li><code>:delm(arks)!</code> 删除</li>
+</ul>
+</li>
+<li>三种<code>marks</code><ul>
+<li>小写 本文件内</li>
+<li>大写 跨文件</li>
+<li>数字 配置文件中</li>
+</ul>
+</li>
+<li>可以在命令行中，使用标记<ul>
+<li><code>'a,'by</code>从标记a的行复制到标记b的行</li>
+<li><code>'a,'bt.</code>把从a到b的行复制当前行的下方</li>
+<li><code>'a,'bm$</code>把从a到b的行移动到文档最后</li>
+</ul>
+</li>
+<li>命令行模式可真是太方便了！</li>
+<li>可是，你知道吗？<ul>
+<li>命令行模式来自于ed</li>
+<li>本是当时的无奈之举？</li>
+</ul>
+</li>
+<li>怎么回事？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

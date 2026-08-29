@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：行头行尾，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解行内贴靠。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 行内贴靠, 行头行尾">
+    <meta property="og:title" content="oeasy Vim编辑器教程：行头行尾，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解行内贴靠。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">行头行尾</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<p><img alt="findo" src="images/findoch.png" /></p>
+<ul>
+<li>跳跃<ul>
+<li>向前跳跃是 <kbd>f</kbd></li>
+<li>向后跳跃是 <kbd>F</kbd></li>
+</ul>
+</li>
+<li>继续<ul>
+<li>保持方向是 <kbd>;</kbd></li>
+<li>改变方向是 <kbd>,</kbd></li>
+</ul>
+</li>
+<li>可以加上 <code>[count]</code> 来加速</li>
+<li>还有什么好玩的吗？🤔</li>
+</ul>
+<h3 id="_3">动手</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#这次还是用无配置的方式启动</span>
+vi<span class="w"> </span>-u<span class="w"> </span>NONE<span class="w"> </span>oeasy.java
+</code></pre></div>
+
+<ul>
+<li><code>:h f</code> 继续查找周围的命令</li>
+<li><kbd>f</kbd> 旁边还有<ul>
+<li><kbd>t</kbd></li>
+<li><kbd>T</kbd></li>
+</ul>
+</li>
+<li>这两个是干什么用的？</li>
+<li>我们来看一看👀</li>
+</ul>
+<h2 id="_4">查看帮助</h2>
+<p><img alt="helpt" src="images/helpt.png" /></p>
+<ul>
+<li>含义不同<ul>
+<li><kbd>f</kbd> 对应的单词是 <code>find</code> 找到</li>
+<li><kbd>t</kbd> 对应的单词是 <code>till</code> 贴靠</li>
+</ul>
+</li>
+<li>位置不同<ul>
+<li><kbd>f</kbd> 光标直接跳到查找的字符上</li>
+<li><kbd>t</kbd> 光标跳到查找字符的前一个字符上，贴靠着查找字符</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">试一试</h3>
+<p><img alt="helpt" src="images/tejumptille.png" /></p>
+<ul>
+<li><kbd>f</kbd><kbd>e</kbd> 是把光标移动到 <code>e</code> 上面</li>
+<li><kbd>t</kbd><kbd>e</kbd> 是把光标移动到 <code>e</code> 之前的字符上面</li>
+<li><kbd>;</kbd> 还可以继续吗？</li>
+<li>好像不行，怎么办？</li>
+</ul>
+<h3 id="_6">继续移动</h3>
+<ul>
+<li>小拇指直接落在 <kbd>;</kbd><ul>
+<li><code>till</code> 下一个 <code>e</code></li>
+</ul>
+</li>
+<li>再 <kbd>l</kbd> 把光标移动到 <code>e</code> 上面</li>
+<li>再小拇指落 <kbd>;</kbd><ul>
+<li><code>till</code> 下一个 <code>e</code></li>
+</ul>
+</li>
+<li>在 <kbd>;</kbd> 的过程中</li>
+<li>重复的操作仍然是 <code>till</code></li>
+<li><code>till</code> 的对象仍然是 <code>e</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211108-1636374948522.png" /></p>
+<ul>
+<li>我们是否可以反方向 <kbd>,</kbd> 呢？</li>
+</ul>
+<h3 id="till">继续反向 till</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211108-1636375269307.png" /></p>
+<ul>
+<li><kbd>,</kbd> 改变查找方向<ul>
+<li>模式仍然是 <code>till</code> 模式</li>
+<li>字符仍然是 <code>e</code> </li>
+<li>找到左边最近的 <code>e</code> 的前一个字符的位置</li>
+<li>还想继续不可能</li>
+</ul>
+</li>
+<li>还是因为已经到达了 <code>e</code> 的前一个字符的位置<ul>
+<li>于是要向左到 <code>e</code></li>
+<li>这样就可以继续向左查找了</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">直接反向</h3>
+<p><img alt="tillgoon" src="images/TillReverse.png" /></p>
+<ul>
+<li><kbd>T</kbd> 向左进行贴靠</li>
+<li><kbd>;</kbd> 保持方向</li>
+<li><kbd>,</kbd> 改变方向</li>
+<li>反向的反向就是正向</li>
+<li>可以反复横跳</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459812020.png" /></p>
+<h3 id="_8">翻倍</h3>
+<ul>
+<li><kbd>2</kbd> <kbd>t</kbd> <kbd>o</kbd> <code>till</code> 第2个 <code>o</code></li>
+<li><kbd>;</kbd> 保持查找方向不变，继续向前 <code>till</code> 下一个 <code>o</code></li>
+<li><kbd>,</kbd> 反向 <code>till</code> 上一个 <code>o</code></li>
+<li><kbd>2</kbd> <kbd>;</kbd> 保持查找方向不变，向前 <code>till</code> 到第 2 个 <code>o</code></li>
+<li><kbd>2</kbd> <kbd>,</kbd> 改变方向，<code>till</code> 第 2 个 <code>o</code></li>
+</ul>
+<p><img alt="tillgoon" src="images/tilljump.png" /></p>
+<h2 id="_9">总结</h2>
+<ul>
+<li>贴靠<ul>
+<li>向前贴靠是 <kbd>t</kbd></li>
+<li>向后贴靠是 <kbd>T</kbd></li>
+</ul>
+</li>
+<li>继续<ul>
+<li>保持方向是 <kbd>;</kbd></li>
+<li>改变方向是 <kbd>,</kbd></li>
+</ul>
+</li>
+<li>可以加上 <code>[count]</code> 来加速</li>
+<li>行内左右移动好像，到这里接结束了？后面还有什么呢？</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：词头词尾，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解词头词尾。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 词头词尾">
+    <meta property="og:title" content="oeasy Vim编辑器教程：词头词尾，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解词头词尾。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">词头词尾</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们这次学了向前一个单词</li>
+<li><kbd>w</kbd></li>
+<li>意思是 <code>word</code></li>
+</ul>
+<p><img alt="backward" src="images/word.png" /></p>
+<ul>
+<li>还学习了向后一个单词 </li>
+<li><kbd>b</kbd></li>
+<li>意思是 <code>backward</code></li>
+</ul>
+<p><img alt="backward" src="images/backb.png" /></p>
+<ul>
+<li>这俩命令都落在单词的第一个字母</li>
+<li>还有什么好玩的命令吗？🤔</li>
+</ul>
+<h3 id="_3">动手练习</h3>
+<ul>
+<li>我们可以一路向前</li>
+<li>也可以反复横跳</li>
+<li><kbd>w</kbd>、<kbd>b</kbd> 附近还有什么？🤔</li>
+<li>去 <code>:h w</code> 附近再转悠转悠</li>
+</ul>
+<h3 id="_4">查询帮助</h3>
+<p><img alt="e" src="images/e_commands.png" /></p>
+<ul>
+<li>我们看到 <kbd>w</kbd>、<kbd>b</kbd> 中间有个 <kbd>e</kbd></li>
+<li>说是 <ul>
+<li>Forward to the end of word [count] inclusive.</li>
+<li>Does not stop in an empty line.  </li>
+</ul>
+</li>
+<li>意思<ul>
+<li>向前到单词的结尾</li>
+<li>空行不停留</li>
+<li>直到这个文档的尽头</li>
+<li>也不停留~~~</li>
+</ul>
+</li>
+<li><kbd>e</kbd> 对应单词是 <code>end</code> </li>
+<li>我们来试一下🤪</li>
+</ul>
+<h2 id="_5">跳到词尾</h2>
+<p><img alt="e2" src="images/whatisecommand.png" /></p>
+<ul>
+<li>我们可以看到 <kbd>e</kbd> 是向 <code>前</code> 跳到 <code>本词尾</code></li>
+<li>而 <kbd>w</kbd> 是向 <code>前</code> 跳到 <code>下词头</code></li>
+<li><kbd>b</kbd> 则是向 <code>后</code> 跳回到 <code>上词头</code></li>
+<li>如果我的光标不在 <code>本词头</code> 的位置，又如何呢？</li>
+</ul>
+<h3 id="_6">光标位于词中</h3>
+<p><img alt="e3" src="images/einword.png" /></p>
+<ul>
+<li>我们可以看到，如果光标位于 <code>词中</code> 时</li>
+<li><kbd>e</kbd> 不变，还是跳到 <code>本词尾</code></li>
+<li><kbd>w</kbd> 还是跳到 <code>下词头</code></li>
+<li>而<kbd>b</kbd> 有变化，向 <code>后</code> 跳没变，但是跳回到了 <code>本词头</code></li>
+<li><kbd>w</kbd>、<kbd>b</kbd> <ul>
+<li>都是跳到 <code>词头</code></li>
+<li>一个向 <code>前</code> 一个向 <code>后</code></li>
+</ul>
+</li>
+<li><kbd>e</kbd>是向 <code>前</code> 跳到 <code>词尾</code></li>
+<li>如果我想向<code>后</code>  <ul>
+<li>跳到上一个词的词尾呢？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">向前跳到词尾</h3>
+<ul>
+<li><kbd>g</kbd><kbd>e</kbd> <ul>
+<li>向前跳到上一个词的词尾</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459162663.png" /></p>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459206130.png" /></p>
+<h3 id="_8">连续跳跃</h3>
+<ul>
+<li><code>wbe</code> 比 <code>hjkl</code> 效率高得多</li>
+<li>但是还可以更高 🤸</li>
+<li>方法就是使用数字</li>
+<li>从帮助中，我们可以发现可以选择使用 <code>[count]</code> 次数</li>
+</ul>
+<p><img alt="e" src="images/e_commands.png" /></p>
+<ul>
+<li>意思就是可以向前 n 个单词</li>
+</ul>
+<h3 id="_9">跳起来吧🤾‍♀️</h3>
+<p><img alt="count" src="images/countetimes.png" /></p>
+<ul>
+<li>在方向前面加上数字<ul>
+<li><code>3b</code>、<code>5e</code> 这样都可以</li>
+</ul>
+</li>
+<li>甚至 <code>hjkl</code> 都可以使用<ul>
+<li>比如 <code>4h</code>、<code>10l</code></li>
+</ul>
+</li>
+<li>这样快得多！！！✊</li>
+</ul>
+<h2 id="_10">总结</h2>
+<ul>
+<li>我们这次学习了 <kbd>e</kbd></li>
+<li><kbd>e</kbd> 代表<code>end</code> 词尾</li>
+<li>我们了解到在词中时，<kbd>b</kbd>退到本词头</li>
+<li>还可以成倍的跳跃</li>
+<li>但是当前单词和我的理解有点不一样啊？</li>
+<li>我想直接跳到href属性，怎么办🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

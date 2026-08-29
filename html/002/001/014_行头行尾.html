@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：行头行尾，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解行头行尾。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 行头行尾">
+    <meta property="og:title" content="oeasy Vim编辑器教程：行头行尾，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解行头行尾。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">行头行尾</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们这次了解了 <code>大词</code> 和 <code>小词</code><ul>
+<li><code>小词</code> 就是我们常规意义的词<ul>
+<li>被 <code>=</code>、<code>"</code> 等标点分开的词</li>
+</ul>
+</li>
+<li><code>大词</code> 里面包括了 <code>=</code>、<code>"</code> 等标点<ul>
+<li>只能被空格、tab、换行分割</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><kbd>W</kbd>、<kbd>E</kbd>、<kbd>B</kbd> 都可以有大词移动</li>
+</ul>
+<p><img alt="WEB" src="images/WEB.png" /></p>
+<ul>
+<li>但如果我想一步就跳到行头或行尾</li>
+<li>这不一步登天么？</li>
+<li>可能么🤔</li>
+</ul>
+<h2 id="_3">查阅文档📕</h2>
+<ul>
+<li>还是从 <code>:h w</code>，开始查找起</li>
+<li>还是在 <code>motion</code> 里面查找</li>
+<li>应该和 <kbd>W</kbd> 都属于左右移动的部分</li>
+<li>找到这样两个命令</li>
+</ul>
+<p><img alt="WEB" src="images/StartEnd.png" /></p>
+<h3 id="_4">行首和行尾</h3>
+<p><img alt="WEB" src="images/StartEnd2.png" /></p>
+<ul>
+<li><kbd>^</kbd>，也就是 <kbd>shift</kbd>+<kbd>6</kbd><ul>
+<li>作用是移动到行首</li>
+<li>或者说移动到本行第一个非空字符</li>
+</ul>
+</li>
+<li><kbd>$</kbd>，也就是<kbd>shift</kbd> + <kbd>4</kbd><ul>
+<li>作用是移动到本行行尾</li>
+</ul>
+</li>
+<li><code>^</code>、<code>$</code> 也分别对应正则表达式中的 <code>开头</code> 和 <code>结尾</code> </li>
+</ul>
+<h3 id="_5">深入细节</h3>
+<ul>
+<li>如果本行开头第一个字符是空格<ul>
+<li>那<kbd>^</kbd>无法到第一个字符啊？</li>
+<li>如果我就想去第一个字符</li>
+<li>无论他是空格还是tab</li>
+<li>应该怎么办呢？</li>
+</ul>
+</li>
+<li>这个命令应该离 <code>^</code> 不远</li>
+<li>应该也在 <code>motion</code> 的 左右移动部分</li>
+<li>找到了 <code>0</code> </li>
+</ul>
+<p><img alt="WEB" src="images/0ToBegin.png" /></p>
+<h3 id="_6">行头区别</h3>
+<ul>
+<li><kbd>^</kbd> 是到本行第一个非空字符</li>
+<li><kbd>0</kbd> 是到本行第一个字符，不管是不是空格</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459429355.png" /></p>
+<ul>
+<li>那结尾如果有空格会如何呢？</li>
+</ul>
+<h3 id="_7">结尾细节</h3>
+<ul>
+<li>相关命令肯定也在左右移动这部分</li>
+<li>找到 <code>g_</code></li>
+</ul>
+<p><img alt="toEnd" src="images/toLineEnd.png" /></p>
+<ul>
+<li><kbd>g</kbd><kbd>_</kbd> 是到本行最后一个非空字符</li>
+<li>两个按键要依次按下</li>
+<li><kbd>$</kbd> 跳到本行最后一个字符，即使他是空格</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>我们这次学会了直接跳到开头和结尾</li>
+<li>最重要的就是 <code>^</code>、<code>$</code><ul>
+<li><kbd>^</kbd> 到开头</li>
+<li><kbd>$</kbd> 到结尾</li>
+</ul>
+</li>
+<li>还有什么好玩的吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

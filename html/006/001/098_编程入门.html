@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：vim脚本编程展望，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解编程入门。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 编程入门, vim脚本编程展望">
+    <meta property="og:title" content="oeasy Vim编辑器教程：vim脚本编程展望，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解编程入门。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="vim">vim脚本编程展望</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次我们彻底研究了vim高亮的原理</li>
+<li>各种语法项syntax item<ul>
+<li>关键字keyword</li>
+<li>匹配模式match</li>
+<li>区域region</li>
+</ul>
+</li>
+<li>定义好了之后还可以设置链接成组<ul>
+<li><code>hi def link javaComment Comment</code></li>
+</ul>
+</li>
+<li>然后就可以在颜色文件中具体配色了<ul>
+<li>比如murphy中对于Comment的定义</li>
+<li><code>hi Comment ctermfg=yellow</code></li>
+</ul>
+</li>
+<li>不同的语言可以有不同的语法定义</li>
+<li>其实，vim也是门语言</li>
+<li>vimscript也是可以编程的</li>
+<li>怎么玩呢？🤔</li>
+</ul>
+<h3 id="_2">编写脚本</h3>
+<ul>
+<li><code>vi oeasy.vim</code></li>
+<li>在<code>oeasy.vim</code>中写下</li>
+<li><code>echo "hello vim script"</code></li>
+<li><code>:w</code></li>
+<li><code>:source %</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627993396411.png" /></p>
+<ul>
+<li>这就是vim程序的编写和运行的基本方法</li>
+<li>vim既是编辑器，也是解释器</li>
+<li>不过现在vim9script要有一个比较具大的改变</li>
+<li>这个改编还要从2014年说起</li>
+</ul>
+<h3 id="_3">分支</h3>
+<ul>
+<li>缘起</li>
+<li>2014年vim还处于7.4版</li>
+<li>Thiago de Arruda为Vim提交了一个补丁，以引入多线程的功能</li>
+<li>不过最终没有采纳</li>
+<li>于是Thiago创建了一个分支NeoVim，并且筹集到了33万美元的资金</li>
+<li>2015年末，Thiago不再领导相关的工作</li>
+<li>而且neovim的社会化程度明显比vim高</li>
+<li>提交代码的人数多691个人</li>
+<li>而且每个人都提交好多代码</li>
+<li>不过其实问题也不少</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627994173212.png" /></p>
+<h3 id="_4">老根的演化</h3>
+<ul>
+<li>vim这边</li>
+<li>基本上还是非常稳妥</li>
+<li>或者说比较缓慢的运动着</li>
+<li>基本上是brammool一个人的世界</li>
+<li>有其他的代码提供者</li>
+<li>但是都是非常少的代码量</li>
+<li>自从2018年开始，neovim的事情无疑刺激了brammool</li>
+<li>github的提交变得非常活跃</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627994244534.png" /></p>
+<ul>
+<li>2016年9月12日，brammool提交了vim8</li>
+<li>vim8支持了异步和timer</li>
+</ul>
+<h3 id="vim9">vim9</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627994863785.png" /></p>
+<ul>
+<li>Bram Mool是真勤劳啊</li>
+<li>谁看得出这位61年出生的老大爷已经进入了花甲之年</li>
+<li>vim9的项目已经成了只读的档案</li>
+<li>现在的新提交的东西都在vim里面</li>
+<li>不过我们可以从一些方面看到他对于vim9的企图心</li>
+</ul>
+<h3 id="vim9script">vim9Script</h3>
+<ul>
+<li>这个新的脚本要加速运行</li>
+<li>就要变更原来的一些模式<ul>
+<li>函数的参数只是名字，而不是来自于字典的东西，类似a:000列表之类的</li>
+<li>本地变量不再放在一个字典里</li>
+<li>异常处理的细节</li>
+</ul>
+</li>
+<li>速度能有多快呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627995287160.png" /></p>
+<ul>
+<li>感觉已经是脚本语言的极限了</li>
+<li>据说函数是要编译成本地的指令的</li>
+<li>而且要义无反顾地做一个不向前兼容的vim9script！！！</li>
+<li>而且可以使用类库</li>
+<li>总之，我们现在的脚本可能会发生改变</li>
+<li>我们还是等vim9script发布出来之后再讲吧</li>
+</ul>
+<h3 id="_5">预告</h3>
+<ul>
+<li>关于vim9现在有个预告<ul>
+<li>https://vimhelp.org/vim9.txt.html#vim9.txt</li>
+</ul>
+</li>
+<li>我感觉这脚本离不开vim</li>
+<li>而且一定可以很方便地使用缓存buf、寄存器reg、标签tab之类的东西</li>
+<li>双方已经上场对战</li>
+<li>也许会杀出个第三方比如SpaceVim之类的</li>
+<li>本教程先告一段落</li>
+</ul>
+<h2 id="_6">总结</h2>
+<ul>
+<li>vim历史悠久</li>
+<li>neovim前来挑战</li>
+<li>vim及时调整</li>
+<li>vim9script令人期待</li>
+<li>到底什么时候更新</li>
+<li>要等vim9script出来🤔</li>
+<li>之后再说！</li>
+</ul>
+    </div>
+</body>
+</html>

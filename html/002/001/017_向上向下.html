@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：向上向下，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解向上向下。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 向上向下">
+    <meta property="og:title" content="oeasy Vim编辑器教程：向上向下，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解向上向下。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">向上向下</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>和 <code>f</code> 相关的是跳到<ul>
+<li>向 <code>前</code> 跳到是 <kbd>f</kbd></li>
+<li>向 <code>后</code> 跳到是 <kbd>F</kbd></li>
+</ul>
+</li>
+<li>和 <code>t</code> 相关的是贴靠<ul>
+<li>向 <code>前</code> 贴靠是 <kbd>t</kbd></li>
+<li>向 <code>后</code> 贴靠是 <kbd>T</kbd></li>
+</ul>
+</li>
+<li>和 <code>小写</code> 相关的是 <code>向前</code><ul>
+<li><code>向前</code> 跳跃是 <kbd>f</kbd></li>
+<li><code>向前</code> 贴靠是 <kbd>t</kbd></li>
+</ul>
+</li>
+<li>
+<p>和 <code>大写</code> 相关的是 <code>向后</code></p>
+<ul>
+<li><code>向后</code> 跳跃是 <kbd>F</kbd></li>
+<li><code>向后</code> 贴靠是 <kbd>T</kbd></li>
+</ul>
+</li>
+<li>
+<p>和继续 <code>查找方向</code> 相关的是 <kbd>;</kbd>、<kbd>,</kbd></p>
+<ul>
+<li><code>保持方向</code> 是 <kbd>;</kbd></li>
+<li><code>改变方向</code> 是 <kbd>,</kbd></li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">向上向下</h3>
+<ul>
+<li>本次启动的时候还是无参数模式</li>
+<li><code>:set nocompatible</code> 设置为不兼容 <code>vi</code><ul>
+<li>意思是使用 <code>vim</code>的方式处理命令</li>
+</ul>
+</li>
+<li><code>motion</code> 的 <code>左右移动</code> 之后是 <code>上下移动</code><ul>
+<li>可以使用 <kbd>回车</kbd> 换行</li>
+<li>也可以使用方向键向上或向下</li>
+<li>更常见的还是 <kbd>j</kbd>、<kbd>k</kbd>，因为他们基于基本位置<ul>
+<li><kbd>j</kbd> 是向下 👇</li>
+<li><kbd>k</kbd> 是向上 👆</li>
+<li><kbd>5</kbd> <kbd>j</kbd> 就是让光标向下👇 5 行</li>
+<li><kbd>5</kbd> <kbd>k</kbd> 就是让光标向上👆 5 行</li>
+</ul>
+</li>
+<li>继续向下翻</li>
+</ul>
+</li>
+</ul>
+<p><img alt="updown" src="images/updownkj.png" /></p>
+<h3 id="_4">上下行首</h3>
+<p><img alt="updown" src="images/plusminus.png" /></p>
+<ul>
+<li>加号 <code>plus</code> 对应 <kbd>+</kbd> <ul>
+<li>对应键盘 <kbd>shift</kbd> + <kbd>=</kbd></li>
+</ul>
+</li>
+<li>减号 <code>minus</code> 对应 <kbd>-</kbd> </li>
+<li>上下行跳到行首<ul>
+<li><kbd>+</kbd> 向 <code>下</code> 并且到行 <code>首</code> 非空字符</li>
+<li><kbd>-</kbd> 向 <code>上</code> 并且到行 <code>首</code> 非空字符</li>
+</ul>
+</li>
+<li>对应关系<ul>
+<li><kbd>+</kbd> 相当于 <kbd>j</kbd> <kbd>^</kbd></li>
+<li><kbd>-</kbd> 相当于 <kbd>k</kbd> <kbd>^</kbd> </li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">首行尾行</h3>
+<p><img alt="updown" src="images/ggG.png" /></p>
+<ul>
+<li><kbd>g</kbd> <kbd>g</kbd> 对应 <code>首行</code></li>
+<li><kbd>G</kbd> 对应 <code>尾行</code></li>
+<li>如果文章很长的话，直接跳就很方便</li>
+<li>一个 <kbd>G</kbd> 直接就到了 <code>Ground</code></li>
+<li>想回开头的话可以用 <kbd>g</kbd> <kbd>g</kbd><ul>
+<li>不知道为什么这两个字母格外熟练</li>
+<li>熟练的让人心痛！</li>
+</ul>
+</li>
+<li>另外还有一个组合 <code>Go</code></li>
+<li>比如追加一个很长的配置文件的话 <kbd>G</kbd> <kbd>o</kbd><ul>
+<li><code>G</code> 直接到最后</li>
+<li><code>o</code> 在下面一行插入</li>
+</ul>
+</li>
+<li>两个按键 <code>Go</code> 起来</li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd>回到正常模式</li>
+<li><code>gg</code> 就回开头<ul>
+<li>重来一局</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">自动缩进</h3>
+<ul>
+<li>当然也不都是痛苦回忆</li>
+<li><kbd>g</kbd> <kbd>g</kbd> 配 <kbd>G</kbd> 是我见过最方便的自动缩进方式<ul>
+<li><kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd> 从首行到尾行自动缩进</li>
+<li>这个文件可能有 500 行,</li>
+<li>但是一把就全都缩进好了</li>
+</ul>
+</li>
+<li>不只是程序、网页、css、配置文件都可以自动缩紧<ul>
+<li>这样整理代码就非常迅速了</li>
+</ul>
+</li>
+<li>程序员更多的时候工作在 normal 模式<ul>
+<li>浏览、搜索、跳跃、复制、粘贴</li>
+<li>真正聚焦下来写代码再切换到插入状态。</li>
+<li>其他编辑器永远只有一个插入状态</li>
+<li>其实是浪费了很多键盘功能的</li>
+<li>这也是 Normal 模式被称作 Normal 正常模式<ul>
+<li>被当作默认模式的原因。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd>这非常爽！！！🤪</li>
+</ul>
+<p><img alt="updown" src="images/ggEqualG.png" /></p>
+<h2 id="_7">总结</h2>
+<ul>
+<li>上下行<ul>
+<li>向 <code>下</code> 是 <kbd>j</kbd>👇</li>
+<li>向 <code>上</code> 是 <kbd>k</kbd>👆</li>
+</ul>
+</li>
+<li>上下行首<ul>
+<li>向 <code>下</code> 到行首非空字符 <kbd>+</kbd></li>
+<li>向 <code>上</code> 到行首非空字符 <kbd>-</kbd></li>
+<li>这些 <code>motion</code> 都可以加上 <code>[count]</code> 来翻倍</li>
+</ul>
+</li>
+<li>首尾行<ul>
+<li>首行是 <kbd>g</kbd> <kbd>g</kbd></li>
+<li>尾行是 <kbd>G</kbd></li>
+<li><kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd> 是全部自动缩进</li>
+<li><kbd>G</kbd> 好像还有其他用法?</li>
+</ul>
+</li>
+<li>什么用法呢?</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

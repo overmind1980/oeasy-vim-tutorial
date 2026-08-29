@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：插入新行，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解换行插入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 换行插入, 插入新行">
+    <meta property="og:title" content="oeasy Vim编辑器教程：插入新行，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解换行插入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">插入新行</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上上次是 <code>i</code>、<code>I</code> 在光标前面插入</li>
+<li>又加了 <code>a</code>、<code>A</code> 可以在光标后面插入<ul>
+<li><code>a</code> 是在光标后插入</li>
+<li><code>A</code> 是在当前行最后插入</li>
+</ul>
+</li>
+</ul>
+<p><img alt="force quit" src="images/insert_ia.png" /></p>
+<ul>
+<li>关于插入，还有什么命令吗？🤔</li>
+<li>我们继续去查阅 help</li>
+</ul>
+<div class="highlight"><pre><span></span><code>:h<span class="w"> </span>i
+</code></pre></div>
+
+<h2 id="_3">我们发现有这样一组命令</h2>
+<p><img alt="force quit" src="images/oO.png" /></p>
+<h4 id="_4">看起来的意思是</h4>
+<ul>
+<li><code>o</code> 在<ul>
+<li>当前行 <strong>下面</strong> 插入一个空行</li>
+<li>然后切换到插入模式</li>
+</ul>
+</li>
+<li><code>O</code> <ul>
+<li>在当前行 <strong>上面</strong> 插入一个空行</li>
+<li>然后切换到插入模式</li>
+</ul>
+</li>
+<li>一个上面 👆，一个 👇</li>
+</ul>
+<h3 id="_5"><strong>上方</strong> 插新行</h3>
+<p><img alt="force quit" src="images/insert_20line.png" /></p>
+<ul>
+<li>当前绿色的光标在第6行中间<ul>
+<li>如果不显示行号，就输入 <code>:set nu</code></li>
+<li>当前模式是正常模式</li>
+</ul>
+</li>
+<li>如果我按下 <kbd>o</kbd><ul>
+<li>就会在第 7 行插入一个新行</li>
+<li>并且模式进入插入模式</li>
+</ul>
+</li>
+<li>按 <kbd>ctrl</kbd>+<kbd>c</kbd> <ul>
+<li>可以回正常模式</li>
+</ul>
+</li>
+<li><kbd>o</kbd>、<kbd>ctrl</kbd>+<kbd>c</kbd>  <ul>
+<li>可以反复切换</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">思考</h3>
+<ul>
+<li>编辑一个新文件</li>
+<li>在正常模式下输入<code>oeasy</code></li>
+<li>会发生什么？</li>
+</ul>
+<h3 id="_7"><strong>下方</strong> 插新行</h3>
+<ul>
+<li><kbd>u</kbd> 回到最初</li>
+<li>回到第 6 行中间位置</li>
+<li>我按下 <kbd>O</kbd><ul>
+<li>就在第 6 行插入一个空行</li>
+<li>原来的第 7 行，变成了第 6 行</li>
+<li>并把模式改为输入模式</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">回忆以前学的切换</h3>
+<ul>
+<li><kbd>i</kbd>、<kbd>I</kbd>和<kbd>a</kbd>、<kbd>A</kbd>
+都可以进入插入模式<ul>
+<li><kbd>i</kbd> 在光标前插入</li>
+<li><kbd>I</kbd> 在本行最前插入</li>
+<li><kbd>a</kbd> 在光标后插入</li>
+<li><kbd>A</kbd> 在本行最后插入</li>
+</ul>
+</li>
+<li><kbd>ctrl</kbd>+<kbd> c</kbd>退回到正常模式</li>
+<li>现在又加了 <kbd>o</kbd>、<kbd>O</kbd> <ul>
+<li><kbd>o</kbd> 本行下方插入一个新行</li>
+<li><kbd>O</kbd> 本行上方插入一个新行</li>
+</ul>
+</li>
+<li>再练练重复、撤销、重做</li>
+<li>按几次 <kbd>.</kbd> 重复插入操作</li>
+<li><kbd>u</kbd> 可以撤销</li>
+<li><kbd>ctrl</kbd>+<kbd>r</kbd> 可以重做</li>
+</ul>
+<h3 id="_9">保存并退出</h3>
+<ul>
+<li>用 <code>:wq</code> 保存并退出<ul>
+<li><code>:w</code> 是保存 </li>
+<li><code>:q</code> 是退出</li>
+<li>和在一起就是 <code>:wq</code> </li>
+<li>保存并退出</li>
+</ul>
+</li>
+<li>我们可以使用 <code>:help :wq</code> 查看帮助</li>
+</ul>
+<p><img alt="wq" src="images/wq.png" /></p>
+<h2 id="_10">总结</h2>
+<ul>
+<li>我们这次学了两个新的东西 <code>o</code> 和 <code>O</code></li>
+<li><code>o</code> 是在当前行下方插入新行</li>
+<li><code>O</code> 是在当前行上方插入新行</li>
+<li>这样我们就有大小写的 <code>i</code>、<code>a</code>、<code>o</code> 可以从正常模式切换到输入模式了。</li>
+</ul>
+<p><img alt="ism" src="images/insert-mode-3.png" /></p>
+<ul>
+<li>我们还把 <code>:w</code>、<code>:q</code> 合成了 <code>:wq</code> </li>
+<li>现在基本上简单的编辑没有什么问题了</li>
+<li>下一步就是提高效率，用最快的方式在屏幕上移动</li>
+<li>怎么做呢？</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

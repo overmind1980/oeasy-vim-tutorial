@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：查找进阶，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解正则表达。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 正则表达, 查找进阶">
+    <meta property="og:title" content="oeasy Vim编辑器教程：查找进阶，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解正则表达。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">查找进阶</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>实时搜索 <code>:set incsearch</code></li>
+<li>大写小写 <code>ignorecase</code></li>
+<li>查找当前单词</li>
+<li><kbd>*</kbd> 正向按单词</li>
+<li><kbd>#</kbd> 反向按单词</li>
+<li><kbd>g*</kbd> 正向不按单词</li>
+<li>
+<p><kbd>g#</kbd> 反向不按单词</p>
+</li>
+<li>
+<p>继续查找</p>
+</li>
+<li><kbd>n</kbd>  保持方向</li>
+<li>
+<p><kbd>N</kbd>改变方向</p>
+</li>
+<li>
+<p>这个搜索可以做一些模糊匹配吗？</p>
+</li>
+<li>应该在哪里查询呢？</li>
+</ul>
+<h2 id="_3">模式匹配</h2>
+<ul>
+<li><code>:h /</code> 可以找到关于搜索相关的帮助<ul>
+<li>我们可以打开 <code>patterns.txt</code></li>
+<li>找到关于比较简单的解释 <code>03.9</code> 的超链接位置</li>
+<li><kbd>ctrl</kbd> + <kbd>]</kbd> 跳转文档</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611806284371.png" /></p>
+<h3 id="_4">行头行尾</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611808182156.png" /></p>
+<ul>
+<li><code>/include</code> 匹配所有的 <code>include</code></li>
+<li><code>^</code> 意味着行开头<ul>
+<li><code>/^include</code> 只匹配 <code>include</code> 在行头的</li>
+<li><code>/^#</code> 只匹配 <code>#</code> 在行头的</li>
+</ul>
+</li>
+<li><code>$</code> 意味着行结尾<ul>
+<li><code>/the.$</code> 只匹配 <code>the.</code> 在行尾的</li>
+<li><code>/^End$</code> 匹配行头接着 <code>End</code>，然后就是行尾的一行</li>
+</ul>
+</li>
+<li>
+<p><code>:g/^$/d</code> 删除所有空行</p>
+</li>
+<li>
+<p>行头行尾和词头词尾很像</p>
+</li>
+<li><code>^</code> 本身就是跳到行头</li>
+<li><code>$</code> 本身就是跳到行尾</li>
+</ul>
+<h3 id="_5">任意字符</h3>
+<ul>
+<li><code>.</code> 可以匹配任意字符，作为通配符来使用</li>
+<li>比如 <code>/c.m</code></li>
+<li>第一个字符为 <code>c</code></li>
+<li>第二个字符为 <code>.</code> 就是任意字符</li>
+<li>
+<p>第三个字符为 <code>m</code>
+<img alt="图片描述" src="images/uid1190679-20210128-1611809141432.png" /></p>
+</li>
+<li>
+<p>可以匹配 <code>company</code> 中的 <code>com</code></p>
+</li>
+<li>也可以匹配 <code>camera</code> 中的 <code>cam</code></li>
+</ul>
+<h3 id="_6">任意字符</h3>
+<ul>
+<li><code>ter.</code> 匹配 <code>ter</code> 后面加一个字符</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625480848298.png" /></p>
+<ul>
+<li>如果想要正常匹配一个真的 <code>.</code><ul>
+<li>就要加上一个反斜杠 <code>\</code></li>
+<li>写做 <code>\.</code></li>
+<li>使用反斜杠 <code>\</code> 转义之后<ul>
+<li><code>.</code>就不再代表任意字符了</li>
+<li>比如搜索 <code>/ter\.</code> 就是寻找 <code>ter.</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">更多字符</h3>
+<ul>
+<li><code>.</code> 代表任意字符</li>
+<li><code>/c.m</code> 匹配 <code>c和m中间有一个字符</code> 的情况</li>
+<li><code>/c..m</code> 匹配 <code>c和m中间有两个字符</code> 的情况</li>
+<li>
+<p><code>/c...m</code> 匹配 <code>c和m中间有三个字符</code> 的情况</p>
+</li>
+<li>
+<p>如果我想查找 c 和 m 中间有任意多个字符怎么办？</p>
+</li>
+<li>使用 <code>*</code> 通配符</li>
+<li><code>/a*</code> 意味着出现 0 到任意多个 a<ul>
+<li><code>/c.*m</code> 在 <code>c</code> 和 <code>m</code> 中间出现 0 到任意多个 <code>.</code>（任意字符）</li>
+<li>如果我希望出现任意多次的是小写字母怎么办？</li>
+<li><code>/c[a-z]*m</code> 这样就是中间出现任意多个 <code>[a-z]小写字母</code> 了</li>
+</ul>
+</li>
+<li><code>:g/^\s*$/d</code> 删除搜有只有空格和tab的行<ul>
+<li><code>\s</code>代表空格和tab</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611810518869.png" /></p>
+<h3 id="_8">词头词尾</h3>
+<ul>
+<li><code>^</code> 和 <code>$</code> 分别代表着行头和行尾</li>
+<li>再回一下词头词尾</li>
+<li>如果我想找出单词的开头结尾是某些字符的怎么办呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611810673432.png" /></p>
+<ul>
+<li><code>\&lt;</code> 意味着单词开头<ul>
+<li><code>\&lt;a</code> 意味着 <code>a</code> 开头的单词</li>
+</ul>
+</li>
+<li><code>\&gt;</code>意味着单词结尾<ul>
+<li><code>b\&gt;</code> 意味着 <code>b</code> 结尾的单词</li>
+</ul>
+</li>
+<li><code>\&lt;a[a-z]*b\&gt;</code><ul>
+<li>意味着以 a 开头，b 结尾，ab 之间可能有零到任意多个小写字符的单词</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">搜索历史</h3>
+<ul>
+<li>我们使用 <code>*</code>、<code>#</code> 查找的时候<ul>
+<li>就自动给加上这个词头词尾</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210207-1612659762671.png" /></p>
+<ul>
+<li><kbd>/</kbd> 之后<ul>
+<li>配合上下方向键看到</li>
+<li>曾经的搜索记录</li>
+</ul>
+</li>
+<li>可以完整地看到搜索历史记录吗？</li>
+</ul>
+<h3 id="_10">搜索历史记录</h3>
+<ul>
+<li>:history /</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20230211-1676108280097.png" /></p>
+<h3 id="_11">推荐网站</h3>
+<ul>
+<li>推荐一个好玩的网站</li>
+<li>https://blog.robertelder.org/regular-expression-visualizer/</li>
+<li>可以可视化的观察正则匹配的过程</li>
+</ul>
+<h2 id="_12">总结</h2>
+<ul>
+<li>行头行尾</li>
+<li><code>^</code> 意味着行开头</li>
+<li>
+<p><code>$</code> 意味着行结尾 </p>
+</li>
+<li>
+<p>任意字符</p>
+</li>
+<li><code>.</code> 代表任意字符 </li>
+<li>
+<p><code>[a-z]</code> 代表任意小写字母</p>
+</li>
+<li>
+<p>字符数量</p>
+</li>
+<li><code>*</code> 代表 0 到任意多个前字符</li>
+<li><code>+</code> 代表 1 到任意多个前字符</li>
+<li>
+<p><code>?</code> 代表 0 或 1 个前字符</p>
+</li>
+<li>
+<p>行头行尾</p>
+</li>
+<li><code>\&lt;</code> 意味着单词开头</li>
+<li><code>\&gt;</code> 意味着单词结尾</li>
+<li>正则表达式的初步规则先介绍到这里</li>
+<li>我们掌握了在 vi 中光标运动的各种方法</li>
+<li>但如何编辑文本呢？🤪</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

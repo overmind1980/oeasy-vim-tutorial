@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：高亮细节 highight，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解高亮细节 Highlight。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 高亮细节, Highlight, highight">
+    <meta property="og:title" content="oeasy Vim编辑器教程：高亮细节 highight，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解高亮细节 Highlight。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="highight">高亮细节 highight</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>这个自动命令 <code>autocmd</code> 还是很方便的</li>
+<li>打开时、保存时就会有自动执行的操作</li>
+<li>自动命令有这么几大元素<ul>
+<li><code>{event}</code> 触发事件</li>
+<li><code>{pattern}</code> 文件模式</li>
+<li><code>{cmd}</code> 具体执行命令</li>
+<li><code>{augroup}</code> 命令组</li>
+</ul>
+</li>
+<li>自动命令可以新建、删除、列表、查询</li>
+<li>还可以强制执行</li>
+<li>有这个我们可以<ul>
+<li>针对每种不同的文件的类型</li>
+<li>定义相应的触发事件</li>
+<li>然后执行各种各样的命令</li>
+<li>方便操作</li>
+</ul>
+</li>
+<li>不过关于文件类型的高亮显示还是没有讲的特别清楚<ul>
+<li>为什么<code>public</code>在<code>java</code>文件里面就可以改变颜色呢？？🤔</li>
+</ul>
+</li>
+</ul>
+<h3 id="_2">颜色方案</h3>
+<div class="highlight"><pre><span></span><code>git clone http://gitee.com/overmind1980/oeasyvim.git
+cd oeasyvim
+vi oeasy.java
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627907966621.png" /></p>
+<ul>
+<li>字符串是棕色的</li>
+<li><code>public</code>、<code>void</code>是绿色的</li>
+<li><code>:colorscheme murphy</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627908044723.png" /></p>
+<ul>
+<li>我们发现在murphy颜色方案下</li>
+<li>字符串不变色了</li>
+<li><code>public</code>、<code>void</code>也不变色了</li>
+</ul>
+<h3 id="_3">查看配色</h3>
+<ul>
+<li><code>:hi</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627908193897.png" /></p>
+<ul>
+<li>查看不到为什么<code>public</code>没有改变颜色</li>
+</ul>
+<h3 id="syntax">语法文件syntax</h3>
+<ul>
+<li>我要找到关于java语法定义Syntax的文件<code>java.vim</code></li>
+<li>于是我搜索一下</li>
+<li><code>sudo find / -name java.vim</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627908359160.png" /></p>
+<ul>
+<li>这三个java.vim都位于系统的配置文件夹中<ul>
+<li>ftplugin 对应java的系统插件<ul>
+<li>ft 是 filetype</li>
+<li>plugin 是 插件 </li>
+<li>/usr/share/vim/vim81/ftplugin/ 对应系统的插件</li>
+<li>~/.vim/ftplugin 对于用户的插件</li>
+</ul>
+</li>
+<li>indent 对应java的系统缩进</li>
+<li>syntax 对应java的系统语法</li>
+</ul>
+</li>
+<li><code>ls /usr/share/vim/vim81/syntax/java.vim</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627908609574.png" /></p>
+<ul>
+<li><code>vi /usr/share/vim/vim81/syntax/java.vim</code></li>
+</ul>
+<h3 id="string">查找String</h3>
+<ul>
+<li><code>/String</code><ul>
+<li>找到41个匹配</li>
+</ul>
+</li>
+<li><code>/\&lt;String\&gt;</code><ul>
+<li>找到3个匹配</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627909795605.png" /></p>
+<ul>
+<li>大概率String本身就是那个高亮元素</li>
+<li><code>:q</code> 退回到<code>oeasy.java</code></li>
+</ul>
+<h3 id="_4">设置高亮</h3>
+<ul>
+<li><code>:colorscheme murphy</code></li>
+<li><code>:hi String ctermfg=brown</code><ul>
+<li>hi 是highlight</li>
+<li>String是需要定义颜色的组名称</li>
+<li>cterm是color terminal foreground</li>
+<li>brown 是棕色</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627909966231.png" /></p>
+<ul>
+<li>String的高亮设置成功</li>
+<li>我们来分析一下什么是String</li>
+</ul>
+<h3 id="string_1">String的定义</h3>
+<ul>
+<li><code>:e /usr/share/vim/vim81/syntax/java.vim</code></li>
+<li><code>/\&lt;String\&gt;</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627910478613.png" /></p>
+<ul>
+<li><code>/javaString</code></li>
+<li><code>/\&lt;javaString\&gt;</code></li>
+<li><code>:set wrap</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627910401270.png" /></p>
+<ul>
+<li>大致是定义了一个region区域javaString</li>
+<li>然后和让javaString连接到了String上</li>
+<li>在syntax/java.vim定义了各种区域region<ul>
+<li>有些是关键字keywords</li>
+<li>有些是字符串String</li>
+</ul>
+</li>
+<li>不过具体给这些定义好的区域上什么颜色</li>
+<li>还是得配色文件来完成<ul>
+<li>比如murphy.vim</li>
+</ul>
+</li>
+<li>在<code>murphy.vim</code>目前没有定义String这个区域的颜色</li>
+<li>但是我们在最后强行<code>hi String ctermfg=brown</code>了</li>
+<li>难道<code>murphy.vim</code>就真没有<code>String</code>区域的颜色定义么？</li>
+</ul>
+<h3 id="murphyvim">murphy.vim</h3>
+<ul>
+<li><code>sudo find / -name murphy.vim</code></li>
+<li><code>vi /usr/share/vim/vim81/colors/murphy.vim</code></li>
+<li><code>/String</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627910767648.png" /></p>
+<ul>
+<li><code>sudo vi /usr/share/vim/vim81/colors/murphy.vim</code></li>
+<li>在最末一行加上一句</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627910857436.png" /></p>
+<ul>
+<li>保存murphy.vim并退出</li>
+<li><code>vi oeasy.java</code> 再切换到murphy配色</li>
+<li>设置成功</li>
+<li>我们再来看看 <code>public</code> 等关键字</li>
+</ul>
+<h3 id="public">找到public</h3>
+<ul>
+<li><code>vi /usr/share/vim/vim81/syntax/java.vim</code></li>
+<li><code>/public</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627911093095.png" /></p>
+<ul>
+<li>public、protected这些关键字都已经被定义到了一个javaScopeDecl里面</li>
+<li>鼠标放到 <code>javaScopeDecl</code> 上 按下<kbd>*</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627911211862.png" /></p>
+<ul>
+<li>我们可以发现<code>javaScopeDecl</code>被定义为<code>javaStorageClass</code></li>
+<li><code>javaStorageClass</code>被定义为<code>StorageClass</code></li>
+</ul>
+<h3 id="_5">尝试修改</h3>
+<ul>
+<li>回到<code>oeasy.java</code></li>
+<li><code>:hi StorageClass=cyan</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627911673601.png" /></p>
+<ul>
+<li>修改成功</li>
+<li><code>sudo vi /usr/share/vim/vim81/colors/murphy.vim</code></li>
+<li>在最后添加 <code>:hi StorageClass=cyan</code></li>
+<li>然后再打开<code>oeasy.java</code></li>
+<li>试验成功！！！</li>
+</ul>
+<h2 id="_6">总结</h2>
+<ul>
+<li>我们这次研究了一下配色方案<ul>
+<li>murphy虽然配色好看</li>
+<li>但是对于java的支持并不好</li>
+<li>我们对于murphy进行了修改</li>
+<li>增加了<code>String</code>、<code>StorageClass</code>颜色的定义</li>
+<li>整体思路是在syntax中定义组</li>
+<li>然后在配色方案中对于组进行颜色设置</li>
+</ul>
+</li>
+<li>语法高亮总共分成两块<ul>
+<li>核心语法引擎<ul>
+<li>描述各种高亮分组的匹配模式特征</li>
+</ul>
+</li>
+<li>高亮分组样式定义<ul>
+<li>描述具体某个高亮分组具体是什么颜色</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可是syntax中如何定义组的呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

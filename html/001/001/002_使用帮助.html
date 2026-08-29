@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：使用帮助，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解使用帮助。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 使用帮助">
+    <meta property="og:title" content="oeasy Vim编辑器教程：使用帮助，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解使用帮助。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">使用帮助🥊</h1>
+<h2 id="_2">回忆上节课内容</h2>
+<ul>
+<li>更新和运行 vim</li>
+<li>进入和退出 vim</li>
+<li>存活了下来</li>
+<li>从中我们知道 vim 有两种模式：正常模式（Normal mode）和命令行模式 （Command-Line mode）</li>
+<li>为了您能更好在 <code>vim</code> 中生存，必须给您更强大的工具🔧 -- 帮助手册</li>
+<li>vim 有没有可以用的帮助系统呢</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#首先进入vim</span>
+vim
+</code></pre></div>
+
+<h3 id="_3">使用帮助文件📕</h3>
+<ul>
+<li>进入 <code>vim</code> 之后，我们面对的是正常模式</li>
+<li>输入半角 <kbd>:</kbd> 进入 <code>命令行</code> 模式</li>
+<li>什么不会，就 <code>:help</code> 什么<ul>
+<li>比如说 <code>:qa</code> 不会</li>
+<li>就 <code>:help</code> 这个 <code>:qa</code> </li>
+<li>输入 <code>:help :qa</code></li>
+<li><code>:help</code> 的对象是 <code>:qa</code>，中间留了一个空格</li>
+<li><kbd>回车</kbd> 之后执行命令</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210904-1630718128946.png" /></p>
+<ul>
+<li>我们查到 <code>:qa[ll]</code> 就是退出全部窗口</li>
+<li>方括号中的内容可以省略</li>
+<li>当前其实我只有一个窗口</li>
+<li>我可以直接把a也省略了么？</li>
+<li>也就是说</li>
+<li>可以用 <code>:q</code> 这种简写形式来退出么？</li>
+</ul>
+<h3 id="_4">尝试</h3>
+<ul>
+<li><code>:h :q</code> 查询 关于 <code>:q</code> 的帮助</li>
+</ul>
+<p><img alt="vim-help-1" src="images/vim_help1.png" /></p>
+<ul>
+<li>可以用 <code>:q</code> 先退出当前帮助📕</li>
+<li>再用 <code>:q</code> 退出 vim</li>
+<li>注意输入 <code>:</code> 的时候<ul>
+<li>左手的小拇指先按下<kbd>Shift</kbd></li>
+<li>右手的小拇指再按一下<kbd>;</kbd></li>
+<li>左手小拇指抬起</li>
+<li>记住这个手法</li>
+<li>多练几次</li>
+</ul>
+</li>
+</ul>
+<h3 id="help">查看一下关于 :help 自己的帮助</h3>
+<ul>
+<li>我们上次 <code>:help</code> 了 <code>:quit</code><ul>
+<li><code>:help :quit</code> 可以查询什么是 <code>:quit</code></li>
+</ul>
+</li>
+<li>原则就是<ul>
+<li>什么不会，就 <code>:help</code> 什么</li>
+</ul>
+</li>
+<li>那么 <code>:help</code> 本身不会怎么办呢？</li>
+<li>什么不会就 <code>:help</code> 什么<ul>
+<li><code>:help</code> 不会就 <code>:help :help</code></li>
+<li><code>:help :help</code> 可以查询 <code>:help</code> 自己的帮助</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vim-help-1" src="images/vim_help2.png" /></p>
+<ul>
+<li><code>:help</code> 完整写法位为 <code>:h[elp]</code><ul>
+<li>中括号里面的东西是可以省略的</li>
+<li>可以简写为 <code>:h</code> </li>
+</ul>
+</li>
+<li>我们可以 <code>:q</code> 退出帮助</li>
+<li>然后 <code>:h</code> 再进入帮助</li>
+<li><code>:help :help</code> 可以简写为 <code>:h :h</code> </li>
+<li>那我能问问关于正常模式 <code>(Normal mode)</code> 的事情吗？🤔</li>
+<li>行动起来！！！👊</li>
+</ul>
+<h3 id="_5">查看关于模式的帮助</h3>
+<ul>
+<li><code>vim</code> 是有状态的编辑器 <code>(modal editor)</code></li>
+<li>所处的状态不同</li>
+<li>进行同样键盘录入</li>
+<li>具体执行的效果不同</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#使用 help 查询帮助</span>
+:help<span class="w"> </span>Normal
+<span class="c1">#或者把 help 简写成 h </span>
+:h<span class="w"> </span>Normal
+</code></pre></div>
+
+<p><img alt="vim-help-1" src="images/vim_help3.png" /></p>
+<h3 id="vim-6">我们可以看到 vim 总共有 6 种基本模式</h3>
+<ul>
+<li>正常模式 <code>(Normal mode)</code><ul>
+<li>也叫默认模式。</li>
+<li>进入 <code>vim</code> 时默认的模式所有输入的键都直接对应着命令</li>
+<li>也被叫做命令模式.</li>
+</ul>
+</li>
+<li>插入模式 <code>(Insert mode)</code><ul>
+<li>任何键盘录入都会插入到当前文档中</li>
+</ul>
+</li>
+<li>可视模式 <code>(Visual mode)</code><ul>
+<li>很像正常模式</li>
+<li>但是移动命令会改变选中的一块高亮区域</li>
+<li>执行的命令会对选定范围进行</li>
+</ul>
+</li>
+<li>选择模式 <code>(Select mode)</code><ul>
+<li>可以用鼠标或光标键高亮选择文本</li>
+<li>任何输入都会替换选择的高亮文本</li>
+<li>并进入插入模式</li>
+</ul>
+</li>
+<li>命令行模式 <code>(Command-Line mode)</code><ul>
+<li>可以窗口下方执行一条命令</li>
+<li>一般是通过 <kbd>:</kbd> 执行单行命令</li>
+<li>通过 <kbd>/</kbd> 和 <kbd>?</kbd> 进行搜索</li>
+</ul>
+</li>
+<li>Ex mode  <code>(多行命令执行模式)</code><ul>
+<li><code>Ex</code> 指的是 <code>Execute</code></li>
+<li>在 <code>Normal</code> 正常模式下使用 <kbd>gQ</kbd> 进入</li>
+<li>使用 <code>:visual</code> 退出 </li>
+</ul>
+</li>
+</ul>
+<h2 id="_6">总结</h2>
+<h4 id="_7">我们这次了解了基本的帮助操作</h4>
+<ul>
+<li>什么不会就 <code>:help</code> 什么</li>
+<li><code>:help</code> 命令有两种写法<ul>
+<li>完整 <code>:help</code></li>
+<li>简写 <code>:h</code> </li>
+</ul>
+</li>
+<li><code>vim</code> 有六种基本模式</li>
+<li>我们现在还没有写过文件呢呀，怎么写呢？🤔</li>
+<li>还得下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：自定颜色，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解自定颜色。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 自定颜色">
+    <meta property="og:title" content="oeasy Vim编辑器教程：自定颜色，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解自定颜色。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">自定颜色</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>这次我们研究了配色方案<ul>
+<li>找到了 <code>colors</code> 的位置</li>
+<li>下载并应用了颜色方案</li>
+<li>制作了自己的配色方案</li>
+</ul>
+</li>
+<li>下面我想修改配色方案的颜色🤔<ul>
+<li>是否能成功？？？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">首先得有自己的颜色方案</h3>
+<p><img alt="" src="images/addMyColor.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1">#找到colors的位置</span>
+<span class="nb">cd</span><span class="w"> </span>/usr/share/vim/vim81/colors
+<span class="c1">#列出所有配色方案</span>
+ls
+<span class="c1">#复制出自己的配色方案</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>murphy.vim<span class="w"> </span>oeasy.vim
+<span class="c1">#查看配色方案信息</span>
+sudo<span class="w"> </span>vi<span class="w"> </span>oeasy.vim
+</code></pre></div>
+
+<h3 id="_4">修改配色方案</h3>
+<p><img alt="" src="images/oeasyvim.png" /></p>
+<ul>
+<li>前 5 行是注释</li>
+<li>第 7 行取消原来的配色</li>
+<li>第 8 行设置背景</li>
+<li>第 9-11 行重设语法高亮</li>
+<li>第 12 行命名此配色方案，可以修改为 <code>oeasy</code></li>
+<li>第 14 行开始设置各种高亮组的颜色</li>
+<li>我们先修改第一个高亮组 <code>Normal</code></li>
+<li><code>Normal</code>的意思是<code>一般文字</code></li>
+<li>这类的文字都属于这个高亮组</li>
+<li>与此类似的还有<ul>
+<li>注释<code>Comment</code></li>
+<li>常量<code>Constant</code>等</li>
+</ul>
+</li>
+</ul>
+<h3 id="normal">改变 Normal 高亮组颜色</h3>
+<ul>
+<li>首先把配色方案名称改为 <code>oeasy</code></li>
+<li>找到 <code>Normal</code> 组</li>
+<li>把 <code>Normal</code> 组的背景色<code>ctermbg</code> 改为 <code>blue</code></li>
+<li>把 <code>Normal</code> 组的前景色 <code>ctermfg</code> 改为 <code>yellow</code></li>
+<li><code>:w</code> 保存配色文件</li>
+<li><code>colorscheme oeasy</code> 重新设定配色文件</li>
+</ul>
+<p><img alt="" src="images/modifiedVim.png" /></p>
+<h3 id="_5">查看配色</h3>
+<ul>
+<li><code>:hi Normal</code> 可以查看 <code>Normal</code> 组的配色</li>
+<li><code>:hi</code> 可以查看当前色彩方案所有的配色</li>
+<li><code>xxx</code> 就是效果预览</li>
+</ul>
+<p><img alt="" src="images/showColors.png" /></p>
+<h3 id="_6">配色细节</h3>
+<ul>
+<li><code>hi</code> 是 <code>highlight</code> 的缩写</li>
+<li><code>:h hi</code> 可以查询帮助</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625839962834.png" /></p>
+<h3 id="_7">字体特征</h3>
+<ul>
+<li><code>:hi StatusLine</code></li>
+<li><code>:hi StatusLine cterm=bold</code></li>
+<li><code>:hi StatusLine cterm=bold,italic</code></li>
+<li><code>:hi StatusLine cterm=bold,italic</code></li>
+<li><code>:hi StatusLine cterm=bold,italic,underline</code></li>
+<li><code>:hi StatusLine</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625840276836.png" /></p>
+<ul>
+<li><code>term</code></li>
+<li>意思是<code>terminal</code></li>
+<li>效果之间可以加逗号</li>
+<li>对应黑白终端</li>
+<li>
+<p>在此无效</p>
+</li>
+<li>
+<p><code>cterm</code></p>
+</li>
+<li>bold 加粗</li>
+<li>underline 下划线</li>
+<li>italic 倾斜</li>
+<li>NONE 取消任何效果</li>
+</ul>
+<h3 id="_8">设置颜色</h3>
+<ul>
+<li><code>hi StatusLine</code></li>
+<li><code>hi StatusLine ctermfg=red ctermbg=blue</code></li>
+<li>
+<p><code>hi StatusLine</code></p>
+</li>
+<li>
+<p><code>ctermfg</code></p>
+<ul>
+<li>意思是<code>c</code>olor <code>ter</code>minal <code>f</code>oreground <code>c</code>olor</li>
+<li>前景色设置</li>
+<li>ctermfg=white</li>
+</ul>
+</li>
+<li>
+<p><code>ctermbg</code></p>
+<ul>
+<li>意思是<code>c</code>olor <code>ter</code>minal <code>b</code>ackground <code>c</code>olor</li>
+<li>背景色设置</li>
+<li>ctermfg=red</li>
+</ul>
+</li>
+<li>
+<p><code>gui</code>相关的属性呢</p>
+<ul>
+<li>与<code>gui</code>相关</li>
+<li>当前终端中无效果</li>
+</ul>
+</li>
+<li>
+<p>颜色对应的色号是来自系统的ansi对应的颜色值</p>
+</li>
+</ul>
+<h3 id="_9">定义光标所在行的颜色效果</h3>
+<ul>
+<li>设置光标行高亮显示</li>
+<li><code>:set cursorline</code></li>
+<li><code>:h 'cursorline'</code></li>
+<li><code>:hi CursorLine</code></li>
+<li><code>:hi CursorLine ctermbg=red ctermfg=white</code></li>
+<li><code>:hi CursorLine</code></li>
+<li>随着光标的运动，CursorLine 也会移动</li>
+</ul>
+<h3 id="_10">定义光标所在列的颜色效果</h3>
+<ul>
+<li>设置光标行高亮显示</li>
+<li><code>:set cursorcolumn</code></li>
+<li><code>:h 'cursorcolumn'</code></li>
+<li><code>:hi CursorColumn</code></li>
+<li><code>:hi CursorColumn ctermbg=red ctermfg=white</code></li>
+<li><code>:hi CursorColumn</code></li>
+<li>随着光标的运动，CursorColumn 也会移动</li>
+<li>如果有换行问题的话 <ul>
+<li><code>:set nowrap</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625841300802.png" /></p>
+<h3 id="_11">自定义颜色名</h3>
+<ul>
+<li>定义 <code>oeasy</code> 组 <ul>
+<li><code>:hi oeasy ctermbg=white ctermfg=red</code></li>
+</ul>
+</li>
+<li>查看 <code>oeasy</code> 组 <ul>
+<li><code>:hi oeasy</code></li>
+</ul>
+</li>
+<li>应用 <code>oeasy</code> 组 <ul>
+<li><code>:set statusline=%#oeasy#%F%*</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/66e7f69d6cf33d257ea6ffa1803391b4-0.png" /></p>
+<h3 id="_12">配置文件</h3>
+<ul>
+<li><code>set statusline=%-040.40(%F%m%)%-030.30([%l,%c]%)%p%%</code></li>
+<li><code>set laststatus=2</code></li>
+<li><code>set ruler</code> </li>
+<li><code>set number</code> </li>
+<li><code>set showcmd</code></li>
+<li><code>set nocompatible</code> </li>
+<li><code>set showcmd</code></li>
+<li><code>set showmode</code> </li>
+<li><code>set history=100</code> </li>
+<li><code>set t_Co=256</code></li>
+<li><code>colorscheme blue</code></li>
+<li><code>set cursorline</code></li>
+<li><code>hi CursorLine ctermbg=red ctermfg=white</code> </li>
+<li><code>set cursorcolumn</code></li>
+<li><code>hi CursorColumn ctermbg=red ctermfg=white</code> </li>
+</ul>
+<h2 id="_13">总结</h2>
+<ul>
+<li>我们这次深入了配色方案<ul>
+<li>修改了方案中的具体配色</li>
+<li>建立了自己的配色</li>
+<li>应用了自己的配色</li>
+</ul>
+</li>
+<li>配置里面还有什么好玩的吗？🤔<ul>
+<li>用来用去就是红绿蓝</li>
+<li>可以有更多颜色吗？</li>
+</ul>
+</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

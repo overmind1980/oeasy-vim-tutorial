@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：命令进阶，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解命令进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 命令进阶">
+    <meta property="og:title" content="oeasy Vim编辑器教程：命令进阶，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解命令进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">命令进阶</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们上次研究vim的历史</li>
+<li>为什么会有行编辑器这种东西</li>
+<li>竟然是当年</li>
+<li>没有显示器只有纸的时代的无奈之举</li>
+<li>vim进化到今天</li>
+<li>依然还有好多人使用</li>
+<li>而且ssh连接的时候直接vim就很方便</li>
+<li>命令行还有什么好玩的么？🤔</li>
+</ul>
+<h3 id="_3">缩进控制</h3>
+<ul>
+<li>我们学习过用<kbd>&lt;</kbd><kbd>&lt;</kbd>、<kbd>&gt;</kbd><kbd>&gt;</kbd>控制缩进<ul>
+<li><kbd>&lt;</kbd><kbd>&lt;</kbd> 向左一个<code>shiftwidth</code></li>
+<li><kbd>&gt;</kbd><kbd>&gt;</kbd>向右一个<code>shiftwidth</code></li>
+<li>如果忘了的话,可以<code>:h  'shiftwidth'</code></li>
+</ul>
+</li>
+<li>如果我们想要多行进行控制呢？<ul>
+<li><code>:20,40&gt;</code><ul>
+<li><code>20-40</code> 行向右一个 <code>shiftwidth</code></li>
+</ul>
+</li>
+<li><code>:'a,$&gt;</code><ul>
+<li><code>a标记</code> 到 <code>结尾</code> 向右一个 <code>shiftwidth</code></li>
+</ul>
+</li>
+<li><code>%&lt;</code> <ul>
+<li>所有行向左一个 <code>shiftwidth</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612236787087.png" /></p>
+<h3 id="_4">范围添加分号结尾</h3>
+<ul>
+<li>我们如果想要给从4到10行添加分号结尾，应该如何呢？</li>
+<li><code>:4,10normal A;</code><ul>
+<li>首先是<code>range</code>,先打上<code>:4,10</code></li>
+<li>然后让这个范围内的东西进入 <code>normal</code> 格式再</li>
+<li><code>:4,10normal</code>切换为<code>normal</code>模式 </li>
+<li>打一个空格，后面打上命令<code>A;</code><ul>
+<li>A是normal模式下的命令在行尾进入插入模式</li>
+<li>在最后的位置插入<code>;</code></li>
+</ul>
+</li>
+<li>整体的命令为<code>:4,10normal A;</code></li>
+</ul>
+</li>
+<li>
+<p>思考</p>
+<ul>
+<li>如果我想在<code>8,15</code>行添加<code>//</code>应该如何做呢？</li>
+<li>动手试一试！</li>
+</ul>
+</li>
+<li>
+<p>但是这些都是执行 <code>vim</code> 的内部命令</p>
+<ul>
+<li>我想要执行外部命令</li>
+<li>比如 <code>shell</code> 中的 <code>ls</code> 可以么？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">直接执行外部命令</h3>
+<ul>
+<li>要直接执行外面的命令比如 <code>ls</code></li>
+<li>我们在前面加上<code>!</code>就可以<ul>
+<li>比如<code>:!ls</code></li>
+<li>更复杂一些的<ul>
+<li><code>!javac oeasy.java</code></li>
+<li><code>!source o2z.sh</code></li>
+<li><code>!python3 %</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这很方便，直接在vi里面就可以执行命令了</li>
+<li>而且编译运行能看到报错的结果🤩<ul>
+<li>直接G跳到出错那行就可以！</li>
+</ul>
+</li>
+<li>可以直接修改，很爽！！！</li>
+<li>超爽！！！</li>
+<li>不过这一行命令执行完了就没了</li>
+<li>看不见前面执行的结果了</li>
+<li>我想一直看见前面的命令和执行结果</li>
+<li>可以么？</li>
+</ul>
+<h3 id="ex-mode">进入命令模式 ex-mode</h3>
+<ul>
+<li>在 <code>Normal</code> 模式下直接按下<kbd>Q</kbd></li>
+<li>进入Ex-mode</li>
+<li>全屏执行命令格式</li>
+<li>可以执行各种命令行<ul>
+<li><code>:ls</code></li>
+<li><code>:1,3d</code></li>
+<li><code>:1,7p</code></li>
+<li><code>:visual</code> 退回到正常模式</li>
+</ul>
+</li>
+<li>可视化模式 <code>visual</code> 是 <code>vi</code> 名字的来源</li>
+<li><code>vi</code> 就是<code>ed</code> + 可视化模式 <code>visual</code> </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627391724057.png" /></p>
+<ul>
+<li>能直接挂起vim运行命令么？</li>
+</ul>
+<h3 id="shell">跳到shell</h3>
+<ul>
+<li>我们知道我们是从 <code>shell</code> 运行 <code>vim</code> 然后进来的<ul>
+<li>如果我们想退出 <code>vim</code> 的话需要保存并退出<code>:wq</code></li>
+<li>如果我不想保存并退出</li>
+<li>就想切到外面</li>
+<li>把 <code>vim</code> 整个进程先挂起放到后台</li>
+<li>我们就 <kbd>ctrl</kbd>+<kbd>z</kbd></li>
+<li>我们就挂起 <code>vim</code> 切出去了</li>
+</ul>
+</li>
+<li>在 <code>shell</code> 运行完命令之后<ul>
+<li><code>fg</code>就可以把<code>vim</code>切回到前台</li>
+<li>fg的意思是foreground前台</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627391261299.png" /></p>
+<ul>
+<li>但是我们可以直接不挂起 <code>vim</code> 的情况下</li>
+<li>执行 <code>shell</code> 命令么？</li>
+</ul>
+<h3 id="term">分屏终端 <code>:term</code></h3>
+<ul>
+<li><code>:term</code></li>
+<li>上面切出一个窗口<ul>
+<li>执行命令</li>
+<li><code>exit</code> 退出 <code>shell</code> </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628301785283.png" /></p>
+<ul>
+<li>上下切换<ul>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> <kbd>j</kbd> 切换到下方窗口</li>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> <kbd>k</kbd> 切换到上方窗口</li>
+<li>可以切来切去</li>
+<li>一边修改一边运行</li>
+</ul>
+</li>
+<li>这个 <code>:term</code> 什么意思 </li>
+</ul>
+<h3 id="term_1">:term 帮助</h3>
+<ul>
+<li>什么不会,<code>:h</code>什么<ul>
+<li><code>:h :term</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628302621060.png" /></p>
+<h3 id="_6">软件彩蛋</h3>
+<ul>
+<li><code>:h :smile</code> 可以找到关于 <code>smile</code> 命令的帮助</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211001-1633097777608.png" /></p>
+<ul>
+<li>这好像是个彩蛋</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>我们这次研究范围命令执行方法</li>
+<li>批量控制缩进<ul>
+<li><code>:20,40&gt;</code></li>
+</ul>
+</li>
+<li>批量执行普通模式下的命令<ul>
+<li><code>:4,10normal A;</code></li>
+</ul>
+</li>
+<li>直接切换到<code>全屏命令模式</code> <code>ex-mode</code><ul>
+<li><code>Q</code></li>
+</ul>
+</li>
+<li>执行外部命令<ul>
+<li><code>!javac oeasy.java</code></li>
+</ul>
+</li>
+<li>新开一个termianl窗格<ul>
+<li><code>:term</code></li>
+</ul>
+</li>
+<li>这个方式真的很爽!<ul>
+<li>在 <code>vi</code> 什么都干了！</li>
+</ul>
+</li>
+<li>命令模式本身可以再提高效率吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

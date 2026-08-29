@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：视图view，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解视图 view。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 视图, view, 视图view">
+    <meta property="og:title" content="oeasy Vim编辑器教程：视图view，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解视图 view。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="view">视图view</h1>
+<h2 id="_1">回忆上次折叠的细节</h2>
+<ul>
+<li>折叠方式很多<ul>
+<li>我们一般就用默认的就行</li>
+<li><code>indent</code> 很好用</li>
+<li>前提是缩进语法严格到位</li>
+<li>这样语法和排版都能同时确保</li>
+</ul>
+</li>
+<li>打开关闭<ul>
+<li><code>zc</code>、<code>zo</code> 是打开关闭当前行</li>
+<li><code>zm</code>、<code>zr</code> 可以改变foldlevel</li>
+</ul>
+</li>
+<li>配合<code>{range}</code><ul>
+<li><code>:{range}foldopen!</code> 可以在范围内打开行</li>
+<li><code>:{range}foldclose!</code> 可以在范围内关闭行</li>
+</ul>
+</li>
+<li>但是这个折叠</li>
+<li>一关闭vim就没了</li>
+<li>这个折叠状态可以保存住么？🤔</li>
+</ul>
+<h3 id="mkview">mkview 创造视图</h3>
+<ul>
+<li><code>mkview</code>可以创造一个视图</li>
+<li>make a view</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627097416588.png" /></p>
+<ul>
+<li>这个视图存储在 <code>viewdir</code></li>
+<li>我们可以查看这个 <code>option</code> 的位置</li>
+<li><code>:set viewdir?</code></li>
+<li>位置在 <code>$VIM/vimfiles/view</code> 下面</li>
+<li>我们具体去看一下</li>
+</ul>
+<h3 id="viewdir">viewdir</h3>
+<ul>
+<li><code>:!ls $VIM/vimfiles/view</code></li>
+<li>貌似现在还没有这个文件夹</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627097669533.png" /></p>
+<ul>
+<li>原因应该是还没有<code>:mkview</code></li>
+<li>我们退出帮助</li>
+<li>回到 <code>oeasy.java</code> 来 <code>mkview</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627098307598.png" /></p>
+<ul>
+<li>无法写入？</li>
+</ul>
+<h3 id="_2">强制创建文件夹</h3>
+<ul>
+<li><code>:!mkdir -p  ~/.vim/view/</code><ul>
+<li><code>mkdir -p</code> 是建立相应的文件夹 </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211219-1639923087597.png" /></p>
+<ul>
+<li>用户文件夹和系统文件夹<ul>
+<li><code>~/.vim/</code> 是  <code>当前用户</code> 对应的vim配置文件夹</li>
+<li><code>/usr/share/vim/vim81</code> 是 <code>系统共享</code> vim配置文件夹</li>
+<li>然后<code>:mkview</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">创建结果</h3>
+<ul>
+<li>成功了</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211219-1639923147307.png" /></p>
+<ul>
+<li>这个东西存在哪里呢？<ul>
+<li><code>:!ls ~/.vim/view/</code></li>
+<li>找到了这样一个文件 </li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627098495432.png" /></p>
+<h3 id="view_1">view的内容</h3>
+<ul>
+<li>我们来看看这个里面有啥<ul>
+<li><code>:!ls ~/.vim/view/</code></li>
+</ul>
+</li>
+<li>首先我们可以确定文件名<ul>
+<li><code>:!vi ~/.vim/view/</code>+<kbd>tab</kbd></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627098655648.png" /></p>
+<ul>
+<li>这是一个<code>vim</code>文件<ul>
+<li>就像<code>~/.vimrc</code>一样</li>
+<li><code>~/.vimrc</code>是当前用户的<code>vim配置</code> </li>
+<li>这个 <code>~/.vim/view/XXX.vim</code> 是当前窗口 <code>make</code>的 <code>view</code></li>
+<li>保存了当前窗口的一些 <code>option</code></li>
+</ul>
+</li>
+<li>载入的时候会加载 <code>local</code> 的 <code>option</code> 到当前 <code>window</code><ul>
+<li>用的命令是<code>:setlocal ...=...</code></li>
+<li>所以只对当前 <code>window窗口</code> 有用</li>
+<li>相对<code>:set ...</code>对所有窗口有用</li>
+</ul>
+</li>
+<li>其实我主要关心的是折叠信息的保存还有光标位置的情况</li>
+</ul>
+<h3 id="_4">保存状态</h3>
+<ul>
+<li>我们重新回到oeasy.java</li>
+<li>把光标位置设置在<code>8,20</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211219-1639923456116.png" /></p>
+<ul>
+<li>然后 <code>:mkview</code></li>
+<li>进行一些简单的折叠<ul>
+<li><code>:set foldcolumn=4</code></li>
+<li><code>:set foldmethod=indent</code></li>
+<li><kbd>z</kbd><kbd>C</kbd></li>
+</ul>
+</li>
+<li>再 <code>gg</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211219-1639923631114.png" /></p>
+<h3 id="_5">装载状态视图</h3>
+<ul>
+<li>然后 <code>:loadview</code></li>
+<li>发现一切都回来了！！！<ul>
+<li>光标位置和折叠信息都在😛</li>
+</ul>
+</li>
+<li>我觉得这还是挺实用的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211219-1639923881979.png" /></p>
+<h3 id="_6">具体存储的信息</h3>
+<ul>
+<li>我们可以看到</li>
+<li>除了 <code>localoption</code> 之外</li>
+<li>折叠和位置的信息也可以保留到 <code>view</code> 中</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627099152315.png" /></p>
+<ul>
+<li>如果我关闭了再打开<code>oeasy.java</code><ul>
+<li>还能<code>loadview</code>么？</li>
+</ul>
+</li>
+<li>试试</li>
+</ul>
+<h3 id="_7">加载视图</h3>
+<ul>
+<li>重新打开<code>oeasy.java</code><ul>
+<li><code>:loadview</code></li>
+<li>加载视图成功</li>
+<li>这样就能回到上次编辑的位置了</li>
+<li>但是我能够定义多个编辑位置么？</li>
+<li>这样我就可以像切地图位置一样切换光标位置了？</li>
+</ul>
+</li>
+</ul>
+<h3 id="view_2">多个视图view</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627107364966.png" /></p>
+<ul>
+<li>找一个位置比如<code>(8,20)</code><ul>
+<li>坐标可以在 <code>statusline</code> 里面的 <code>ruler</code> 中找到</li>
+<li>定义一个 <code>view</code></li>
+<li><code>:mkview</code></li>
+</ul>
+</li>
+<li>再找一个位置(1,1)<ul>
+<li><code>:mkview 1</code> </li>
+</ul>
+</li>
+<li>恢复到第一个位置<ul>
+<li><code>:loadview</code></li>
+</ul>
+</li>
+<li>恢复到第二个位置<ul>
+<li><code>:loadview 1</code></li>
+</ul>
+</li>
+<li>总共九个数字可以给你用<ul>
+<li>还可以自定义view的名字</li>
+<li>可以说是很方便了</li>
+<li>随意传送</li>
+</ul>
+</li>
+<li>其实这个用<code>ma</code>也能做到<ul>
+<li>视图view里面是不只是可以保存光标位置</li>
+<li>一个view里面到底保存了什么？</li>
+</ul>
+</li>
+</ul>
+<h3 id="view_3">view内容</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627108103600.png" /></p>
+<ul>
+<li>打开的文件列表(参数),也就是<code>:args</code>，包括索引顺序</li>
+<li>当前文件</li>
+<li>当前窗口的本地属性<ul>
+<li>缩写(<code>abbreviations</code>)</li>
+<li>映射(<code>mappings</code>)</li>
+</ul>
+</li>
+<li>折叠(<code>fold</code>)</li>
+<li>为什么可以保存这么多东西呢？</li>
+</ul>
+<h3 id="view_4">view选项</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627109742310.png" /></p>
+<ul>
+<li><code>:h viewoptions</code>可以看到view保存内容的选项<ul>
+<li>可以选择保存什么不保存什么</li>
+<li>内容是一个列表</li>
+</ul>
+</li>
+<li><code>:set viewoptions?</code><ul>
+<li>目前是默认的</li>
+<li><code>:set viewoptions=folds,options,cursor,curdir</code></li>
+</ul>
+</li>
+<li><code>curdir</code>指的是当前路径<ul>
+<li>在使用<code>:view .</code>的时候可以明确相对路径</li>
+<li><code>view</code> 保存了好多配置信息</li>
+<li>但是不会影响到最终编辑的文档</li>
+<li>是蓝布棉门帘</li>
+</ul>
+</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>这次了解到了<code>:mkview</code>、<code>:loadview</code></li>
+<li>保存和加载视图</li>
+<li>可以把当前的状态保存下来</li>
+<li>可以在 <code>viewoption</code> 中配置保存选项，设置哪些需要保存</li>
+<li>还可以保存多个视图<ul>
+<li>在整个文档中跳来跳去</li>
+</ul>
+</li>
+<li>视图里面可以有很多本地窗口的设置<ul>
+<li>折叠</li>
+<li>缩写</li>
+<li>映射</li>
+</ul>
+</li>
+<li>那么到底什么是缩写(<code>abbreviations</code>)和映射(<code>mappings</code>)呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

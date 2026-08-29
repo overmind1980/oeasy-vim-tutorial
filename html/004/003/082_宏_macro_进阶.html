@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：宏的进阶 macro，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解宏 macro 进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, macro, 进阶, 宏的进阶">
+    <meta property="og:title" content="oeasy Vim编辑器教程：宏的进阶 macro，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解宏 macro 进阶。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="macro">宏的进阶 macro</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>关于宏，上次有4个要点<ul>
+<li>qa 开始录制宏</li>
+<li>q 结束录制宏</li>
+<li>@a 应用宏</li>
+<li>qA 追加录制宏</li>
+</ul>
+</li>
+<li>甚至可以编辑宏<ul>
+<li>"ap 把宏作为文本粘贴出来</li>
+<li>编辑之后</li>
+<li>"ayy把新的宏装在进入a寄存器reg</li>
+</ul>
+</li>
+<li>这个宏还可以怎么玩呢？🤔</li>
+</ul>
+<h3 id="_2">建立环境</h3>
+<ul>
+<li>vi <code>oeasy.txt</code></li>
+<li>插入一下内容<ul>
+<li>a. oeasy</li>
+<li>b. o2z</li>
+<li>c. o3z</li>
+<li>d. o9z</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627734221490.png" /></p>
+<h3 id="_3">录制新宏</h3>
+<ul>
+<li>
+<p><code>qa0W~hjq</code></p>
+<ul>
+<li>qa 在a寄存器里面开始录制</li>
+<li>0 到行头</li>
+<li>W 跳一个大词</li>
+<li>~ 改变当前光标位置字符的大小写</li>
+<li>j 向下一行</li>
+<li>q 停止录制</li>
+</ul>
+</li>
+<li>
+<p>查看宏</p>
+<ul>
+<li><code>:reg a</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">应用宏</h3>
+<ul>
+<li>正常模式下直接命令的方式<ul>
+<li><code>@a</code><ul>
+<li>应用到当前行</li>
+</ul>
+</li>
+<li><code>99@a</code><ul>
+<li>应用99行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><kbd>u</kbd>回来</li>
+<li>用命令行的方式<ul>
+<li><code>:normal @a</code><ul>
+<li>切换到normal模式并对当前行执行@a</li>
+</ul>
+</li>
+<li><code>:2,4 normal @a</code><ul>
+<li>切换模式并对2-4行执行@a</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><kbd>u</kbd>回来</li>
+</ul>
+<h3 id="_5">追加宏</h3>
+<ul>
+<li><code>gg</code> 回到最初</li>
+<li><code>qAkA.&lt;Esc&gt;jq</code><ul>
+<li><code>qA</code>追加录制宏到a寄存器</li>
+<li><code>k</code> 是为了抵消上面的 <code>j</code></li>
+<li><code>A</code>追加在本行最后</li>
+<li><code>.</code>写一个<code>.</code></li>
+<li><code>&lt;Esc&gt;</code> 退回到正常模式</li>
+<li><code>j</code> 向下一行</li>
+<li><code>q</code> 退出录制</li>
+</ul>
+</li>
+<li>这部分内容，就被追加到宏a里面<ul>
+<li>可以<code>:reg a</code>看到</li>
+<li><code>0W~hjkA.&lt;esc&gt;j</code></li>
+</ul>
+</li>
+<li><code>:% normal @a</code></li>
+<li><kbd>u</kbd>回来</li>
+</ul>
+<h3 id="macro_1">修改宏 macro</h3>
+<ul>
+<li><code>:reg a</code></li>
+<li>目前<code>0W~hjkA.&lt;esc&gt;j</code> 中<ul>
+<li><code>jk</code>彼此抵消</li>
+</ul>
+</li>
+<li>在文档最后把寄存器a中的存储的宏粘贴出来<ul>
+<li><kbd>G</kbd><kbd>o</kbd><kbd>"</kbd><kbd>a</kbd><kbd>p</kbd>出来</li>
+<li>修改为<code>0W~A.&lt;esc&gt;j</code></li>
+</ul>
+</li>
+<li>重新定义宏a<ul>
+<li><code>"ay$</code></li>
+</ul>
+</li>
+<li>观察宏a<ul>
+<li><code>:reg a</code></li>
+</ul>
+</li>
+<li>批量执行<ul>
+<li><code>:% normal @a</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">多文件执行</h3>
+<p>- 除了<code>oeasy.txt</code>之外
+- 还有<code>o2z.txt</code>、<code>o3z.txt</code>
+    - <code>:!cp oeasy.txt o2z.txt</code>
+    - <code>:!cp oeasy.txt o3z.txt</code>
+- 批量执行
+    - <code>:arga *.txt</code> 
+        - 添加当前文件夹下的所有txt文档
+    - <code>:args</code>
+        - 列出所有参数
+    - <code>:argdo g/.*/normal @a</code>
+        - 对于args中的每个文件中的每一行执行a这个宏
+        - g global全局执行 
+        - 匹配任何字符匹配每一行.*
+        - 如果是<code>o.*</code>对应的是以o开头的每一行
+        - normal @a 正常模式下执行@a
+    - <code>:argdo w</code>
+        - 保存所有文件修改</p>
+<h3 id="_7">快速执行</h3>
+<ul>
+<li><code>@@</code> <ul>
+<li>执行上一条宏</li>
+</ul>
+</li>
+<li><code>:2,5@</code> <ul>
+<li>第2-5行执行上一条宏</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">递归执行宏</h3>
+<ul>
+<li>文件还是这样的<code>oeasy.txt</code><ul>
+<li>a. oeasy</li>
+<li>b. o2z</li>
+<li>c. o3z</li>
+<li>d. o9z</li>
+</ul>
+</li>
+<li>
+<p><code>qaqqa0W~j@aq</code></p>
+<ul>
+<li>qaq <ul>
+<li>把a宏清空</li>
+</ul>
+</li>
+<li>qa <ul>
+<li>开始录制a</li>
+</ul>
+</li>
+<li>0 <ul>
+<li>到第一列</li>
+</ul>
+</li>
+<li>W <ul>
+<li>跳大词</li>
+</ul>
+</li>
+<li>~<ul>
+<li>改变大小写</li>
+</ul>
+</li>
+<li>j <ul>
+<li>往下跳一行</li>
+</ul>
+</li>
+<li>@a <ul>
+<li>执行宏a</li>
+</ul>
+</li>
+<li>q<ul>
+<li>停止录制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>然后运行</p>
+</li>
+<li>这样他就是自己执行自己</li>
+<li>直到最后一行无法再递归调用</li>
+<li>就自动跳出了</li>
+</ul>
+<h3 id="_9">并行执行</h3>
+<ul>
+<li>有素材如下<ul>
+<li>import { FUNC1 } from "oeasy";</li>
+<li>import { FUNC2 } from "o2z";</li>
+<li>import { FUNC3 } from "o3z";</li>
+<li>import function from "o9z";</li>
+<li>import { FUNC4 } from "o9z";</li>
+<li>import { FUNC5 } from "orz";
+-录制宏</li>
+</ul>
+</li>
+<li>qa0f{gui{jq<ul>
+<li>qa <ul>
+<li>开始录制宏a</li>
+</ul>
+</li>
+<li>0 <ul>
+<li>到第1列</li>
+</ul>
+</li>
+<li>f{ <ul>
+<li>跳到{</li>
+</ul>
+</li>
+<li>gui{ <ul>
+<li>把{}里面的内容小写</li>
+</ul>
+</li>
+<li>j <ul>
+<li>往下一行</li>
+</ul>
+</li>
+<li>q 停止录制</li>
+</ul>
+</li>
+<li>
+<p>运行宏</p>
+<ul>
+<li>99@a</li>
+<li>会卡到第4行</li>
+<li>因为找不到{</li>
+</ul>
+</li>
+<li>
+<p>这个时候可以并发执行</p>
+<ul>
+<li><code>:1,$ normal @a</code></li>
+<li>从第1行到最后一行每一行都在normal模式下执行@a</li>
+</ul>
+</li>
+</ul>
+<h2 id="_10">总结</h2>
+<ul>
+<li>关于宏，我们回忆一下<ul>
+<li>qa 开始录制宏</li>
+<li>q 结束录制宏</li>
+<li>@a 应用宏</li>
+<li>qA 追加录制宏</li>
+<li>控制寄存器内容其实就是控制宏</li>
+</ul>
+</li>
+<li>宏还有一些特性<ul>
+<li>可以多文件执行宏</li>
+<li>可以并发运行宏</li>
+<li>可以递归执行宏</li>
+</ul>
+</li>
+<li>宏是随录随用的的</li>
+<li>我想把一些东西固定下来，让他到时候不用定义就能执行</li>
+<li>可以么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

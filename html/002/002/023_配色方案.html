@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：配色方案，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解配色方案。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 配色方案">
+    <meta property="og:title" content="oeasy Vim编辑器教程：配色方案，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解配色方案。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">配色方案</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们上次找到配置文件的位置 <code>~/.vimrc</code><ul>
+<li>了解各种配置开关</li>
+<li>修改配置文件并应用</li>
+</ul>
+</li>
+<li>这次想了解和配色方案相关的内容</li>
+</ul>
+<h2 id="colorscheme">colorscheme</h2>
+<ul>
+<li><code>vi ~/.vimrc.old</code> 中发现 <code>colorscheme</code> 属性</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625838558260.png" /></p>
+<ul>
+<li>可以选择 <code>blue</code> 试试</li>
+<li><code>:colorscheme blue</code></li>
+</ul>
+<h3 id="_3">智能提示</h3>
+<ul>
+<li>配色方案 <code>colorscheme</code> 的提示是怎么来的？</li>
+<li>如果没有提示的话</li>
+<li><code>:set wildmode?</code> 看一下<ul>
+<li>默认是 <code>longest,list,full</code></li>
+</ul>
+</li>
+<li>如果<code>:set wildmod=</code><ul>
+<li>智能提示就没有了</li>
+</ul>
+</li>
+<li>
+<p><code>:set wildmode=longest,list,full</code></p>
+<ul>
+<li>又会出现</li>
+</ul>
+</li>
+<li>
+<p>还可以调出菜单 <code>:set wildmenu</code></p>
+</li>
+<li>如果 <code>:set nowildmenu</code> 就没有菜单了<ul>
+<li>再<code>:colorscheme</code> <kbd>tab</kbd> 就没有用了</li>
+</ul>
+</li>
+<li><kbd>tab</kbd> 其实就是 <code>wildchar</code></li>
+<li>用来获取提示的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627305312535.png" /></p>
+<h3 id="_4">选择配色方案</h3>
+<ul>
+<li>在命令行模式中输入 <code>:colorscheme</code> <kbd>tab</kbd><ul>
+<li>看到提示的配色方案</li>
+<li>用 <kbd>tab</kbd> 列出可选项</li>
+<li>然后选择一个配色方案</li>
+</ul>
+</li>
+<li>其实各种颜色可以来一个个的试试</li>
+</ul>
+<h3 id="_5">配色方案举例</h3>
+<p><img alt="" src="images/colorschemes.png" /></p>
+<ul>
+<li>你觉得哪个好看呢？</li>
+</ul>
+<h3 id="_6">色彩模式选择</h3>
+<ul>
+<li>都试了一遍，觉得 <code>murphy</code> 或 <code>blue</code> 还行</li>
+<li><code>:set t_Co?</code> 查看当前色彩模式</li>
+<li><code>:set t_Co=256</code> 色彩模式设置为 256 色</li>
+<li><code>:set t_Co&amp;</code> 色彩模式设置为默认</li>
+<li>观察颜色的细微变化</li>
+<li><code>:h 't_Co'</code> 查询帮助</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625838972495.png" /></p>
+<ul>
+<li><code>t</code> 是 <code>terminal终端</code></li>
+<li><code>Co</code> 是 <code>Color颜色</code></li>
+<li>我们把这些写进配置文件 <code>~/.vimrc</code></li>
+<li><code>set t_Co=256</code></li>
+<li><code>colorscheme blue</code></li>
+<li>前后顺序不能错</li>
+<li>有的时候tmux颜色不对</li>
+<li>这样可以解决</li>
+</ul>
+<h3 id="_7">颜色模式的作用</h3>
+<ul>
+<li>这对于软件界面改变很大<ul>
+<li>我们可以比较清晰地看到关键字、字符串、函数名等</li>
+<li>但是对于编写的程序和文本本身的内容</li>
+<li>并没有什么影响</li>
+</ul>
+</li>
+<li>只是比较好看的蓝布棉门帘</li>
+</ul>
+<h3 id="_8">配置文件</h3>
+<ul>
+<li><code>set statusline=%-040.40(%F%m%)%-030.30([%l,%c]%)%p%%</code></li>
+<li><code>set laststatus=2</code></li>
+<li><code>set ruler</code> </li>
+<li><code>set number</code> </li>
+<li><code>set showcmd</code></li>
+<li><code>set nocompatible</code> </li>
+<li><code>set showcmd</code></li>
+<li><code>set showmode</code> </li>
+<li><code>set history=100</code> </li>
+<li><code>set t_Co=256</code></li>
+<li><code>colorscheme blue</code></li>
+</ul>
+<h3 id="_9">更多细节</h3>
+<ul>
+<li><code>:h colorscheme</code> 可以找到配色方案的帮助</li>
+</ul>
+<p><img alt="" src="images/helpColorScheme.png" /></p>
+<h3 id="_10">配色文件夹</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#找到vim的位置</span>
+whereis<span class="w"> </span>vim
+<span class="c1">#找到colors的位置</span>
+find<span class="w"> </span>/usr/share/vim<span class="w"> </span>-name<span class="w"> </span><span class="s2">"colors"</span>
+</code></pre></div>
+
+<p><img alt="" src="images/colorPosition.png" /></p>
+<h3 id="_11">网上寻找合适的配色方案</h3>
+<p><img alt="图片描述" src="images/uid1190679-20200928-1601289844844.png" /></p>
+<ul>
+<li>网址是 https://vimcolors.com/</li>
+<li>选到合适的配色之后可以进入 <code>github</code> 去下载相应的配色文件</li>
+<li>把下载的 <code>.vim</code> 文件放进 <code>colors</code> 文件夹就可以了</li>
+<li>使用 <code>:colorscheme XXX</code> 应用该配色方案</li>
+</ul>
+<h3 id="_12">下载颜色方案</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#下载颜色方案</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/gryf/wombat256grf.git
+<span class="c1">#放到相应文件夹里</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>./wombat256grf/colors/wombat256grf.vim<span class="w"> </span>/usr/share/vim/vim81/colors
+<span class="c1">#运行</span>
+vi<span class="w"> </span>oeasy.java
+</code></pre></div>
+
+<ul>
+<li><code>:colorscheme wombat256grf</code></li>
+<li>颜色设置成功</li>
+</ul>
+<h3 id="html">把当前配色方案输出到 html</h3>
+<ul>
+<li><code>:TOhtml</code></li>
+<li>可以把当前的配色方案输出为网页格式</li>
+<li><code>:w oeasy.html</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627049194335.png" /></p>
+<ul>
+<li>转化过程是一个vim文件<ul>
+<li>也可以直接运行</li>
+<li><code>:source $VIMRUNTIME/syntax/2html.vim</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">增加自己的配色方案</h3>
+<p><img alt="" src="images/addMyColor.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1">#找到colors的位置</span>
+<span class="nb">cd</span><span class="w"> </span>/usr/share/vim/vim81/colors
+<span class="c1">#列出所有配色方案</span>
+ls
+<span class="c1">#复制出自己的配色方案</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>murphy.vim<span class="w"> </span>oeasy.vim
+</code></pre></div>
+
+<h2 id="_14">总结</h2>
+<ul>
+<li>这次我们研究了配色方案<ul>
+<li>找到了 <code>colors</code> 的位置</li>
+<li>下载并应用了颜色方案</li>
+<li>制作了自己的配色方案</li>
+</ul>
+</li>
+<li>下面我想修改配色方案的颜色🤔<ul>
+<li>最后在vim中尝试 <code>:colorscheme oeasy</code></li>
+<li>是否能成功？？？</li>
+</ul>
+</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

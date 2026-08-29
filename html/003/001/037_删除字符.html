@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：删除字符，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解删除字符。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 删除字符">
+    <meta property="og:title" content="oeasy Vim编辑器教程：删除字符，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解删除字符。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">删除字符</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>通过十进制的 ascii 值输入字符</li>
+<li>在输入模式下</li>
+<li>输入 <kbd>ctrl</kbd> + <kbd>v</kbd></li>
+<li>
+<p>然后再输入 065</p>
+</li>
+<li>
+<p>通过十六进制的 unicode</p>
+</li>
+<li>在输入模式下</li>
+<li>输入 <kbd>ctrl</kbd> + <kbd>v</kbd></li>
+<li>
+<p>然后再输入 <code>u2642</code> 就可以通过 <code>uncode</code> 编码输入字符</p>
+</li>
+<li>
+<p>通过二合字符的方式插入</p>
+</li>
+<li>在输入模式下</li>
+<li>输入 <kbd>ctrl</kbd> + <kbd>k</kbd></li>
+<li>输入 <code>Co</code> 可以得到 <code>©</code></li>
+<li>输入 13 可以得到 ⅓  </li>
+<li>
+<p><code>:digraphs</code> 查看二合字符列表</p>
+</li>
+<li>
+<p>寄存器计算</p>
+<ul>
+<li>在插入状态下</li>
+<li>输入 <kbd>ctrl</kbd> + <kbd>r</kbd></li>
+<li>输入 <code>=3+3</code>（注意要有 <code>=</code>）</li>
+<li>得到结果 6</li>
+</ul>
+</li>
+<li>
+<p>我们掌握了在 vi 中插入字符的各种方法</p>
+</li>
+<li>如何 vim 可以删除字符吗？🤔</li>
+</ul>
+<h2 id="_3">删除字符</h2>
+<ul>
+<li>我们应该如何删除字符呢？</li>
+<li>如果是插入状态下 <kbd>del</kbd> 、<kbd>BackSpace</kbd> 就可以删除了</li>
+<li>那假如我不想切换到插入模式，我想在普通模式下就直接删除呢？</li>
+<li><code>:h delete</code> 找到在 <code>change.txt</code> 里面有个 <code>delete</code></li>
+<li>从默认的帮助位置，向上翻，翻到头😡</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611841683592.png" /></p>
+<ul>
+<li>这个命令叫做 <code>x</code></li>
+<li>我理解就是 <code>execute</code> 处死当前字符😱</li>
+<li>我们先在终端里面 <code>ls -lah &gt; 1.txt</code></li>
+<li>然后 <code>vi 1.txt</code></li>
+</ul>
+<h3 id="x">删除当前 x</h3>
+<ul>
+<li>在正常状态下，使用 <kbd>x</kbd>，删除当前字符</li>
+<li>效果和 插入模式下 <kbd>BackSpace</kbd> 一样</li>
+<li>尽量用<kbd>x</kbd> 而不用 <kbd>BackSpace</kbd>，因为：<ul>
+<li>
+<ol>
+<li>正常模式移动迅速</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>用<kbd>x</kbd> 手指不离开键盘核心区</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>体会左右无名指，他会给你带来药师的灵感</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>如果想要删除多个字符的话</li>
+<li>就在前面加上数字</li>
+<li>比如 <code>10x</code> 就是删除 <code>10</code> 个字符</li>
+<li>对应帮助中的 <code>[count]</code></li>
+<li>而且删除了的字符，会放到寄存器 <code>""</code> 中</li>
+<li>可以使用 <code>:reg</code> 查看寄存器 </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611842268388.png" /></p>
+<h3 id="x_1">退格删除 X</h3>
+<ul>
+<li>帮助手册里，在 <code>x</code> 后面还有个 <code>X</code></li>
+<li><code>X</code> 的意思是 <code>向前退格</code></li>
+<li>使用 <code>h X</code> 查询手册 </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210128-1611842375648.png" /></p>
+<ul>
+<li>最新删除的字符仍然放在 <code>""</code> 寄存器里面</li>
+<li>其实就像 <kbd>BackSpace</kbd> 效果一样</li>
+<li>只不过在摁像 <kbd>x</kbd> 顺手了之后，像 <kbd>Shift</kbd>+<kbd>x</kbd> 也很方便</li>
+<li>而且前后都能删</li>
+<li>下面这个就更厉害了</li>
+</ul>
+<h3 id="_4">退格删词</h3>
+<ul>
+<li>搜索插入模式下的 <kbd>CTRL</kbd> + <kbd>w</kbd></li>
+<li><code>:h i_CTRL-w</code></li>
+<li><code>:h</code>是查询帮助</li>
+<li>查询谁的帮助呢？<ul>
+<li><code>i_CTRL-w</code>的</li>
+</ul>
+</li>
+<li><code>i_CTRL-w</code>什么意思呢？</li>
+<li><code>i</code>代表insert插入模式</li>
+<li><code>CTRL-w</code>代表<kbd>CTRL</kbd>+<kbd>w</kbd></li>
+<li>要注意小写<code>w</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627295208556.png" /></p>
+<h3 id="_5">具体操作</h3>
+<ul>
+<li>注意模式是插入模式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627295303920.png" /></p>
+<ul>
+<li><kbd>CTRL</kbd>+<kbd>w</kbd>之后</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627295346840.png" /></p>
+<ul>
+<li>再<kbd>CTRL</kbd>+<kbd>w</kbd>之后</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627295381246.png" /></p>
+<ul>
+<li>再 <kbd>CTRL</kbd> + <kbd>w</kbd> 之后</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627295410776.png" /></p>
+<ul>
+<li>彻底删到头儿了</li>
+<li>可以切回到正常模式试试 <code>db</code> </li>
+<li><kbd>u</kbd>回来</li>
+<li>再试试 <code>d^</code> </li>
+</ul>
+<h3 id="_6">两行连在一起</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210703-1625321615948.png" /></p>
+<ul>
+<li>想要把两行 <code>Join</code> 连接在一起?<ul>
+<li>我们原来用的是插入模式下的<kbd>BackSpace</kbd></li>
+</ul>
+</li>
+<li>现在试试 <kbd>J</kbd>(大写J)</li>
+<li>这是一个正常模式下的命令</li>
+<li>光标在上一行的任何位置</li>
+<li>命令模式下按下<kbd>J</kbd>(大写J)</li>
+<li>下一行和上一行连接在一起<ul>
+<li>然后下一行的缩进消失</li>
+<li>和上一行之间有个空格</li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>以前知道可以在插入状态下使用 <kbd>del</kbd> 、<kbd>BackSpace</kbd> 进行删除</li>
+<li>现在知道了默认状态下使用通过 <code>x</code> 删除字符</li>
+<li>可以在 <code>x</code> 前面使用 <code>[count]</code> 进行翻倍<ul>
+<li>如 <code>10x</code></li>
+</ul>
+</li>
+<li>删除的字符存储在 <code>""</code> 寄存器中<ul>
+<li>可以用 <code>:reg</code> 查看寄存器状态</li>
+</ul>
+</li>
+<li>默认状态可以使用 <code>X</code> 退格<ul>
+<li>删除的字符也在 <code>""</code> 寄存器中</li>
+</ul>
+</li>
+<li>我们掌握了在 vi 中删除字符的各种方法</li>
+<li>还有没有更快速删除字符的方法呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：函数 function，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解函数 function。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 函数, function">
+    <meta property="og:title" content="oeasy Vim编辑器教程：函数 function，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解函数 function。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="function">函数 function</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>关于宏，我们回忆一下<ul>
+<li><code>qa</code> 开始录制宏</li>
+<li><code>q</code> 结束录制宏</li>
+<li><code>@a</code> 应用宏</li>
+<li><code>qA</code> 追加录制宏</li>
+<li>控制寄存器内容其实就是控制宏</li>
+</ul>
+</li>
+<li>宏还有一些特性<ul>
+<li>可以多文件执行宏</li>
+<li>可以并发运行宏</li>
+<li>可以递归执行宏</li>
+</ul>
+</li>
+<li>宏是随录随用的的</li>
+<li>我想把一些东西固定下来，让他到时候不用定义就能执行</li>
+<li>可以么？🤔</li>
+</ul>
+<h3 id="function_1">函数function</h3>
+<ul>
+<li><code>:function</code> 可以看到目前已有的函数</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627780599441.png" /></p>
+<h3 id="_2">查询所有可以调用的函数</h3>
+<ul>
+<li><code>:call</code> <kbd>tab</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627787721852.png" /></p>
+<ul>
+<li>我可以自己定一个 函数<code>function</code> 么</li>
+</ul>
+<h3 id="function_2">定义函数function</h3>
+<ul>
+<li>特别要注意首字母大写</li>
+<li><code>:function Oeasy()</code></li>
+<li><code>echo "oeasy function called!!!!"</code></li>
+<li><code>endfunction</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627780795395.png" /></p>
+<ul>
+<li><code>:function Oeasy</code><ul>
+<li>查看函数function</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627780869243.png" /></p>
+<h3 id="function_3">调用函数function</h3>
+<ul>
+<li><code>:call Oeasy()</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627780932107.png" /></p>
+<h3 id="_3">删除函数</h3>
+<ul>
+<li><code>:delfun Oeasy</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627782460682.png" /></p>
+<h3 id="_4">查询各种函数</h3>
+<ul>
+<li>在用户手册的41里面有大量的各种的函数</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627782625352.png" /></p>
+<ul>
+<li>可以用<ul>
+<li><kbd>ctrl</kbd>+<kbd>]</kbd>跳入</li>
+<li><kbd>ctrl</kbd>+<kbd>]</kbd>跳出</li>
+</ul>
+</li>
+<li>还可以用 <code>:h</code> 查函数细节<ul>
+<li><code>:h nr2char()</code></li>
+</ul>
+</li>
+<li>如果我想总是可以自动调Oeasy()</li>
+<li>不用每次手动定义</li>
+<li>应该怎么办？</li>
+</ul>
+<h3 id="_5">默认函数</h3>
+<ul>
+<li>在<code>~/.vimrc</code>中写下这个函数</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627783997434.png" /></p>
+<ul>
+<li>然后再次启动vi</li>
+<li><code>:call Oeasy()</code></li>
+<li>可以把函数和快捷键配合起来吗？</li>
+</ul>
+<h3 id="_6">快捷键</h3>
+<div class="highlight"><pre><span></span><code><span class="nv">map</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">F5</span><span class="o">&gt;</span><span class="w"> </span>:<span class="k">call</span><span class="w"> </span><span class="nl">Runcode</span><span class="ss">()</span><span class="o">&lt;</span><span class="nv">CR</span><span class="o">&gt;</span>
+<span class="nv">func</span><span class="o">!</span><span class="w"> </span><span class="nv">Runcode</span><span class="ss">()</span>
+<span class="w">    </span><span class="k">exec</span><span class="w"> </span><span class="s2">"w&amp;!python3 %"</span>
+<span class="nv">endfunc</span>
+</code></pre></div>
+
+<ul>
+<li>当按下F5的时候<ul>
+<li>运行"w&amp;!python3 %"</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20240128-1706431507131.png" /></p>
+<ul>
+<li>F5 保存并运行</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>关于 <code>函数function</code>，我们回忆一下<ul>
+<li>可以查询</li>
+<li>可以新建</li>
+<li>可以调用</li>
+<li>还可以删除</li>
+</ul>
+</li>
+<li>我想用 <code>函数function</code> 往 <code>buffuer</code> 里面写点东西</li>
+<li>比如写一个java的基本程序框架</li>
+<li>这样一调用就好使了</li>
+<li>省的自己打了</li>
+<li>可以么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

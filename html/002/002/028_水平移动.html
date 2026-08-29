@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：水平移动，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解水平移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 水平移动">
+    <meta property="og:title" content="oeasy Vim编辑器教程：水平移动，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解水平移动。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">水平移动</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>根据扩展名我们可以设置某些特定类型文件的配置</li>
+<li>相关文件类型的设置放在相应的文件夹里</li>
+<li>文件类型缩进文件夹<ul>
+<li><code>/usr/share/vim/vim81/indent/</code></li>
+</ul>
+</li>
+<li>文件类型语法高亮文件夹<ul>
+<li><code>/usr/share/vim/vim81/syntax/</code></li>
+</ul>
+</li>
+<li>文件类型插件文件夹<ul>
+<li>系统通用文件夹<ul>
+<li><code>/usr/share/vim/vim81/ftplugin/java.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java_xxx.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java/xxx.vim</code></li>
+</ul>
+</li>
+<li>用户专用插件文件夹<ul>
+<li><code>~/.vim/ftplugin/java.vim</code></li>
+<li><code>~/.vim/ftplugin/java_def.vim</code></li>
+<li><code>~/.vim/ftplugin/java/header.vim</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在 文件夹<code>~/.vim/ftplugin</code>中 的 <code>html.vim</code> 的设置<ul>
+<li>只针对 <code>html</code> </li>
+<li>包括文件的缩进、配色、语法高亮、行号、状态栏等</li>
+</ul>
+</li>
+<li><code>:filetype indent on</code> 文件类型缩进生效</li>
+<li><code>:filetype syntax on</code> 文件类型语法高亮生效</li>
+<li><code>:filetype plugin on</code> 文件类型插件生效</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628161602098.png" /></p>
+<h2 id="_3">素材文件</h2>
+<ul>
+<li>首先我们打开一个绕口令<ul>
+<li><code>git clone http://github.com/overmind1980/oeasyvim.git</code></li>
+<li><code>vi -u NONE raokouling.txt</code></li>
+<li>打开绕口令</li>
+<li>需要单行的长度超过 80 个字符</li>
+</ul>
+</li>
+<li>设置不换行 <ul>
+<li><code>:set nowrap</code></li>
+</ul>
+</li>
+<li>设置状态条<ul>
+<li><code>:set statusline=%f-[%l,%c]</code></li>
+<li><code>:set laststatus=2</code></li>
+</ul>
+</li>
+<li>把模式设置为非兼容 <ul>
+<li><code>:set nocompatible</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601551908235.png" /></p>
+<h3 id="_4">横向滚动</h3>
+<ul>
+<li>一路<kbd>l</kbd> 到屏幕的尽头 </li>
+<li>到 [1,80] 时候再按下 <kbd>l</kbd></li>
+<li>整个屏幕发生横向滚动</li>
+<li>然后光标移动到屏幕中心位置</li>
+<li>光标坐标显示为 [1,81]</li>
+<li>如果要回来的话也需要移动到左边缘</li>
+<li>然后再按 <kbd>h️</kbd></li>
+<li>整个屏幕滚动回来了</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601552578738.png" /></p>
+<ul>
+<li>反复横跳</li>
+</ul>
+<h2 id="_5">横滚幅度</h2>
+<ul>
+<li>横滚的幅度可以通过 <code>sidescroll</code> 来控制<ul>
+<li>默认 0 是横向屏幕 80 字符的一半 40 字符</li>
+<li>如果我设置为 10 的话</li>
+<li>在最右边缘再向右的话，屏幕位置滚动 10 个字符</li>
+<li>从 [1,80] 到 [1,81] 的时候发生</li>
+</ul>
+</li>
+<li><code>:h sidescroll</code> </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601553429958.png" /></p>
+<ul>
+<li>我们如果把 <code>sidescroll</code> 变成 1，屏幕横滚就会很柔和🤪</li>
+<li>还是设置回10吧</li>
+<li>反复横跳</li>
+</ul>
+<h3 id="_6">横滚留位</h3>
+<ul>
+<li>每次我们的横滚都是在屏幕边缘发生的</li>
+<li>能否到达边缘之前就能看见那边有什么？</li>
+<li><code>:h sidescrolloff</code><ul>
+<li>默认是 0，到边缘才滚动</li>
+<li>如果我们设置为 20</li>
+<li>到 [1,60] 的时候,距离有边缘有 20</li>
+<li>这个时候 <kbd>l️</kbd >整个屏就会向右<code>滚动幅度</code></li>
+<li>也就是 <code>sidescroll</code> 所对应的 <code>10</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601553980527.png" /></p>
+<ul>
+<li>把 <code>sidescrolloff</code> 设置成 99，光标在横向总在中心位置🤪</li>
+</ul>
+<h3 id="_7">横滚屏快键</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627437058514.png" /></p>
+<ul>
+<li>其实横向滚动我们用的比较少</li>
+<li>但在一屏中滚动比较常见</li>
+</ul>
+<h3 id="_8">屏内跳转</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627437792270.png" /></p>
+<ul>
+<li>可以参照全屏跳转</li>
+<li>前面加个 g</li>
+<li>g0 就是跳到屏幕第一个字符</li>
+<li>g^ 就是本屏幕内第一个非空字符</li>
+<li>gm 跳到屏幕中间</li>
+<li>gM 跳到整个文本中间</li>
+<li>g$ 跳到屏幕末尾</li>
+</ul>
+<h3 id="_9">自动换行</h3>
+<ul>
+<li>如果一行太长了我们可以让他 <code>:set wrap</code> 自动换行</li>
+<li><code>:h wrap</code> 可以查看帮助手册📕</li>
+<li><code>:set nowrap</code> 可以取消自动换行</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601554594364.png" /></p>
+<h3 id="_10">向上一行</h3>
+<ul>
+<li>我们一般用 <kbd>j</kbd>、<kbd>k</kbd> 上下移动</li>
+<li>但是如果自动换行之后，这上下就不只是一行了</li>
+<li>先把行号显示出来 <code>:set nu</code></li>
+<li>我们可以通过 <kbd>g</kbd> <kbd>j</kbd>、<kbd>g</kbd> <kbd>k</kbd> 来自动换行的一行内上下移动</li>
+</ul>
+<h3 id="_11">换行字符</h3>
+<ul>
+<li>我在行头句尾的时候</li>
+<li>如果我想按方向键 <kbd>h</kbd>、<kbd>l</kbd> 换行</li>
+<li>结果是有效的</li>
+<li>如果我用 <kbd>BackSpace</kbd><ul>
+<li>结果是有效的</li>
+</ul>
+</li>
+<li>但是有的机器上，却无效</li>
+<li>为什么呢？</li>
+<li>这是一个属性option</li>
+<li><code>whichwrap</code></li>
+<li>先看看这个东西现在的值</li>
+<li><code>:set whichwrap?</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625798020232.png" /></p>
+<ul>
+<li>把他设置回默认的值</li>
+<li><code>:set whichwrap&amp;</code></li>
+<li><code>&amp;</code> 表示设置为默认值</li>
+<li>然后再观察现状</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625798110533.png" /></p>
+<ul>
+<li>b,s 是什么意思呢</li>
+</ul>
+<h3 id="_12">选项细节</h3>
+<ul>
+<li><code>:h 'whichwrap'</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625798203804.png" /></p>
+<ul>
+<li>默认只有两个<ul>
+<li>b 是 <BackSpace> 退格</li>
+<li>s 是 <Space> 空格</li>
+</ul>
+</li>
+<li>理论上<kbd>h</kbd>、<kbd>l</kbd> 不好使</li>
+<li><code>vi oeasy.java</code><ul>
+<li>重新用vi打开</li>
+<li><kbd>h</kbd>、<kbd>l</kbd> 好使</li>
+<li>那他是在那里设置了 <kbd>h</kbd>、<kbd>l</kbd> 呢？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">查找根源</h3>
+<div class="highlight"><pre><span></span><code>vim<span class="w"> </span>~/.vimrc
+</code></pre></div>
+
+<ul>
+<li><code>/whichwrap</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625798445526.png" /></p>
+<h2 id="_14">总结</h2>
+<ul>
+<li>我们这次了解了横向滚动的相关信息<ul>
+<li>横滚幅度 - <code>sidescroll</code></li>
+<li>横滚留位 - <code>sidescrolloff</code></li>
+<li>自动换行 - <code>wrap</code></li>
+</ul>
+</li>
+<li><kbd>g</kbd> <kbd>j</kbd>、<kbd>g</kbd> <kbd>k</kbd> 可以逐行上下移动</li>
+<li>可以控制切换行的控制键 <code>whichwrap</code></li>
+<li>这就是横向移动的内容</li>
+<li>不过程序中一般一行不会超过80个字符</li>
+<li>纵向移动更为普遍</li>
+<li>纵向移动有什么好玩的吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：自动命令 autocommand，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解自动命令 autocmd。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 自动命令, autocmd, autocommand">
+    <meta property="og:title" content="oeasy Vim编辑器教程：自动命令 autocommand，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解自动命令 autocmd。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="autocommand">自动命令 autocommand</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次我们研究的是外部命令grep<ul>
+<li>可以在vim中使用grep</li>
+<li>搜索的结果进入了列表</li>
+<li>可以打开、遍历、跳转、关闭这个列表</li>
+<li>也可以给列表中的匹配行或者每个文件执行命令</li>
+</ul>
+</li>
+<li>到此为止学了很多的命令<ul>
+<li>有内部的也有外部的</li>
+<li>有的在命令行模式里面执行</li>
+<li>还有的映射到一组键盘在正常模式下执行</li>
+<li>但是都需要按下些什么按键才能支持</li>
+</ul>
+</li>
+<li>能否什么都不按自动就执行呢？🤔</li>
+</ul>
+<h3 id="autocmd">自动命令autocmd</h3>
+<ul>
+<li>在~/.vim/ftplugin(当前用户的插件目录)编辑插件文件</li>
+<li>ftplugin中<ul>
+<li>ft代表filetype</li>
+<li>plugin代表插件</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>mkdir -p ~/.vim/ftplugin
+sudo vi ~/.vim/ftplugin/log.vim
+</code></pre></div>
+
+<ul>
+<li>定义函数</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="nf">DateInsert</span><span class="p">()</span>
+<span class="w">    </span>$<span class="nb">delete</span>
+<span class="w">    </span><span class="nb">read</span><span class="w"> </span>!<span class="nb">date</span>
+<span class="n">endfunction</span>
+</code></pre></div>
+
+<ul>
+<li>$delete<ul>
+<li>把原来的最后一行的日期删除掉</li>
+</ul>
+</li>
+<li>read !date <ul>
+<li>读取当前日期</li>
+<li>并且写到最后一行</li>
+</ul>
+</li>
+</ul>
+<h3 id="_2">尝试调用</h3>
+<ul>
+<li>新建并打开log文件<ul>
+<li>vi a.log</li>
+</ul>
+</li>
+<li>调用函数<ul>
+<li><code>:call DateInsert()</code></li>
+<li>但是他好像不认识log文件一样</li>
+<li><code>:function</code>中没有DateInsert()</li>
+<li><code>:function DateInsert</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642557361728.png" /></p>
+<h3 id="filetype">设置filetype文件类型</h3>
+<ul>
+<li><kbd>Q</kbd>进入Ex模式</li>
+<li><code>:filetype</code><ul>
+<li>查看文件类型检测情况</li>
+</ul>
+</li>
+<li><code>:set filetype=log</code><ul>
+<li>强制设置文件类型为log</li>
+</ul>
+</li>
+<li><code>:function DateInsert</code><ul>
+<li>观察DateInsert函数</li>
+</ul>
+</li>
+<li>可以找到了定义的函数了</li>
+<li>是否可以调用呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627877960861.png" /></p>
+<ul>
+<li><code>:call DateInsert()</code><ul>
+<li>调用DateInsert()</li>
+</ul>
+</li>
+<li><code>:visual</code><ul>
+<li>回到编辑模式</li>
+</ul>
+</li>
+<li>但是每次都要手动设置filetype么？</li>
+<li>这颗太麻烦了</li>
+<li>能否自动检测呢？</li>
+</ul>
+<h3 id="filetype_1">自动检测文件类型filetype</h3>
+<ul>
+<li>查询帮助<ul>
+<li><code>:h filetype</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627878113532.png" /></p>
+<ul>
+<li><code>mkdir ~/.vim/ftdetect</code></li>
+<li><code>sudo vi ~/.vim/ftdetect/log.vim</code><ul>
+<li>ft代表filetype</li>
+<li>detect 代表文件自动检测</li>
+</ul>
+</li>
+<li>在文件里面写上</li>
+</ul>
+<div class="highlight"><pre><span></span><code>au <span class="nb">BufRead</span><span class="p">,</span><span class="nb">BufNewFile</span> *.<span class="k">log</span> <span class="k">set</span> <span class="nb">filetype</span><span class="p">=</span><span class="k">log</span>
+</code></pre></div>
+
+<ul>
+<li><code>vi a.log</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627878382575.png" /></p>
+<ul>
+<li>检测成功</li>
+<li><code>:call DateInsert()</code></li>
+<li>函数调用成功</li>
+<li>我想把这个函数做成一个命令可以么？</li>
+</ul>
+<h3 id="_3">制作命令</h3>
+<ul>
+<li><code>:nnoremap Di :call DateInsert()&lt;CR&gt;</code><ul>
+<li><code>nnoremap</code><ul>
+<li><code>n</code> normal 正常模式</li>
+<li><code>noremap</code> 不再递归映射</li>
+</ul>
+</li>
+<li>Di 指定的命令Command</li>
+<li>:call DateInsert() 调用函数</li>
+<li><code>&lt;CR&gt;</code> carriage 回车</li>
+</ul>
+</li>
+<li>在normal模式下依次按下<code>Di</code> <ul>
+<li>可以用</li>
+</ul>
+</li>
+<li>再次<code>Di</code>可以刷新时间</li>
+<li>我想保存的时候自动调用可以么？</li>
+</ul>
+<h3 id="_4">自动命令</h3>
+<ul>
+<li><code>:autocmd BufWritePre *.log call DateInsert()</code><ul>
+<li><code>autocmd</code> 是命令的名字 <ul>
+<li>作用是添加自动命令</li>
+</ul>
+</li>
+<li><code>BufWritePre</code> 是{events} 是触发条件 <ul>
+<li><code>Buf</code>指的是当前缓存buffer</li>
+<li><code>Write</code>指的是写当前缓存</li>
+<li><code>Pre</code>指的是在写当前缓存之前</li>
+</ul>
+</li>
+<li><code>*.log</code> 是 {file_pattern} 是文件模式<ul>
+<li>目前文件模式为<code>*.log</code></li>
+</ul>
+</li>
+<li><code>call DateInsert()</code> 是{cmd} <ul>
+<li>对应具体执行的命令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:wq</code></li>
+<li><code>cat a.log</code></li>
+<li>最新的时间已经写在最后一行了</li>
+<li>不过这个自动命令最好写在filetype的插件里面</li>
+<li>这样自动命令就被定义到自动插件里面了</li>
+</ul>
+<h3 id="_5">删除自动命令</h3>
+<ul>
+<li><code>:autocmd</code>    <ul>
+<li>可以查看所有的自动命令autocmd</li>
+</ul>
+</li>
+<li><code>:autocmd! FileWritePre *.log</code><ul>
+<li>注意那个叹号是否定的意思</li>
+<li>把他定义为啥都没有</li>
+<li>也就删除了</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">配置插件</h3>
+<ul>
+<li><code>vi ~/.vim/ftplugin/log.vim</code></li>
+<li><code>:autocmd BufWritePre *.log call DateInsert()</code><ul>
+<li>为什么强调<code>*.log</code>呢</li>
+<li>因为如果{file_pattern}是<code>*.*</code>的话</li>
+<li>一旦打开了<code>log</code>文件</li>
+<li>保存任何其他文件时都会执行<code>DateInsert()</code>了</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">echo</span> <span class="s2">"i am a log!"</span>
+<span class="k">set</span> <span class="nb">filetype</span><span class="p">=</span><span class="k">log</span>    
+source <span class="p">~</span><span class="sr">/.vim/</span>ftplugin/<span class="k">log</span>.vim
+autocmd <span class="nb">BufWritePre</span> *.<span class="k">log</span> <span class="k">call</span> DateInsert<span class="p">()</span>
+</code></pre></div>
+
+<h3 id="_7">查看帮助</h3>
+<ul>
+<li><code>:h autocmd</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627879118769.png" /></p>
+<ul>
+<li>{events} 具体的触发事件</li>
+<li>{pattern} 文件模式</li>
+<li>{group} 成组 自动命令成组并命名 可省</li>
+<li>group 应该如何理解？</li>
+</ul>
+<h3 id="_8">成组自动命令</h3>
+<ul>
+<li>成组是可选的</li>
+<li>可以成组也可以不成组</li>
+<li>这是绕口令么？</li>
+<li>我们来看看</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">augroup</span> <span class="n">cprograms</span>
+    <span class="n">autocmd</span> <span class="n">BufReadPost</span> <span class="o">*</span><span class="p">.</span><span class="n">c</span> <span class="o">*</span><span class="p">.</span><span class="n">h</span> <span class="p">:</span><span class="n">set</span> <span class="n">sw</span><span class="o">=</span><span class="mi">4</span> <span class="n">sts</span><span class="o">=</span><span class="mi">4</span>
+    <span class="n">autocmd</span> <span class="n">BufReadPost</span> <span class="o">*</span><span class="p">.</span><span class="n">cpp</span> <span class="p">:</span><span class="n">set</span> <span class="n">sw</span><span class="o">=</span><span class="mi">3</span> <span class="n">sts</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">augroup</span> <span class="kr">END</span>
+</code></pre></div>
+
+<ul>
+<li>上面说的是在读取.c、.h 之后<ul>
+<li>自动设置缩进宽度为4</li>
+</ul>
+</li>
+<li>在读取.cpp之后<ul>
+<li>自动设置缩进宽度为3</li>
+</ul>
+</li>
+<li>总而言之这两自动命令成为了一个组叫做cprograms</li>
+<li>也可以写成</li>
+</ul>
+<div class="highlight"><pre><span></span><code>    autocmd cprograms BufReadPost <span class="gs">*.c *</span>.h :set sw=4 sts=4
+    autocmd cprograms BufReadPost *.cpp :set sw=3 sts=3
+</code></pre></div>
+
+<ul>
+<li>下面这样可以删除组中所有的自动命令</li>
+<li><code>:autocmd! cprograms</code></li>
+<li>这里面提到的Post和Pre应该如何理解呢？</li>
+</ul>
+<h3 id="postpre">Post、Pre</h3>
+<ul>
+<li>pre就是之前</li>
+<li>post就是之后</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220429-1651237261135.png" /></p>
+<ul>
+<li>保存之前可以写一个时间戳做标记</li>
+<li>读取之后可以设置所之类的东西或者做一些清理工作</li>
+</ul>
+<h3 id="events">触发事件events</h3>
+<ul>
+<li><code>:autocmd BufReadPost *.gsm set filetype=asm</code><ul>
+<li><code>BufReadPost</code>是读取之后</li>
+<li><code>set filetype=asm</code><ul>
+<li>把gsm文件的文件格式filetype设置为asm</li>
+<li>gsm是gnu的assemble language</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:autocmd Filetype text source ~/.vim/abbrevs.vim</code><ul>
+<li><code>Filetype text</code><ul>
+<li>是检测到文件类型为文本的时候</li>
+<li><code>vi a.txt</code>可以触发<code>Filetype text</code></li>
+</ul>
+</li>
+<li><code>source ~/.vim/abbrevs.vim</code><ul>
+<li>加载一些缩写</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:autocmd BufNewFile *.[ch] 0read ~/sktletons/skel.c</code><ul>
+<li><code>BufNewFile *.[ch]</code><ul>
+<li><code>BufNewFile</code> 新建缓存文件的时候</li>
+<li><code>*.[ch]</code> <ul>
+<li>文件类型对应<code>*.c或者*.h</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>0read ~/sktletons/skel.c</code><ul>
+<li>加载c一个骨架文件作为框架</li>
+<li>然后添皮加肉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="patterns">文件模式patterns</h3>
+<ul>
+<li>通配符wild character <ul>
+<li>*任意多个字符或数字<ul>
+<li>*.c</li>
+<li>*.h</li>
+</ul>
+</li>
+<li>?一个字母<ul>
+<li>D???.c</li>
+</ul>
+</li>
+<li>.<ul>
+<li>对应一个点dot </li>
+</ul>
+</li>
+<li>[]或者关系<ul>
+<li>*.[ch]</li>
+</ul>
+</li>
+<li>{}或者关系<ul>
+<li>a{b,c}</li>
+<li>对应ab或ac</li>
+</ul>
+</li>
+<li>/<ul>
+<li>在对应路径中使用，比如：</li>
+<li>~/.vim/ftplugin/*</li>
+<li>/home/oeasy/*.txt</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">自动命令的嵌套</h3>
+<ul>
+<li>一般来说自动命令的执行结果不会触发另一个自动命令</li>
+<li>但是，如果你偏要触发</li>
+<li>可以加上 nested</li>
+<li><code>:autocmd FileChangedShell * nested edit</code><ul>
+<li>比如你打开了文件时触发了自动命令</li>
+<li>自动命令做出了一些修改</li>
+<li>这些修改就也会触发这个事件</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">使用文件名和扩展名</h3>
+<ul>
+<li><code>touch oeasy.txt oeasy.txt.new</code><ul>
+<li>新建两个文件</li>
+</ul>
+</li>
+<li><code>vi</code></li>
+<li><code>:echo expand("%:t")</code><ul>
+<li>输出文件名</li>
+<li>因为现在啥都没有所以啥都没输出</li>
+</ul>
+</li>
+<li><code>:e oeasy.txt</code><ul>
+<li>打开oeasy.txt进入缓存buffer</li>
+</ul>
+</li>
+<li><code>:echo expand("%:t")</code><ul>
+<li>输出当前文件名</li>
+</ul>
+</li>
+<li><code>:echo "hello i am " . expand("%:t")</code><ul>
+<li>输出一句话</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627896494828.png" /></p>
+<ul>
+<li><code>autocmd BufReadPost * echo "hello i am " . expand("%:t")</code><ul>
+<li>定义自动命令 </li>
+<li>读取任何文件格式的文件之后</li>
+<li>输出hello 和 当前文件名</li>
+</ul>
+</li>
+<li><code>:h expand</code><ul>
+<li>显示<code>hello i am eval.txt</code></li>
+</ul>
+</li>
+<li>成功</li>
+</ul>
+<h3 id="_11">强制触发</h3>
+<ul>
+<li>
+<p><code>:doautocmd BufReadPost oeasy.txt</code></p>
+<ul>
+<li>虽然后没有打开<code>oeasy.txt</code></li>
+<li>但是他强制执行了<code>BufReadPost oeasy.txt</code>对应的自动命令<code>autocmd</code></li>
+</ul>
+</li>
+<li>
+<p>这样的话我可以在读取oeasy.txt.new的时候</p>
+</li>
+<li>然后显示出oeasy.txt么？</li>
+<li><code>:autocmd BufReadPost *.new echo "hhh " . expand("&lt;afile&gt;:r")</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642562847311.png" /></p>
+<ul>
+<li>先退出vim</li>
+</ul>
+<h3 id="_12">执行其他的自动命令</h3>
+<ul>
+<li>重新打开vim</li>
+<li>输入<ul>
+<li><code>:autocmd BufReadPost *.txt echo "hello i am txt:" . expand("%:t")</code></li>
+<li>定义对于txt文件读取之后的自动命令</li>
+</ul>
+</li>
+<li>然后打开txt文件和非txt文件</li>
+<li>打开或切换时会有相应的显示</li>
+<li>而非txt文件不会有显示</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642565116507.png" /></p>
+<ul>
+<li>此时打开oeasy.txt.new没有任何提示</li>
+<li><code>:autocmd BufReadPost *.new execute "doautocmd BufReadPost " . expand("&lt;afile&gt;:r")</code><ul>
+<li><code>autocmd BufReadPost *.new</code><ul>
+<li>定义<code>*.new</code>打开之后对应的自动命令</li>
+</ul>
+</li>
+<li><code>excute "doautocmd BufReadPost " . expand("&lt;afile&gt;:r")</code><ul>
+<li>执行 "doautocmd BufReadPost " . expand("<afile>:r")</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627897130065.png" /></p>
+<ul>
+<li>如果我们重新打开<code>oeasy.txt.new</code> 或者切换buffer的时候<ul>
+<li>强制执行<code>oeasy.txt</code>打开后的自动命令</li>
+<li>也就是<code>execute "doautocmd BufReadPost oeasy.txt"</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642565370508.png" /></p>
+<h3 id="_13">执行正常模式命令</h3>
+<ul>
+<li>刚才执行的都是命令行模式的命令</li>
+<li>如果我想执行正常模式的命令应该如何呢？</li>
+<li><code>:autocmd BufReadPost *.log normal G</code><ul>
+<li>读取<code>*.log</code>的时候</li>
+<li>normal G 在正常模式下执行G</li>
+<li>跳到最后一行，查看最新的日志</li>
+</ul>
+</li>
+<li>
+<p>那么可以自动命令可以进入插入模式么？</p>
+</li>
+<li>
+<p><code>normal</code>进入正常模式，在正常模式下</p>
+<ul>
+<li><kbd>i</kbd>进入插入模式 <kbd>esc</kbd>退出</li>
+<li><kbd>:</kbd>进入命令模式 <kbd>esc</kbd>退出</li>
+<li><kbd>/</kbd>进入搜索模式 <kbd>esc</kbd>退出</li>
+</ul>
+</li>
+<li><code>:autocmd BufReadPost *.txt execute "normal ggONew entry:\&lt;Esc&gt;" | 1read !date</code><ul>
+<li><code>autocmd BufReadPost *.txt</code><ul>
+<li>制作读取txt文件后对应自动命令</li>
+</ul>
+</li>
+<li><code>excute "normal ggONew entry:\&lt;Esc&gt;" | 1read !date</code><ul>
+<li>执行<code>normal ggONew entry:\&lt;Esc&gt;</code>在第一行写字</li>
+<li><code>|</code> 然后执行</li>
+<li><code>1read !date</code> 在第二行写日期</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627898210026.png" /></p>
+<ul>
+<li>我们最后来看看已经写好的一些autocmd</li>
+</ul>
+<h3 id="vim">vim的系统文件夹</h3>
+<ul>
+<li>我们之前都是在用户的vim文件夹进行配置<ul>
+<li>用户的vim文件夹只能配置当前用户的vim</li>
+</ul>
+</li>
+<li>现在我们去系统的vim文件夹看看具体的配置<ul>
+<li>这样我们就可以给所有用户配置vim了</li>
+</ul>
+</li>
+<li>系统的vim的文件夹在<ul>
+<li><code>/usr/share/vim/vim81</code> </li>
+</ul>
+</li>
+<li>基本上配置都在这里完成</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642567256052.png" /></p>
+<ul>
+<li>其中有一些缩写<ul>
+<li>au autocmd</li>
+<li>exe execute</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220119-1642566993343.png" /></p>
+<h2 id="_14">总结</h2>
+<ul>
+<li>这个自动命令还是很方便的</li>
+<li>打开时、保存时就会有自动执行的操作</li>
+<li>自动命令有这么几大元素<ul>
+<li><code>{event}</code> 触发事件</li>
+<li><code>{pattern}</code> 文件模式</li>
+<li><code>{cmd}</code> 具体执行命令</li>
+<li><code>{augroup}</code> 命令组</li>
+</ul>
+</li>
+<li>自动命令可以新建、删除、列表、查询</li>
+<li>还可以强制执行</li>
+<li>有这个我们可以<ul>
+<li>针对每种不同的文件的类型</li>
+<li>定义相应的触发事件</li>
+<li>然后执行各种各样的命令</li>
+<li>方便操作</li>
+</ul>
+</li>
+<li>不过关于文件类型的高亮显示还是没有讲的特别清楚<ul>
+<li>为什么<code>public</code>在<code>java</code>文件里面就可以改变颜色呢？？🤔</li>
+</ul>
+</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

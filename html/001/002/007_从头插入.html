@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：从头插入，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解从头插入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖下面我们来研究插入命令的细节。等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 从头插入">
+    <meta property="og:title" content="oeasy Vim编辑器教程：从头插入，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解从头插入。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖下面我们来研究插入命令的细节。等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">从头插入</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们学会了另存为命令 <code>: saveas {file}</code></li>
+<li>还有这个直接保存命令 <code>: w</code></li>
+<li>真的可以把修改存了 😀</li>
+</ul>
+<p><img alt="force quit" src="images/write_com.png" /></p>
+<p><strong>下面我们来研究插入命令的细节。</strong></p>
+<h2 id="_3">插入命令</h2>
+<ul>
+<li>首先我们可以查询这个插入命令的帮助📕</li>
+<li><code>:help insert</code></li>
+<li>简写为 <code>:h i</code></li>
+</ul>
+<p><img alt="force quit" src="images/insert_before.png" /></p>
+<ul>
+<li>我们可以看到小写 <code>i</code> 是在当前光标的前面插入 </li>
+</ul>
+<h3 id="_4">切换模式</h3>
+<ul>
+<li>我们可以 <kbd>i</kbd> 进入插入模式</li>
+<li><kbd>esc</kbd> 回到正常模式</li>
+<li>然后反复切换</li>
+<li>观察状态栏下面的提示 </li>
+<li><code>--插入--</code> 就是插入模式</li>
+<li>啥都没有就是正常模式</li>
+</ul>
+<h3 id="_5">重复插入</h3>
+<ul>
+<li>我们可以先点击 <kbd>i</kbd> 进入插入模式</li>
+<li>输入 <code>oeasy 空格</code></li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd> 回到正常模式</li>
+<li>在正常模式下，按下 <kbd>.</kbd> 可以重复刚才的操作</li>
+<li>再按下 <kbd>.</kbd> 可以再重复刚才的操作</li>
+<li>还按下 <kbd>.</kbd> 可以还重复刚才的操作</li>
+<li>这个 <kbd>.</kbd> 是什么意思</li>
+<li><code>:h .</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627707640285.png" /></p>
+<h3 id="_6">撤销插入</h3>
+<ul>
+<li>在正常状态下按下<kbd>u</kbd>可撤销操作</li>
+<li>按一次<kbd>u</kbd>撤销一步</li>
+<li>再按<kbd>u</kbd>再撤销</li>
+<li>还按<kbd>u</kbd>还撤销</li>
+<li>一直<kbd>u</kbd>按到头，就撤销到头</li>
+<li>查询帮助</li>
+<li><code>:h u</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210731-1627707881536.png" /></p>
+<ul>
+<li>撤销了之后又反悔了可以么？</li>
+</ul>
+<h3 id="_7">重做</h3>
+<ul>
+<li>反悔是重做</li>
+<li>就在 <code>u</code> 的帮助下面有介绍</li>
+<li><kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>在正常状态下按 <kbd>ctrl</kbd>+<kbd>r</kbd> 可撤销撤销操作</li>
+<li>就是重做</li>
+<li>按一次 <kbd>u</kbd> 撤销一步</li>
+<li>再 <kbd>ctrl</kbd>+<kbd>r</kbd> 再撤销撤销</li>
+<li>按一次 <kbd>u</kbd> 撤销一步</li>
+<li>再 <kbd>ctrl</kbd>+<kbd>r</kbd> 再撤销撤销</li>
+<li>好像可以来回来去拉锯</li>
+</ul>
+<h2 id="_8">在前方插入</h2>
+<ul>
+<li>比如我们的光标当前所在的位置，在 <code>用</code> 字的位置</li>
+<li>按下 <kbd>i</kbd> 进入到插入模式</li>
+<li>然后就在绿色的光标前面插入字符</li>
+<li>这就是所谓的 <code>before cursor</code> 的意思</li>
+<li>就是插在光标之前</li>
+</ul>
+<p><img alt="force quit" src="images/beforeCursor.png" /></p>
+<ul>
+<li>帮助手册怎么说的呢？</li>
+</ul>
+<h3 id="_9">帮助手册</h3>
+<ul>
+<li><code>:h i</code> 可以查询帮助手册</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211218-1639793475988.png" /></p>
+<ul>
+<li>周围还有些什么呢？</li>
+</ul>
+<h3 id="_10">插在最前面</h3>
+<ul>
+<li>在 <code>:h i</code> 帮助的周围可以有命令 <code>I</code></li>
+<li>如果我们使用大写的 <code>I</code>，不管你的光标在什么位置</li>
+<li>插入位置在光标所在行所有文本的 <strong>最</strong> 前面</li>
+<li>然后切换到插入模式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211218-1639793377200.png" /></p>
+<ul>
+<li>但是如果我想要在 <code>最最</code> 前面插入呢？</li>
+</ul>
+<h3 id="_11">在第一列插入</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211218-1639793526169.png" /></p>
+<ul>
+<li>这就是各种从头插入的方式</li>
+<li>我们来总结一下</li>
+</ul>
+<h2 id="_12">总结</h2>
+<ul>
+<li>我们这次深入了 <kbd>i</kbd> 命令<ul>
+<li><kbd>i</kbd> 在当前的光标之前插入</li>
+<li><kbd>I</kbd> 在本行文本的最前面插入</li>
+</ul>
+</li>
+<li>还有一些常用的编辑命令<ul>
+<li><kbd>.</kbd> 重做</li>
+<li><kbd>u</kbd> 撤销</li>
+<li><kbd>ctrl</kbd>+<kbd>r</kbd> 还原</li>
+</ul>
+</li>
+<li>关于插入，还有什么讲究吗？🤔</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

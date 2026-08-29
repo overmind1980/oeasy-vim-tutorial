@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：查找细节，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解批量替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 批量替换, 查找细节">
+    <meta property="og:title" content="oeasy Vim编辑器教程：查找细节，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解批量替换。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">查找细节</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们温习了关于搜索的相关内容<ul>
+<li><kbd>/</kbd>正向，<kbd>?</kbd>反向</li>
+<li><kbd>n</kbd>保持方向，<kbd>N</kbd>改变方向</li>
+<li>可以设置<ul>
+<li>是否忽略大写小写</li>
+<li>是否从头开始查找</li>
+<li>是否高亮显示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>还有一些正则表达式的使用方法<ul>
+<li>行头行尾 <code>^$</code></li>
+<li>词头词尾 <code>\&lt;\&gt;</code></li>
+<li>字符列表<code>[a-z]</code>、<code>[A-Za-z_]</code></li>
+<li>包含回车<code>one\_stwo</code></li>
+</ul>
+</li>
+<li>数量<ul>
+<li>数量<code>*</code>、<code>?</code>、<code>=</code></li>
+<li>具体数量 <code>\{1,3}</code></li>
+<li>非贪婪 <code>\{-}</code></li>
+</ul>
+</li>
+<li>不以什么为开头结尾<ul>
+<li>不以什么为开头 <code>\@&lt;!</code></li>
+<li>不以什么为结尾 <code>\@!</code></li>
+</ul>
+</li>
+<li>查找出来怎么替换呢？🤔</li>
+</ul>
+<h3 id="_3">查找手册📕</h3>
+<ul>
+<li><code>:h :s</code></li>
+</ul>
+<p><img alt="未标题-3.png" src="images/_E6_9C_AA_E6_A0_87_E9_A2_98-3.png" /></p>
+<ul>
+<li><code>:s</code>命令 对应的是 <code>substitude</code>替换</li>
+<li>我们先做个实验环境</li>
+<li><code>:r !ls -lah</code></li>
+</ul>
+<h3 id="_4">具体操作</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211003-1633265177866.png" /></p>
+<ul>
+<li>3G跳转到第三行</li>
+<li><code>:s/shiyanlou/oeasy</code> <ul>
+<li>把当前行(第三行)的<code>shiyanlou</code>换成<code>oeasy</code></li>
+</ul>
+</li>
+<li>我想在同一行里面再换下一个<ul>
+<li>就可以<kbd>:</kbd><kbd>⬆️</kbd></li>
+<li>找到上一条命令</li>
+<li>然后再回车执行</li>
+</ul>
+</li>
+<li>我想把下一行的<code>2</code>个<code>oeasy</code>一把都换掉</li>
+<li>这就要加<code>flag</code> </li>
+</ul>
+<h3 id="flag">添加<code>flag</code></h3>
+<ul>
+<li>哪个<code>flag</code>呢？</li>
+<li>我们可以在<code>:h :s</code>的时候，使用<code>/flag</code></li>
+<li>也可以<code>:h s_flags</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612260205142.png" /></p>
+<ul>
+<li>我们这次的flag是<code>g</code><ul>
+<li>换一行</li>
+<li><code>:s/shiyanlou/oeasy/g</code> </li>
+<li>可以把这一行所有的 <code>shiyanlou</code> 换成 <code>oeasy</code></li>
+<li>我理解这个g指的是行内所有的</li>
+<li>如果我想默认g-flag就开着呢？</li>
+</ul>
+</li>
+</ul>
+<h3 id="g-flag">默认g-flag</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211003-1633265778236.png" /></p>
+<ul>
+<li>如果 <code>:se gdefault</code><ul>
+<li>可以设置<code>g</code>为默认</li>
+</ul>
+</li>
+<li>但是这个只能替换一行</li>
+<li>我想在某些行的范围内替换怎么办呢？</li>
+<li>加 <code>range</code></li>
+</ul>
+<h3 id="range">添加<code>range</code></h3>
+<ul>
+<li>精准控制<ul>
+<li><code>:3,8s/shiyanlou/oeasy/g</code></li>
+<li>只替换3-8行的</li>
+<li>而且开了<code>g</code> flag</li>
+<li>3,8行</li>
+<li>每行的都全部替换</li>
+</ul>
+</li>
+<li>
+<p>全部替换</p>
+<ul>
+<li><code>%</code> 相当于 <code>1,$</code></li>
+<li><code>:%s/shiyanlou/oeasy/g</code></li>
+<li><code>:1,$s/shiyanlou/oeasy/g</code></li>
+<li>就会把所有的都替换了</li>
+</ul>
+</li>
+<li>
+<p>但是这个一把都替换了</p>
+</li>
+<li>有的时候我还是想具体一个个确认怎么办？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612259869235.png" /></p>
+<h3 id="_5">逐个确认</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612263843722.png" /></p>
+<ul>
+<li><code>:h s_flags</code>找到一个<code>c</code><ul>
+<li><code>c</code>的意思是<code>confirm</code>确认</li>
+</ul>
+</li>
+<li><code>:%s/shiyanlou/oeasy/gc</code><ul>
+<li>行里的都替换</li>
+<li>每一个都需要确认</li>
+</ul>
+</li>
+<li>每个逐个确认<ul>
+<li><kbd>y</kbd>替换当前匹配</li>
+<li><kbd>l</kbd>替换当前匹配，并退出</li>
+<li><kbd>n</kbd>跳过当前匹配</li>
+<li><kbd>esc</kbd>直接退出</li>
+<li><kbd>q</kbd>直接退出</li>
+<li><kbd>a</kbd>全部替换</li>
+</ul>
+</li>
+<li>体会一下 <code>a</code> 的快乐😛</li>
+<li>除了g和c之外还有什么flag呢？</li>
+</ul>
+<h3 id="n">n</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211210-1639094693096.png" /></p>
+<ul>
+<li>n的作用就是计数</li>
+<li>并不替换</li>
+<li>但是可以统计数量</li>
+<li><code>:%s/oeasy//gn</code></li>
+<li>话说回来，关于替换有什么小技巧么？</li>
+</ul>
+<h3 id="_6">小技巧</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627871464712.png" /></p>
+<ul>
+<li><code>/let</code><ul>
+<li>搜索let</li>
+</ul>
+</li>
+<li><code>cwconst</code><kbd>esc</kbd><ul>
+<li>把当前单词变成const</li>
+</ul>
+</li>
+<li>跳<ul>
+<li><kbd>n</kbd>跳过当前匹配</li>
+<li><kbd>n</kbd>再跳过当前匹配</li>
+<li><kbd>n</kbd>还跳过当前匹配</li>
+<li><kbd>N</kbd>往回跳</li>
+</ul>
+</li>
+<li>
+<p>重做</p>
+<ul>
+<li><kbd>.</kbd><ul>
+<li>需要替换的就替换</li>
+</ul>
+</li>
+<li><kbd>n</kbd><ul>
+<li>需要跳过的就跳过</li>
+</ul>
+</li>
+<li><kbd>N</kbd><ul>
+<li>跳错了就跳回来</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>如果遇到了转义字符应该怎么办呢？</p>
+</li>
+</ul>
+<h3 id="_7">转义字符</h3>
+<ul>
+<li>比如我希望在所有玲珑塔的前面添加回车</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220505-1651751557552.png" /></p>
+<ul>
+<li>回车在这里用的是转义字符\r</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220505-1651751450203.png" /></p>
+<ul>
+<li>我们来总结一下</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>我们学习了 <ul>
+<li>替换 <code>substitude</code> </li>
+</ul>
+</li>
+<li>替换单行<ul>
+<li><code>:s/shiyanlou/oeasy</code> </li>
+</ul>
+</li>
+<li>加上<code>range</code><ul>
+<li><code>:3,5s/shiyanlou/oeasy</code>  </li>
+<li><code>:%s/shiyanlou/oeasy</code>  </li>
+</ul>
+</li>
+<li>加上<code>flag</code><ul>
+<li><code>:3,5s/shiyanlou/oeasy/g</code> 多个替换</li>
+<li><code>:3,5s/shiyanlou/oeasy/gc</code> 多个替换且逐个确认</li>
+</ul>
+</li>
+<li>替换还是很方便的</li>
+<li>但是我想替换中使用正则表达式</li>
+<li>可以么？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

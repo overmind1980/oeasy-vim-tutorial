@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：可视化编辑，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解字符可视。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 字符可视, 可视化编辑">
+    <meta property="og:title" content="oeasy Vim编辑器教程：可视化编辑，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解字符可视。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">可视化编辑</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们学习了关于模式匹配中使用参数<ul>
+<li>别着急</li>
+<li>先列框架</li>
+<li>在一步一步填充进去皮肉</li>
+<li>注意转义</li>
+<li>冷静仔细</li>
+<li>不断看着高亮的反馈</li>
+</ul>
+</li>
+<li>单个参数<ul>
+<li><code>:%s/&lt;h2&gt;\(.*\)&lt;\/h2&gt;/        - \1/g</code></li>
+</ul>
+</li>
+<li>多个参数<ul>
+<li><code>:%s/&lt;img src=\"\(.*\)\" title=\"\(.*\)\" \/&gt;/[!\2]\1</code></li>
+</ul>
+</li>
+<li>非贪婪匹配<ul>
+<li><code>:%s/&lt;a href=\"\(.\{-\})\"&gt;\(.\{-\}\)&lt;\/a&gt;/[\2]\1/g</code></li>
+</ul>
+</li>
+<li>我们介绍一种更神奇的模式</li>
+<li>什么模式呢？</li>
+<li>我们先回忆一下已经了解的模式</li>
+</ul>
+<h3 id="_3">三种模式</h3>
+<ul>
+<li>我们先回顾一下以前学过的模式<ul>
+<li>正常模式</li>
+<li>插入模式</li>
+<li>替换模式</li>
+<li>命令行模式</li>
+</ul>
+</li>
+<li>今天的新模式是<code>可视化模式</code></li>
+<li>其实可视化对应三种可视化<ul>
+<li>字符可视化 <kbd>v</kbd></li>
+<li>行可视化 <kbd>V</kbd></li>
+<li>块可视化<kbd>ctrl</kbd>+<kbd>v</kbd></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210202-1612273747706.png" /></p>
+<h3 id="_4">字符可视模式</h3>
+<ul>
+<li><kbd>v</kbd>进入<ul>
+<li>还是可以用 <code>{motion}</code> 移动光标</li>
+<li>从开始位置到目前光标位置文本高亮显示</li>
+<li>相当于把选择范围高亮显示</li>
+</ul>
+</li>
+<li>在左下角显示<code>可视</code><ul>
+<li>意味着进入了<code>可视-字符模式</code></li>
+</ul>
+</li>
+<li>可以用<kbd>o</kbd>切换首尾<ul>
+<li>控制选择范围</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612313769529.png" /></p>
+<ul>
+<li>为什么要有可视化模式？</li>
+</ul>
+<h3 id="_5">具体选择</h3>
+<ul>
+<li>为什么要有可视化模式？<ul>
+<li>因为很多时候移动工具不直观</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210706-1625536905484.png" /></p>
+<ul>
+<li>可视化<ul>
+<li>明确点儿可以叫做选择范围可视化</li>
+</ul>
+</li>
+<li>像这样很容易就知道自己所选择的范围<ul>
+<li>然后就可以进行相关操作了</li>
+</ul>
+</li>
+<li>做什么操作呢？</li>
+</ul>
+<h3 id="_6">相关操作</h3>
+<ul>
+<li>在可视化模式也可以进行编辑操作<ul>
+<li>相当于对于选好的内容进行操作</li>
+</ul>
+</li>
+<li>选好了之后，<ul>
+<li><kbd>d</kbd> <ul>
+<li>删除所选文本</li>
+</ul>
+</li>
+<li><kbd>c</kbd> <ul>
+<li>修改所选文本</li>
+<li>删除选中的文本</li>
+<li>然后输入想要的内容</li>
+</ul>
+</li>
+<li><kbd>r</kbd> <ul>
+<li>替换所选文本</li>
+<li>将选中的文本替换成单个字符</li>
+</ul>
+</li>
+<li><kbd>I</kbd> <ul>
+<li>在所选文本前插入</li>
+</ul>
+</li>
+<li><kbd>A</kbd> <ul>
+<li>在所选文本后插入</li>
+</ul>
+</li>
+<li><kbd>g</kbd><kbd>u</kbd> <ul>
+<li>所选区域转为小写</li>
+</ul>
+</li>
+<li><kbd>g</kbd><kbd>U</kbd><ul>
+<li>所选区域转为大写</li>
+</ul>
+</li>
+<li><kbd>g</kbd><kbd>~</kbd> <ul>
+<li>所选区域大小写互调</li>
+</ul>
+</li>
+<li><kbd>&gt;</kbd><ul>
+<li>所选区域对应的行向右缩进一个 <code>shiftwidth</code></li>
+</ul>
+</li>
+<li><kbd>&lt;</kbd><ul>
+<li>所选区域对应的行向左缩进一个 <code>shiftwidth</code></li>
+</ul>
+</li>
+<li>这个和我们常用的相似</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">操作细节</h3>
+<ul>
+<li>大小写不同<ul>
+<li>d只删除选中的字符</li>
+<li>而D删除选中字符所在行的所有字符，包含结尾的换行符号</li>
+<li>c 和 C 、 y 和 Y 同理</li>
+</ul>
+</li>
+<li>可以在前面添加 <code>"a</code>  指定 <code>寄存器a</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612314199991.png" /></p>
+<h3 id="_8">快速选择文字块</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210203-1612314500123.png" /></p>
+<ul>
+<li>vaw可以进入字符可视模式，并选中单词</li>
+<li>vaW <ul>
+<li>a WORD (with white space)</li>
+<li>包含空格的一个WORD     </li>
+</ul>
+</li>
+<li>iW  <ul>
+<li>inner WORD</li>
+<li>不包含空格的WORD</li>
+</ul>
+</li>
+<li>as<ul>
+<li>a sentence (with white space)</li>
+<li>包含空格一个句子</li>
+</ul>
+</li>
+<li>is<ul>
+<li>inner sentence</li>
+<li>不包含空格一个句子</li>
+</ul>
+</li>
+<li>ap<ul>
+<li>a paragraph (with white space)</li>
+<li>包含空格一个段落</li>
+</ul>
+</li>
+<li>ip<ul>
+<li>inner paragraph </li>
+<li>一个段落</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">各种括号引起的文字块</h3>
+<ul>
+<li>ab<ul>
+<li>a () block (with parenthesis)   </li>
+<li>一个小括号包围的块，含括号</li>
+</ul>
+</li>
+<li>ib  <ul>
+<li>inner () block  </li>
+<li>不包含括号的一个块</li>
+</ul>
+</li>
+<li>aB  <ul>
+<li>a {} block (with braces)</li>
+<li>一个大括号包围的块，含括号</li>
+</ul>
+</li>
+<li>iB  <ul>
+<li>inner {} block</li>
+<li>一个大括号包围的块</li>
+</ul>
+</li>
+<li>at  <ul>
+<li>a <tag> </tag> block (with tags)</li>
+<li>一个标签包围的块，含标签</li>
+</ul>
+</li>
+<li>it  <ul>
+<li>inner <tag> </tag> block</li>
+<li>一个标签包围的块，不含标签</li>
+</ul>
+</li>
+<li>a&lt;  <ul>
+<li>a &lt;&gt; block (with &lt;&gt;)    </li>
+<li>一个尖括号包围的标签，含标签</li>
+<li>相当于at   </li>
+</ul>
+</li>
+<li>i&lt;  <ul>
+<li>inner &lt;&gt; block  </li>
+<li>一个尖括号包围的标签，不含标签</li>
+<li>相当于it</li>
+</ul>
+</li>
+<li>a[  <ul>
+<li>a [] block (with [])                </li>
+<li>中括号包含的块，含中括号</li>
+</ul>
+</li>
+<li>i[<ul>
+<li>inner [] block                  </li>
+<li>中括号包含的块，不含中括号</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">还有各种引用文字块</h3>
+<ul>
+<li>a"  <ul>
+<li>a double quoted string (with quotes)</li>
+<li>双引号括号包含的块，含双引号</li>
+</ul>
+</li>
+<li>i"  <ul>
+<li>inner double quoted string  </li>
+<li>双引号括号包含的块，不含双引号</li>
+</ul>
+</li>
+<li>a'<ul>
+<li>a single quoted string (with quotes)</li>
+<li>单引号括号包含的块，含单引号</li>
+</ul>
+</li>
+<li>i'<ul>
+<li>inner simple quoted string      </li>
+<li>单引号括号包含的块，不含单引号</li>
+</ul>
+</li>
+<li>a`  <ul>
+<li>a string in backticks (with backticks)</li>
+<li>反引号括号包含的块，不含反引号</li>
+</ul>
+</li>
+<li>i`  <ul>
+<li>inner string in backticks   </li>
+<li>反引号括号包含的块，不含反引号</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">用行命令操作选区</h3>
+<ul>
+<li>选好选区后<ul>
+<li><kbd>:</kbd></li>
+</ul>
+</li>
+<li>左下角会出现:'&lt;,'&gt;<ul>
+<li>就是从选区开头，到选区结尾</li>
+<li>'&lt; 选区开头</li>
+<li>'&gt; 选区结尾</li>
+</ul>
+</li>
+<li>然后我们摁下<kbd>d</kbd>回车<ul>
+<li>就把选区范围内都删除了</li>
+</ul>
+</li>
+<li>我们可以<code>:h '&lt;</code> 查看相应手册</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628334109430.png" /></p>
+<h2 id="_12">总结</h2>
+<ul>
+<li>这次我们了解到可视模式</li>
+<li>其实可视化对应三种子模式<ul>
+<li>字符可视模式 <kbd>v</kbd></li>
+<li>行可视模式 <kbd>V</kbd></li>
+<li>块可视模式<kbd>ctrl</kbd>+<kbd>v</kbd></li>
+</ul>
+</li>
+<li>我们先来了解字符可视化模式<ul>
+<li>快捷键 <kbd>v</kbd></li>
+<li>可配合各种 <code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+<li>字符可视化就是把选择范围可视化</li>
+</ul>
+</li>
+<li>快速操作<ul>
+<li>选中了之后可以进行以下操作<ul>
+<li><kbd>d</kbd></li>
+<li><kbd>c</kbd></li>
+<li><kbd>y</kbd></li>
+</ul>
+</li>
+<li>可以用<kbd>"</kbd><kbd>a</kbd>使用指定寄存器</li>
+</ul>
+</li>
+<li>可以用<code>i</code>和<code>a</code>快速选择范围<ul>
+<li>w 小词 W 大词</li>
+<li>（）[] {} 各种括号</li>
+<li>t 标签，编写网页的时候很有用</li>
+<li>s 句子 p 段落</li>
+<li>b 小括号，这个编写程序的时候很有用</li>
+<li>B 大括号，编写程序的时候也很有用</li>
+<li>" ' `引号内 </li>
+</ul>
+</li>
+<li>还可以在命令行下对选区范围内字符进行操作<ul>
+<li><code>:'&lt;,'&gt;</code></li>
+</ul>
+</li>
+<li>这次是字符可视化模式，那么行可视化模式是什么意思呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

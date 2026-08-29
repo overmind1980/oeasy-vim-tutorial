@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：缩写abbreviation，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解缩写 abbreviation。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 缩写, abbreviation, 缩写abbreviation">
+    <meta property="og:title" content="oeasy Vim编辑器教程：缩写abbreviation，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解缩写 abbreviation。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="abbreviation">缩写abbreviation</h1>
+<h2 id="_1">回忆上次折叠的细节</h2>
+<ul>
+<li>这次了解到了<code>:mkview</code>、<code>:loadview</code></li>
+<li>保存和加载视图</li>
+<li>可以把当前的状态保存下来</li>
+<li>可以在 <code>viewoption</code> 中配置保存选项，设置哪些需要保存</li>
+<li>还可以保存多个视图<ul>
+<li>在整个文档中跳来跳去</li>
+</ul>
+</li>
+<li>视图里面可以有很多本地窗口的设置<ul>
+<li>折叠</li>
+<li>缩写</li>
+<li>映射</li>
+</ul>
+</li>
+<li>那么到底什么是缩写(<code>abbreviations</code>)和映射(<code>mappings</code>)呢？🤔</li>
+</ul>
+<h3 id="abbreviations">缩写就是<code>abbreviations</code></h3>
+<ul>
+<li>缩写之类的东西我们早就见过<ul>
+<li><code>:se nu</code></li>
+<li><code>:se[t] nu[mber]</code></li>
+</ul>
+</li>
+<li>不用都打上，打上缩写形式就自动能好使</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639960265439.png" /></p>
+<ul>
+<li>类似的还有<ul>
+<li><code>:%s</code></li>
+<li>等价于<code>:%substitute</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639960300497.png" /></p>
+<h3 id="abbreviation_1">缩写abbreviation</h3>
+<ul>
+<li>我们可以快速地定义缩写</li>
+<li><code>:abbreviate hi hello</code> <ul>
+<li>这个时候如果输入<code>hi</code><kbd>空格</kbd></li>
+<li>hi就自动变成了hello</li>
+<li>不过目前系统配置有点问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="_2">调整设置</h3>
+<ul>
+<li>当前系统配置有点问题</li>
+<li>需要看一下 <code>~/.vimrc</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627118976197.png" /></p>
+<ul>
+<li>把177这句 <code>set paste</code> 是控制粘贴用的</li>
+<li>有的时候粘贴出来时对不齐就用 <code>:set paste</code></li>
+<li>粘贴完之后 <code>:set nopaste</code></li>
+<li>现在我们 <code>:set nopaste</code> 确保缩写可以用起来</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639960942492.png" /></p>
+<h3 id="_3">设置缩写</h3>
+<ul>
+<li>这有点像颜文字转化工具</li>
+<li><code>:abbreviate sml ヾ(❀╹◡╹)ﾉ~</code><ul>
+<li>还挺好使 哈哈</li>
+</ul>
+</li>
+<li>还可以使用缩写形式<code>ab</code><ul>
+<li><code>:ab o1z oeasy</code></li>
+</ul>
+</li>
+<li>
+<p>还可以用来改错</p>
+<ul>
+<li><code>:ab teh the</code></li>
+</ul>
+</li>
+<li>
+<p>不论是在插入模式下，还是在命令行模式下</p>
+</li>
+<li>只要输入缩写形态，然后加一个空格</li>
+<li>就自动完成切换</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639960593417.png" /></p>
+<ul>
+<li>这个东西其实还是有一定实用性的<ul>
+<li><code>:ab sysout System.out.println();</code></li>
+<li>不过我可以控制最终的光标位置么?</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">光标的控制</h3>
+<ul>
+<li>定义新的缩写<ul>
+<li><code>:ab sysout System.out.println("");&lt;left&gt;&lt;left&gt;&lt;left&gt;</code></li>
+<li>这样就可以在快速得到输出语句之后</li>
+<li>还把光标放在最合适的位置</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639963186729.png" /></p>
+<ul>
+<li>这样就可以快速插入一些复杂的语句</li>
+<li>那么这个可以换行么？</li>
+</ul>
+<h3 id="_5">添加换行符号</h3>
+<ul>
+<li><code>:ab htmlbase &lt;html&gt;&lt;cr&gt;&lt;tab&gt;&lt;head&gt;&lt;/head&gt;&lt;cr&gt;&lt;body&gt;&lt;/body&gt;&lt;cr&gt;&lt;backspace&gt;&lt;/html&gt;&lt;up&gt;&lt;right&gt;&lt;right&gt;</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211220-1639963228069.png" /></p>
+<ul>
+<li>这样就可以快速插入一些更大规模的模板之类的内容</li>
+<li>目前有什么缩写abbreviate </li>
+<li>可以列表出来么</li>
+</ul>
+<h3 id="abbreviate">列出所有的缩写abbreviate</h3>
+<ul>
+<li><code>ab[breviate]</code>可以列出所有的缩写</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627115680457.png" /></p>
+<ul>
+<li>第一列代表使用范围<ul>
+<li><code>!</code> - 全部模式包括输入和命令行</li>
+<li><code>i</code>- 输入模式 insert</li>
+<li><code>c</code>- 命令行模式 command</li>
+</ul>
+</li>
+<li>单独定义某模式下的ab<ul>
+<li><code>:iab o1z oeasy</code> 只在插入模式下进行缩写替换</li>
+<li><code>:cab o1z oeasy</code> 只在命令模式下进行缩写替换</li>
+<li><code>:ab o1z oeasy</code> 在全部模式下都能进行缩写替换</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">取消缩写</h3>
+<ul>
+<li><code>:ab</code>先看看有啥</li>
+<li><code>:una o1z</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627117290994.png" /></p>
+<ul>
+<li>再 <code>:ab</code> 发现这个<code>o1z</code>已经删除了</li>
+<li>清空  <code>clear</code></li>
+<li><code>:iabc[lear]</code> <ul>
+<li>清空输入(insert)状态下的缩写abbreviate</li>
+</ul>
+</li>
+<li><code>:cabc[lear]</code> <ul>
+<li>清空命令(command)状态下的缩写abbreviate</li>
+</ul>
+</li>
+<li><code>:abc[lear]</code> <ul>
+<li>清空一切状态下的缩写abbreviate</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627117122470.png" /></p>
+<ul>
+<li>一个个定义映射有点麻烦</li>
+<li>我能直接利用曾经写过的单词么？</li>
+</ul>
+<h3 id="_7">自动补全</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627174405321.png" /></p>
+<ul>
+<li>我们的缓冲中有很多已经写出来的单词</li>
+<li>我们可以用这些来做自动补全</li>
+<li>我们写下S然后按下<kbd>ctrl</kbd><kbd>p</kbd><ul>
+<li>出现一个提示框我们可以选择里面的单词</li>
+<li><kbd>ctrl</kbd><kbd>p</kbd> - previous</li>
+<li><kbd>ctrl</kbd><kbd>n</kbd>  - next</li>
+<li>随着输入的进行还可以缩小查找范围</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627174613432.png" /></p>
+<ul>
+<li>这个东西也是非常实用的小技巧 </li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>这次了解到了<code>:abbrivate</code>缩写</li>
+<li>可以定义缩写<ul>
+<li><code>:ab o1z oeasy</code></li>
+<li>这里面还可以包括方向键、回车键之类的东西</li>
+</ul>
+</li>
+<li>可以定义到指定的模式<ul>
+<li><code>iab</code></li>
+<li><code>cab</code></li>
+</ul>
+</li>
+<li>查看缩写<ul>
+<li><code>:ab</code> - 所有的</li>
+<li><code>:ab o1z</code> - o1z</li>
+</ul>
+</li>
+<li>自动补全<ul>
+<li><kbd>ctrl</kbd><kbd>p</kbd></li>
+<li><kbd>ctrl</kbd><kbd>n</kbd></li>
+</ul>
+</li>
+<li>这些缩写都可以保存在视图里<ul>
+<li>保存的选项在<code>viewoption</code>中</li>
+</ul>
+</li>
+<li>可以保存的除了 <code>缩写abbreviate</code> 还有个 <code>映射map</code></li>
+<li><code>映射map</code> 什么意思呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

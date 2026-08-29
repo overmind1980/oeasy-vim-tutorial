@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：可视化编辑，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解编辑总结。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 编辑总结, 可视化编辑">
+    <meta property="og:title" content="oeasy Vim编辑器教程：可视化编辑，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解编辑总结。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">可视化编辑</h1>
+<h2 id="_2">总结</h2>
+<ul>
+<li>vim表面上是一个软件<ul>
+<li>其实他也有深厚的历史</li>
+<li>跨越了时代、项目和版本</li>
+<li>在年代的穿透中有一种源远流长的感觉</li>
+<li>新芽必发于陈</li>
+</ul>
+</li>
+<li>让我想到一句老话<ul>
+<li>孰能浊以止，静之徐清？</li>
+<li>孰能安以久，动之徐生？</li>
+<li>保此道者不欲盈</li>
+<li>夫唯不盈<ul>
+<li>故能敝而新成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结一下前几节学习的可视化模式吧？🤔</li>
+</ul>
+<h3 id="_3">可视化模式</h3>
+<ul>
+<li>上上次了解到块可视模式
+    -<kbd>ctrl</kbd>+<kbd>v</kbd><ul>
+<li>左下角<code>-- 可视 块 --</code></li>
+<li>然后配合<code>motion</code></li>
+<li><kbd>o</kbd>切换首尾</li>
+<li>这个块可以有四个顶点</li>
+<li><kbd>O</kbd>横向切换</li>
+</ul>
+</li>
+<li>可以在选区内进行编辑和替换<ul>
+<li>可以直接<kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd></li>
+<li>或者<kbd>D</kbd>、<kbd>C</kbd>、<kbd>Y</kbd></li>
+<li>也可以直接编辑<ul>
+<li><code>:'&lt;,'&gt;d</code></li>
+<li><code>:'&lt;,'&gt;s/shiyanlou/oeasy/g</code> 范围内批量替换</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以在块·可视化模式下替换<ul>
+<li><code>:'&lt;,'&gt;s/\%Vg/graphic/g</code></li>
+<li>'&lt;,'&gt;表示范围</li>
+<li>s表示substitute</li>
+<li>\%V表示在块内</li>
+</ul>
+</li>
+<li>文本编辑终于告一段落🤔</li>
+<li>这次来总结总结</li>
+</ul>
+<h3 id="_4">基本模式</h3>
+<ul>
+<li>我们现在了解到有<code>5</code>种模式<ul>
+<li>默认模式 也叫正常模式 这是基础</li>
+<li>想要从别的模式回到正常模式<ul>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd></li>
+<li><kbd>esc</kbd></li>
+</ul>
+</li>
+<li>从正常模式到命令行模式<ul>
+<li><kbd>:</kbd></li>
+</ul>
+</li>
+<li>从正常模式到插入模式者<ul>
+<li><kbd>i</kbd> 前插</li>
+<li><kbd>I</kbd> 最前插</li>
+<li><kbd>a</kbd> 后插</li>
+<li><kbd>A</kbd> 最后插</li>
+<li><kbd>o</kbd> 下面插一新行</li>
+<li><kbd>O</kbd> 上面插一新行</li>
+</ul>
+</li>
+<li>从正常模式到替换模式<ul>
+<li><kbd>R</kbd></li>
+</ul>
+</li>
+<li>从正常模式到可视模式，分成三种<ul>
+<li><kbd>v</kbd> 字符可视 </li>
+<li><kbd>V</kbd> 行·可视 </li>
+<li><kbd>ctrl</kbd>+ <kbd>v</kbd> 块·可视 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">基本编辑</h3>
+<ul>
+<li>基本的编辑是<code>基本操作</code>+<code>基本运动</code></li>
+<li>常用的基本操作都是动作<ul>
+<li>小写操作的是{range}</li>
+<li>大写操作的是行</li>
+</ul>
+</li>
+<li>具体命令<ul>
+<li>删除<ul>
+<li><kbd>d</kbd>、<kbd>D</kbd></li>
+<li><kbd>x</kbd>、<kbd>X</kbd></li>
+</ul>
+</li>
+<li>复制<ul>
+<li><kbd>y</kbd></li>
+</ul>
+</li>
+<li>粘贴<ul>
+<li><kbd>p</kbd>、<kbd>P</kbd></li>
+</ul>
+</li>
+<li>剪切并切换到插入模式<ul>
+<li><kbd>c</kbd>、<kbd>C</kbd></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本运动都是方向<ul>
+<li>首行<kbd>g</kbd> <kbd>g</kbd> 、末行<kbd>G</kbd> 、第n行<kbd>n</kbd> <kbd>G</kbd> </li>
+<li>光标运动的方式是<kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> </li>
+<li>这些方向都可以加上<code>[count]</code>翻倍</li>
+<li>单词运动<code>wbe</code><ul>
+<li><kbd>w</kbd> 是到下一个<code>word</code>的开头</li>
+<li><kbd>b</kbd> 是到当前<code>word</code>的开头</li>
+<li><kbd>e</kbd> 是到当前<code>word</code>的结尾</li>
+<li>除了<code>word</code>之外还有<code>WORD</code></li>
+</ul>
+</li>
+<li>行头行尾<ul>
+<li><kbd>^</kbd> 是到本行第一个非空字符</li>
+<li><kbd>0</kbd> 是到本行第一个字符，不管是不是空格</li>
+<li><kbd>g</kbd><kbd>_</kbd> 是到本行最后一个非空字符</li>
+<li><kbd>$</kbd> 跳到本行最后一个字符，即使他是空格</li>
+</ul>
+</li>
+<li>行内跳跃和贴靠<ul>
+<li>向<code>前</code>跳跃是<kbd>f</kbd></li>
+<li>向<code>后</code>跳跃是<kbd>F</kbd></li>
+<li>向<code>前</code>贴靠是<kbd>t</kbd></li>
+<li>向<code>后</code>贴靠是<kbd>T</kbd></li>
+</ul>
+</li>
+<li>全文查找<ul>
+<li>查找的话就是<kbd>/</kbd></li>
+<li>反向查找的话就是<kbd>?</kbd>  </li>
+</ul>
+</li>
+<li>文本区块<ul>
+<li><kbd>{</kbd>、<kbd>}</kbd>按段落移动</li>
+<li><kbd>(</kbd>、<kbd>)</kbd>按句子移动</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>以in为范围的操作<ul>
+<li><kbd>c</kbd><kbd>i</kbd><kbd>w</kbd></li>
+<li><kbd>d</kbd><kbd>i</kbd><kbd>t</kbd></li>
+<li><kbd>y</kbd><kbd>i</kbd><kbd>b</kbd></li>
+<li><kbd>d</kbd><kbd>i</kbd><kbd>"</kbd></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">命令行模式</h3>
+<ul>
+<li>可以进行基本编辑<ul>
+<li>在<kbd>:</kbd>下可以运行命令</li>
+<li><kbd>d</kbd>、<kbd>D</kbd>、<kbd>x</kbd>、<kbd>X</kbd></li>
+<li>可以在前面加上<code>range</code><ul>
+<li><code>:3,6d</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以操作文件 (读、写、编辑)<ul>
+<li><code>:3,5w oeasy.txt</code></li>
+<li><code>:1,3r oeasy.txt</code></li>
+<li><code>:3,9w oeasy.txt</code></li>
+<li><code>:3,9w oeasy.txt &gt;&gt;</code></li>
+<li><code>:e .</code></li>
+</ul>
+</li>
+<li>查找<ul>
+<li><code>/oeasy</code></li>
+<li><code>/^a.*b$</code> a开头b结束的行</li>
+<li><code>/\&lt;a.*b\&gt;</code> a开头b结束的单词</li>
+</ul>
+</li>
+<li>替换<ul>
+<li><code>:%s/shiyanlou/oeasy/gc</code></li>
+<li><code>:3,9s/\&lt;a.*b\&gt;//gc</code> 3-9行中a开头b结束的单词都删除</li>
+<li><code>:g/oeasy/d</code>带oeasy的都删除</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">可视化模式</h3>
+<ul>
+<li>可视模式的首尾切换<ul>
+<li><kbd>o</kbd></li>
+<li><kbd>O</kbd></li>
+</ul>
+</li>
+<li>可以用<code>in</code>的方式制作选择范围<ul>
+<li><code>vit</code></li>
+<li><code>vi}</code></li>
+<li><code>vib</code></li>
+</ul>
+</li>
+<li>总共有三种可视化模式<ul>
+<li>字符可视化</li>
+<li>行·可视化</li>
+<li>块·可视化</li>
+</ul>
+</li>
+<li>可以在选区里面进行编辑操作<ul>
+<li><kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd>、<kbd>p</kbd></li>
+<li>还可以进行替换</li>
+<li>也可以在命令模式下对范围进行操作<ul>
+<li><code>:'&lt;,'&gt;d</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">插入题头</h3>
+<ul>
+<li><code>:r !ls -lah</code></li>
+<li>使用命令<code>:2,15normal I001.</code><ul>
+<li>注意是<code>001</code>，而不是1</li>
+</ul>
+</li>
+<li><kbd>ctrl</kbd>+<kbd>v</kbd>选中<code>3-5</code>行的开头字符</li>
+<li><kbd>g</kbd>之后<kbd>ctrl</kbd>+<kbd>a</kbd></li>
+<li><code>1111</code>变成<code>1234</code></li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>包括5种模式<ul>
+<li>正常、插入、命令行、可视化、替换</li>
+</ul>
+</li>
+<li>许多编辑命令<ul>
+<li><kbd>d</kbd>、<kbd>c</kbd>、<kbd>y</kbd>、<kbd>p</kbd></li>
+</ul>
+</li>
+<li>编辑命令可以配合<code>motion</code>和<code>in</code></li>
+<li>文本可以进行搜索和替换</li>
+<li>基本就这些吧！！！🧘🏻‍♂️<ul>
+<li>真是全面地大总结啊</li>
+<li>可以在终端里面玩开了</li>
+</ul>
+</li>
+<li><code>shell</code> 下 运行 <code>vimtutor zh</code> <ul>
+<li>看看自己多久能够通关</li>
+<li>这是一个重大的关卡</li>
+<li>做完了之后</li>
+</ul>
+</li>
+<li>我们继续向前 👋</li>
+</ul>
+    </div>
+</body>
+</html>

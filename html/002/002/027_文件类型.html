@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：文件类型，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解文件类型。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 文件类型">
+    <meta property="og:title" content="oeasy Vim编辑器教程：文件类型，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解文件类型。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">文件类型</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>
+<p>上次了解了缩进的各种方式</p>
+<ul>
+<li>正常模式下用 <code>&lt;&lt;</code> 缩进</li>
+<li>插入模式下用 <code>tab</code> 缩进</li>
+<li>显示缩进情况 <code>:set listchars=eol:$,tab:&gt;-,space:_</code></li>
+</ul>
+</li>
+<li>
+<p>有关于缩进对应空格数的参数</p>
+</li>
+<li>expandtab</li>
+<li>shiftwidth</li>
+<li>tabstop</li>
+<li>softtabstop</li>
+<li>
+<p>autoindent</p>
+</li>
+<li>
+<p>简写为 <code>:set noet sw=4 ts=4 sts=4 ai</code></p>
+</li>
+<li>不同的文件类型可以对应不同的缩进长度吗？？🤔</li>
+</ul>
+<h3 id="_3">检测文件类型</h3>
+<p><img alt="图片描述" src="images/uid1190679-20200930-1601437263429.png" /></p>
+<ul>
+<li>首先需要检测文件类型</li>
+<li><code>:filetype</code> 可以设置当前文件类型检测信息<ul>
+<li><code>:filetype on</code> 检测文件扩展名</li>
+<li><code>:filetype off</code> 取消检测文件扩展名</li>
+</ul>
+</li>
+<li>如果是<code>.c</code><ul>
+<li>并且<code>:filetype on</code> </li>
+<li>就可以检测文件类型为 <code>.c</code></li>
+<li>那我怎么知道 <code>filetype</code> 是什么呢？</li>
+</ul>
+</li>
+<li><code>:set filetype?</code><ul>
+<li>结果是 <code>filetype=c</code></li>
+</ul>
+</li>
+<li>但是如何单独设置 <code>.c</code> 文件缩进为 <code>8</code> 呢？</li>
+</ul>
+<h3 id="_4">文件类型缩进设置</h3>
+<ul>
+<li>我们书写一个 <code>demo.c</code></li>
+<li>可以发现这个文件 tab 是对应着 4 个空格的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20200930-1601438792635.png" /></p>
+<ul>
+<li>如果想单独设置 <code>.c</code> 文件类型的缩进的话<ul>
+<li>需要打开文件类型缩进的开关</li>
+<li><code>:filetype indent on</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">找到缩进配置文件</h3>
+<ul>
+<li>系统的配置文件的位置在 <code>/usr/share/vim/vim81/indent/</code><ul>
+<li><code>c</code> 对应 <code>c.vim</code></li>
+<li><code>java</code> 对应 <code>java.vim</code></li>
+<li><code>html</code> 对应 <code>html.vim</code></li>
+<li>不同的文件类型可以设置不同的缩进<ul>
+<li><code>c</code> 缩进为 <code>8</code></li>
+<li><code>java</code> 缩进为 <code>4</code></li>
+<li><code>html</code> 缩进为 <code>2</code></li>
+</ul>
+</li>
+<li>找到了 <code>/usr/share/vim/vim81/indent/c.vim</code> 就可以设置<code>c</code>的缩进</li>
+</ul>
+</li>
+<li>在最后加上 <ul>
+<li><code>:set et sw=8 ts=8 sts=8 ai</code></li>
+</ul>
+</li>
+<li>然后退出并重新打开 <code>demo.c</code> </li>
+<li>再<kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd></li>
+<li>就可以按照新设置的 <code>/usr/share/vim/vim81/indent/c.vim</code>来重新控制缩进了</li>
+</ul>
+<h3 id="_6">更改文件类型</h3>
+<p><img alt="图片描述" src="images/uid1190679-20200930-1601438943963.png" /></p>
+<ul>
+<li>我们打开 <code>demo.c</code> 时,系统会检测他的文件类型</li>
+<li>但是如果我们非要 <code>硬</code> 要说他是一个 <code>java</code> 文件会如何呢？🤪</li>
+<li><code>:set filetype=java</code></li>
+<li>文件对于 <code>include</code> 之类的语法高亮消失了</li>
+<li><kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd> </li>
+<li>让文件缩进的数量变回了 <code>4</code><ul>
+<li>按照<code>java</code>文件缩进的要求来做</li>
+</ul>
+</li>
+<li>高亮可以根据文件类型而不同么？🤔</li>
+</ul>
+<h3 id="_7">文件类型语法高亮</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#找出所有的java.vim文件</span>
+sudo<span class="w"> </span>find<span class="w"> </span>/<span class="w"> </span>-name<span class="w"> </span><span class="s2">"java.vim"</span><span class="w"> 　</span>
+</code></pre></div>
+
+<ul>
+<li>找出所有和 java 有关的文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20200930-1601439368435.png" /></p>
+<ul>
+<li>在 <code>indent</code> 下的 <code>java.vim</code> 负责缩进</li>
+<li>在 <code>syntax</code> 下的 <code>java.vim</code> 负责语法高亮</li>
+<li>语法高亮的设置在<ul>
+<li><code>/usr/share/vim/vim81/syntax/</code>下面</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20200930-1601439571997.png" /></p>
+<ul>
+<li><code>:syntax on</code> 可以设置关键词高亮，这个是所有语法高亮的根开关</li>
+</ul>
+<h3 id="_8">文件类型的插件</h3>
+<ul>
+<li>除此之外，也可以加载 <code>java</code> 文件类型的的插件 <code>plugin</code><ul>
+<li>文件类型插件可以设置一键编译运行、跳转到函数定义之类的</li>
+<li>前提是 <code>:set filetype plugin on</code></li>
+</ul>
+</li>
+<li>文件类型插件的设置在<ul>
+<li><code>/usr/share/vim/vim81/ftplugin/</code>下面</li>
+<li>ftplugin = FileType Plugin</li>
+</ul>
+</li>
+<li>回忆文件类型缩进和语法<ul>
+<li>在 <code>indent</code> 下的 <code>java.vim</code> 负责缩进</li>
+<li>在 <code>syntax</code> 下的 <code>java.vim</code> 负责语法高亮</li>
+</ul>
+</li>
+<li>在 <code>ftplugin</code> 下的 <code>java.vim</code> <ul>
+<li>负责针对 <code>java文件类型</code> 的插件</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">命名规则</h3>
+<ul>
+<li>除了对于每个用户都好使的高亮、缩进和插件之外</li>
+<li>用户还可以设置只对于自己好使的高亮、缩进和插件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627192711494.png" /></p>
+<ul>
+<li>以 <code>java</code> 语言的插件来举例</li>
+<li>系统通用文件夹<ul>
+<li><code>/usr/share/vim/vim81/ftplugin/java.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java_xxx.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java/xxx.vim</code></li>
+</ul>
+</li>
+<li>用户专用文件夹<ul>
+<li><code>~/.vim/ftplugin/java.vim</code></li>
+<li><code>~/.vim/ftplugin/java_def.vim</code></li>
+<li><code>~/.vim/ftplugin/java/header.vim</code> </li>
+</ul>
+</li>
+<li>上面是命名的规则<ul>
+<li>java 对应的就是上图中的 filetype</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">文件夹不存在？</h3>
+<ul>
+<li>如果没有文件夹的话就要新建</li>
+<li><code>:!mkdir -p ~/.vim/ftplugin</code></li>
+<li>注意是 <code>ftplugin</code> 而不是 <code>plugin</code></li>
+<li><code>plugin</code> 里面的插件全部都被加载</li>
+<li><code>ftplugin</code> 里面的插件根据文件类型加载</li>
+</ul>
+<h3 id="_11">尝试分文件类型进行控制</h3>
+<ul>
+<li>保存后</li>
+<li>打开 java 文件时</li>
+<li>状态栏告诉我这是 java 文件<ul>
+<li>第三行 set statusline=[oeasy-java]%F%m </li>
+</ul>
+</li>
+<li>打开 css 文件时</li>
+<li>状态栏告诉我这是 css 文件</li>
+<li>第三行 set statusline=[oeasy-css]%F%m </li>
+<li>都设置好之后</li>
+<li>分别打开java文件和css文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627210427860.png" /></p>
+<h3 id="_12">强行指定</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627211240763.png" /></p>
+<ul>
+<li>如果我偏说 <code>css</code> 文件是 <code>java</code> 文件会如何呢？<ul>
+<li>可以注意到状态栏的变化</li>
+<li>由于不同文件类型 <code>filetype</code> 的 <code>syntax</code> 文件不同</li>
+<li>用 <code>css</code> 的语法去标注 <code>java</code> 的高亮组</li>
+<li>所以高亮显示的状态也不同</li>
+</ul>
+</li>
+</ul>
+<h2 id="_13">总结</h2>
+<ul>
+<li>根据扩展名我们可以设置某些特定类型文件的配置</li>
+<li>相关文件类型的设置放在相应的文件夹里</li>
+<li>文件类型缩进文件夹<ul>
+<li><code>/usr/share/vim/vim81/indent/</code></li>
+</ul>
+</li>
+<li>文件类型语法高亮文件夹<ul>
+<li><code>/usr/share/vim/vim81/syntax/</code></li>
+</ul>
+</li>
+<li>文件类型插件文件夹<ul>
+<li>系统通用文件夹<ul>
+<li><code>/usr/share/vim/vim81/ftplugin/java.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java_xxx.vim</code></li>
+<li><code>/usr/share/vim/vim81/ftplugin/java/xxx.vim</code></li>
+</ul>
+</li>
+<li>用户专用插件文件夹<ul>
+<li><code>~/.vim/ftplugin/java.vim</code></li>
+<li><code>~/.vim/ftplugin/java_def.vim</code></li>
+<li><code>~/.vim/ftplugin/java/header.vim</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在 文件夹<code>~/.vim/ftplugin</code>中 的 <code>html.vim</code> 的设置<ul>
+<li>只针对 <code>html</code> </li>
+<li>包括文件的缩进、配色、语法高亮、行号、状态栏等</li>
+</ul>
+</li>
+<li><code>:filetype indent on</code> 文件类型缩进生效</li>
+<li><code>:filetype syntax on</code> 文件类型语法高亮生效</li>
+<li><code>:filetype plugin on</code> 文件类型插件生效</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628161602098.png" /></p>
+<ul>
+<li>还有什么好玩的吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

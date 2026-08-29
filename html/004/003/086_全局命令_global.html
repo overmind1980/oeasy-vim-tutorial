@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：全局命令 global，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解全局命令 global。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖const o2z = 2; console.log"o2z: ", o2z;等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 全局命令, global">
+    <meta property="og:title" content="oeasy Vim编辑器教程：全局命令 global，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解全局命令 global。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖const o2z = 2; console.log"o2z: ", o2z;等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="global">全局命令 global</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>可以定义自己的命令<code>command</code></li>
+<li>也可以执行自定义的命令</li>
+<li>可以修改删除命令</li>
+<li>命令可以带上<ul>
+<li>参数 <code>argument</code></li>
+<li>范围 <code>range</code></li>
+</ul>
+</li>
+<li>除了自定义命令之外</li>
+<li>系统也有一些built-in的命令</li>
+<li>系统有什么好玩的命令么？🤔</li>
+</ul>
+<h3 id="global_1">global全局命令</h3>
+<ul>
+<li><code>:h global</code></li>
+<li><code>:[range]global/{pattern}/{command}</code><ul>
+<li>range是执行的范围<ul>
+<li><code>:1,$</code></li>
+</ul>
+</li>
+<li>pattern是搜索的模式</li>
+<li>command执行的命令</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627810156044.png" /></p>
+<ul>
+<li>如果在这个范围里面</li>
+<li>匹配这个模式<ul>
+<li><code>:global</code></li>
+</ul>
+</li>
+<li>或者不匹配这个模式<ul>
+<li><code>:g!</code> 或 <code>:v</code></li>
+</ul>
+</li>
+<li>就执行这个命令</li>
+<li>我们来看个例子</li>
+</ul>
+<h3 id="_2">先搜再删</h3>
+<ul>
+<li>源代码如下</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">oeasy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"oeasy: "</span><span class="p">,</span><span class="w"> </span><span class="n">oeasy</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o2z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"o2z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o2z</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o3z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"o3z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o3z</span><span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li><code>:g/console/d</code><ul>
+<li>把所有带<code>console</code>的行都删除</li>
+</ul>
+</li>
+<li><code>:g/const/d</code><ul>
+<li>把所有带<code>const</code>的行都删除</li>
+<li>整行删除</li>
+<li>删完之后<kbd>u</kbd>回来</li>
+</ul>
+</li>
+<li><code>:g/console/d _</code><ul>
+<li>删除带<code>console</code>行之后</li>
+<li><code>_</code> 的意思是将结果放入黑洞寄存器</li>
+</ul>
+</li>
+<li><code>:g/console/d|update</code><ul>
+<li>删除完成之后</li>
+<li><code>|update</code> 进行保存</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">切换分割符</h3>
+<ul>
+<li><code>:g@console@d</code><ul>
+<li>把分隔符从<code>/</code>变成`@``</li>
+</ul>
+</li>
+<li>什么不能当分割符<ul>
+<li>大小写字符</li>
+<li>数字</li>
+<li><code>"</code>, <code>|</code>,  <code>\</code></li>
+</ul>
+</li>
+<li>什么可以当分隔符<ul>
+<li><code>:g=console=d</code></li>
+<li><code>:g?console?d</code></li>
+</ul>
+</li>
+<li><code>:g+//+s/oeasy/o1z/g</code><ul>
+<li>g <ul>
+<li>global全局命令</li>
+</ul>
+</li>
+<li>
+<ul>
+<li></li>
+<li>分割符</li>
+</ul>
+</li>
+<li>//<ul>
+<li>查找的模式为//</li>
+</ul>
+</li>
+<li>s/oeasy/o1z/g<ul>
+<li>s的意思是subtitute</li>
+<li>把这些行中的oeasy换成o1z</li>
+<li>并且是global替换，全都替换</li>
+<li>完成批量替换</li>
+</ul>
+</li>
+<li>把所有包含//行中，把oeasy全部替换为o1z</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">反转模式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627812732172.png" /></p>
+<ul>
+<li><code>:g/console/d</code><ul>
+<li>把所有带<code>console</code>的行都删除</li>
+</ul>
+</li>
+<li><code>:v/console/d</code><ul>
+<li>把所有不带<code>console</code>的行都删除</li>
+</ul>
+</li>
+<li><code>:g!/console/d</code><ul>
+<li><code>g!</code>和<code>v</code>一样</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627814988197.png" /></p>
+<h3 id="_5">匹配模式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627812732172.png" /></p>
+<ul>
+<li>我们猜猜下面的命令会删除那些行？</li>
+<li><code>:g/o2z\|o3z/d</code></li>
+<li><code>:g/[0-9]/d</code>或<code>:g/\d/d</code></li>
+</ul>
+<h3 id="_6">删除空行</h3>
+<ul>
+<li><code>:g/^$/d</code><ul>
+<li>^$开头之后就是结束</li>
+<li>没有任何字符的行</li>
+<li>就delete删掉</li>
+</ul>
+</li>
+<li><code>:g/^\s*$/d</code><ul>
+<li><code>^$</code>开头结尾之间只有空格和tab</li>
+<li>没有任何其他字符</li>
+<li>就delete删掉</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627821441544.png" /></p>
+<h3 id="range">配合范围range</h3>
+<ul>
+<li><code>:1,5g/console/d</code> <ul>
+<li>从1到5行</li>
+<li>出现console的行</li>
+<li>删除</li>
+</ul>
+</li>
+<li><code>:.,5g/console/d</code> <ul>
+<li>从当前行到第5行</li>
+</ul>
+</li>
+<li><code>:3,.g/console/d</code> <ul>
+<li>从3到当前行</li>
+</ul>
+</li>
+<li>
+<p><code>:3g/console/d</code> </p>
+<ul>
+<li>只搜索第3行</li>
+</ul>
+</li>
+<li>
+<p>特定行</p>
+<ul>
+<li>. 当前行</li>
+<li>$ 末行</li>
+<li>+n 当前行之后的第n行</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">再来一个</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">oneMillion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">oneThousand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li><code>:g/0\{3,6\}/d</code></li>
+<li>出现3到6个零的行</li>
+<li><kbd>u</kbd>回来</li>
+<li>可以把数值分别调整一下<ul>
+<li><code>:g/0\{4,6\}/d</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="command">执行命令command</h3>
+<ul>
+<li>除了d删除之外，还可以执行normal正常模式下命令</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627812732172.png" /></p>
+<ul>
+<li><code>:g/.*/normal A;</code><ul>
+<li><code>.*</code>代表有0到任意多个非空字符</li>
+<li>空行<code>^$</code>有0个字符也满足</li>
+<li><code>normal A;</code> 每一行都在结尾加分号;</li>
+</ul>
+</li>
+<li><code>:g/./normal A;</code><ul>
+<li><code>.</code>代表有一个字符，任意字符都可以</li>
+<li>空行<code>^$</code>一个字符都没有，不满足</li>
+<li>非空行 <code>normal A;</code> 在结尾加分号;</li>
+</ul>
+</li>
+</ul>
+<h3 id="macro">执行宏macro</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">oeasy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"oeasy: "</span><span class="p">,</span><span class="w"> </span><span class="n">oeasy</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o2z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o2z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o2z</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o3z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o3z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o3z</span><span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li><code>qaA;&lt;Esc&gt;q</code><ul>
+<li>定义一个宏macro叫做a</li>
+<li>a的功能就是A;<Esc></li>
+<li>在行尾插入分号然后退出回到正常模式</li>
+</ul>
+</li>
+<li><code>:reg a</code><ul>
+<li>查看宏a</li>
+</ul>
+</li>
+<li><code>:g/const/normal @a</code><ul>
+<li><code>const</code> <ul>
+<li>对于可以匹配<code>const</code>的行</li>
+</ul>
+</li>
+<li><code>normal @a</code><ul>
+<li>正常模式下执行宏a</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:2,$g/const/normal @a</code><ul>
+<li><code>2,$</code><ul>
+<li>从第2行到末行</li>
+</ul>
+</li>
+<li><code>const</code> <ul>
+<li>对于可以匹配<code>const</code>的行</li>
+</ul>
+</li>
+<li><code>:normal @a</code><ul>
+<li>正常模式下执行宏a</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">递归使用全局命令</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">oeasy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"oeasy: "</span><span class="p">,</span><span class="w"> </span><span class="n">oeasy</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o2z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o2z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o2z</span><span class="p">);</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o3z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o3z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o3z</span><span class="p">);</span>
+</code></pre></div>
+
+<ul>
+<li><code>:g/console/g/two/d</code><ul>
+<li>先搜包含console的所有行</li>
+<li>在搜索结果中搜o2z</li>
+<li>找到的结果删除</li>
+</ul>
+</li>
+<li><kbd>u</kbd>回来</li>
+<li><code>:g/console/v/two/d</code><ul>
+<li>先搜包含console的所有行</li>
+<li>在搜索结果中搜不包含o2z的</li>
+<li>找到的结果删除</li>
+</ul>
+</li>
+</ul>
+<h3 id="print">打印命令print</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627815114086.png" /></p>
+<ul>
+<li><code>:g/const/p</code><ul>
+<li>找到匹配<code>const</code>模式的行</li>
+<li>打印print</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627815104352.png" /></p>
+<h3 id="move">移动命令move</h3>
+<ul>
+<li><code>:g/^/m 0</code><ul>
+<li><code>^</code> 行的开头，所有的行都符合，包括空行</li>
+<li>m 移动 move</li>
+<li>0 移动到第0行 最初</li>
+</ul>
+</li>
+<li>每一行都要挪到第一行</li>
+<li>最后一行最后执行</li>
+<li>整体就是上下颠倒</li>
+</ul>
+<h3 id="copy-t">复制命令copy 或 t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">oeasy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"oeasy: "</span><span class="p">,</span><span class="w"> </span><span class="n">oeasy</span><span class="p">);</span>
+<span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">oeasy</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o2z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o2z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o2z</span><span class="p">);</span>
+<span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">o2z</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">o3z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"o3z: "</span><span class="p">,</span><span class="w"> </span><span class="n">o3z</span><span class="p">);</span>
+<span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">o3z</span>
+</code></pre></div>
+
+<ul>
+<li>
+<p><code>:g/TODO/t $</code></p>
+<ul>
+<li>包含TODO的行选中</li>
+<li>执行t $ 拷贝到末行</li>
+</ul>
+</li>
+<li>
+<p><code>:g/TODO/m 0</code></p>
+<ul>
+<li>把TODO行都移动到最上面</li>
+</ul>
+</li>
+</ul>
+<h3 id="sort">排序命令sort</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">arrayA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="s2">"h"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"b"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"f"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"d"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"e"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"a"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"c"</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li><code>:g/\[/+1,/\]/-1sort</code></li>
+<li>在这个中括号的范围内</li>
+<li>排序</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>这次研究的是global</li>
+<li><code>:[range]global/{pattern}/{command}</code><ul>
+<li>range是执行的范围</li>
+<li>pattern是搜索的模式</li>
+<li>command执行的命令</li>
+</ul>
+</li>
+<li>命令有很多<ul>
+<li>d 删除</li>
+<li>m 移动</li>
+<li>t 拷贝</li>
+<li>p 打印</li>
+<li>s 替换</li>
+<li>sort 排序</li>
+<li>update 更新</li>
+</ul>
+</li>
+<li>global是很好用的内部命令</li>
+<li>vim还可以执行外部命令呢！</li>
+<li>怎么玩呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

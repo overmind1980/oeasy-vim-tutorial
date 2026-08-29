@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：缩进设置，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解缩进设置。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 缩进设置">
+    <meta property="og:title" content="oeasy Vim编辑器教程：缩进设置，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解缩进设置。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">缩进设置</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>这次了解了颜色的细节</li>
+<li>设置 256 色模式</li>
+<li><code>:set t_Co=256</code></li>
+<li>然后确定了具体的各种颜色</li>
+<li>还可以生成网页 <code>:TOhtml</code></li>
+<li>还有什么好玩的么？🤔</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210710-1625904510056.png" /></p>
+<h2 id="_3">缩进设置</h2>
+<p><img alt="图片描述" src="images/uid1190679-20200928-1601290775850.png" /></p>
+<ul>
+<li>在正常模式下<ul>
+<li>使用 <code>&lt;&lt;</code> 可以向前缩进</li>
+<li>使用 <code>&gt;&gt;</code> 可以向后缩进</li>
+<li><kbd>=</kbd> 可以让当前行自动缩进</li>
+</ul>
+</li>
+<li>使用 <kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd><ul>
+<li>可以从头自动缩进到结尾</li>
+</ul>
+</li>
+<li>这超爽🤪</li>
+</ul>
+<h2 id="_4">显示缩进</h2>
+<ul>
+<li>我们编程的时候会遇到缩进<ul>
+<li>这缩进究竟是 <code>空格</code> 呢？还是 <code>tab</code> 呢？</li>
+<li>要把 <code>空格</code> 和 <code>tab</code> 区别开来</li>
+</ul>
+</li>
+<li><code>:set list</code> 使得列表生效</li>
+<li><kbd>tab</kbd> 会被显示为 <code>^I</code></li>
+<li>行尾会显示 <code>$</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625801400563.png" /></p>
+<ul>
+<li><code>:set nolist</code> 使得列表失效</li>
+<li><kbd>tab</kbd> 会被显示为空格缩进</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625801406200.png" /></p>
+<ul>
+<li>但是好像缩进看起来只有两格了</li>
+<li>与实际不符</li>
+<li>能修改么？</li>
+</ul>
+<h3 id="tab">定制 tab 显示</h3>
+<ul>
+<li>把特殊字符作为 <code>listchars</code> 组显示出来</li>
+<li><code>:set listchars</code> </li>
+<li>设置 <code>listchars</code></li>
+<li><code>:set listchars=eol:$,tab:&gt;-,space:_</code></li>
+<li><code>tab</code> 对应 <code>&gt;-</code></li>
+<li><code>&gt;</code> 是开头</li>
+<li><code>-</code> 在后面补位 </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625801947796.png" /></p>
+<ul>
+<li><code>space</code> 对应 <code>_</code></li>
+<li>
+<p><code>eol</code> 对应 <code>$</code></p>
+</li>
+<li>
+<p><code>:h listchars</code>可以查看相关手册</p>
+</li>
+</ul>
+<h3 id="_5">空格颜色</h3>
+<ul>
+<li><code>:hi SpecialKey ctermfg=DarkRed guifg=grey70</code><ul>
+<li>设置 <code>listchars</code> 相应的颜色</li>
+<li>设置得特殊一点</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625803136968.png" /></p>
+<h3 id="_6">最终效果</h3>
+<p><img alt="图片描述" src="images/uid1190679-20200928-1601301623187.png" /></p>
+<ul>
+<li>建议统一能用 tab 的时候就用 tab</li>
+<li>减小文件容量</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625802181597.png" /></p>
+<h3 id="_7">基础</h3>
+<ul>
+<li>shiftwidth值是整个缩进的基础</li>
+<li><code>:set shiftwidth=4</code><ul>
+<li><code>shiftwidth</code> 是一个基础的值，对应</li>
+<li>按下 <code>&gt;&gt;</code> 缩进的宽度</li>
+<li>按下 <kbd>tab</kbd> 缩进的宽度</li>
+<li>退格或者删除 <code>\t</code> 时缩进的宽度</li>
+</ul>
+</li>
+<li>一般 <code>tabstop</code>、<code>softtabstop</code> 都与他相同<ul>
+<li>一般都是 4</li>
+<li>如果 <code>shiftwidth</code> 是 0 的话</li>
+<li>就按照 <code>tabstop</code> 来</li>
+</ul>
+</li>
+</ul>
+<h3 id="tab_1">解释 tab 宽度</h3>
+<ul>
+<li><code>tabstop</code> 是 <code>读取文件</code> 时用到的</li>
+<li>读到 <code>\t</code> 字符时</li>
+<li>解释他对应多少个空格的宽度</li>
+<li>一般都是 4 个空格</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627380429708.png" /></p>
+<h3 id="softtabstop">softtabstop 处理空格的数量</h3>
+<ul>
+<li>如果 <code>softtabstop</code> 等于 0<ul>
+<li>特性取消，一切按照 <code>tabstop</code> 来</li>
+</ul>
+</li>
+<li>如果 <code>tabstop=4</code>、<code>softtabstop=8</code><ul>
+<li>按下 <kbd>tab</kbd> 时<ul>
+<li>一次插入 8 个位置</li>
+<li>看起来像插了两个 tab</li>
+</ul>
+</li>
+<li>要删除 tab 时<ul>
+<li>1 次删除空格 8 个</li>
+<li>看起来像删了两个 tab</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以试试，能看出来</li>
+<li>当他是负数的时候 <code>shiftwidth</code> 起作用</li>
+<li>所以说 <code>shiftwidth</code> 是基础</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20200928-1601303729152.png" /></p>
+<h3 id="tab_2">扩展 tab</h3>
+<ul>
+<li><code>:set expandtab</code> <ul>
+<li>可以把输入的 <code>tab</code> 变成<code>空格</code></li>
+</ul>
+</li>
+<li>设置好之后，在正常模式下<ul>
+<li><kbd>&gt;</kbd> <kbd>&gt;</kbd></li>
+<li>或者在插入模式下 <kbd>tab</kbd> 的时候</li>
+<li>都看不到 <code>&gt;---</code>，而是直接变成空格 <code>_</code></li>
+</ul>
+</li>
+<li>反之 <code>:set noexpandtab</code> 之后<ul>
+<li>插入的 <code>tab</code> 都还是 <code>&gt;---</code></li>
+</ul>
+</li>
+<li><code>:h expandtab</code> 可以查看相关手册<ul>
+<li><code>expandtab</code> 可以简写为 <code>et</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627380893908.png" /></p>
+<ul>
+<li>那已经存在的tab怎么办呢？</li>
+</ul>
+<h3 id="_8">强制拓展</h3>
+<ul>
+<li><code>:retab!</code></li>
+<li>把已经存在的 tab 强制扩展成为空格</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627382143014.png" /></p>
+<ul>
+<li>转过去之后</li>
+<li>没有转回来的命令</li>
+<li>慎重吧</li>
+<li>我觉得tab挺好的</li>
+</ul>
+<h3 id="_9">回车之后自动缩进</h3>
+<ul>
+<li><code>:set autoindent</code> </li>
+<li>可以简写为 <code>:set ai</code></li>
+<li>添加与上一行一致的缩进</li>
+<li>
+<p>取消为 <code>:se noai</code></p>
+</li>
+<li>
+<p><code>:set smartindent</code></p>
+</li>
+<li>简写为 <code>:se si</code></li>
+<li>在 <code>autoindent</code> 的基础上根据 <code>{</code>、<code>}</code> 来调整本行缩进</li>
+<li>取消为 <code>:se nosi</code></li>
+<li>
+<p>需要保证 <code>:se nopaste</code></p>
+</li>
+<li>
+<p><code>:set cindent</code></p>
+</li>
+<li>根据类似于 c、java 的代码动态调节缩进</li>
+<li>见到 <code>if</code> 之类的可以自动缩进</li>
+<li>取消为 <code>:set nocindent</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627383577614.png" /></p>
+<h3 id="_10">整体设定为</h3>
+<ul>
+<li><code>:set noexpandtab</code></li>
+<li><code>:set shiftwidth=4</code></li>
+<li><code>:set tabstop =4</code></li>
+<li><code>:set softtabstop=4</code></li>
+<li><code>:set autoindent</code></li>
+<li>简写为 <code>:set noet sw=4 ts=4 sts=4 ai</code></li>
+<li>这都个人喜好</li>
+<li>没有绝对规定</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>这次了解了缩进的各种方式</li>
+<li>正常模式下用 <code>&lt;&lt;</code> 缩进</li>
+<li>插入模式下用 <code>tab</code> 缩进</li>
+<li>有关于缩进对应空格数的参数</li>
+<li>expandtab</li>
+<li>shiftwidth</li>
+<li>tabstop</li>
+<li>softtabstop</li>
+<li>autoindent</li>
+<li>不同的文件类型可以对应不同的缩进吗？？🤔<ul>
+<li>python、java缩进4个</li>
+<li>html、css可以缩进2个</li>
+</ul>
+</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：按行编辑，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解按行编辑。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 按行编辑">
+    <meta property="og:title" content="oeasy Vim编辑器教程：按行编辑，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解按行编辑。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">按行编辑</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们主要就是综合运用</li>
+<li>很好玩的，更快速的解决问题</li>
+<li>进行计算<ul>
+<li><kbd>ctrl</kbd>+<kbd>a</kbd>，将具体的数字加1</li>
+<li><kbd>ctrl</kbd>+<kbd>x</kbd>，将具体的数字减1</li>
+<li><kbd>5</kbd><kbd>ctrl</kbd>+<kbd>a</kbd>，将具体的数字加5</li>
+</ul>
+</li>
+<li>一次命令模式<ul>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+<li>可以进入执行一次命令 </li>
+<li>然后回到插入模式</li>
+</ul>
+</li>
+<li>这次我们进入新的领域<ul>
+<li>命令行编辑～</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">光标的运动</h3>
+<ul>
+<li>命令行是什么？<ul>
+<li>命令行就是我们熟悉的冒号<code>:</code></li>
+<li>比如<code>:h :</code><ul>
+<li>可以查询命令行的帮助</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在命令行上如何控制光标运动呢？</li>
+<li>比如已经打出了 <code>:oeasy o2z o3z</code><ul>
+<li>左右方向键 <kbd>⬅️</kbd>、<kbd>➡️️&lt;/kbd</li>
+<li><kbd>ctrl</kbd>+<kbd>⬅️</kbd>、<kbd>ctrl</kbd>+<kbd>➡️️</kbd>按单词左右运动</li>
+<li><kbd>shift</kbd>+<kbd>⬅️</kbd>、<kbd>shift</kbd>+<kbd>➡️️</kbd>按单词左右运动</li>
+<li><kbd>ctrl</kbd>+<kbd>b</kbd> 回到命令行开头begin</li>
+<li><kbd>ctrl</kbd>+<kbd>e️</kbd> 回到命令行结尾end</li>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> 删除光标之前的单词word</li>
+</ul>
+</li>
+<li>编辑好命令之后<ul>
+<li>命令行模式是通过最后的回车<CR></li>
+<li>完成命令的输入的</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">命令行的操作</h3>
+<ul>
+<li><code>d</code> 是 <code>normal</code> 模式下的删除命令</li>
+<li><code>:d</code> 是 <code>命令行</code> 模式下的删除命令</li>
+<li>关于命令行命令<ul>
+<li>我们可以使用<code>:h :d</code></li>
+<li>来观察一下<kbd>d</kbd>命令是如何按行进行 <code>删除</code> 的</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612173619112.png" /></p>
+<ul>
+<li>我们来试试 </li>
+<li><code>:d</code> 可以删除当前行</li>
+<li>帮助中这个<code>[range]</code> 是干什么用的呢？🤔<ul>
+<li>什么不会就 <code>h</code> 什么呀！ </li>
+<li>可以 <code>:h range</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="range"><code>[range]</code>范围</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612173821588.png" /></p>
+<ul>
+<li>最常见的就是 <code>范围</code></li>
+<li>比如 <code>1,4</code> 就是从第 <code>1-4</code> 行</li>
+<li>然后再后面加上 <code>d</code> 操作</li>
+<li><code>:1,4d</code> 就是 <code>1 - 4</code> 行都删除</li>
+<li>可以把行号列出来<code>:se nu</code></li>
+<li><code>range</code> 可以复制 <code>yank</code> 吗？</li>
+<li>查一下帮助啊</li>
+</ul>
+<h3 id="rangeyank"><code>[range]yank</code> 范围复制</h3>
+<ul>
+<li><code>:h :y</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612174190249.png" /></p>
+<ul>
+<li><code>2,5y</code> 从 <code>2-5</code> 行都 <code>yank</code> 下来</li>
+<li><code>yank</code>到了什么？<ul>
+<li>可以用 <code>:reg</code> 看一下</li>
+</ul>
+</li>
+<li>如果想用制定寄存器<code>"a</code>呢？<ul>
+<li>那就<code>:2,5y a</code></li>
+<li>粘贴的时候</li>
+<li>就需要指定寄存器 <code>"ap</code></li>
+</ul>
+</li>
+<li>这样我们就可以快速的完成行的复制和删除</li>
+<li>其实还有效率更好的方法！！！</li>
+</ul>
+<h3 id="_5">直接复制</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612177212803.png" /></p>
+<ul>
+<li><code>:h :copy</code>可以看到相关的帮助，如上图<ul>
+<li>更快速的写法是<code>:t</code></li>
+<li><code>:5,8t20</code>可以把5-8行拷贝到第20行下面</li>
+</ul>
+</li>
+<li>试一下</li>
+<li>这很爽</li>
+<li>如果我要移动到20行</li>
+<li>但是文本中只有10行会如何</li>
+</ul>
+<h3 id="_6">范围</h3>
+<ul>
+<li>移动的目标要注意范围</li>
+<li>同时文本中必须要存在20行的范围<ul>
+<li>否则报错范围不存在</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211115-1636937241469.png" /></p>
+<h3 id="_7">直接剪切</h3>
+<ul>
+<li><code>:h m</code>可以查询<code>:move</code>的用法<ul>
+<li><code>:5,8m2</code>可以把5-8行移动到第2行</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612177212803.png" /></p>
+<ul>
+<li>这也很爽👊</li>
+<li>不过前提是<ul>
+<li>目标m{address}范围满足</li>
+</ul>
+</li>
+<li>如果满足的话<ul>
+<li>就移动到address下面</li>
+</ul>
+</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>这次我们主要就是看看行编辑命令<ul>
+<li><code>d</code> 是删除</li>
+<li><code>y</code> 是复制</li>
+</ul>
+</li>
+<li>可以选择一个<code>[range]</code>范围</li>
+<li>然后进行相应的操作<ul>
+<li><code>:11,30d</code></li>
+<li><code>:2,7y</code></li>
+</ul>
+</li>
+<li>还可以指定寄存器<ul>
+<li><code>:3,40y a</code></li>
+<li><code>:"aP</code></li>
+</ul>
+</li>
+<li>甚至可以用一行就复制或者剪切内容<ul>
+<li><code>:12,30t50</code>，12-30行复制到50行</li>
+<li><code>:3,6m30</code>,3-6行移动到30行</li>
+</ul>
+</li>
+<li>这个 <code>[range]</code> 还有什么说法吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

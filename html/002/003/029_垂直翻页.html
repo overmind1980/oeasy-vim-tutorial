@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：垂直翻页，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解垂直翻页。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 垂直翻页">
+    <meta property="og:title" content="oeasy Vim编辑器教程：垂直翻页，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解垂直翻页。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">垂直翻页</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们上次了解了横向滚动的相关信息<ul>
+<li>横滚幅度 - <code>sidescroll</code></li>
+<li>横滚留位 - <code>sidescrolloff</code></li>
+<li>自动换行 - <code>wrap</code></li>
+</ul>
+</li>
+<li><kbd>g</kbd> <kbd>j</kbd>、<kbd>g</kbd> <kbd>k</kbd> 可以逐行上下移动</li>
+<li>可以控制切换行的控制键 <code>whichwrap</code></li>
+<li>这就是横向移动的内容</li>
+<li>不过程序中一般一行不会超过80个字符</li>
+<li>纵向移动更为普遍</li>
+<li>纵向移动有什么好玩的吗？🤔</li>
+<li>我们先下载个长点的文档</li>
+<li><code>git clone http://gitee.com/overmind1980/oeasyvim.git</code></li>
+<li>然后用无模式的方式打开他</li>
+<li><code>vi -u NONE tomsawyer.txt</code></li>
+</ul>
+<h3 id="_3">边缘移动</h3>
+<ul>
+<li>首先设置非兼容 <code>:set nocompatible</code></li>
+<li>然后设置显示行号 <code>:se nu</code></li>
+<li><kbd>2</kbd> <kbd>3</kbd> <kbd>G</kbd> 到 23 行</li>
+<li><kbd>j</kbd> 再向下的时候</li>
+<li>屏幕发生滚动，光标位置如图</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601560524243.png" /></p>
+<h3 id="_4">上下留边</h3>
+<ul>
+<li>上下留边的话就要用 <code>:set scrolloff=2</code></li>
+<li>这样的话上下翻动的话，都会有 <code>2</code> 行的预留</li>
+<li><code>:h scrolloff</code> 查看帮助</li>
+<li><code>s</code>[croll]<code>o</code>[ff] 管的纵向保留边距</li>
+<li>俗称留天留地</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201001-1601560942872.png" /></p>
+<h3 id="_5">留边细节</h3>
+<ul>
+<li><code>scrolloff</code> 是一个 <code>option</code></li>
+<li>可以设定最小值</li>
+<li>还可以查询细节 <code>:h 'scrolloff'</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625794746424.png" /></p>
+<ul>
+<li><code>scrolloff</code> 管的是 <code>纵向</code> 留天留地</li>
+<li><code>sidescrolloff</code> 管的是 <code>横向</code> 留天留地</li>
+<li>也可以用 <code>HML</code> 命令测试一下<ul>
+<li><kbd>H</kbd> 到当前屏幕能到的最上行 High</li>
+<li><kbd>M</kbd> 到当前屏幕正中 Middle</li>
+<li><kbd>L</kbd> 到当前屏幕能到的最下行 Low</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">百分比的细节</h3>
+<ul>
+<li>为了明确这个百分比的细节</li>
+<li>我们写个python文件写一个1000行的文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636444041920.png" /></p>
+<ul>
+<li>然后运行他</li>
+<li>!python %</li>
+<li>最后打开运行得到的文本文件</li>
+</ul>
+<h3 id="_7">打开文件</h3>
+<ul>
+<li>可以看到原来33%时</li>
+<li>左下角显示32%</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636419860913.png" /></p>
+<ul>
+<li>并不相符</li>
+<li>这是为什么呢？</li>
+</ul>
+<h3 id="scrolloff">调整scrolloff</h3>
+<ul>
+<li><code>:set scrolloff=0</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211109-1636420080462.png" /></p>
+<ul>
+<li>再调整当前行位置</li>
+<li>可以看到右下角的百分比是和左上角的行号相关联的</li>
+</ul>
+<h3 id="_8">上下翻页</h3>
+<p><img alt="图片描述" src="images/uid1190679-20201002-1601631356061.png" /></p>
+<ul>
+<li>在 <code>scroll.txt</code> 可以找到 <code>:h CTRL-F</code><ul>
+<li>使用 <kbd>ctrl</kbd> + <kbd>f</kbd> 可以向下走</li>
+<li><code>f</code> 的含义是 <code>forward</code> 向下走</li>
+<li>同理<code>b</code> 的含义是 <code>backward</code> 向上走</li>
+<li><kbd>ctrl</kbd> + <kbd>b</kbd> 可以向上走</li>
+</ul>
+</li>
+<li>在翻页之前加上数字 [count] 可以实现一次翻 10 页<ul>
+<li>如<kbd>1</kbd> <kbd>0</kbd> <kbd>ctrl</kbd> + <kbd>f</kbd></li>
+<li>或<kbd>1</kbd> <kbd>0</kbd> <kbd>ctrl</kbd> + <kbd>b</kbd></li>
+<li>注意观察cmd的位置</li>
+</ul>
+</li>
+</ul>
+<h3 id="n">向上 N 行</h3>
+<ul>
+<li>我们可以用 <kbd>ctrl</kbd> + <kbd>e</kbd> 向下 1 行</li>
+<li><kbd>ctrl</kbd> + <kbd>e</kbd> 和 <kbd>j</kbd> 的不同是</li>
+<li><kbd>ctrl</kbd> + <kbd>e</kbd> 光标所在文件位置不变，整个屏幕向上，除非到了边缘，光标位置才改变</li>
+<li><kbd>j</kbd> 是屏幕整个位置不变，光标位置向下，除非到了边缘，屏幕位置才改变</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20201002-1601631968782.png" /></p>
+<ul>
+<li>同理可以<kbd>ctrl</kbd> + <kbd>y</kbd> 屏幕向下移动</li>
+<li>他们都可以使用 <code>[count]</code> 来翻倍</li>
+</ul>
+<h3 id="_9">翻过半屏</h3>
+<ul>
+<li><kbd>ctrl</kbd> + <kbd>d</kbd> 可以向下走 翻半屏 d 代表 Down</li>
+<li><kbd>ctrl</kbd> + <kbd>u</kbd> 可以向上走 翻半屏 u 代表 Up</li>
+<li>默认翻的是半屏，但是也可以通过 <code>scroll</code> 来设置</li>
+<li><code>:set scroll=5</code> 来明确翻的行数</li>
+<li>翻页的时候，光标在屏幕的相对位置不变，屏幕整体向上或向下移动</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625460669366.png" /></p>
+<h2 id="_10">总结</h2>
+<ul>
+<li>这次我们主要讲的翻页</li>
+<li><code>:set scrolloff=2</code> 控制留天留地</li>
+<li>上下翻页(这个最常用)</li>
+<li><kbd>ctrl</kbd> + <kbd>f</kbd> 屏幕向上走一屏</li>
+<li><kbd>ctrl</kbd> + <kbd>b</kbd> 屏幕向下走一屏</li>
+<li>上下移屏一行</li>
+<li><kbd>ctrl</kbd> + <kbd>e</kbd> 屏幕向上走一行</li>
+<li><kbd>ctrl</kbd> + <kbd>y</kbd> 屏幕向下走一行</li>
+<li>上下移屏一段</li>
+<li><kbd>ctrl</kbd> + <kbd>u</kbd> 向上走半屏</li>
+<li><kbd>ctrl</kbd> + <kbd>d</kbd> 向下走半屏</li>
+<li>移动数量和 <code>scroll</code> 相关</li>
+<li>上述翻页都可以用 <code>[count]</code> 翻倍</li>
+<li>如果想屏幕相对文件位置不动<ul>
+<li>只移动光标</li>
+</ul>
+</li>
+<li>可以么？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：状态横条，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解状态横条。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 状态横条">
+    <meta property="og:title" content="oeasy Vim编辑器教程：状态横条，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解状态横条。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">状态横条</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>我们上次研究了标尺</li>
+<li>标尺</li>
+<li>开启 <code>se ru</code></li>
+<li>关闭 <code>se noru</code></li>
+<li>行号</li>
+<li>开启 <code>se nu</code></li>
+<li>关闭 <code>se nonu</code></li>
+<li>命令位置</li>
+<li>开启 <code>se showcmd</code></li>
+<li>关闭 <code>se noshowcmd</code></li>
+<li>跳转<ul>
+<li>用 <kbd>2</kbd><kbd>9</kbd> <kbd>G</kbd> 跳转行号</li>
+<li>用 <kbd>1</kbd><kbd>9</kbd> <kbd>|</kbd> 跳转列号</li>
+<li>用 <kbd>2</kbd><kbd>9</kbd> <kbd>%</kbd> 跳到整个文件 29% 的位置</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">准备环境</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 下载素材</span>
+git<span class="w"> </span>clone<span class="w"> </span>http://gitee.com/overmind1980/oeasyvim.git
+<span class="c1">#进入目录</span>
+<span class="nb">cd</span><span class="w"> </span>oeasyvim
+<span class="c1">#还是从最简单的vim开始设置起</span>
+vi<span class="w"> </span>-u<span class="w"> </span>NONE<span class="w"> </span>oeasy.java
+</code></pre></div>
+
+<h3 id="_4">设置光标行</h3>
+<ul>
+<li>来看一个开关option</li>
+<li>光标行 <code>cursorline</code><ul>
+<li>光标 <code>cursor</code></li>
+<li>行 <code>line</code></li>
+</ul>
+</li>
+<li><code>:set cursorline</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628145706714.png" /></p>
+<ul>
+<li><code>h 'cursorline'</code><ul>
+<li>给 <code>cursorline</code> 加了单引号</li>
+<li>说明 <code>cursorline</code> 是一个属性 <code>option</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628145808345.png" /></p>
+<h3 id="_5">设置光标列</h3>
+<ul>
+<li>有行就有列</li>
+<li>光标列 <code>cursorcolumn</code><ul>
+<li>光标 <code>cursor</code></li>
+<li>列 <code>column</code></li>
+</ul>
+</li>
+<li><code>:set cursorcolumn</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628146050682.png" /></p>
+<ul>
+<li><code>h 'cursorcolumn'</code><ul>
+<li>给 <code>cursorcolumn</code> 加了单引号</li>
+<li>说明 <code>cursorcolumn</code> 是一个属性 <code>option</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210805-1628146058038.png" /></p>
+<h3 id="_6">改变底下的状态横条</h3>
+<ul>
+<li>有了行列位置</li>
+<li>再配合标尺ruler</li>
+<li>光标位置就很明确了</li>
+<li>在 <code>:h ruler</code> 的时候</li>
+<li>偶然发现了一个新天地 <code>statusline</code><ul>
+<li><code>statusline</code> 意思是状态横条</li>
+<li>在倒数第 2 行</li>
+<li><code>statusline</code> 也是一个可以 <code>set</code> 的东西</li>
+<li>我们来查看一下手册</li>
+<li><code>:h statusline</code></li>
+<li>好像可以直接给 <code>statusline</code> 赋值</li>
+<li>我直接赋一个 <code>oeasy</code></li>
+</ul>
+</li>
+<li>
+<p><code>:set statusline=oeasy</code></p>
+</li>
+<li>
+<p>然后还需要设置 <code>laststatus</code></p>
+</li>
+<li>设置 laststatus = 0，不显式状态行</li>
+<li>设置 laststatus = 1，仅当窗口多于一个时，显示状态行</li>
+<li>设置 laststatus = 2，总是显式状态行</li>
+<li><code>:set laststatus=2</code></li>
+</ul>
+<h3 id="statusline">statusline上可以放什么呢？</h3>
+<ul>
+<li><code>:h 'statusline'</code></li>
+</ul>
+<p><img alt="" src="images/helpStatusLine.png" /></p>
+<h3 id="_7">显示属性</h3>
+<ul>
+<li>除了字符串常量之外是否能显示一些别的属性呢？<ul>
+<li>继续翻帮助手册 </li>
+<li>找到相关的 <code>items</code></li>
+<li>各种 <code>items</code> 有不同的属性（数字、文本、标志）</li>
+<li>每个 <code>item</code> 对应一个字母</li>
+<li>这个字母需要通过 <code>%</code> 来进行转义</li>
+<li><code>F</code> 对应文件名</li>
+</ul>
+</li>
+<li><code>:set statusline=[oeasy]%F</code><ul>
+<li>此时，状态条就显示 <code>[oeasy]当前文件名</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="images/statuslineItem.png" /></p>
+<h3 id="_8">标志属性</h3>
+<ul>
+<li>继续翻看属性<ul>
+<li><code>Flag</code> 是标志位</li>
+<li><code>m</code> 是一个关于是否已经修改的标志位</li>
+<li>把 <code>%m</code> 追加进入 <code>statusline</code></li>
+</ul>
+</li>
+<li><code>:set statusline=[oeasy]%F%m</code></li>
+<li>修改文件后会显示未保存的 <code>[+]</code><ul>
+<li>观察效果</li>
+</ul>
+</li>
+<li>保存后 <code>[+]</code> 会消失<ul>
+<li>暗中观察... </li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="images/helpstatusflag.png" /></p>
+<h3 id="_9">数值属性</h3>
+<ul>
+<li>查到状态栏细节<ul>
+<li><code>N</code> 代表 <code>Number</code> 代表 <code>item</code> 是一个数值类型</li>
+<li>行号 <code>l</code>、列号 <code>c</code>、百分比 <code>p</code> 都是数值类型</li>
+<li>用 <code>[</code>、<code>]</code> 把数值型变量分开</li>
+<li><code>%%</code> 可以把 <code>%</code> 转义显示出来</li>
+</ul>
+</li>
+<li><code>:set statusline=[oeasy]%F%m[%l,%c]%p%%</code></li>
+</ul>
+<p><img alt="" src="images/statusNumber.png" /></p>
+<ul>
+<li>状态栏数值还可以随着光标变化😆</li>
+</ul>
+<h3 id="_10">控制宽度</h3>
+<p><img alt="" src="images/statuswidth.png" /></p>
+<ul>
+<li>可以用格式来控制宽度</li>
+<li><code>%-0{MinWidth}.{MaxWidth}{item}</code></li>
+<li><code>%-040.40F</code>就是用 <code>40</code> 的固定宽度显示<code>F</code></li>
+<li>如果超过范围的话就会把前面部分隐藏</li>
+<li><code>:set statusline=[oeasy]%-040.40F%m[%l,%c]%p%%</code></li>
+<li>一行总共 <code>80</code> 字符</li>
+<li>后面的部分怎么办？</li>
+</ul>
+<h3 id="_11">成组</h3>
+<p><img alt="" src="images/statuslineGroupItems.png" /></p>
+<ul>
+<li>我们可以把行和列组成一个 <code>items group</code></li>
+<li>用 <code>(</code>、<code>)</code> 来封装这个组<ul>
+<li>用 <code>%</code> 对 <code>(</code>、<code>)</code> 进行转义</li>
+<li><code>:set statusline=%([%l,%c]%)</code></li>
+<li>这样就可以统一设置这个标尺组的宽度</li>
+<li><code>:set statusline=%-010.10([%l,%c]%)</code><ul>
+<li>标尺组的宽度固定为10</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>同理文件名和文件是否修改也可以编成一组<ul>
+<li><code>:set statusline=%(%F%m%)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">最终整合</h3>
+<p><img alt="" src="images/statusFullString.png" /></p>
+<ul>
+<li>最终整合总共分为三部分</li>
+<li>文件 <code>%-040.40(%F%m%)</code></li>
+<li>标尺 <code>%-030.30([%l,%c]%)</code></li>
+<li>
+<p>比例 <code>%p%%</code></p>
+</li>
+<li>
+<p>关于状态横条还有一个总开关</p>
+</li>
+<li><code>:set laststatus=0</code> 关闭</li>
+<li><code>:set laststatus=2</code> 开启</li>
+</ul>
+<h2 id="_13">总结</h2>
+<ul>
+<li>我们这次了解到了状态横条</li>
+<li>通过转义表示 <code>item</code></li>
+<li>控制 <code>item</code> 宽度的方法</li>
+<li>将 <code>item</code> 成组的方法</li>
+<li>
+<p>还有一个总开关 <code>laststatus</code></p>
+</li>
+<li>
+<p>但是每次都要写很长的一段话来配置很麻烦啊</p>
+</li>
+<li>我们能否写一个配置文件，让 <code>vim</code> 每次自动配置好呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

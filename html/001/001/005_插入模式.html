@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：插入模式，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解插入模式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 插入模式">
+    <meta property="og:title" content="oeasy Vim编辑器教程：插入模式，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解插入模式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">插入模式</h1>
+<h2 id="_2">回忆上节课内容</h2>
+<p><img alt="mode" src="images/vim-vi-mode00.png" /></p>
+<ul>
+<li>我们总结了，模式切换的方式<ul>
+<li>命令模式 <code>Normal mode</code></li>
+<li>底线命令行模式 <code>Command mode</code></li>
+</ul>
+</li>
+<li>帮助文件的正确打开方式<ul>
+<li><code>:h</code></li>
+</ul>
+</li>
+<li>在文档中使用鼠标 <ul>
+<li><code>set mouse=a</code></li>
+<li>建议不用鼠标</li>
+</ul>
+</li>
+<li>使用全键盘方式跳入跳出超链接<ul>
+<li><kbd>ctrl</kbd>+<kbd>]</kbd></li>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+</ul>
+</li>
+<li>帮助文件的两种手册<ul>
+<li>用户帮助手册</li>
+<li>引用帮助手册</li>
+</ul>
+</li>
+<li>这次我们来插入内容，修改文档</li>
+</ul>
+<h2 id="_3">插入模式</h2>
+<h4 id="insert-mode">想要插入内容的话，应该进入插入模式 <code>(Insert mode)</code></h4>
+<ul>
+<li>首先我们还是打开上次的那个 <code>oeasy.txt</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-l<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>oeasy.txt
+vi<span class="w"> </span>oeasy.txt
+</code></pre></div>
+
+<ul>
+<li>然后如何进入插入模式呢？</li>
+<li>我们使用 <code>:help insert</code> 看看是否有什么命令</li>
+</ul>
+<p><img alt="insert mode" src="images/vim_insert_mode.png" /></p>
+<ul>
+<li>我们需要先退出帮助模式<ul>
+<li><code>:q</code></li>
+</ul>
+</li>
+<li>然后按下 <kbd>i</kbd> 进入插入模式</li>
+<li>进入插入模式后<ul>
+<li><code>左下角</code> 状态栏会显示  <strong><code>-- 插入 --</code></strong></li>
+<li>这意味着已经进入了插入模式</li>
+<li>时刻留意左下角</li>
+<li>左下角就像小地图一样</li>
+<li>是统管全局的所在</li>
+</ul>
+</li>
+</ul>
+<p><img alt="insert mode" src="images/insert_bt_line.png" /></p>
+<ul>
+<li>如果没有进入插入模式的话<ul>
+<li>可能因为处在新开的帮助中</li>
+<li>先 <code>:q</code> 退出帮助</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">插入文字🅰️</h3>
+<ul>
+<li>插入模式下我们可以任意打字</li>
+<li>按键不再是命令而是输入字符</li>
+<li>冒号回车都能打出来🤪</li>
+</ul>
+<p><img alt="insert oeasy" src="images/insert_oeasy_file.png" /></p>
+<ul>
+<li>输入完成之后，又想要移动位置怎么办呢？</li>
+<li><kbd>esc</kbd> 退回到命令模式 <code>Normal mode</code></li>
+<li>或者 <kbd>ctrl</kbd>+<kbd>c</kbd> 回到命令模式 <code>Normal mode</code></li>
+<li>尽量选择 <kbd>ctrl</kbd>+<kbd>c</kbd> 因为可以让双手保持正位</li>
+<li>左手小指 <kbd>ctrl</kbd> + 右手食指 <kbd>c</kbd></li>
+<li>注意退回到命令模式后</li>
+<li>左下角状态栏不再显示 <strong><code>-- 插入 --</code></strong>  </li>
+<li>而是变回空白</li>
+<li>观察左下角</li>
+<li>时刻注意</li>
+</ul>
+<h3 id="_5">文件细节</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210703-1625309264239.png" /></p>
+<ul>
+<li>注意有内容的地方是具体的文字内容</li>
+<li>在没有内容的地方</li>
+<li>前面会有 <code>tilder(~)</code> 进行提示</li>
+<li><code>tilder(~)</code> 意味着空行，就是啥都没有</li>
+</ul>
+<h3 id="i">使用 <code>i</code> 命令进入插入模式</h3>
+<ul>
+<li>按 <kbd>i</kbd> 再次进入插入模式</li>
+<li>按 <kbd>esc</kbd> 或 <kbd>ctrl</kbd>+<kbd>c</kbd> 退回到命令模式</li>
+</ul>
+<p><img alt="force quit" src="images/vim_mode_change.png" /></p>
+<ul>
+<li>可以用 <kbd>i</kbd> 和 <kbd>ctrl</kbd>+<kbd>c</kbd> 反复切换模式</li>
+<li>观察左下角</li>
+</ul>
+<h3 id="_6">帮助细节</h3>
+<ul>
+<li><code>i</code> 到底什么意思？</li>
+<li>可以 <code>:h</code> 他一下</li>
+<li><code>:h i</code> 就是 <code>help</code> 一下 <code>i</code> 命令究竟做些什么</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625454066261.png" /></p>
+<ul>
+<li>那 <kbd>ctrl</kbd>+<kbd>c</kbd> 是啥意思？</li>
+</ul>
+<h3 id="_7">查询快捷键</h3>
+<ul>
+<li>什么不会就 <code>:h</code> 什么</li>
+<li><code>:h ctrl-c</code> 就是帮助我们查找一下 <code>ctrl-c</code> 快捷键究竟做些什么</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210804-1628038534369.png" /></p>
+<ul>
+<li>同理还有 <code>:h ctrl-g</code> </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625454235744.png" /></p>
+<ul>
+<li><kbd>CTRL</kbd>+<kbd>G</kbd> 对应着 <code>:f[ile]</code> 命令 </li>
+<li>可以查看当前文件信息</li>
+</ul>
+<h3 id="_8">尝试退出</h3>
+<ul>
+<li>输入 <code>:q</code> 希望退出</li>
+<li>但是屏幕 📟 显示如下</li>
+</ul>
+<p><img alt="force quit" src="images/force_quit.png" /></p>
+<ul>
+<li>按照他的要求输入 <code>:q!</code></li>
+<li><code>cat oeasy.txt</code> 显示文件并未修改😧</li>
+<li>原来 <code>:q!</code> 只是不保存，强制quit退出</li>
+<li>囧，虽然还没成功保存...</li>
+<li>但是曾经真的插入文字了！😃</li>
+<li>我们先总结一下📘</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>我们这一次进入了插入模式</li>
+<li>在正常模式下使用命令 <kbd>i</kbd></li>
+<li>在插入模式下使用 <kbd>esc</kbd> 退回到正常模式</li>
+<li>使用 <code>:q!</code> 不保存强制退出</li>
+<li>哎～看来保存只能下次再说了 😅</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

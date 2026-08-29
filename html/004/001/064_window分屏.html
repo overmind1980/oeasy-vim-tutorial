@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：窗口window，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解window分屏。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, window分屏, 窗口window">
+    <meta property="og:title" content="oeasy Vim编辑器教程：窗口window，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解window分屏。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="window">窗口window</h1>
+<h2 id="_1">回忆上次</h2>
+<ul>
+<li>我们这次了解了缓冲区buffer</li>
+<li><code>ls</code>可以查看<code>buffer</code></li>
+<li>
+<p>如下是<code>buffer</code>缓冲的一些<code>flag</code></p>
+<ul>
+<li><code>+</code>   有修改未保存内容      </li>
+<li><code>-</code>   可修改标签关闭</li>
+<li><code>=</code>   只读缓冲区</li>
+<li><code>a</code>   活跃缓冲区                                         </li>
+<li><code>u</code>   没有在列表里面的缓冲区</li>
+<li><code>h</code>   隐藏缓冲区</li>
+<li><code>x</code>   有读取错误的缓冲区</li>
+<li><code>%</code>   当前缓冲区</li>
+<li><code>#</code>   有<code>swap</code>替换文件的缓冲区</li>
+</ul>
+</li>
+<li>
+<p>可以在<code>buffer</code>跳转</p>
+<ul>
+<li>可以通过<code>bn[ext]</code>,选择下一个<code>buffer</code></li>
+<li>可以用<code>b[uffer1]</code>、<code>b2</code>进入指定的 <code>buffer</code></li>
+<li>也可以用文件名，比如<code>b[uffer] oeasy.txt</code></li>
+<li>可以用<code>bf[irst]</code>，打开第一个<code>buffer</code></li>
+<li>可以用<code>bl[ast]</code>，打开最后一个<code>buffer</code></li>
+</ul>
+</li>
+<li>不保存也可以跳转<ul>
+<li>设置 <code>hidden</code></li>
+</ul>
+</li>
+<li>跳转的时候自动保存<ul>
+<li>设置 <code>autowrite</code></li>
+</ul>
+</li>
+<li>可以用大写字母设置跨文件标记mark<ul>
+<li><code>mA</code> 添加标记</li>
+<li><code>'A</code> 跳转到标记</li>
+</ul>
+</li>
+<li>关于强行跳转和保存退出<ul>
+<li>强制退出当前窗口 <code>:q!</code></li>
+<li>不保存强行退出所有<code>buffer</code> <code>:qall!</code></li>
+<li>保存所有未保存的文件<code>:wall</code></li>
+<li>全部保存并退出<code>:wqall</code></li>
+</ul>
+</li>
+<li><code>vim</code>中打开的两个文件缓存<code>buffer</code></li>
+<li>可以放到两个窗口里面同时查看吗？🤔</li>
+</ul>
+<h3 id="_2">查询手册</h3>
+<ul>
+<li>查一下手册<code>:h window</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628393469466.png" /></p>
+<ul>
+<li>三者定位<ul>
+<li>上次的 <code>buffer</code>缓存 是内存中的文件缓存</li>
+<li>这次的 <code>window</code>窗口 是打开 <code>buffer</code> 的一个视角</li>
+<li><code>tab</code> 标签是 <code>window</code>窗口的集合</li>
+</ul>
+</li>
+<li>我们可以<ul>
+<li>通过<code>:sp[lit]</code>来上下切分窗口</li>
+<li>且切分了之后</li>
+<li>我们可以在一屏幕内同时看到第1行和第1000行</li>
+<li>切分出窗口之后可以用<code>:q</code>退出当前窗口</li>
+<li>这样就又回到单一窗口的状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">在此切分</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612419465415.png" /></p>
+<ul>
+<li><code>:sp[lit]</code>切分 窗口之后<ul>
+<li>可以切换窗口</li>
+<li><kbd>ctrl-w</kbd> <kbd>ctrl-k</kbd>切换到当前窗口上面的窗口</li>
+<li><kbd>ctrl-w</kbd> <kbd>ctrl-j</kbd>切换到当前窗口下面的窗口</li>
+<li><kbd>ctrl-w</kbd> <ul>
+<li>意味着window</li>
+</ul>
+</li>
+<li><kbd>ctrl-k</kbd>、<kbd>ctrl-j</kbd><ul>
+<li>意味着切换的方向</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>切分之后可以再次切分 <code>:sp[lit]</code><ul>
+<li>再次切换</li>
+<li><kbd>ctr-w</kbd>再<kbd>ctrl-k</kbd><ul>
+<li>切换到当前窗口上面的窗口</li>
+</ul>
+</li>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-j</kbd><ul>
+<li>切换到当前窗口下面的窗口</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">纵向切分</h3>
+<ul>
+<li>我们现在位于中间的一层</li>
+<li><code>:vsp[lit]</code><ul>
+<li>v的意思是 <code>vertical</code> 垂直方向</li>
+<li>于是就可以把这个 <code>window</code> 再垂直方向上进行切分</li>
+</ul>
+</li>
+<li>在左右切换的时候，使用<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-h</kbd><ul>
+<li>切换到当前窗口左面的窗口</li>
+</ul>
+</li>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-l</kbd><ul>
+<li>切换到当前窗口右面的窗口</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612419978345.png" /></p>
+<h3 id="_5">退出窗口</h3>
+<ul>
+<li>退出当前window窗口 <ul>
+<li><code>:q</code></li>
+</ul>
+</li>
+<li>强制退出当前window窗口不保存<ul>
+<li><code>:q!</code>  </li>
+</ul>
+</li>
+<li>不保存强行退出所有<ul>
+<li><code>buffer</code> <code>:qall!</code></li>
+</ul>
+</li>
+<li>保存所有未保存的文件<ul>
+<li><code>:wall</code></li>
+</ul>
+</li>
+<li>全部保存并退出<ul>
+<li><code>:wqall</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="window_1">设置window显示与隐藏</h3>
+<ul>
+<li><code>:on[ly]</code><ul>
+<li>保留当前<code>window</code>，其余的都<code>hidden</code></li>
+</ul>
+</li>
+<li><code>:hide</code><ul>
+<li>隐藏当前<code>window</code></li>
+</ul>
+</li>
+<li>如果<code>:set autowrite</code>了<ul>
+<li><code>hidden</code>的时候就自动保存</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">调整<code>高</code>度</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628408398548.png" /></p>
+<ul>
+<li>调整窗口 <code>window</code> 高度减小<ul>
+<li>高度减小<ul>
+<li><kbd>ctrl-w</kbd> <kbd>-</kbd></li>
+</ul>
+</li>
+<li>高度减小N<ul>
+<li><code>:res[ize] -N</code>    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调整窗口 <code>window</code> 高度增大<ul>
+<li>高度增大<ul>
+<li><kbd>ctrl-w</kbd> <kbd>+</kbd></li>
+</ul>
+</li>
+<li>高度增大N<ul>
+<li><code>:res[ize] +N</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设置当前窗口高度值为N<ul>
+<li><code>:res[ize] N</code></li>
+<li>或者直接在正常模式下<ul>
+<li>z15<kbd>cr</kbd></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总共是 <code>80*24</code><ul>
+<li>看着分配</li>
+</ul>
+</li>
+<li>窗口高度都统一<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>=</kbd> </li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">调整窗口<code>宽</code>度</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628408944136.png" /></p>
+<ul>
+<li>调整窗口 <code>window</code> 宽度减小<ul>
+<li>宽度减小<ul>
+<li><kbd>ctrl-w</kbd> <kbd>&lt;</kbd>    </li>
+</ul>
+</li>
+<li>窗口 <code>window</code> 宽度减小N<ul>
+<li><code>:vertical res[ize] -N</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调整窗口 <code>window</code> 宽度增大<ul>
+<li>宽度增大<ul>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> <kbd>&gt;</kbd></li>
+</ul>
+</li>
+<li>宽度增大N<ul>
+<li><code>:res[ize] +N</code> </li>
+</ul>
+</li>
+<li>设置当前窗口宽度值为N<ul>
+<li><code>:vertical res[ize] N</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>窗口高度宽度都统一<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>=</kbd> </li>
+</ul>
+</li>
+<li>总共是 <code>80*24</code><ul>
+<li>还是得看着分配看着分配</li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">状态横条</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612420149779.png" /></p>
+<ul>
+<li><code>:set laststatus=0</code>不用状态横条</li>
+<li><code>:set laststatus=1</code>有多个窗口的时候，最底下有一个状态横条</li>
+<li><code>:set laststatus=0</code>各窗口有各自的状态横条</li>
+</ul>
+<h3 id="_9">快速终端</h3>
+<ul>
+<li>可以用<code>:terminal</code>或者<code>:ter</code>切换到命令模式</li>
+<li>只有vim8以上的版本才支持</li>
+<li>可以试试不？<ul>
+<li>看起来是单独新建了一个进程</li>
+</ul>
+</li>
+<li>如何上下切换 窗口 <code>window</code> ?<ul>
+<li>快捷键</li>
+</ul>
+</li>
+<li>如何切出 <code>shell</code> ?<ul>
+<li>试试 <code>exit</code> 命令</li>
+<li>或者万能的退出快捷键<kbd>ctrl-d</kbd></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627394618491.png" /></p>
+<ul>
+<li>想要纵向分屏出shell？<ul>
+<li><code>:vertical terminal</code></li>
+<li><code>:vert ter</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="_10">总结</h2>
+<ul>
+<li>我们这次了解了 窗口<code>window</code></li>
+<li>窗口是用来装 缓冲<code>buffer</code> 的</li>
+<li><code>buffer</code> 是在内存里面载入的硬盘文件</li>
+<li>窗口的切分<ul>
+<li><code>:sp[lit]</code> 水平切分</li>
+<li><code>:vsp[lit]</code> 垂直切分</li>
+</ul>
+</li>
+<li>窗口的切换<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-k</kbd><ul>
+<li>切换到当前窗口上面的窗口</li>
+</ul>
+</li>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-j</kbd><ul>
+<li>切换到当前窗口下面的窗口</li>
+</ul>
+</li>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-h</kbd><ul>
+<li>切换到当前窗口左面的窗口</li>
+</ul>
+</li>
+<li><kbd>ctrl-w</kbd>再<kbd>ctrl-l</kbd><ul>
+<li>切换到当前窗口右面的窗口</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>窗口的隐藏和全屏<ul>
+<li><code>:hid[e]</code>可以隐藏当前窗口<ul>
+<li>隐藏的<code>window</code>中<code>buffer</code>不保存</li>
+<li>除非设置了<code>autowrite</code></li>
+</ul>
+</li>
+<li><code>:on[ly]</code>可以全屏当前窗口<ul>
+<li>其他的窗口都进入<code>:hide</code>状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>'laststatus'</code> 可以设置状态横条</li>
+<li><code>:terminal</code> 可以开启终端</li>
+<li>这次主要就是<code>window</code>窗口,还挺方便</li>
+<li>尤其多文件操作</li>
+<li>这个还有什么可玩的吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

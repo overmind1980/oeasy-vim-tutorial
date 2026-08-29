@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：跳到某行，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解跳到某行。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 跳到某行">
+    <meta property="og:title" content="oeasy Vim编辑器教程：跳到某行，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解跳到某行。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">跳到某行</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上下行<ul>
+<li>向 <code>下</code> 是 <kbd>j</kbd>👇</li>
+<li>向 <code>上</code> 是 <kbd>k</kbd>👆</li>
+</ul>
+</li>
+<li>上下行首<ul>
+<li>向 <code>下</code> 到行首非空字符 <kbd>+</kbd></li>
+<li>向 <code>上</code> 到行首非空字符 <kbd>-</kbd></li>
+<li>这些 <code>motion</code> 都可以加上 <code>[count]</code> 来翻倍</li>
+</ul>
+</li>
+<li>首尾行<ul>
+<li>首行是 <kbd>g</kbd> <kbd>g</kbd></li>
+<li>尾行是 <kbd>G</kbd></li>
+<li><kbd>g</kbd> <kbd>g</kbd> <kbd>=</kbd> <kbd>G</kbd> 是全部自动缩进</li>
+<li><kbd>G</kbd> 好像还有其他用法?</li>
+</ul>
+</li>
+<li>什么用法呢?</li>
+<li>先用 <code>无配置</code> 的 <code>vi</code> 打开 <code>oeasy.java</code></li>
+</ul>
+<h2 id="_3">直接跳转到某行</h2>
+<p><img alt="updown" src="images/ggG.png" /></p>
+<ul>
+<li>直接跳到某行Goto Line<ul>
+<li><kbd>2</kbd> <kbd>G</kbd> 跳到第<code>2</code>行</li>
+<li><kbd>3</kbd><kbd>G</kbd> 跳到第<code>3</code>行</li>
+<li><kbd>4</kbd><kbd>G</kbd> 跳到第<code>4</code>行</li>
+<li><kbd>g</kbd><kbd>g</kbd> 跳到第<code>1</code>行</li>
+<li><kbd>G</kbd> 跳到最后一行</li>
+</ul>
+</li>
+<li>这个真的很方便<ul>
+<li>尤其编译报错某行出问题的时候</li>
+<li>直接就 <code>Goto</code> 过去了</li>
+</ul>
+</li>
+<li>如果行数多了<ul>
+<li>怎么才能使到我要去第几行呢？</li>
+<li>这就需要显示行号</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">显示行号</h3>
+<ul>
+<li><code>:set number</code> 是显示行号<ul>
+<li><code>:set</code> 是命令，可以设置各种属性</li>
+<li><code>number</code> 是 <code>:set</code> 的参数option</li>
+<li>是一个负责显示行号的开关属性</li>
+</ul>
+</li>
+<li>我们可以通过 <code>:h :set</code> 来查看各种属性<ul>
+<li>这些帮助手册都在 <code>options.txt</code> 中</li>
+</ul>
+</li>
+</ul>
+<p><img alt="updown" src="images/helpsetno.png" /></p>
+<ul>
+<li>我们不但可以打开 <code>number</code> 开关<ul>
+<li><code>:set number</code> 打开 <code>number</code>开关</li>
+<li>显示行号</li>
+</ul>
+</li>
+<li>也可以关闭<code>number</code>开关<ul>
+<li><code>number</code> 前面加上 <code>no</code> 代表关闭该开关</li>
+<li><code>:set nonumber</code> 关闭 <code>number</code>，不显示行号</li>
+</ul>
+</li>
+<li>简写<ul>
+<li><code>:se[t] nu[mber]</code> 可简写为 <code>:se nu</code></li>
+<li><code>:se[t] nonu[mber]</code> 可简写为 <code>se nonu</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">显示相对行号</h3>
+<ul>
+<li>我们不但可以显示绝对的行号</li>
+<li>也可以显示相对的行号</li>
+<li>也在 <code>options.txt</code> 这文件里</li>
+<li>这个开关叫做 <code>relativenumber</code><ul>
+<li>相对行号</li>
+<li><code>:set relativenumber</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="updown" src="images/relativeNumber.png" /></p>
+<ul>
+<li>可以看到当前光标位置对应 <code>0</code> 行<ul>
+<li>向上👆的行号是从当前行行计算的</li>
+<li>向下👇的行号也是从当前行计算的</li>
+<li>这样上下运动就会更精确一点 </li>
+<li><code>4j</code> 就能知道光标落在下面标 <code>4</code> 的那行</li>
+<li><code>5k</code> 就能知道光标落在上面标 <code>5</code> 的那行</li>
+</ul>
+</li>
+<li>如果我同时设置 <code>se nu</code> 会如何呢？<ul>
+<li>当前行显示绝对行号，上下部分显示相对行号</li>
+</ul>
+</li>
+<li>相对行号简写<ul>
+<li><code>set relativenumber</code> 简写为 <code>se rnu</code></li>
+<li><code>set norelativenumber</code> 简写为 <code>se nornu</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">行命令模式跳转</h3>
+<p><img alt="updown" src="images/relativeNumber.png" /></p>
+<ul>
+<li>我们还可以使用行命令的模式跳转<ul>
+<li><code>:30</code> 跳到第 <code>30</code> 行</li>
+<li><code>:40</code> 跳到第 <code>40</code> 行</li>
+<li><code>:50</code> 跳到第 <code>50</code> 行</li>
+<li><code>:6000000</code> 跳到结尾，如果整篇文字没有 <code>6000000</code> 行的话</li>
+</ul>
+</li>
+<li>如何知道当前文件有多少行呢？<ul>
+<li>还记得 <code>:f[ile]</code> 吗？</li>
+<li>快捷键是 <kbd>ctrl</kbd> <kbd>g</kbd></li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">显示位置</h3>
+<p><img alt="updown" src="images/helpoptionnumber.png" /></p>
+<ul>
+<li>我们可以通过<kbd>ctrl</kbd> <kbd>g</kbd>看到：</li>
+<li>文件名</li>
+<li>当前行号</li>
+<li>总行数</li>
+<li>当前位置百分比</li>
+<li>当前列位置</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>跳转到第200行<ul>
+<li><code>200G</code></li>
+</ul>
+</li>
+<li>设置行号选项<ul>
+<li>显示行号 <code>:se nu</code></li>
+<li>显示相对行号 <code>:se rnu</code></li>
+</ul>
+</li>
+<li>如何用命令行跳转 <code>:100</code></li>
+<li>但是我如何有的时候记不住到底跳到多少行</li>
+<li>能否做个标记留个记号呢？</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

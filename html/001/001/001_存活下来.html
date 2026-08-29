@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：存活下来，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解存活下来。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖在升级完成后，我们再通过命令运行 vim。等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 存活下来">
+    <meta property="og:title" content="oeasy Vim编辑器教程：存活下来，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解存活下来。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖在升级完成后，我们再通过命令运行 vim。等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">存活下来🥊</h1>
+<h2 id="apt-vim">更新 apt 源，升级 vim</h2>
+<h4 id="vim"><code>vim</code> 是什么</h4>
+<ul>
+<li>
+<p><code>vim</code> 是类 <code>unix</code> 系统上的一个文本编辑神器，在 <code>Linux</code> 系统环境中也被许多程序员使用，书写程序和文档。</p>
+</li>
+<li>
+<p>我们本次课程将围绕 <code>Vim</code> 进行全面的介绍及学习。</p>
+</li>
+</ul>
+<h4 id="_2">工欲善其事，必先利其器</h4>
+<ul>
+<li>
+<p><code>vim</code> 在环境中，已经默认安装好了，我们可以直接使用。在使用前，我们先对它进行升级，升级后会有更好的功能体验。</p>
+</li>
+<li>
+<p>下面打开终端</p>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220628-1656420728627.png" /></p>
+<ul>
+<li>输入以下命令</li>
+<li>进行升级：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#首先是更新源</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+
+<span class="c1">#然后是升级vim</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>vim
+</code></pre></div>
+
+<h2 id="vim_1">运行vim</h2>
+<p>在升级完成后，我们再通过命令运行 <code>vim</code>。</p>
+<div class="highlight"><pre><span></span><code>vim
+</code></pre></div>
+
+<h4 id="vim_2">进入 <code>vim</code> 的基本界面</h4>
+<p><img alt="vim1-1" src="images/vim01_01.jpg" /></p>
+<ul>
+<li><code>vim</code> 默认的模式 是 <code>Normal mode(正常模式)</code></li>
+<li>这个时候你会发现按 <kbd>回车</kbd>、<kbd>空格</kbd> 等按键，都是没有用的</li>
+</ul>
+<h2 id="vim_3">退出vim</h2>
+<h4 id="vim_4">我想要退出vim</h4>
+<ul>
+<li>我输入 <kbd>ctrl</kbd>+<kbd>c</kbd> 尝试退出</li>
+<li>系统进行如下提示📕</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210904-1630717535466.png" /></p>
+<ul>
+<li>左下角可以看到系统的提示<ul>
+<li>下面我们只需按照系统提示进行操作</li>
+<li>输入 <code>:qa&lt;Enter&gt;</code> <ul>
+<li>注意<code>:</code>是半角的</li>
+<li><Enter>就是回车键</li>
+</ul>
+</li>
+<li>这样就可以退出 <code>vim</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="vim_5">尝试退出 <code>vim</code></h3>
+<ul>
+<li>按照提示依次输入 <code>:quit</code><ul>
+<li>输入 <code>:</code> 时，输入的内容显示在屏幕的左下角</li>
+<li><code>:</code> 的输入，让 vim 的模式从 <code>Normal mode（正常模式）</code>，变成了  <code>Command-Line mode（命令行模式）</code></li>
+<li>如果输入内容在主编辑窗口的话，需要先 <kbd>esc</kbd> 进入 <code>Normal mode（正常模式）</code></li>
+<li><code>:</code> 的输入让左上角的绿色光标消失</li>
+<li>左下角随着键盘的输入，将显示字符</li>
+<li>注意 vim 对于大小写是敏感的，我们使用半角英文字符</li>
+</ul>
+</li>
+<li>输入完 <code>:qa</code> 后，按 <kbd>回车</kbd> 执行这个 <code>:qa</code> 命令</li>
+<li>执行命令 <code>:qa</code> 命令</li>
+<li>退回到 <code>shell</code></li>
+<li>别小看这一步</li>
+</ul>
+<h3 id="_3">多少人倒在了这里</h3>
+<p><img alt="vim1-1" src="images/vim01_03.jpg" /></p>
+<h3 id="_4">第一步</h3>
+<ul>
+<li>迈出第一步是最难的</li>
+<li>截止到2021/8/3</li>
+<li>8年多来，239万人卡在vim里</li>
+<li>退出Vim编辑器甚至成为了开发者之间的一个笑话</li>
+</ul>
+<h3 id="_5">发展趋势</h3>
+<ul>
+<li>国内趋势</li>
+</ul>
+<p><img alt="vim1-1" src="images/uid1190679-20210803-1627999176187.png" /></p>
+<ul>
+<li>国外趋势</li>
+</ul>
+<p><img alt="vim1-1" src="images/uid1190679-20210803-1627999206752.png" /></p>
+<ul>
+<li>那些图形界面还是占用资源过多</li>
+<li>还需要系统gui的支持</li>
+<li>微软拥抱开源只是姿态</li>
+<li>商业巨头还是想垄断行业、标准、语言、思想</li>
+</ul>
+<h2 id="_6">总结</h2>
+<ul>
+<li>升级了 vim</li>
+<li>进入了 vim</li>
+<li>退出了 vim</li>
+<li>多少人倒在了这一步</li>
+</ul>
+<p><img alt="vim1-1" src="images/howtoquitvim.png" /></p>
+<h4 id="vim_6">这就是我们对于 vim 最初的接触。恭喜您存活了下来！</h4>
+<ul>
+<li>vim 还有什么好玩的呢？🤔</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

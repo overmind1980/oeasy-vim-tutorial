@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：编辑过程，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解缓冲 buffer。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 缓冲, buffer, 编辑过程">
+    <meta property="og:title" content="oeasy Vim编辑器教程：编辑过程，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解缓冲 buffer。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">编辑过程</h1>
+<h2 id="_2">回忆上次</h2>
+<ul>
+<li>我们这次了解了编辑过程</li>
+<li>默认有一个替换文件swap<ul>
+<li>修改的内容会保存到一个<code>swap</code>文件<ul>
+<li>如果<code>swp</code>已经存在</li>
+<li>会有个<code>swo</code>文件</li>
+<li>以此类推</li>
+</ul>
+</li>
+<li>替换文件可以进行对源文件的修复</li>
+<li>没保存到源文件的可能保存到了替换文件</li>
+<li>可以统一设置替换文件的位置</li>
+<li>可以控制保存替换文件的触发条件<ul>
+<li>字符数</li>
+<li>时间长度</li>
+<li>手动触发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>还可以设置备份文件<ul>
+<li>备份文件backup</li>
+<li>写备份文件writebackup</li>
+</ul>
+</li>
+<li>其实我们更常见的是另存为命令进行备份</li>
+<li>目前 <code>vim</code> 都是打开单一文件</li>
+<li><code>vim</code>可以打开两个文件吗？🤔</li>
+</ul>
+<h3 id="_3">查看手册📕</h3>
+<ul>
+<li><code>man vim</code><ul>
+<li>可以看到<code>vim</code>可以有多个参数 </li>
+<li>在<code>terminal</code>里面直接运行<ul>
+<li><code>vim oeasy.txt o2z.txt</code></li>
+</ul>
+</li>
+<li>这样就会打开两个文件</li>
+</ul>
+</li>
+<li>每一个打开的文件是一个<code>buffer</code>缓冲区<ul>
+<li>可以在<code>vim</code>中用<code>:buffers</code>查看到目前打开的文件</li>
+<li>可以<code>:h buffers</code>查看手册</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612401121790.png" /></p>
+<h3 id="buffers">上下切换缓存buffers</h3>
+<ul>
+<li><code>:buffers</code> 可以查看所有缓冲<ul>
+<li><code>:ls</code>也可以查看所有缓冲</li>
+<li>注意不是 <code>:!ls</code></li>
+<li><code>!</code>是执行外部命令<code>ls</code></li>
+</ul>
+</li>
+<li>可以查看手册<code>:h :ls</code><ul>
+<li>可以通过<code>:bn[ext]</code>,选择下一个<code>buffer</code></li>
+<li>可以通过<code>:bprev[ious]</code>,选择上一个<code>buffer</code></li>
+<li>也可以通过<code>:bN[ext]</code>,选择上一个<code>bufer</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210712-1626053230031.png" /></p>
+<h3 id="buffer">打开指定缓存buffer</h3>
+<ul>
+<li>可以用<code>b[uffer]1</code>、<code>b2</code> 直接切入指定的 <code>buffer</code></li>
+<li>也可以用文件名，比如<code>b[uffer] oeasy.txt</code></li>
+<li>可以用<code>bf[irst]</code>，打开第一个<code>buffer</code></li>
+<li>可以用<code>bl[ast]</code>，打开最后一个<code>buffer</code></li>
+<li>你可以尝试复制粘贴一些内容<ul>
+<li>然后跨文件进行复制粘贴操作</li>
+<li>并回忆一下多寄存器的复制粘贴</li>
+</ul>
+</li>
+</ul>
+<h3 id="buffers_1">buffers细节</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612406201062.png" /></p>
+<ul>
+<li>可以在打开帮助手册的情况下，<code>:ls!</code>，看到不在缓冲列表的缓冲<ul>
+<li><code>+</code>   有修改未保存内容      </li>
+<li><code>-</code>   可修改标签关闭</li>
+<li><code>=</code>   只读缓冲区</li>
+<li><code>a</code>   活跃缓冲区，当前的缓存区                      </li>
+<li><code>u</code>   没有在列表里面的缓冲区</li>
+<li><code>h</code>   隐藏缓冲区</li>
+<li><code>x</code>   有读取错误的缓冲区</li>
+<li><code>%</code>   当前缓冲区</li>
+<li><code>#</code>   有 <code>swap</code>替换 文件的缓冲区</li>
+</ul>
+</li>
+</ul>
+<h3 id="buffer_1">强制跳转buffer</h3>
+<ul>
+<li>当我想跳转的时候，如果当前文件没有保存，他会不允许跳转<ul>
+<li>只能先<code>:w</code>保存</li>
+<li>然后再跳转</li>
+<li>也可以用<code>:wn</code><ul>
+<li>先<code>write</code></li>
+<li>再<code>next</code>   </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果我想强行跳转<ul>
+<li><code>:b!2</code></li>
+<li>这样当前文件没有直接保存到硬盘里，但<code>swap</code>中有</li>
+<li>如果想<code>:b2</code>的时候自动保存</li>
+<li>需要<code>:set autowrite</code></li>
+<li>可以<code>:h autowrite</code>查看手册</li>
+</ul>
+</li>
+<li>也可以不保存强行退出当前<code>buffer</code><ul>
+<li><code>:q!</code></li>
+</ul>
+</li>
+<li>甚至不保存强行退出所有<code>buffer</code><ul>
+<li><code>:qall!</code></li>
+<li>也可以保存所有未保存的文件<code>:wall</code></li>
+<li>全部保存并退出<code>:wqall</code></li>
+</ul>
+</li>
+<li>回忆一下上次提到的<ul>
+<li><code>:saveas oeasy.txt</code></li>
+<li><code>:w &gt;&gt; o2z.txt</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="hidden">hidden的作用</h3>
+<ul>
+<li>在 <code>terminal</code> 中 <code>vim</code> 两个文件<code>a</code>、<code>b</code><ul>
+<li><code>vim a b</code></li>
+<li>在<code>a</code>里面进行了修改</li>
+<li>如果这个时候我想<code>:b2</code>切到第<code>2</code>个<code>buffer</code></li>
+<li>他会提示我要保存当前这个<code>a</code></li>
+</ul>
+</li>
+<li>如果设置了<code>:set hidden</code>，这个可以直接切换<ul>
+<li><code>a</code>存在于<code>swap</code>已经修改</li>
+<li>还没<code>w</code>的状态</li>
+<li>注意这个和<code>autowrite</code>不同</li>
+<li>:set autowrite`<ul>
+<li>切换的时候自动保存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:ls</code>可以看到两个都有<code>+</code>(未保存标记)<ul>
+<li><code>a</code>是<code>active</code></li>
+<li><code>h</code>是<code>hidden</code></li>
+</ul>
+</li>
+<li>这个时候就<code>:wall</code><ul>
+<li>可以把这两个一起保存</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612421985346.png" /></p>
+<h3 id="_4">跨文件跳转</h3>
+<ul>
+<li><code>:marks</code> 可以看到各种 <code>mark</code>标记</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210712-1626053744193.png" /></p>
+<ul>
+<li>`"是上次光标离开此缓存buffer时候的位置</li>
+<li>`.是上次编辑此缓存buffer发生的位置</li>
+<li>也可以用大写字母定义跨文件标记<ul>
+<li><code>mA</code> 定义标记</li>
+<li><code>"A</code> 跳转到标记</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">跳转列表</h3>
+<ul>
+<li>在你跳来跳去的时候</li>
+<li>
+<p>形成了一个跳转列表</p>
+<ul>
+<li><code>:jump</code></li>
+</ul>
+</li>
+<li>
+<p>可以来回来去跳跃</p>
+<ul>
+<li><kbd>CTRL</kbd>+<kbd>O</kbd> 上一个</li>
+<li><kbd>CTRL</kbd>+<kbd>I</kbd> 下一个</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628393090272.png" /></p>
+<ul>
+<li>如果我想在不同的buffer中使用不同的参数，应该怎么做呢？</li>
+</ul>
+<h3 id="_6">本地开关</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627045457482.png" /></p>
+<ul>
+<li>setlocal 本地开关</li>
+<li><code>:set ruler</code> <ul>
+<li>全局的标尺开关打开</li>
+</ul>
+</li>
+<li><code>:setlocal ruler</code> <ul>
+<li>只打开当前buffer的ruler</li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">总结</h2>
+<ul>
+<li>我们这次了解了缓冲区buffer</li>
+<li>
+<p><code>ls</code>可以查看<code>buffer</code>,如下是<code>buffer</code>缓冲的一些<code>flag</code></p>
+<ul>
+<li><code>+</code>   有修改未保存内容      </li>
+<li><code>-</code>   可修改标签关闭</li>
+<li><code>=</code>   只读缓冲区</li>
+<li><code>a</code>   活跃缓冲区                                         </li>
+<li><code>u</code>   没有在列表里面的缓冲区</li>
+<li><code>h</code>   隐藏缓冲区</li>
+<li><code>x</code>   有读取错误的缓冲区</li>
+<li><code>%</code>   当前缓冲区</li>
+<li><code>#</code>   有<code>swap</code>替换文件的缓冲区</li>
+</ul>
+</li>
+<li>
+<p>可以在<code>buffer</code>跳转</p>
+<ul>
+<li>可以通过<code>bn[ext]</code>,选择下一个<code>buffer</code></li>
+<li>可以用<code>b[uffer1]</code>、<code>b2</code>进入指定的 <code>buffer</code></li>
+<li>也可以用文件名，比如<code>b[uffer] oeasy.txt</code></li>
+<li>可以用<code>bf[irst]</code>，打开第一个<code>buffer</code></li>
+<li>可以用<code>bl[ast]</code>，打开最后一个<code>buffer</code></li>
+</ul>
+</li>
+<li>不保存也可以跳转<ul>
+<li>设置 <code>hidden</code></li>
+</ul>
+</li>
+<li>跳转的时候自动保存<ul>
+<li>设置 <code>autowrite</code></li>
+</ul>
+</li>
+<li>可以用大写字母设置跨文件标记mark<ul>
+<li><code>mA</code> 添加标记</li>
+<li><code>'A</code> 跳转到标记</li>
+</ul>
+</li>
+<li>关于强行跳转和保存退出<ul>
+<li>强制退出当前窗口 <code>:q!</code></li>
+<li>不保存强行退出所有<code>buffer</code> <code>:qall!</code></li>
+<li>保存所有未保存的文件<code>:wall</code></li>
+<li>全部保存并退出<code>:wqall</code></li>
+</ul>
+</li>
+<li><code>vim</code>中打开的两个文件缓存<code>buffer</code></li>
+<li>可以放到两个窗口里面同时查看吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

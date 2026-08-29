@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：程序移动，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解函数跳转。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 函数跳转, 程序移动">
+    <meta property="og:title" content="oeasy Vim编辑器教程：程序移动，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解函数跳转。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">程序移动</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次内容很简单，主要针对文本类素材</li>
+<li>移动段落<ul>
+<li><kbd>{</kbd> 向前</li>
+<li><kbd>}</kbd> 向后</li>
+</ul>
+</li>
+<li>移动句子<ul>
+<li><kbd>(</kbd> 向前</li>
+<li><kbd>)</kbd> 向后</li>
+</ul>
+</li>
+<li>如果我想程序中快速移动</li>
+<li>怎么办？🤔</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#首先下载文本找到tomsawyer.txt</span>
+git<span class="w"> </span>clone<span class="w"> </span>http://gitee.com/overmind1980/oeasyvim.git
+<span class="c1">#然后把文本打开</span>
+<span class="nb">cd</span><span class="w"> </span>oeasyvim
+vi<span class="w"> </span>oeasy.java
+</code></pre></div>
+
+<h2 id="_3">括号间跳转 %</h2>
+<ul>
+<li>当我们的鼠标在小括号内部时</li>
+<li>比如在 <code>public static void main(String[] args)</code> 中的 小括号<code>(</code> 上<ul>
+<li>我们可以使用 <code>%</code> 跳转到括号对的前半部分</li>
+<li>然后我们可以使用 <code>%</code> 在这对儿括号的两个位置指间跳转</li>
+</ul>
+</li>
+<li>这个 <code>%</code> 不但对于小括号有用，对于成对的大括号、中括号也都有用<ul>
+<li>对于c语言的 /<em>    ...    </em>/ 注释的头尾 ୧(﹒︠ᴗ﹒︡ )୨有用</li>
+<li>对于 #if，#ifdef，#else，#elif，#endif 也有用</li>
+<li>这个 <code>%</code> 不支持 <code>[count]</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210206-1612573344032.png" /></p>
+<h3 id="_4">小括号跳转</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627455209006.png" /></p>
+<ul>
+<li>
+<p>方向</p>
+<ul>
+<li>[ 往上 <ul>
+<li>[( 进挨着的上一个(</li>
+</ul>
+</li>
+<li>] 往下<ul>
+<li>]) 近挨着的下一个)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>如果是大括号呢？</p>
+</li>
+</ul>
+<h3 id="_5">括号跳转</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210206-1612573610537.png" /></p>
+<ul>
+<li><code>[(</code> 跳转到上一个没配对的 <code>(</code></li>
+<li><code>])</code> 跳转到下一个没配对的 <code>)</code></li>
+<li><code>[{</code> 跳转到上一个没配对的 <code>{</code></li>
+<li><code>]}</code> 跳转到下一个没配对的 <code>}</code></li>
+<li>
+<p>支持 <code>[count]</code></p>
+</li>
+<li>
+<p>向上就是[</p>
+</li>
+<li>向下就是]</li>
+</ul>
+<h3 id="_6">函数中的跳转</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627454539956.png" /></p>
+<ul>
+<li>方向<ul>
+<li>[ 往上 <ul>
+<li>[{ 紧挨着的上一个{ </li>
+<li>[[ 本块的第一行</li>
+</ul>
+</li>
+<li>] 往下<ul>
+<li>]} 近挨着的下一个}</li>
+<li>]] 本块的最后一行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">注释的头尾</h3>
+<ul>
+<li>注释跳转<ul>
+<li><code>[/</code>、<code>[*</code>上一个注释<code>/*   .... */</code>的头</li>
+<li><code>]*</code>、<code>]/</code>下一个注释<code>/*   .... */</code>的头</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210206-1612574328403.png" /></p>
+<h3 id="_8">函数间跳转</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210206-1612573757496.png" />
+- 函数跳转
+    - <code>]m</code>下一个函数开头
+    - <code>]M</code>下一个函数结尾
+    - <code>[m</code>上一个函数开头
+    - <code>[M</code>上一个函数结尾
+    - 支持 <code>[count]</code>
+        - <code>3]m</code> 可以往下跳到第 <code>3</code> 个函数开头
+    - <code>[m</code>、<code>]m</code> 这两个其实还挺好用的</p>
+<h3 id="_9">跳到定义</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627455616188.png" /></p>
+<ul>
+<li>找到本地定义</li>
+<li>gd - goto global declaration </li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210728-1627455706874.png" /></p>
+<ul>
+<li>和 * 不一样的是它会往前找到第一个</li>
+<li>在 <code>[[</code> 的范围内的第一个</li>
+</ul>
+<h3 id="if">没有配对的 #if 宏定义</h3>
+<ul>
+<li>这个是针对宏定义里面的内容来的<ul>
+<li><code>[#</code> 上一个没有配对的 <code>#if</code>、<code>#else</code></li>
+<li><code>]#</code> 下一个没有配对的 <code>#else</code>、<code>#endif</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210206-1612574270810.png" /></p>
+<h3 id="_10">标签跳转</h3>
+<div class="highlight"><pre><span></span><code>#查找matchit.vim
+sudo find / -name matchit.vim
+# 把match.vim插件放到系统插件文件夹
+sudo cp /usr/share/vim/vim81/macros/matchit.vim /usr/share/vim/vim81/plugin
+#打开一个网页
+vi oeasy.html
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20210806-1628213800556.png" /></p>
+<ul>
+<li>这个matchit可以支持标签的跳转</li>
+<li>比如在 <code>&lt;html&gt;</code> 处按下 <code>%</code> 就可以到配对的 <code>&lt;/html&gt;</code> </li>
+<li>挺好玩的</li>
+<li>试试吧 🤪</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>括号间跳转</li>
+<li>成对括号间跳转 <code>%</code></li>
+<li>
+<p>不成对括号间跳转</p>
+<ul>
+<li><code>[[</code> 跳转到本块第一行</li>
+<li><code>]]</code> 跳转到本块最后一行</li>
+<li><code>[{</code> 跳转到上一个的 <code>{</code></li>
+<li><code>]}</code> 跳转到下一个的 <code>}</code></li>
+</ul>
+</li>
+<li>
+<p>函数间跳转</p>
+</li>
+<li><code>]m</code> 下一个函数开头</li>
+<li><code>[m</code> 上一个函数开头</li>
+<li><code>]M</code> 下一个函数开头</li>
+<li>
+<p><code>[M</code> 上一个函数结尾</p>
+</li>
+<li>
+<p><code>#if</code>、<code>#else</code>、<code>#endif</code> 没有配对的</p>
+</li>
+<li><code>[#</code> 上一个没有配对的 <code>#if</code>、<code>#else</code></li>
+<li>
+<p><code>]#</code> 下一个没有配对的 <code>#else</code>、<code>#endif</code></p>
+</li>
+<li>
+<p>注释的头尾</p>
+</li>
+<li><code>[/</code>、<code>[*</code> 上一个注释 <code>/*   .... */</code> 的头</li>
+<li><code>]*</code>、<code>]/</code> 下一个注释 <code>/*   .... */</code> 的头</li>
+<li>如果我想快速找到某个东西怎么办呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

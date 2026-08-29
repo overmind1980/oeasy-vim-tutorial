@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：实验标题，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解缩进表达式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖这是一段示例实验介绍。等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 缩进表达式, 实验标题">
+    <meta property="og:title" content="oeasy Vim编辑器教程：实验标题，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解缩进表达式。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖这是一段示例实验介绍。等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">实验标题</h1>
+<h2 id="_2">实验介绍</h2>
+<p>这是一段示例实验介绍。</p>
+<h4 id="_3">知识点</h4>
+<ul>
+<li>知识点 1</li>
+<li>知识点 2</li>
+</ul>
+<h2 id="_4">正文标题</h2>
+<p>" 不使用表达式缩进
+:se indentexpr=</p>
+<p>" 将缩进宽度设为与&amp;sw设置一致
+:se inde=&amp;shiftwidth</p>
+<p>" 逐渐增加缩进
+:se inde=v:lnum</p>
+<p>这一组表达式还是比较容易理解的，都是直接将一某个数值（不需要什么计算）作为缩进量。 此外，三元条件表达式在折叠篇中也已经看了不少：</p>
+<p>" 偶数行缩进4格
+:se indentexpr=v:lnum%2?0:4</p>
+<p>" 取消注释行的缩进
+:se inde=getline(v:lnum)=~'^s*#'?0:indent(v:lnum)</p>
+<p>" 行首缩进：
+:se inde=(getline(v:lnum-1)=~'^s*$')?4:0
+" 悬挂缩进：
+:se inde=(getline(v:lnum-1)=~'S')?4:0</p>
+<p>" 相对于上一行缩进行首带着-号的行
+:se inde=getline(v:lnum)=~'^s*-'?indent(v:lnum-1)+4:0</p>
+    </div>
+</body>
+</html>

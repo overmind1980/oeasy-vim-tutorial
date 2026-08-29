@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：组合键映射map，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解组合键映射 map。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 组合键映射, map, 组合键映射map">
+    <meta property="og:title" content="oeasy Vim编辑器教程：组合键映射map，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解组合键映射 map。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="map">组合键映射map</h1>
+<h2 id="_1">回忆功能键映射的细节</h2>
+<ul>
+<li>上次我们定义了一系列的功能键<ul>
+<li>让他们可以起到作用</li>
+<li>比如保存、编译、运行一键完成</li>
+<li>但是不同的文件类型应该有不同编译运行处理方式</li>
+<li>我们用 <code>filetype</code> 的机制解决了这个问题</li>
+</ul>
+</li>
+<li>这些映射就像缩写和折叠一样<ul>
+<li>可以<code>:mkview</code>保存着</li>
+</ul>
+</li>
+<li>除了功能键之外<ul>
+<li>组合键能映射么？</li>
+<li>比如<kbd>ctrl</kbd>+<kbd>s</kbd>之类的？🤔</li>
+</ul>
+</li>
+</ul>
+<h3 id="_2">上手就干</h3>
+<ul>
+<li><code>:echo "oeasy"</code><ul>
+<li>显示oeasy</li>
+</ul>
+</li>
+<li><code>:map &lt;C-o&gt; echo "oeasy"</code><ul>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+<li>映射到<code>:echo "oeasy"</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">功能键映射</h3>
+<ul>
+<li>我想给markdown某单词文本加粗<ul>
+<li>语法是 <code>**加粗**</code></li>
+<li>我想用 <kbd>ctrl</kbd>+<kbd>b</kbd></li>
+<li><kbd>ctrl</kbd>+<kbd>b</kbd> 在 <code>vim</code> 里面表示为<code>&lt;C-b&gt;</code></li>
+</ul>
+</li>
+<li>我们先看看<kbd>ctrl</kbd>+<kbd>b</kbd>的帮助手册<ul>
+<li><code>:h Ctrl-b</code></li>
+<li>这个已经有了</li>
+<li>如果强制映射就把原来翻页的那个给抹没了</li>
+<li>除非是再 <code>:unmap &lt;C-b&gt;</code></li>
+</ul>
+</li>
+<li>找一个没有用过的快捷键<ul>
+<li><code>:h Ctrl-s</code> 没有</li>
+<li>我们换成</li>
+</ul>
+</li>
+<li><code>:map &lt;C-s&gt; i**&lt;Esc&gt;ea**&lt;Esc&gt;</code></li>
+<li>这个只能在本地的vim上实现</li>
+<li>在蓝桥的vim中无效</li>
+</ul>
+<h3 id="_4">代码分析</h3>
+<ul>
+<li><code>:map &lt;C-s&gt; i**&lt;Esc&gt;ea**&lt;Esc&gt;</code><ul>
+<li>当光标在单词的开头时</li>
+<li><code>i</code> 进入插入模式</li>
+<li>在单词前面插入两个*</li>
+<li><kbd>esc</kbd>退到正常模式</li>
+<li><kbd>e</kbd>到单词的 <code>end</code></li>
+<li><kbd>a</kbd>在后面进行 <code>append</code></li>
+<li>再插两个<code>*</code></li>
+<li><kbd>esc</kbd> 退出</li>
+</ul>
+</li>
+<li>试验成功</li>
+<li>但是这个东西是基于 <code>markdown</code> 这种 <code>filetype</code> 的<ul>
+<li>我们需要在 <code>~/.vim/ftplugin/md.vim</code> 完成相关映射的定义</li>
+<li>而且模式特指是正常模式</li>
+<li>需要 <code>nmap</code></li>
+<li>如果我要映射的内容也有 <code>ctrl</code> 组合键之类的东西呢？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">窗口切换</h3>
+<ul>
+<li>我们把原来窗口切换的快捷键简化一下<ul>
+<li><code>map &lt;C-j&gt; &lt;C-W&gt;j</code></li>
+<li><code>map &lt;C-k&gt; &lt;C-W&gt;k</code></li>
+<li><code>map &lt;C-h&gt; &lt;C-W&gt;h</code></li>
+<li><code>map &lt;C-l&gt; &lt;C-W&gt;l</code></li>
+</ul>
+</li>
+<li>这样就摁下两个键就可以切换窗口了</li>
+<li>很方便</li>
+<li>这其实可以设置在~/.vimrc中</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211221-1640065168780.png" /></p>
+<ul>
+<li>其实还可以再把<code>:only</code> 和 <code>:split</code>之类的 </li>
+<li>也重映射一下</li>
+</ul>
+<h3 id="_6">选项卡切换</h3>
+<ul>
+<li><code>:tabnew</code>新建几个</li>
+<li>我们控制一下<kbd>ctrl</kbd>+<kbd>⬅️</kbd>和<kbd>ctrl</kbd>+<kbd>➡️️</kbd><ul>
+<li><code>map &lt;C-LEFT&gt; :tabn</code></li>
+<li><code>map &lt;C-RIGHT&gt; :tabp</code></li>
+<li>但是失败了</li>
+<li>修改一下 </li>
+<li><code>map &lt;c-left&gt; :tabn&lt;cr&gt;</code></li>
+<li><code>map &lt;c-right&gt; :tabp&lt;cr&gt;</code></li>
+</ul>
+</li>
+<li>这样就可以通过<kbd>ctrl</kbd>+<kbd>⬅️</kbd>和<kbd>ctrl</kbd>+<kbd>➡️️</kbd>控制选项卡tab了</li>
+<li>但是如果有很多选项卡的话呢？能否直接切过去？<ul>
+<li>其实默认的<code>gt</code>、<code>gT</code>切换也还挺方便的</li>
+<li><code>1gt</code></li>
+<li><code>2gt</code></li>
+<li><code>3gt</code></li>
+<li><code>9gt</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="shift">Shift</h3>
+<ul>
+<li>组合键除了<kbd>ctrl</kbd>之外，还有<ul>
+<li><kbd>shift</kbd></li>
+<li><kbd>alt</kbd></li>
+</ul>
+</li>
+<li><code>:map &lt;S-t&gt; ioeasy</code> 等价于</li>
+<li><code>:map T ioeasy</code></li>
+<li><code>:map &lt;S-t&gt;</code>、 <code>:map T</code> <ul>
+<li>结果一样 </li>
+<li>可以看到这两个都可以定义</li>
+<li><kbd>shift</kbd>+<kbd>t</kbd>就是<kbd>T</kbd></li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">更多按键</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210725-1627201023530.png" /></p>
+<ul>
+<li>理论上是这样的 </li>
+<li>不过实际上并不如<kbd>ctrl</kbd>好用</li>
+</ul>
+<h3 id="_8">批量替换</h3>
+<ul>
+<li>我们打开一系列文件 <ul>
+<li><code>:vim oeasy.java oeasy.html oeasy.css</code></li>
+</ul>
+</li>
+<li>建立映射关系<ul>
+<li><code>map &lt;c-s&gt; :%s/5.1/5.2/g&lt;cr&gt;:wnext&lt;cr&gt;</code><ul>
+<li><kbd>ctrl</kbd>+<kbd>s</kbd>映射到</li>
+<li><code>:%s/5.1/5.2/g&lt;cr&gt;</code>替换所有</li>
+<li><code>:wnext&lt;cr&gt;</code> 保存并切换到下一个buffer缓存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>有流水线那意思,一个完了就弄下一个<ul>
+<li>这样就可以批量替换一堆打开的文件了</li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd>可以终止</li>
+</ul>
+</li>
+<li>但是如果<kbd>ctrl</kbd>+<kbd>c</kbd>被映射为空会如何？</li>
+</ul>
+<h3 id="_9">胡思乱想</h3>
+<ul>
+<li><code>noremap &lt;C-c&gt; :echo "oeasy"</code><ul>
+<li>好像真的可以</li>
+<li>这样就没法打断了吗？</li>
+</ul>
+</li>
+<li>但是如果你再插入模式的话<ul>
+<li>还是可以通过<kbd>ctrl</kbd>+<kbd>c</kbd>切换到正常模式的</li>
+<li>感觉上是失败了。。。😫</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">关于注释的细节</h3>
+<ul>
+<li>我们定义的映射一般都有注释</li>
+<li>注释有一点点小细节</li>
+<li><code>:map &lt;F4&gt; gg=G  |"F4 for indent</code><ul>
+<li><code>|</code>把后面屏蔽</li>
+<li><code>"</code>意味着不执行的注释</li>
+</ul>
+</li>
+<li>其实<code>G</code>后面的空格是有可能出问题的<ul>
+<li>因为F4映射的是gg=G包括后面跟的4个空格</li>
+<li>最好改为<code>:map &lt;F4&gt; gg=G|"    F4 for indent</code></li>
+<li>在取消映射的时候也有同样的问题</li>
+</ul>
+</li>
+<li>比如<ul>
+<li><code>:unmap a |"unmap a</code></li>
+<li>其实 <code>unmap</code> 的不是 <code>a</code></li>
+<li>而是<code>a空格</code></li>
+</ul>
+</li>
+<li>这些细节都需要注意</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>这次我们定义了一系列的复合键<ul>
+<li>主要是和ctrl键一起</li>
+</ul>
+</li>
+<li>快速跳转window窗口<ul>
+<li><code>map &lt;c-j&gt; &lt;c-w&gt;j</code></li>
+<li><code>map &lt;c-k&gt; &lt;c-w&gt;k</code></li>
+<li><code>map &lt;c-h&gt; &lt;c-w&gt;h</code></li>
+<li><code>map &lt;c-l&gt; &lt;c-w&gt;l</code></li>
+</ul>
+</li>
+<li>快速跳转tab选项卡<ul>
+<li><code>map &lt;c-left&gt; :tabn</code></li>
+<li><code>map &lt;c-right&gt; :tabp</code></li>
+</ul>
+</li>
+<li>还可以流水作业<ul>
+<li><code>map &lt;c-s&gt; :%s/5.1/5.2/g&lt;cR&gt;:wnext&lt;cr&gt;</code></li>
+</ul>
+</li>
+<li>最后要注意注释说明的小细节<ul>
+<li><code>:unmap a|"     unmap a</code></li>
+</ul>
+</li>
+<li>组合键和功能键Fn一样<ul>
+<li>都可以做各种映射map</li>
+<li>映射map和缩写abbreviate和折叠、本地options一样</li>
+<li>都可以通过<code>:mkview</code>、<code>:loadview</code>来保存读取</li>
+<li>但是如果我的环境里面有tab选项卡</li>
+<li>tab选项卡里面还有各种切分好的各个窗口</li>
+<li>一觉醒来还得重新切分</li>
+<li>还得重新<code>:tabnew</code></li>
+</ul>
+</li>
+<li>我想把这个多选项卡tabs多窗口windows的状态整个存储起来</li>
+<li>可能么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

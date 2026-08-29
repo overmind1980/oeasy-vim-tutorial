@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：内容查找 grep，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解语法定义 syntax。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 语法定义, syntax, 内容查找, grep">
+    <meta property="og:title" content="oeasy Vim编辑器教程：内容查找 grep，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解语法定义 syntax。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="grep">内容查找 grep</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次研究了一下配色方案<ul>
+<li>murphy虽然配色好看</li>
+<li>但是对于java的支持并不好</li>
+<li>我们对于murphy进行了修改</li>
+<li>增加了<code>String</code>、<code>StorageClass</code>颜色的定义</li>
+<li>整体思路是在syntax中定义组</li>
+<li>然后在配色方案中对于组进行颜色设置</li>
+</ul>
+</li>
+<li>语法高亮总共分成两块<ul>
+<li>核心语法引擎<ul>
+<li>描述各种高亮分组的匹配模式特征</li>
+</ul>
+</li>
+<li>高亮分组样式定义<ul>
+<li>描述具体某个高亮分组具体是什么颜色</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可是syntax中如何定义组的呢？🤔</li>
+</ul>
+<h3 id="_2">语法文件</h3>
+<ul>
+<li><code>vi /usr/share/vim/vim81/syntax/java.vim</code></li>
+<li>先把配色方案设置为murphy<ul>
+<li>:colorscheme murphy</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627955551168.png" /></p>
+<ul>
+<li>我们可以看见这个java语法文件的:<ul>
+<li>作者</li>
+<li>github地址</li>
+<li>修改时间</li>
+</ul>
+</li>
+<li>然后就是大量的syn定义</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627955657590.png" /></p>
+<ul>
+<li>什么是<code>syn</code>呢？</li>
+</ul>
+<h3 id="syntax">syntax语法</h3>
+<ul>
+<li><code>h syn</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627955813840.png" /></p>
+<ul>
+<li><code>syntax</code>就是语法</li>
+<li><code>:syntax list</code>可以列出<ul>
+<li>syntax item 语法项</li>
+<li>syntax group 语法组</li>
+<li>syntax cluster 集群</li>
+</ul>
+</li>
+<li>我们来试试</li>
+</ul>
+<h3 id="syntax-list">syntax list 语法列表</h3>
+<ul>
+<li><code>:syntax list</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627955991850.png" /> </p>
+<ul>
+<li>语法项目都是用help打头的</li>
+<li>为什么呢？</li>
+<li>先<kbd>q</kbd>跳出去</li>
+<li><code>:set filetype?</code></li>
+<li>可以知道目前的文件是help文件</li>
+<li>所以语法项目都是用help开头的</li>
+<li><code>:q</code>跳出help文件回到<code>java.vim</code></li>
+</ul>
+<h3 id="javavim">java.vim</h3>
+<ul>
+<li>在打开java.vim的情况下运行<ul>
+<li><code>:syntax list</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627956155936.png" /></p>
+<ul>
+<li>因为当前打开的是.vim文件</li>
+<li>所以得到的语法项都是和vim有关</li>
+<li>如果我们打开一个java文件呢？</li>
+</ul>
+<h3 id="oeasyjava">oeasy.java</h3>
+<ul>
+<li><code>:e oeasy.java</code></li>
+<li><code>:syntax list</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627956255807.png" /></p>
+<ul>
+<li>为什么打开不同的文件就会有不同的语法项列表呢？</li>
+</ul>
+<h3 id="_3">语法文件</h3>
+<ul>
+<li>语法列表是由语法文件来决定的</li>
+<li>语法文件位于语法文件夹中<ul>
+<li><code>/usr/share/vim/vim81/syntax/</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627956394528.png" /></p>
+<ul>
+<li>help的语法文件<ul>
+<li><code>/usr/share/vim/vim81/syntax/help.vim</code></li>
+</ul>
+</li>
+<li>vim的语法文件<ul>
+<li><code>/usr/share/vim/vim81/syntax/vim.vim</code></li>
+</ul>
+</li>
+<li>java的语法文件<ul>
+<li><code>/usr/share/vim/vim81/syntax/java</code></li>
+</ul>
+</li>
+<li>我们继续来看java的语法文件</li>
+</ul>
+<h3 id="keyword">关键字keyword</h3>
+<ul>
+<li><code>/\&lt;public\&gt;</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627960696763.png" /></p>
+<ul>
+<li><code>syntax keyword javaScopeDecl public protected private abstract</code><ul>
+<li>syntax 语法</li>
+<li>keyword 关键字</li>
+<li>javaScopeDecl <ul>
+<li>java的</li>
+<li>Scope可见性</li>
+<li>Declaration描述</li>
+</ul>
+</li>
+<li>public protected private abstract 具体的关键字</li>
+</ul>
+</li>
+<li><code>vi oeasy.java</code></li>
+<li><code>:colorscheme murphy</code></li>
+<li><code>:hi javaScopeDecl ctermfg=brown</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627960947299.png" /></p>
+<ul>
+<li>这样设置了public protected private abstract 这些关键字的颜色了</li>
+<li>试验成功</li>
+<li>我们可以自定义的一个属于自己的关键字么？</li>
+</ul>
+<h3 id="_4">自定义关键字</h3>
+<ul>
+<li><code>:h syntax</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627961458772.png" /></p>
+<ul>
+<li>这里是定义syntax语法项的地方</li>
+<li>第一种语法项就是keyword</li>
+<li>我们去定义一个自己的关键字</li>
+<li><code>sudo vi /usr/share/vim/vim81/syntax/java.vim</code></li>
+</ul>
+<h3 id="keyword_1">自己的关键字keyword</h3>
+<ul>
+<li>syn keyword oeasy System<ul>
+<li>把System定义为oeasy这个类型的关键字</li>
+<li>然后保存退出</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627961841967.png" /></p>
+<ul>
+<li>重新打开<code>oeasy.java</code></li>
+<li><code>:syntax list</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220120-1642687773984.png" /></p>
+<ul>
+<li>可以发现在oeasy.java文件打开后</li>
+<li>已经有了一个叫做oeasy的关键字类别</li>
+<li>里面包含着System这个词</li>
+<li>那如何给oeasy这个类别上色呢？</li>
+</ul>
+<h3 id="oeasy">给oeasy列别上色</h3>
+<ul>
+<li>颜色模式设置为murphy<ul>
+<li><code>:hi oeasy ctermfg=yellow</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627962001079.png" /></p>
+<ul>
+<li>试验成功</li>
+<li>但是public对应的这个javaScope</li>
+<li>又是如何与StorageClass挂上关系的呢？</li>
+</ul>
+<h3 id="_5">层层关联</h3>
+<ul>
+<li>回到syntax中的<code>java.vim</code></li>
+<li><code>/\&lt;javaScopeDecl\&gt;</code> 9个匹配</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627961268328.png" /></p>
+<ul>
+<li>这里有个<code>hi def link</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627962447199.png" /></p>
+<ul>
+<li>就是对于高亮hilight组的链接</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627962535740.png" /></p>
+<ul>
+<li>把javaScopeDecl、javaClassDecl、javaMethodDecl链接到了javaStorageClass上</li>
+<li>这样,<code>:hi javaStorageClass cterm=white</code>就可以用到三组上面</li>
+<li>但是上图最上的一句话又是什么意思呢？</li>
+<li><code>hi def link javaStorageClass StorageClass</code></li>
+</ul>
+<h3 id="_6">组名通用化</h3>
+<ul>
+<li><code>:e /usr/share/vim/vim81/syntax/c.vim</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627962781168.png" /></p>
+<ul>
+<li>我们可以看到不同语言有不同的语言的StorageClass<ul>
+<li>java的叫做javaStorageClass</li>
+<li>c的叫做cStorageClass</li>
+<li>rust叫做rustStorageClass</li>
+</ul>
+</li>
+<li>不管他们原来的名字如何，都映射到StorageClass</li>
+<li>这样murphy、morning、blue等颜色方案只要设置StorageClass的高亮</li>
+<li>就可以映射到不同语言的不同组里面了</li>
+<li>像StorageClass这样的通用组名还有很多</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627963050015.png" /></p>
+<ul>
+<li>如果我们做一门叫做oeasy的语言</li>
+<li>就需要把关键字定义到oeasyStorageClass中</li>
+<li>然后把oeasyStorageClass映射到StorageClass上</li>
+<li>只要颜色方案中有关于StorageClass的定义</li>
+<li>我们相关关键字就可以显示出来</li>
+<li>除了keyword之外，还有什么样的高亮item的定义呢？</li>
+</ul>
+<h3 id="match">match 匹配模式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627963588790.png" /></p>
+<ul>
+<li>match顾名思义就是匹配模式</li>
+<li>比如<code>syntax match javaComment /#.*/</code><ul>
+<li><code>javaComment</code>是高亮项名称</li>
+<li><code>/#.*/</code><ul>
+<li><code>/</code>是模式匹配的开始和结束</li>
+<li><code>#</code>代表<code>#</code></li>
+<li>如果是#开头的行，^#</li>
+<li>如果是#开头的单词，\&lt;#</li>
+<li><code>.</code>任意字符</li>
+<li><code>*</code>代表任意字符<code>.</code>的数量是0到任意多个</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>/match</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627963911660.png" />
+- 这些括号如何理解呢？</p>
+<h3 id="_7">括号</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627963911660.png" />
+- javaBraces 对应的是左右大括号
+- "[{}]"
+    - ""里面是pattern
+    - []里面是或的关系
+    - {}是左或右大括号</p>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627964134645.png" /></p>
+<ul>
+<li>匹配import 或者 import static</li>
+<li>两个单词中间可以有tab或者空格</li>
+<li>\?代表后面的static可以出现0或者1次</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627964488414.png" /></p>
+<ul>
+<li>这里怎么引号外面还有东西呢？</li>
+</ul>
+<h3 id="offset">偏移量 offset</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627964488414.png" /></p>
+<ul>
+<li><code>"\.\s*\&lt;class\&gt;"</code><ul>
+<li><code>\.</code>开头有任意字符</li>
+<li><code>\s*</code>然后有0到任意多个空格或tab</li>
+<li>然后是独立单词class</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627964528010.png" /></p>
+<ul>
+<li>ms的意思是Match Start匹配头</li>
+<li>ms=s+1是什么意思</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627964686749.png" /></p>
+<ul>
+<li>s是start</li>
+<li>ms=s+1</li>
+<li>就是把<code>\s*</code>前面的<code>\.</code>去掉开始定义匹配的开始</li>
+<li>我们再看一个</li>
+</ul>
+<h3 id="javacommentstar">javaCommentStar</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220120-1642689042605.png" /></p>
+<ul>
+<li>match 的思路是匹配一个模式<ul>
+<li>^\s* 行开头有空格或者tab</li>
+<li>然后后面有一个不是/的字符</li>
+<li>这个时候要把结尾的位置me</li>
+<li>设置为e-1</li>
+<li>也就是不包含这个非/的字符</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220120-1642689160458.png" /></p>
+<ul>
+<li>:hi javaCommentStar ctermbg=red</li>
+<li>红色的就是对应的javaCommentStart的区域</li>
+<li>匹配了就进入组</li>
+<li>除了match直接匹配之外</li>
+<li>还有什么定义高亮组的方法么？</li>
+</ul>
+<h3 id="region">region 区域</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627965728385.png" /></p>
+<ul>
+<li>最重要的有三个属性<ul>
+<li>start开头</li>
+<li>end结尾</li>
+<li>skip 跳过的</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627965791773.png" /></p>
+<ul>
+<li>start=+"+<ul>
+<li>+是分隔符号相当于/</li>
+<li>pattern是"</li>
+<li>以"为开头</li>
+</ul>
+</li>
+<li>end=+"+<ul>
+<li>同上</li>
+<li>以"为结尾</li>
+</ul>
+</li>
+<li>skip=+\"+<ul>
+<li>分割符还是+    </li>
+<li>中间如果有\"就跳过</li>
+<li>不作为结尾</li>
+</ul>
+</li>
+<li><code>echo "i say \"oeasy\"." #echo sth</code></li>
+<li>匹配<code>"i say \"oeasy\"."</code></li>
+<li>可以看到起点和终点对于高亮组的定义特别重要！！！</li>
+</ul>
+<h3 id="region_1">region带偏移量</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627965605031.png" />
+- 高亮开始
+    - hs highlight start 高亮开始位置
+    - e 是end 指的是start开始模式<code>/\*</code>的结束位置
+    - e+1指的是<code>/*</code>后面一个字符的位置
+    - hs=e+1 高亮开始于开始模式末尾后一个字符
+- 高亮结束
+    - he highlight end 高亮结束位置
+    - s 是 start 指的是end结束模式<code>\*/</code>的开始位置
+    - s-1 指的是<code>*/</code>前面一个字符的位置
+    - he=s-1 高亮结束于结束模式开头前一个字符</p>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627965596509.png" /></p>
+<ul>
+<li>匹配模式match的是<code>mmm...mmm</code>的位置</li>
+<li>匹配高亮的region是<code>rrr</code>对应的位置</li>
+<li>除了region之外，还有什么高亮组的定义方法么？</li>
+</ul>
+<h3 id="_8">嵌入的高亮组</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976011416.png" /></p>
+<ul>
+<li>xComment<ul>
+<li>x语言的注释</li>
+<li>%开始的都是注释</li>
+<li>注释里面可以包含TODO</li>
+</ul>
+</li>
+<li>xTODO<ul>
+<li>x语言的TODO</li>
+<li>TODO高亮组只能存在于注释里面</li>
+<li>不在注释里面的不是TODO高亮组</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">递归嵌入</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976237658.png" /></p>
+<ul>
+<li>xBlock<ul>
+<li>x语言的Block块</li>
+<li>大括号包起来的都是Block</li>
+<li>Block可以自身递归嵌套</li>
+</ul>
+</li>
+</ul>
+<h3 id="keepend">统一截行 keepend</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976486127.png" /></p>
+<ul>
+<li>xComment<ul>
+<li>x语言的注释，从%到结尾$</li>
+</ul>
+</li>
+<li>xPreProc<ul>
+<li>x语言的预处理，从#到结尾$</li>
+<li>可以包含xComment</li>
+</ul>
+</li>
+<li>蓝色部分把第二行也认为是预处理</li>
+<li>因为第一行的结尾回车给了xComment</li>
+<li>xPreProc就把第二行的结尾回车当作自己的了</li>
+<li>为了避免这个情况</li>
+<li>keepend</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976694399.png" /></p>
+<h3 id="allbut">排除元素ALLBUT</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976830080.png" /></p>
+<ul>
+<li>contains里面可以放具体的高亮组</li>
+<li>也可以放所有东西</li>
+<li>如果要排除某些东西怎么办呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627976883275.png" /></p>
+<h3 id="nextgroup">下一组nextgroup</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627977035694.png" /></p>
+<ul>
+<li>这三个东西必须挨着</li>
+<li>在一起</li>
+<li>各自才能成立</li>
+</ul>
+<h3 id="matchgroup">匹配组 matchgroup</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627977243528.png" /></p>
+<ul>
+<li>第一种模式定义了一个组<ul>
+<li>包括括号和括号里面的内容</li>
+</ul>
+</li>
+<li>第二种模式生成了两个组<ul>
+<li>xInside</li>
+<li>xParen</li>
+<li>可以分别上色</li>
+</ul>
+</li>
+</ul>
+<h3 id="transparent">透明transparent</h3>
+<ul>
+<li>如果你想要while和for循环的条件有不同颜色</li>
+<li>可以这样试试</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627977567274.png" /></p>
+<ul>
+<li>for、while各有一套</li>
+<li>cCondNest本身是透明的</li>
+<li>跟着上一层高亮组走</li>
+</ul>
+<h3 id="oneline">行内oneline</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627977725371.png" /></p>
+<ul>
+<li>oneline就是一行</li>
+<li>保证这个匹配的模式必须在一行以内</li>
+<li>有一行那有没有多行呢？</li>
+</ul>
+<h3 id="_10">多行</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978064653.png" /></p>
+<ul>
+<li>多行里面包含了xLineContinue</li>
+<li>xLineContinue包含了<code>\\$</code></li>
+<li>换行符被包含在了高亮组里</li>
+<li>于是高亮组可以换行了</li>
+</ul>
+<h3 id="cluster">集群cluster</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978448734.png" /></p>
+<ul>
+<li>contains里面的东西是重复的</li>
+<li>可以定一个集群cluster</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978485685.png" /></p>
+<ul>
+<li>然后contains里面就用集群</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978508428.png" /></p>
+<ul>
+<li>集群本质上是高亮组的列表</li>
+<li>这个列表可以添加和删除</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978560141.png" /></p>
+<h3 id="_11">更多语法</h3>
+<ul>
+<li>比如你打开一个cpp文件</li>
+<li>文件缓冲被解析为cpp的高亮组</li>
+<li>但是我同时想用c的高亮组 </li>
+<li>怎么办？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210803-1627978985867.png" /></p>
+<ul>
+<li>什么是runtime呢？<ul>
+<li>运行时环境</li>
+</ul>
+</li>
+<li>syntax/c.vim<ul>
+<li>在运行时环境里面找syntax/c.vim</li>
+</ul>
+</li>
+<li>运行时环境是什么？</li>
+<li><code>:echo $VIMRUNTIME</code><ul>
+<li><code>/usr/share/vim/vim81</code></li>
+</ul>
+</li>
+<li>这是一切的来源<ul>
+<li>语法文件的来源</li>
+<li>高亮颜色模式的来源</li>
+<li>缩进的来源</li>
+</ul>
+</li>
+<li>如果出现了问题</li>
+<li>可以去看看这里是不是正确</li>
+</ul>
+<h2 id="_12">总结</h2>
+<ul>
+<li>这次我们彻底研究了vim高亮的原理</li>
+<li>各种语法项syntax item<ul>
+<li>关键字keyword</li>
+<li>匹配模式match</li>
+<li>区域region</li>
+</ul>
+</li>
+<li>定义好了之后还可以设置链接成组<ul>
+<li><code>hi def link javaComment Comment</code></li>
+</ul>
+</li>
+<li>然后就可以在颜色文件中具体配色了<ul>
+<li>比如murphy中对于Comment的定义</li>
+<li><code>hi Comment ctermfg=yellow</code></li>
+</ul>
+</li>
+<li>不同的语言可以有不同的语法定义</li>
+<li>其实，vim也是门语言</li>
+<li>vimscript也是可以编程的</li>
+<li>怎么玩呢？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：表达式 expression，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解表达式 Expression。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 表达式, Expression, expression">
+    <meta property="og:title" content="oeasy Vim编辑器教程：表达式 expression，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解表达式 Expression。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="expression">表达式 expression</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>关于 <code>函数function</code>，我们回忆一下<ul>
+<li>可以查询</li>
+<li>可以新建</li>
+<li>可以调用</li>
+<li>还可以删除</li>
+</ul>
+</li>
+<li>我想用 <code>函数function</code> 往 <code>buffuer</code> 里面写点东西</li>
+<li>比如写一个java的基本程序框架</li>
+<li>这样一调用就好使了</li>
+<li>省的自己打了</li>
+<li>可以么？🤔</li>
+</ul>
+<h3 id="_2">追加函数</h3>
+<ul>
+<li>应该如何去找关于写 <code>buffer</code> 的函数呢？</li>
+<li><code>:h</code><ul>
+<li>找到用户手册41.6</li>
+<li>找到这一类的函数</li>
+<li>属于text-functions</li>
+<li>文本函数</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627784650635.png" /></p>
+<h3 id="_3">追加函数</h3>
+<ul>
+<li><code>:h append()</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627784729955.png" /></p>
+<ul>
+<li>帮助中提到了{lnum}可以是0</li>
+<li>我来试试</li>
+</ul>
+<h3 id="_4">函数初试</h3>
+<ul>
+<li><code>:call append(0,"oeasy o2z o3z")</code></li>
+<li><code>:call append(0,"111oeasy o2z o3z o4z")</code></li>
+<li><code>:call append(0,"222oeasy o2z o3z o4z")</code></li>
+<li>
+<p><code>:call append(1,"3333oeasy o2z o3z o4z")</code></p>
+</li>
+<li>
+<p>结论是可以插入</p>
+</li>
+<li>一次在指定位置插一行</li>
+<li>如果想要插入最上面一行<ul>
+<li>使用<code>:call append(0,"在第一行插入")</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">插入框架</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627785793099.png" /></p>
+<ul>
+<li>再重新进入vi</li>
+<li><code>:call Oeasy()</code></li>
+<li>试验成功</li>
+<li>但是这个应该是只对于java文件起作用的？</li>
+<li>应该如何写？</li>
+<li>先把这段函数复制下来</li>
+</ul>
+<h3 id="ftplugin">ftplugin文件类型插件</h3>
+<ul>
+<li>使用文件类型插件有两种方式</li>
+<li>所有用户共享文件类型插件<ul>
+<li><code>vi /usr/share/vim/vim81/ftplugin/java.vim</code></li>
+</ul>
+</li>
+<li>当前用户独有的文件类型插件<ul>
+<li><code>mkdir -p ~/.vim/ftplugin</code></li>
+<li><code>vi ~/.vim/ftplugin/java.vim</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627786108823.png" /></p>
+<ul>
+<li>函数名改成Initial</li>
+<li>保存并退出</li>
+</ul>
+<h3 id="_6">文件类型初始化</h3>
+<ul>
+<li>在css文件中调用函数<ul>
+<li><code>vi Oeasy.css</code></li>
+<li><code>:call Initial()</code></li>
+<li>找不到函数</li>
+</ul>
+</li>
+<li>在java文件中调用函数<ul>
+<li><code>vi Oeasy.java</code></li>
+<li><code>:call Initial()</code></li>
+<li>插入成功</li>
+<li>但是这个不够通用</li>
+<li>要是能关联当前文件的文件名作为类名就好了</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">使用文件名</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220101-1641049209210.png" /></p>
+<ul>
+<li><code>:echo expand('%:t:r')</code></li>
+<li>这是可以显示当前的文件名的</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220101-1641049218305.png" /></p>
+<ul>
+<li>这原理是什么呢？</li>
+<li><code>:h %:t</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220101-1641049350051.png" /></p>
+<h3 id="_8">整合</h3>
+<ul>
+<li>把这个整合到Initial函数里面</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627787583282.png" /></p>
+<ul>
+<li>试验成功</li>
+<li>我想要调整整个buffer的缩进，怎么办呢？<ul>
+<li><code>gg=G</code></li>
+</ul>
+</li>
+<li>但是我想把这条命令整合到Intial函数里面可能么？</li>
+</ul>
+<h3 id="_9">表达式</h3>
+<ul>
+<li>怎么执行正常模式的命令呢？<ul>
+<li><code>:h :normal</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627788217688.png" /></p>
+<ul>
+<li><code>:normal gg=G</code><ul>
+<li>试验成功</li>
+</ul>
+</li>
+<li><code>normal gg=G</code>是一个命令表达式</li>
+<li>但是怎么在函数里面执行这个表达式呢？</li>
+</ul>
+<h3 id="_10">执行命令表达式</h3>
+<ul>
+<li>先<kbd>u</kbd>回来</li>
+<li><code>:h execute</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627788021975.png" /></p>
+<ul>
+<li>可以在函数里面执行表达式</li>
+<li>什么是表达式呢？</li>
+<li>就是刚才的Ex command</li>
+<li><code>:execute "normal gg=G"</code></li>
+<li>试验成功</li>
+<li>
+<p>缩进之后我可以保存么？</p>
+</li>
+<li>
+<p><code>:execute "w"</code></p>
+<ul>
+<li>试验成功</li>
+</ul>
+</li>
+<li><code>:call execute("w")</code><ul>
+<li>也试验成功</li>
+</ul>
+</li>
+<li>下面尝试放到函数里</li>
+</ul>
+<h3 id="_11">在函数里执行表达式</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627795332877.png" /></p>
+<ul>
+<li><code>:call Init()</code></li>
+<li>调用成功！</li>
+<li>缩进和保存都是ok的！</li>
+</ul>
+<h3 id="_12">建立映射</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210801-1627822846347.png" /></p>
+<ul>
+<li><code>:source %</code></li>
+<li><code>:call Id()</code></li>
+<li><code>:map ... :call Id()&lt;CR&gt;</code></li>
+<li><code>:10,30&gt;&gt;</code></li>
+<li><code>...</code></li>
+</ul>
+<h2 id="_13">总结</h2>
+<ul>
+<li>关于 函数<code>function</code><ul>
+<li>可以调用别的函数<ul>
+<li><code>:call append(0,"oeasy o2z o3z")</code></li>
+</ul>
+</li>
+<li>还可以执行表达式<ul>
+<li><code>:call execute("normal gg=G")</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这样就可以把一系列的操作封装到一个函数里面</li>
+<li>然后在命令行模式调用就可以了</li>
+<li>但如果我想不用`:call Init()"</li>
+<li>而是像<code>:ls</code>一样执行<code>:init</code>，可能么？🤔</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

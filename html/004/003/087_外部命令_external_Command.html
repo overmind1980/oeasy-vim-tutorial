@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：外部命令 external，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解外部命令 external Command。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 外部命令, external, Command">
+    <meta property="og:title" content="oeasy Vim编辑器教程：外部命令 external，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解外部命令 external Command。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="external">外部命令  external</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次研究的是global</li>
+<li><code>:[range]global/{pattern}/{command}</code><ul>
+<li><code>range</code> 是执行的范围</li>
+<li><code>pattern</code> 是搜索的模式</li>
+<li><code>command</code> 执行的命令</li>
+</ul>
+</li>
+<li>命令有很多<ul>
+<li>d 删除</li>
+<li>m 移动</li>
+<li>t 拷贝</li>
+<li>p 打印</li>
+<li>s 替换</li>
+<li>sort 排序</li>
+<li>update 更新</li>
+</ul>
+</li>
+<li><code>global</code> 是很好用的内部命令</li>
+<li>据说vim还可以执行外部命令呢?！</li>
+<li>怎么玩呢？🤔</li>
+</ul>
+<h3 id="_2">回忆外部命令</h3>
+<ul>
+<li><code>:!ls</code><ul>
+<li>在命令行列表</li>
+</ul>
+</li>
+<li><code>:!python %</code><ul>
+<li>运行python程序额</li>
+</ul>
+</li>
+<li><code>:!javac %</code><ul>
+<li>编译java程序</li>
+</ul>
+</li>
+</ul>
+<h3 id="r">r读取</h3>
+<ul>
+<li><code>:r oeasy.txt</code></li>
+<li><code>:r !ls</code></li>
+<li><code>:r !ls -lah</code></li>
+<li><code>:r !cat oeasy.txt</code></li>
+<li><code>:r !curl -s 'http://oeasy.org'</code></li>
+<li>这样就可以把各种信息直接读到vim中了</li>
+</ul>
+<h3 id="_3">我杀死我自己</h3>
+<ul>
+<li><code>:!ps</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627866038521.png" /></p>
+<ul>
+<li><code>:!kill -9 341</code></li>
+</ul>
+<h3 id="trtranslate">tr命令translate</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627866158517.png" /></p>
+<ul>
+<li><code>:.!tr '[:lower:]' '[:upper:]'</code><ul>
+<li><code>.!</code> <ul>
+<li>当前行执行外部命令`</li>
+</ul>
+</li>
+<li><code>!tr '[:lower:]' '[:upper:]'</code><ul>
+<li>调用外部命令把小写字母translate成大写字母</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:%!tr '[:lower:]' '[:upper:]'</code><ul>
+<li>全部行都执行</li>
+</ul>
+</li>
+<li><code>:1，2!tr '[:lower:]' '[:upper:]'</code><ul>
+<li>1、2行执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="awk">awk</h3>
+<ul>
+<li>awk其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627867055437.png" /></p>
+<ul>
+<li><code>:%!awk '{print $1}'</code></li>
+<li><kbd>u</kbd>回来</li>
+<li>再试试<code>:%!awk '{print $2}'</code></li>
+</ul>
+<h3 id="pipe">管道pipe</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210802-1627867271401.png" /></p>
+<ul>
+<li><code>:%!awk 'NR &gt; 1' | sort -nk 3 | column -t</code><ul>
+<li><code>%!</code> 执行范围range是所有行</li>
+<li><code>awk 'NR &gt; 1'</code> 从第二行开始awk</li>
+<li><code>|</code> 管道</li>
+<li><code>sort -nk 3</code>  使用第3列进行排序</li>
+<li><code>column -t</code> 用空格隔开</li>
+</ul>
+</li>
+</ul>
+<h2 id="_4">总结</h2>
+<ul>
+<li>这次我们尝试了一下各种在vi中执行外部程序<ul>
+<li>可以排序</li>
+<li>可以改大小写</li>
+<li>还可以用管道</li>
+<li>直接对于缓冲buffer文件进行操作</li>
+<li>还是很方便的</li>
+</ul>
+</li>
+<li>其实还有一个外部命令很重要<ul>
+<li>根据内容搜索grep</li>
+<li>这个怎么和vim配合呢？🤔</li>
+</ul>
+</li>
+<li>下次再说！</li>
+</ul>
+    </div>
+</body>
+</html>

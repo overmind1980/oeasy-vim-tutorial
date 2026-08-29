@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：向前向后，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解向前向后。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 向前向后">
+    <meta property="og:title" content="oeasy Vim编辑器教程：向前向后，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解向前向后。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">向前向后</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<p><img alt="hjkl" src="images/hjkl.png" /></p>
+<ul>
+<li>我们上次强化了起手势🧘</li>
+<li>回忆了基本的移动方式 <code>hjkl</code></li>
+<li>除 <code>hjkl</code> 外,据说还有更厉害的移动方式</li>
+<li>是什么呢？</li>
+</ul>
+<h2 id="_3">下素材</h2>
+<div class="highlight"><pre><span></span><code><span class="c1">#这个素材，我们下载过，重温一下</span>
+wget<span class="w"> </span>gitee.com/overmind1980
+<span class="c1">#然后看看下载了个啥</span>
+ls
+<span class="c1">#最后用vim打开这个网页</span>
+vim<span class="w"> </span>overmind1980
+</code></pre></div>
+
+<p><img alt="web" src="images/overmind1980github.png" /></p>
+<h2 id="_4">使用帮助学习</h2>
+<ul>
+<li>其他的移动命令应该和 <code>hjkl</code> 离得不远</li>
+<li>可以使用 <code>:h h</code>先找到  <code>h</code> 的帮助📕<ul>
+<li>注意是 <code>:h h</code> ，而不是 <code>:h :h</code></li>
+<li><code>:h h</code> 查找的是 正常模式下 <kbd>h</kbd> 命令的帮助手册</li>
+<li><code>:h :h</code> 查找的是 命令行模式下 <code>:h</code> 命令的帮助手册</li>
+</ul>
+</li>
+<li>找到这个文件叫做 <code>motion.txt</code></li>
+<li>对应的位置叫做 <code>2.Left-right motion</code></li>
+</ul>
+<p><img alt="hh" src="images/h_20h.png" /></p>
+<ul>
+<li>点击上图可放大 </li>
+</ul>
+<h3 id="_5">在帮助中查找单词</h3>
+<ul>
+<li>我希望按照<code>单词</code>进行移动<ul>
+<li>单词的英文是 <code>word</code></li>
+<li>在<code>vim</code>打开的 <code>motion.txt</code> 帮助手册中<ul>
+<li>使用 <code>/word</code> </li>
+<li>查找 <code>motion.txt</code> 中关于 <code>word</code> 的单词</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>找到这个命令叫做 <code>w</code></li>
+<li>退出帮助 <code>:q</code> 试试 <code>w</code></li>
+</ul>
+<p><img alt="hh" src="images/aboutword.png" /></p>
+<h3 id="word">word</h3>
+<p><img alt="hh" src="images/word.png" /></p>
+<ul>
+<li><code>w</code> 可以移动到下一个单词的开头</li>
+<li><code>w</code> 比 <code>l</code> 效率要高好多 </li>
+<li>让我们在环境中爽起来➡️➡️➡️</li>
+<li><code>w</code> <code>w</code> <code>w</code>...</li>
+<li>但是只有向前，没有回去吗？🤔</li>
+</ul>
+<h3 id="backward">搜索 backward🔙</h3>
+<ul>
+<li>可以使用 <code>:h w</code>先找到 <code>w</code> 的帮助</li>
+<li>还是 <code>motion.txt</code></li>
+<li>可以使用 <code>/backward</code> 查找向前之类的单词</li>
+<li>找到我们需要的命令 <code>b</code></li>
+</ul>
+<p><img alt="backward" src="images/backward.png" /></p>
+<h3 id="backward_1">backward</h3>
+<p><img alt="backward" src="images/backb.png" /></p>
+<ul>
+<li><code>b</code> 就是向前一个单词</li>
+<li><code>b</code> 来到前一个单词的词头</li>
+<li>有来就有去</li>
+<li>有阴就有阳</li>
+<li>我们可以使用 <code>w</code> 和 <code>b</code> 反复横跳🤸</li>
+</ul>
+<h2 id="_6">总结</h2>
+<ul>
+<li>我们这次学了向前一个单词</li>
+<li><kbd>w</kbd></li>
+<li>意思是 <code>word</code></li>
+</ul>
+<p><img alt="backward" src="images/word.png" /></p>
+<ul>
+<li>还学习了向后一个单词 </li>
+<li><kbd>b</kbd></li>
+<li>意思是 <code>backward</code></li>
+</ul>
+<p><img alt="backward" src="images/backb.png" /></p>
+<ul>
+<li>这俩命令都落在单词的第一个字母</li>
+<li>还有什么好玩的命令吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：另存与保存，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解保存修改。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖可以看到另存的 o2z.txt 真的被保存下来了！🤪，但是能否直接保存当前文件呢？等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 保存修改, 另存与保存">
+    <meta property="og:title" content="oeasy Vim编辑器教程：另存与保存，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解保存修改。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖可以看到另存的 o2z.txt 真的被保存下来了！🤪，但是能否直接保存当前文件呢？等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">另存与保存</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<p><img alt="force quit" src="images/vim_mode_change.png" /></p>
+<ul>
+<li>我们上次进入了插入模式</li>
+<li>从正常模式，按<kbd>i</kbd>，进插入模式</li>
+<li>从插入模式，按<kbd>ctrl</kbd>+<kbd>c</kbd> 退回到正常模式</li>
+<li>这次我们想想应该如何保存这个文件</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-l<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>oeasy.txt
+vi<span class="w"> </span>oeasy.txt
+</code></pre></div>
+
+<h2 id="_3">保存文件</h2>
+<ul>
+<li>首先要查询 <code>save</code> 相关的帮助📕</li>
+<li><code>:h save</code></li>
+<li>只是找到了 <code>saveas {file}</code></li>
+<li>这一看就是 <code>另存为</code> 啊</li>
+</ul>
+<p><img alt="force quit" src="images/saveas.png" /></p>
+<ul>
+<li>我们来试一下 <kbd>i</kbd> 进入插入模式</li>
+<li>随便打字 🅰️</li>
+<li>然后另存为 <code>:saveas o2z.txt</code></li>
+<li>这个 <code>o2z.txt</code> 是 <code>saveas</code> 的参数,也就是保存的文件名</li>
+<li>然后退出 <code>:q</code> </li>
+</ul>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>o2z.txt
+</code></pre></div>
+
+<p><strong>可以看到另存的 <code>o2z.txt</code> 真的被保存下来了！🤪，但是能否直接保存当前文件呢？</strong></p>
+<h2 id="_4">直接存储</h2>
+<ul>
+<li>我们再次打开 <code>oeasy.txt</code></li>
+<li>我们继续查帮助 <code>:h save</code> </li>
+<li>往上翻</li>
+</ul>
+<p><img alt="force quit" src="images/write_com.png" /></p>
+<h3 id="write">write 命令</h3>
+<ul>
+<li>找到了一个 <code>:w[rite]</code> 命令</li>
+<li>复杂写法是 <code>:write</code></li>
+<li>简单写法是 <code>:w</code></li>
+<li>我们再对文件进行修改</li>
+<li>注意文件名 <code>oeasy.txt[+]</code> 中那个 <code>[+]</code>，就是有修改但是未保存的标志</li>
+</ul>
+<p><img alt="write" src="images/writeit.png" /></p>
+<ul>
+<li>如果不保存直接退出</li>
+<li><code>vim</code> 就会报错</li>
+</ul>
+<h3 id="vim">vim的报错</h3>
+<ul>
+<li>再修改一下文件<ul>
+<li><code>[+]</code> 又出来了</li>
+</ul>
+</li>
+<li>如果没有保存文件就想<code>:q</code>的话</li>
+<li>会报 <code>E37</code> 错误</li>
+<li>这是啥意思？</li>
+<li>什么不会就 <code>:h</code> 什么</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625455972593.png" /></p>
+<ul>
+<li>面对报错怎么办呢？</li>
+</ul>
+<h3 id="_5">查询报错</h3>
+<ul>
+<li>我们明确地知道错误是E37</li>
+<li>那么我们就查询报错信息</li>
+<li>我们可以直接<code>:h E37</code>查询这个错误的详细信息</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625455978952.png" /></p>
+<ul>
+<li>报错是好事</li>
+<li>能让我们知道错在哪里</li>
+<li>知道了之后</li>
+<li><code>:q</code> 退出报错子窗口</li>
+<li>这次再来存储</li>
+</ul>
+<h3 id="_6">保存细节</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211107-1636290620573.png" /></p>
+<ul>
+<li>状态横条的上有<ul>
+<li>文件名<ul>
+<li>oeasy.txt</li>
+</ul>
+</li>
+<li>未保存标记<ul>
+<li>[+]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>:w回车之后</li>
+</ul>
+<h3 id="_7">保存后</h3>
+<ul>
+<li>在最下面一行：<ul>
+<li>文件名<ul>
+<li>oeasy.txt</li>
+</ul>
+</li>
+<li>行数<ul>
+<li>6L </li>
+</ul>
+</li>
+<li>字符数<ul>
+<li>337C</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211107-1636290738022.png" /></p>
+<h4 id="_8">这时候我们再退出</h4>
+<ul>
+<li>先执行操作 <code>:q</code> </li>
+<li>再执行 <code>cat</code>查看 <code>oeasy.txt</code></li>
+<li>真的已经被修改了！！！🤪</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>这次我们学会了另存为命令 <code>:saveas {file}</code></li>
+<li>还有直接保存命令 <code>:w</code></li>
+<li>真的可以把修改的内容保存了😃</li>
+<li>还有什么可玩的？🤔</li>
+<li>我们下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

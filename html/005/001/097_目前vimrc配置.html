@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：目前vimrc配置，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解目前vimrc配置。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖" leader let mapleader = ',' let g:mapleader = ','等内容，搜索oeasy即可学习。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 目前vimrc配置">
+    <meta property="og:title" content="oeasy Vim编辑器教程：目前vimrc配置，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解目前vimrc配置。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 本课程涵盖" leader let mapleader = ',' let g:mapleader = ','等内容，搜索oeasy即可学习。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="vimrc">目前vimrc配置</h1>
+<h2 id="vimrc_1">目前vimrc配置</h2>
+<div class="highlight"><pre><span></span><code><span class="s">"==========================================</span>
+<span class="s">" ProjectLink: https://github.com/wklken/vim-for-server</span>
+<span class="s">" Author:  wklken</span>
+<span class="s">" Version: 0.2</span>
+<span class="s">" Email: wklken@yeah.net</span>
+<span class="s">" BlogPost: http://www.wklken.me</span>
+<span class="s">" Donation: http://www.wklken.me/pages/donation.html</span>
+<span class="s">" ReadMe: README.md</span>
+<span class="s">" Last_modify: 2015-07-07</span>
+<span class="s">" Desc: simple vim config for server, without any plugins.</span>
+<span class="s">"==========================================</span>
+
+<span class="s">" leader</span>
+<span class="n">let</span><span class="w"> </span><span class="n">mapleader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">','</span>
+<span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">mapleader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">','</span>
+
+<span class="s">" syntax</span>
+<span class="n">syntax</span><span class="w"> </span><span class="n">on</span>
+
+<span class="s">" history : how many lines of history VIM has to remember</span>
+<span class="n">set</span><span class="w"> </span><span class="n">history</span><span class="o">=</span><span class="mi">2000</span>
+
+<span class="s">" filetype</span>
+<span class="n">filetype</span><span class="w"> </span><span class="n">on</span>
+<span class="s">" Enable filetype plugins</span>
+<span class="n">filetype</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="n">on</span>
+<span class="n">filetype</span><span class="w"> </span><span class="n">indent</span><span class="w"> </span><span class="n">on</span>
+
+
+<span class="s">" base</span>
+<span class="n">set</span><span class="w"> </span><span class="n">nocompatible</span><span class="w">                </span><span class="s">" don't bother with vi compatibility</span>
+<span class="n">set</span><span class="w"> </span><span class="n">autoread</span><span class="w">                    </span><span class="s">" reload files when changed on disk, i.e. via `git checkout`</span>
+<span class="n">set</span><span class="w"> </span><span class="n">shortmess</span><span class="o">=</span><span class="n">atI</span>
+
+<span class="n">set</span><span class="w"> </span><span class="n">magic</span><span class="w">                       </span><span class="s">" For regular expressions turn magic on</span>
+<span class="n">set</span><span class="w"> </span><span class="n">title</span><span class="w">                       </span><span class="s">" change the terminal's title</span>
+<span class="n">set</span><span class="w"> </span><span class="n">nobackup</span><span class="w">                    </span><span class="s">" do not keep a backup file</span>
+<span class="n">set</span><span class="w"> </span><span class="n">wrap</span>
+
+<span class="n">set</span><span class="w"> </span><span class="n">novisualbell</span><span class="w">                </span><span class="s">" turn off visual bell</span>
+<span class="n">set</span><span class="w"> </span><span class="n">noerrorbells</span><span class="w">                </span><span class="s">" don't beep</span>
+<span class="n">set</span><span class="w"> </span><span class="n">visualbell</span><span class="w"> </span><span class="n">t_vb</span><span class="o">=</span><span class="w">            </span><span class="s">" turn off error beep/flash</span>
+<span class="n">set</span><span class="w"> </span><span class="n">t_vb</span><span class="o">=</span>
+<span class="n">set</span><span class="w"> </span><span class="n">tm</span><span class="o">=</span><span class="mi">500</span>
+
+
+<span class="s">" show location</span>
+<span class="n">set</span><span class="w"> </span><span class="n">cursorcolumn</span>
+<span class="n">set</span><span class="w"> </span><span class="n">cursorline</span>
+
+
+<span class="s">" movement</span>
+<span class="n">set</span><span class="w"> </span><span class="n">scrolloff</span><span class="o">=</span><span class="mi">7</span><span class="w">                 </span><span class="s">" keep 3 lines when scrolling</span>
+
+
+<span class="s">" show</span>
+<span class="n">set</span><span class="w"> </span><span class="n">ruler</span><span class="w">                       </span><span class="s">" show the current row and column</span>
+<span class="n">set</span><span class="w"> </span><span class="n">number</span><span class="w">                      </span><span class="s">" show line numbers</span>
+<span class="n">set</span><span class="w"> </span><span class="n">nowrap</span>
+<span class="n">set</span><span class="w"> </span><span class="n">showcmd</span><span class="w">                     </span><span class="s">" display incomplete commands</span>
+<span class="n">set</span><span class="w"> </span><span class="n">showmode</span><span class="w">                    </span><span class="s">" display current modes</span>
+<span class="n">set</span><span class="w"> </span><span class="n">showmatch</span><span class="w">                   </span><span class="s">" jump to matches when entering parentheses</span>
+<span class="n">set</span><span class="w"> </span><span class="n">matchtime</span><span class="o">=</span><span class="mi">2</span><span class="w">                 </span><span class="s">" tenths of a second to show the matching parenthesis</span>
+
+
+<span class="s">" search</span>
+<span class="n">set</span><span class="w"> </span><span class="n">hlsearch</span><span class="w">                    </span><span class="s">" highlight searches</span>
+<span class="n">set</span><span class="w"> </span><span class="n">incsearch</span><span class="w">                   </span><span class="s">" do incremental searching, search as you type</span>
+<span class="n">set</span><span class="w"> </span><span class="n">ignorecase</span><span class="w">                  </span><span class="s">" ignore case when searching</span>
+<span class="n">set</span><span class="w"> </span><span class="n">smartcase</span><span class="w">                   </span><span class="s">" no ignorecase if Uppercase char present</span>
+
+
+<span class="s">" tab</span>
+<span class="n">set</span><span class="w"> </span><span class="n">expandtab</span><span class="w">                   </span><span class="s">" expand tabs to spaces</span>
+<span class="n">set</span><span class="w"> </span><span class="n">smarttab</span>
+<span class="n">set</span><span class="w"> </span><span class="n">shiftround</span>
+
+<span class="s">" indent</span>
+<span class="n">set</span><span class="w"> </span><span class="n">autoindent</span><span class="w"> </span><span class="n">smartindent</span><span class="w"> </span><span class="n">shiftround</span>
+<span class="n">set</span><span class="w"> </span><span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">set</span><span class="w"> </span><span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">set</span><span class="w"> </span><span class="n">softtabstop</span><span class="o">=</span><span class="mi">4</span><span class="w">                </span><span class="s">" insert mode tab and backspace use 4 spaces</span>
+
+<span class="s">" NOT SUPPORT</span>
+<span class="s">" fold</span>
+<span class="n">set</span><span class="w"> </span><span class="n">foldenable</span>
+<span class="n">set</span><span class="w"> </span><span class="n">foldmethod</span><span class="o">=</span><span class="n">indent</span>
+<span class="n">set</span><span class="w"> </span><span class="n">foldlevel</span><span class="o">=</span><span class="mi">99</span>
+<span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">FoldMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">zz</span><span class="w"> </span><span class="o">:</span><span class="n">call</span><span class="w"> </span><span class="n">ToggleFold</span><span class="p">()</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">&gt;</span>
+<span class="n">fun</span><span class="o">!</span><span class="w"> </span><span class="n">ToggleFold</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">FoldMethod</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">        </span><span class="n">exe</span><span class="w"> </span><span class="s">"normal! zM"</span>
+<span class="w">        </span><span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">FoldMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">exe</span><span class="w"> </span><span class="s">"normal! zR"</span>
+<span class="w">        </span><span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">FoldMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">endif</span>
+<span class="n">endfun</span>
+
+<span class="s">" encoding</span>
+<span class="n">set</span><span class="w"> </span><span class="n">encoding</span><span class="o">=</span><span class="n">utf</span><span class="mi">-8</span>
+<span class="n">set</span><span class="w"> </span><span class="n">fileencodings</span><span class="o">=</span><span class="n">ucs</span><span class="o">-</span><span class="n">bom</span><span class="p">,</span><span class="n">utf</span><span class="mi">-8</span><span class="p">,</span><span class="n">cp936</span><span class="p">,</span><span class="n">gb18030</span><span class="p">,</span><span class="n">big5</span><span class="p">,</span><span class="n">euc</span><span class="o">-</span><span class="n">jp</span><span class="p">,</span><span class="n">euc</span><span class="o">-</span><span class="n">kr</span><span class="p">,</span><span class="n">latin1</span>
+<span class="n">set</span><span class="w"> </span><span class="n">termencoding</span><span class="o">=</span><span class="n">utf</span><span class="mi">-8</span>
+<span class="n">set</span><span class="w"> </span><span class="n">ffs</span><span class="o">=</span><span class="n">unix</span><span class="p">,</span><span class="n">dos</span><span class="p">,</span><span class="n">mac</span>
+<span class="n">set</span><span class="w"> </span><span class="n">formatoptions</span><span class="o">+=</span><span class="n">m</span>
+<span class="n">set</span><span class="w"> </span><span class="n">formatoptions</span><span class="o">+=</span><span class="n">B</span>
+
+<span class="s">" select &amp; complete</span>
+<span class="n">set</span><span class="w"> </span><span class="n">selection</span><span class="o">=</span><span class="n">inclusive</span>
+<span class="n">set</span><span class="w"> </span><span class="n">selectmode</span><span class="o">=</span><span class="n">mouse</span><span class="p">,</span><span class="n">key</span>
+
+<span class="n">set</span><span class="w"> </span><span class="n">completeopt</span><span class="o">=</span><span class="n">longest</span><span class="p">,</span><span class="n">menu</span>
+<span class="n">set</span><span class="w"> </span><span class="n">wildmenu</span><span class="w">                           </span><span class="s">" show a navigable menu for tab completion"</span>
+<span class="n">set</span><span class="w"> </span><span class="n">wildmode</span><span class="o">=</span><span class="n">longest</span><span class="p">,</span><span class="n">list</span><span class="p">,</span><span class="n">full</span>
+<span class="n">set</span><span class="w"> </span><span class="n">wildignore</span><span class="o">=*</span><span class="p">.</span><span class="n">o</span><span class="p">,</span><span class="o">*~</span><span class="p">,</span><span class="o">*</span><span class="p">.</span><span class="n">pyc</span><span class="p">,</span><span class="o">*</span><span class="p">.</span><span class="k">class</span>
+
+<span class="s">" others</span>
+<span class="n">set</span><span class="w"> </span><span class="n">backspace</span><span class="o">=</span><span class="n">indent</span><span class="p">,</span><span class="n">eol</span><span class="p">,</span><span class="n">start</span><span class="w">  </span><span class="s">" make that backspace key work the way it should</span>
+<span class="n">set</span><span class="w"> </span><span class="n">whichwrap</span><span class="o">+=&lt;</span><span class="p">,</span><span class="o">&gt;</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">l</span>
+
+<span class="s">" if this not work ,make sure .viminfo is writable for you</span>
+<span class="k">if</span><span class="w"> </span><span class="n">has</span><span class="p">(</span><span class="s">"autocmd"</span><span class="p">)</span>
+<span class="w">  </span><span class="n">au</span><span class="w"> </span><span class="n">BufReadPost</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="s">"'</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="s">"'</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="s">"$"</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">exe</span><span class="w"> </span><span class="s">"normal! g'</span><span class="se">\"</span><span class="s">"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">endif</span>
+<span class="n">endif</span>
+
+<span class="s">" NOT SUPPORT</span>
+<span class="s">" Enable basic mouse behavior such as resizing buffers.</span>
+<span class="s">" set mouse=a</span>
+
+
+<span class="s">" ============================ theme and status line ============================</span>
+
+<span class="s">" theme</span>
+<span class="n">set</span><span class="w"> </span><span class="n">background</span><span class="o">=</span><span class="n">dark</span>
+
+<span class="s">" set mark column color</span>
+<span class="n">hi</span><span class="o">!</span><span class="w"> </span><span class="n">link</span><span class="w"> </span><span class="n">SignColumn</span><span class="w">   </span><span class="n">LineNr</span>
+<span class="n">hi</span><span class="o">!</span><span class="w"> </span><span class="n">link</span><span class="w"> </span><span class="n">ShowMarksHLl</span><span class="w"> </span><span class="n">DiffAdd</span>
+<span class="n">hi</span><span class="o">!</span><span class="w"> </span><span class="n">link</span><span class="w"> </span><span class="n">ShowMarksHLu</span><span class="w"> </span><span class="n">DiffChange</span>
+
+<span class="s">" status line</span>
+<span class="n">set</span><span class="w"> </span><span class="n">statusline</span><span class="o">=%&lt;</span><span class="nf">%f</span><span class="err">\</span><span class="w"> </span><span class="nf">%h%m%r</span><span class="o">%=</span><span class="nf">%k</span><span class="p">[</span><span class="o">%</span><span class="p">{(</span><span class="o">&amp;</span><span class="n">fenc</span><span class="o">==</span><span class="err">\</span><span class="s">"</span><span class="se">\"</span><span class="s">)?&amp;enc:&amp;fenc}%{(&amp;bomb?</span><span class="se">\"</span><span class="s">,BOM</span><span class="se">\"</span><span class="s">:</span><span class="se">\"\"</span><span class="s">)}]\ %-14.(%l,%c%V%)\ %P</span>
+<span class="n">set</span><span class="w"> </span><span class="n">laststatus</span><span class="o">=</span><span class="mi">2</span><span class="w">   </span><span class="s">" Always show the status line - use 2 lines for the status bar</span>
+
+
+<span class="s">" ============================ specific file type ===========================</span>
+
+<span class="n">autocmd</span><span class="w"> </span><span class="n">FileType</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="n">expandtab</span><span class="w"> </span><span class="n">ai</span>
+<span class="n">autocmd</span><span class="w"> </span><span class="n">FileType</span><span class="w"> </span><span class="n">ruby</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">tabstop</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">shiftwidth</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">softtabstop</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">expandtab</span><span class="w"> </span><span class="n">ai</span>
+<span class="n">autocmd</span><span class="w"> </span><span class="n">BufRead</span><span class="p">,</span><span class="n">BufNew</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="n">md</span><span class="p">,</span><span class="o">*</span><span class="p">.</span><span class="n">mkd</span><span class="p">,</span><span class="o">*</span><span class="p">.</span><span class="n">markdown</span><span class="w">  </span><span class="n">set</span><span class="w"> </span><span class="n">filetype</span><span class="o">=</span><span class="n">markdown</span><span class="p">.</span><span class="n">mkd</span>
+
+<span class="n">autocmd</span><span class="w"> </span><span class="n">FileType</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="n">cpp</span><span class="p">,</span><span class="n">java</span><span class="p">,</span><span class="n">go</span><span class="p">,</span><span class="n">php</span><span class="p">,</span><span class="n">javascript</span><span class="p">,</span><span class="n">puppet</span><span class="p">,</span><span class="n">python</span><span class="p">,</span><span class="n">rust</span><span class="p">,</span><span class="n">twig</span><span class="p">,</span><span class="n">xml</span><span class="p">,</span><span class="n">yml</span><span class="p">,</span><span class="n">perl</span><span class="w"> </span><span class="n">autocmd</span><span class="w"> </span><span class="n">BufWritePre</span><span class="w"> </span><span class="o">&lt;</span><span class="n">buffer</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="n">call</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SID</span><span class="o">&gt;</span><span class="n">StripTrailingWhitespaces</span><span class="p">()</span>
+<span class="n">fun</span><span class="o">!</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SID</span><span class="o">&gt;</span><span class="n">StripTrailingWhitespaces</span><span class="p">()</span>
+<span class="w">    </span><span class="n">let</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">(</span><span class="s">"."</span><span class="p">)</span>
+<span class="w">    </span><span class="n">let</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col</span><span class="p">(</span><span class="s">"."</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">%s</span><span class="o">/</span><span class="err">\</span><span class="n">s</span><span class="err">\</span><span class="o">+</span><span class="n">$</span><span class="c1">//e</span>
+<span class="w">    </span><span class="n">call</span><span class="w"> </span><span class="n">cursor</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+<span class="n">endfun</span>
+
+<span class="s">" ============================ key map ============================</span>
+
+<span class="n">nnoremap</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">gk</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="n">gk</span><span class="w"> </span><span class="n">k</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="n">gj</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="n">gj</span><span class="w"> </span><span class="n">j</span>
+
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">j</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">j</span>
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">k</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">k</span>
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">h</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">h</span>
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">l</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">W</span><span class="o">&gt;</span><span class="n">l</span>
+
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">F2</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="n">set</span><span class="w"> </span><span class="n">nu</span><span class="o">!</span><span class="w"> </span><span class="n">nu</span><span class="o">?&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">F3</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="n">set</span><span class="w"> </span><span class="n">list</span><span class="o">!</span><span class="w"> </span><span class="n">list</span><span class="o">?&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">F4</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="n">set</span><span class="w"> </span><span class="n">wrap</span><span class="o">!</span><span class="w"> </span><span class="n">wrap</span><span class="o">?&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="n">set</span><span class="w"> </span><span class="n">paste</span>
+
+<span class="n">au</span><span class="w"> </span><span class="n">InsertLeave</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="n">nocul</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">F6</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="n">exec</span><span class="w"> </span><span class="n">exists</span><span class="p">(</span><span class="err">'</span><span class="n">syntax_on</span><span class="err">'</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="err">'</span><span class="n">syn</span><span class="w"> </span><span class="n">off</span><span class="err">'</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="err">'</span><span class="n">syn</span><span class="w"> </span><span class="n">on</span><span class="err">'</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="s">" kj ???? Esc</span>
+<span class="n">inoremap</span><span class="w"> </span><span class="n">kj</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Esc</span><span class="o">&gt;</span>
+
+<span class="s">" Quickly close the current window</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">q</span><span class="w"> </span><span class="o">:</span><span class="n">q</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+<span class="s">" Quickly save the current file</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">leader</span><span class="o">&gt;</span><span class="n">w</span><span class="w"> </span><span class="o">:</span><span class="n">w</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="s">" select all</span>
+<span class="n">map</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Leader</span><span class="o">&gt;</span><span class="n">sa</span><span class="w"> </span><span class="n">ggVG</span><span class="s">"</span>
+
+<span class="s">" remap U to &lt;C-r&gt; for easier redo</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">r</span><span class="o">&gt;</span>
+
+<span class="s">" Swap implementations of ` and ' jump to markers</span>
+<span class="s">" By default, ' jumps to the marked line, ` jumps to the marked line and</span>
+<span class="s">" column, so swap them</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="err">'</span><span class="w"> </span><span class="err">`</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="err">`</span><span class="w"> </span><span class="err">'</span>
+
+<span class="s">" switch # *</span>
+<span class="s">" nnoremap # *</span>
+<span class="s">" nnoremap * #</span>
+
+<span class="s">"Keep search pattern at the center of the screen."</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">nzz</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">Nzz</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="n">zz</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="cp">#zz</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">g</span><span class="o">*</span><span class="w"> </span><span class="n">g</span><span class="o">*</span><span class="n">zz</span>
+
+<span class="s">" remove highlight</span>
+<span class="n">noremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">silent</span><span class="o">&gt;&lt;</span><span class="n">leader</span><span class="o">&gt;/</span><span class="w"> </span><span class="o">:</span><span class="n">nohls</span><span class="o">&lt;</span><span class="n">CR</span><span class="o">&gt;</span>
+
+<span class="s">"Reselect visual block after indent/outdent.????????????????????????????????</span>
+<span class="n">vnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">gv</span>
+<span class="n">vnoremap</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="n">gv</span>
+
+<span class="s">" y$ -&gt; Y Make Y behave like other capitals</span>
+<span class="n">map</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="n">y$</span>
+
+<span class="s">"Map ; to : and save a million keystrokes</span>
+<span class="s">" ex mode commands made easy ??????????????????</span>
+<span class="n">nnoremap</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">:</span>
+
+<span class="s">" save</span>
+<span class="n">cmap</span><span class="w"> </span><span class="n">w</span><span class="o">!!</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">!</span><span class="n">sudo</span><span class="w"> </span><span class="n">tee</span><span class="w"> </span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span><span class="w"> </span><span class="o">%</span>
+
+<span class="s">" command mode, ctrl-a to head?? ctrl-e to tail</span>
+<span class="n">cnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">j</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">t_kd</span><span class="o">&gt;</span>
+<span class="n">cnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">k</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">t_ku</span><span class="o">&gt;</span>
+<span class="n">cnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">a</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Home</span><span class="o">&gt;</span>
+<span class="n">cnoremap</span><span class="w"> </span><span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">e</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">End</span><span class="o">&gt;</span>
+
+<span class="s">" ============================ plugin ============================</span>
+<span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">NERDTreeMapOpenSplit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'s'</span>
+<span class="n">let</span><span class="w"> </span><span class="n">g</span><span class="o">:</span><span class="n">NERDTreeMapOpenVSplit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'v'</span>
+
+
+<span class="s">" Specify a directory for plugins</span>
+<span class="s">" - For Neovim: ~/.local/share/nvim/plugged</span>
+<span class="w"> </span><span class="s">" - Avoid using standard Vim directory names like 'plugin'</span>
+<span class="s">"call plug#begin('~/.vim/plugged')</span>
+
+<span class="s">"Plug 'scrooloose/nerdtree'</span>
+
+<span class="s">" Initialize plugin system</span>
+<span class="s">"call plug#end()</span>
+<span class="n">colorscheme</span><span class="w"> </span><span class="n">murphy</span>
+</code></pre></div>
+    </div>
+</body>
+</html>

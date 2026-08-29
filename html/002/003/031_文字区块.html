@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：文字区块，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解文字区块。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 文字区块">
+    <meta property="og:title" content="oeasy Vim编辑器教程：文字区块，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解文字区块。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">文字区块</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上上次讲的翻页</li>
+<li>上次先让屏幕位置固定，移动光标</li>
+<li><kbd>H</kbd> - <code>Head</code> 移动到屏幕的顶端</li>
+<li><kbd>M</kbd> - <code>Middle</code> 移动到屏幕的中间</li>
+<li>
+<p><kbd>L</kbd> - <code>Low</code> 移动到屏幕的底部</p>
+</li>
+<li>
+<p>然后让光标固定，移动屏幕的相对位置</p>
+</li>
+<li><kbd>z</kbd> <kbd>t</kbd> - <code>top</code> </li>
+<li><kbd>z</kbd> <kbd>z</kbd> - 光标在屏幕中间</li>
+<li><kbd>z</kbd> <kbd>b</kbd> - <code>bottom</code>    </li>
+</ul>
+<h2 id="_3">逐段移动</h2>
+<div class="highlight"><pre><span></span><code><span class="c1">#首先下载文本找到tomsawyer.txt</span>
+git<span class="w"> </span>clone<span class="w"> </span>http://gitee.com/overmind1980/oeasyvim.git
+<span class="c1">#然后把文本打开</span>
+<span class="nb">cd</span><span class="w"> </span>oeasyvim
+vi<span class="w"> </span>tomsawyer.txt
+</code></pre></div>
+
+<ul>
+<li>使用大括号</li>
+<li><kbd>}</kbd><ul>
+<li>让光标向后移动一段</li>
+</ul>
+</li>
+<li><kbd>{</kbd><ul>
+<li>让光标向前移动一段</li>
+</ul>
+</li>
+<li>段落是用回车符区分的一段段的文字</li>
+<li>可以使用 <code>[count]</code> 翻倍</li>
+<li><code>:h }</code> 来查看文档</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210829-1630198312148.png" /></p>
+<h3 id="_4">逐句移动</h3>
+<ul>
+<li>使用小括号</li>
+<li><kbd>)</kbd><ul>
+<li>让光标向后移动一句</li>
+</ul>
+</li>
+<li><kbd>(</kbd><ul>
+<li>让光标向前移动一句</li>
+</ul>
+</li>
+<li>句子是靠 <code>.</code> 区分的文字块</li>
+<li>可以使用 <code>[count]</code> 翻倍</li>
+<li><code>:h )</code> 来查看文档</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210829-1630198325577.png" /></p>
+<h2 id="_5">总结</h2>
+<ul>
+<li>这次内容很简单，主要针对文本类素材</li>
+<li>移动段落<ul>
+<li><kbd>{</kbd> 向前</li>
+<li><kbd>}</kbd> 向后</li>
+</ul>
+</li>
+<li>移动句子<ul>
+<li><kbd>(</kbd> 向前</li>
+<li><kbd>)</kbd> 向后</li>
+</ul>
+</li>
+<li>如果我想在程序中快速移动</li>
+<li>怎么办呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

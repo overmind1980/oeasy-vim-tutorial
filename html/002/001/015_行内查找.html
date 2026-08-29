@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：行头行尾，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解行内查找。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 行内查找, 行头行尾">
+    <meta property="og:title" content="oeasy Vim编辑器教程：行头行尾，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解行内查找。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">行头行尾</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次学了直接跳到开头和结尾</li>
+<li>最重要的就是 <code>^</code>、<code>$</code><ul>
+<li><kbd>^</kbd> 到开头 </li>
+<li><kbd>$</kbd> 到结尾</li>
+</ul>
+</li>
+<li><kbd>I</kbd> <ul>
+<li>相当于<kbd>^</kbd><kbd>i</kbd></li>
+</ul>
+</li>
+<li><kbd>A</kbd><ul>
+<li>相当于<kbd>$</kbd><kbd>a</kbd></li>
+</ul>
+</li>
+</ul>
+<p><img alt="WEB" src="images/StartEnd2.png" /></p>
+<h2 id="_3">查找帮助</h2>
+<ul>
+<li>还有什么呢?</li>
+<li>还是继续在 <code>motion</code> 里面<ul>
+<li><kbd>^</kbd> 、<kbd>$</kbd>  之后找</li>
+</ul>
+</li>
+<li>还是在左右移动这里面发现有个 <kbd>f</kbd></li>
+<li>看起来是查找某个字符的样子</li>
+</ul>
+<p><img alt="WEB" src="images/Findfind.png" /></p>
+<h3 id="_4">查找字符</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459606491.png" /></p>
+<ul>
+<li>看起来就像<ul>
+<li><kbd>f</kbd>谁就跳到谁那里 </li>
+</ul>
+</li>
+<li>我们来试一下</li>
+<li>先下载个素材</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#下载素材</span>
+git<span class="w"> </span>clone<span class="w"> </span>http://gitee.com/overmind1980/oeasyvim.git
+<span class="c1"># 进入目录</span>
+<span class="nb">cd</span><span class="w"> </span>oeasyvim
+<span class="c1">#需要注意这次用无配置文件的方式启动vi</span>
+vi<span class="w"> </span>-u<span class="w"> </span>NONE<span class="w"> </span>oeasy.java
+</code></pre></div>
+
+<h3 id="_5">行内查找</h3>
+<p><img alt="findo" src="images/findoch.png" /></p>
+<ul>
+<li>通过 <kbd>f</kbd><kbd>o</kbd> </li>
+<li>直接跳到了到了右边邻近的的 <code>o</code> 字符</li>
+<li><kbd>f</kbd> 的意思是<ul>
+<li><code>find</code> 查找</li>
+<li>并让光标跳跃过去</li>
+</ul>
+</li>
+<li><kbd>o</kbd> 的意思是 <ul>
+<li>字符 <code>o</code></li>
+<li>查的不是别的</li>
+<li>是字符 <code>o</code></li>
+</ul>
+</li>
+<li>前面还有 <code>o</code><ul>
+<li>想要找下一个咋办？</li>
+</ul>
+</li>
+<li>还能咋办？<ul>
+<li>查帮助呗！</li>
+<li>一定在 <code>f</code> 附近</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">继续查找</h3>
+<p><img alt="findhelp" src="images/findnexthelp.png" /></p>
+<ul>
+<li>帮助说 <kbd>;</kbd></li>
+<li>可以让查找继续</li>
+</ul>
+<h3 id="_7">动手练习</h3>
+<p><img alt="findnext" src="images/findogoon.png" /></p>
+<ul>
+<li>好像真的可以</li>
+<li>小拇指直接落下去就可以</li>
+<li>查找范围到本行末尾，不能跨行</li>
+<li>帮助里，还有个和 <kbd>;</kbd> 配对的 <kbd>,</kbd> 是干什么用的？</li>
+<li>试试</li>
+</ul>
+<h3 id="_8">反向继续查找</h3>
+<p><img alt="findnext" src="images/findback.png" /></p>
+<ul>
+<li>中指向下找到 <kbd>,</kbd> </li>
+<li>确实可以让他反向</li>
+<li>搜索范围还是被限制在了本行</li>
+<li>帮助里面还提到的 <kbd>F</kbd> 是干什么用的？</li>
+</ul>
+<h3 id="_9">反向跳跃</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625459713964.png" /></p>
+<ul>
+<li><kbd>F</kbd> 和 <kbd>f</kbd> 一样</li>
+<li>都是行内跳跃</li>
+<li>但是 <kbd>F</kbd> 是反向跳跃</li>
+<li>往左查找</li>
+</ul>
+<h3 id="_10">反向跳跃练习</h3>
+<p><img alt="findnext" src="images/findFFF.png" /></p>
+<ul>
+<li>这个时候如果 <kbd>;</kbd> <ul>
+<li>就是继续反向查找</li>
+<li>保持跳跃的方向不变</li>
+<li>只要是方向不变就是 <kbd>;</kbd></li>
+<li>保持小拇指的感觉</li>
+</ul>
+</li>
+<li>方向改变的话<ul>
+<li>就是 <kbd>,</kbd></li>
+<li>体验中指的感觉</li>
+</ul>
+</li>
+<li>帮助里面还提到了 <code>[count]</code><ul>
+<li>这个怎么用</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">跳跃查找</h3>
+<ul>
+<li>回忆 <code>[count]</code><ul>
+<li>这东西是翻子</li>
+<li>可以翻倍</li>
+<li><code>3w</code> 就是跳跃3个小词</li>
+<li><code>4j</code> 就是向下4行</li>
+</ul>
+</li>
+<li><kbd>f</kbd> <kbd>2</kbd> <kbd>o</kbd> 肯定不行<ul>
+<li>因为 <kbd>f</kbd> <kbd>2</kbd> 查找到 <code>2</code> 字符</li>
+<li><kbd>o</kbd> 下方插入一个空行，并切换到插入模式</li>
+</ul>
+</li>
+<li><kbd>2</kbd> <kbd>f</kbd> <kbd>o</kbd> <ul>
+<li>找到第 <code>2</code> 个 <code>o</code></li>
+</ul>
+</li>
+<li><kbd>;</kbd> <ul>
+<li>保持查找方向不变</li>
+<li>继续向前</li>
+</ul>
+</li>
+<li><kbd>,</kbd> <ul>
+<li>反向查找<code>o</code></li>
+</ul>
+</li>
+<li><kbd>2</kbd> <kbd>;</kbd> <ul>
+<li>保持查找方向不变</li>
+<li>向前移动到第 <code>2</code> 个 <code>o</code></li>
+</ul>
+</li>
+<li><kbd>2</kbd> <kbd>,</kbd> <ul>
+<li>反向查找</li>
+<li>第 <code>2</code> 个 <code>o</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="2fo" src="images/2findogoon.png" /></p>
+<ul>
+<li>这个;确实很好用<ul>
+<li>但是前提是得要加上参数</li>
+<li>-u None</li>
+</ul>
+</li>
+<li>如果在默认情况下进入</li>
+</ul>
+<h3 id="_12">默认情况</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220811-1660215588169.png" /></p>
+<ul>
+<li>一按;<ul>
+<li>就到了命令行模式</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">映射回来</h3>
+<ul>
+<li>配置文件做了映射<ul>
+<li>把;映射到了:</li>
+<li>所以;失效了</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220811-1660215522800.png" /></p>
+<ul>
+<li>映射回来<ul>
+<li><code>:map ; ;</code></li>
+<li>再试试</li>
+<li><kbd>;</kbd> 、<kbd>,</kbd> 的感觉</li>
+</ul>
+</li>
+<li>但是每次都要进行映射<ul>
+<li><code>:map ; ;</code></li>
+</ul>
+</li>
+<li>好麻烦</li>
+</ul>
+<h3 id="_14">找到根源</h3>
+<ul>
+<li>可以修改.vimrc配置文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211107-1636297871382.png" /></p>
+<ul>
+<li>225行的问题</li>
+<li>删除掉之后</li>
+<li>重开vim就可以了使用<kbd>;</kbd>了</li>
+</ul>
+<h2 id="_15">总结</h2>
+<ul>
+<li>跳跃<ul>
+<li>向前跳跃是 <kbd>f</kbd></li>
+<li>向后跳跃是 <kbd>F</kbd></li>
+</ul>
+</li>
+<li>继续<ul>
+<li>保持方向是 <kbd>;</kbd></li>
+<li>改变方向是 <kbd>,</kbd></li>
+</ul>
+</li>
+<li>可以加上 <code>[count]</code> 来加速</li>
+<li>还有什么好玩的吗？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

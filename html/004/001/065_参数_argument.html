@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：参数argument，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解参数 argument。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 参数, argument, 参数argument">
+    <meta property="og:title" content="oeasy Vim编辑器教程：参数argument，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解参数 argument。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="argument">参数argument</h1>
+<h2 id="_1">回忆上次</h2>
+<ul>
+<li>上次了解了 窗口 <code>window</code></li>
+<li>窗口是用来装缓冲<code>buffer</code>的</li>
+<li><code>buffer</code>是在内存里面加载的硬盘文件</li>
+<li>窗口的切分<ul>
+<li><code>:sp[lit]</code> 水平切分</li>
+<li><code>:vsp[lit]</code> 垂直切分</li>
+</ul>
+</li>
+<li>窗口的切换<ul>
+<li><kbd>ctr-w</kbd>再<kbd>k</kbd>切换到当前窗口上面的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>j</kbd>切换到当前窗口下面的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>h</kbd>切换到当前窗口左面的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>l</kbd>切换到当前窗口右面的窗口</li>
+</ul>
+</li>
+<li>窗口的隐藏和全屏<ul>
+<li><code>:hid[e]</code>可以隐藏当前窗口<ul>
+<li>隐藏的<code>window</code>中<code>buffer</code>不保存</li>
+<li>除非<code>autowrite</code>设置了</li>
+</ul>
+</li>
+<li><code>:on[ly]</code>可以全屏当前窗口<ul>
+<li>其他的窗口都进入<code>:hide</code>状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>laststatus</code> 可以设置状态栏</li>
+<li><code>terminal</code> 可以开启终端</li>
+<li>上次主要就是<code>window</code>,还挺方便</li>
+<li>尤其多文件操作</li>
+<li>这个还有什么可玩的吗？🤔</li>
+</ul>
+<h3 id="_2">总结简化出窗口的全键盘操作</h3>
+<ul>
+<li>新建与退出<ul>
+<li><kbd>ctr-w</kbd>再<kbd>s</kbd>  相当于<code>:sp[lit]</code> 上下分割</li>
+<li><kbd>ctrl-w</kbd>再<kbd>v</kbd>  相当于<code>:vsp[lit]</code> 左右分割</li>
+<li><kbd>ctrl-w</kbd>再<kbd>q</kbd>  相当于<code>:q[uit]</code></li>
+<li><kbd>ctrl-w</kbd>再<kbd>o</kbd>  相当于<code>on[ly]</code>全屏</li>
+</ul>
+</li>
+<li>多窗口操作<ul>
+<li>所有窗口都有</li>
+<li>全退出<code>:qall</code></li>
+<li>全保存<code>:wall</code></li>
+<li>全保存并退出<code>:wqall</code></li>
+<li>强制退出<code>:qall!</code></li>
+</ul>
+</li>
+<li>选择当前窗口<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>h</kbd>  选择左边的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>j</kbd>  选择下边的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>k</kbd>  选择上边的窗口</li>
+<li><kbd>ctrl-w</kbd>再<kbd>l</kbd>  选择右边的窗口  </li>
+</ul>
+</li>
+<li>调整宽度<ul>
+<li><kbd>ctrl-w</kbd>再<kbd>=</kbd>  所有窗口尽量高度宽度都相等</li>
+<li><kbd>ctrl-w</kbd>再<kbd>-</kbd> 当前窗口高度降低</li>
+<li><kbd>ctrl-w</kbd>再<kbd>+</kbd> 当前窗口高度升高</li>
+<li><kbd>ctrl-w</kbd>再<kbd>&lt;</kbd> 当前窗口宽度降低</li>
+<li><kbd>ctrl-w</kbd>再<kbd>&gt;</kbd> 当前窗口宽度升高</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">同时打开三个文件</h3>
+<ul>
+<li>首先<code>man vi</code>查到打开三个文件的方式<ul>
+<li><code>vi o1 o2 o3</code><ul>
+<li>命令是<code>vi</code></li>
+<li><code>o1 o2 o3</code>是参数列表( <code>arguments</code> list)</li>
+<li>列表里有<code>3</code>个参数 <code>argument</code></li>
+<li>我们可以在 <code>:ar[gs]</code> 查看所有参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612441570438.png" /></p>
+<h3 id="_4">操作参数列表</h3>
+<ul>
+<li><code>arga</code> <ul>
+<li>添加到参数列表 </li>
+<li><code>argument</code> <code>add</code></li>
+<li><code>:arga o4</code> <ul>
+<li>添加 <code>o4</code> 到参数列表</li>
+<li><code>:args</code> 可以看见 <code>o4</code> 进入了参数列表</li>
+</ul>
+</li>
+<li><code>:arga ~/.vimrc</code> 添加一个实际存在的文件<ul>
+<li><code>:args</code> 可以看见 <code>.vimrc</code> 进入了参数列表</li>
+<li><code>ls</code> 可以看到他也进入了 <code>buffer list</code></li>
+<li><code>b .vimrc</code> 可以把当前 <code>window</code> 切换到 <code>.vimrc</code> 这个 <code>buffer</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>:argd</code> <ul>
+<li>从参数列表删除 </li>
+<li><code>argument delete</code></li>
+<li><code>argd o4</code><ul>
+<li>从参数列表删除o4</li>
+<li><code>:args</code> </li>
+<li>可以看见 <code>o4</code> 从参数列表消失</li>
+</ul>
+</li>
+<li><code>argd /home/shiyanlou/.vimrc</code><ul>
+<li>从参数列表删除 <code>.vimrc</code></li>
+<li><code>:args</code></li>
+<li>可以看到<code>.vimrc</code>从参数列表消失</li>
+<li>但是 <code>buffer</code> 还在 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>参数argument和缓存buffer之间什么关系？</li>
+</ul>
+<h3 id="argumentbuffer">参数argument和缓存buffer</h3>
+<ul>
+<li><code>arguements</code>是在打开<code>vim</code>时候打开的参数 <code>arguement</code> 文件列表<ul>
+<li>一开始打开的文件进入参数列表</li>
+<li>在内存中加载成为一个个缓冲<code>buffers</code></li>
+<li>也进入缓冲列表 <code>:buffers</code></li>
+</ul>
+</li>
+<li>这个时候再新打开文件<code>:e o5</code><ul>
+<li><code>o5</code>会进入<code>buffers list</code></li>
+<li>但是不会进入<code>arguments list</code></li>
+</ul>
+</li>
+<li>如果想让他进入的话<ul>
+<li>就需要<code>:arga o5</code></li>
+</ul>
+</li>
+<li>想在<code>arguments list</code>删除的话<ul>
+<li>就需要<code>:argd o5</code></li>
+</ul>
+</li>
+<li>想在<code>buffers list</code>删除的话<ul>
+<li>可以<code>bd3</code>或者<code>bd o2</code></li>
+</ul>
+</li>
+<li>参数 <code>argument</code> 列表和缓存 <code>buffer</code> 列表 关系<ul>
+<li>他们两个除了开始的时候是一致</li>
+<li>后来完全是两个列表</li>
+<li>需要分别维护</li>
+</ul>
+</li>
+<li>我们为什么理清这些东西呢<ul>
+<li>因为以后可能会有针对 缓冲<code>buffers</code> 文件列表的批处理</li>
+<li>也会有针对 参数<code>arguments</code> 文件列表的批处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">多参数多窗口</h3>
+<ul>
+<li>参数多于<code>1</code>的时候可以直接打开多个窗口<ul>
+<li>开关是<code>-o</code></li>
+<li><code>vi -o o1 o2 o3</code></li>
+<li>这样就可以横向打开<code>3</code>个<code>window</code>,每个<code>argument</code>对应一个</li>
+</ul>
+</li>
+<li>或者<code>vi -O o1 o2 o3</code> <ul>
+<li>纵向打开<code>3</code>个文件</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210204-1612440221882.png" /></p>
+<h3 id="vim">在<code>vim</code>中打开多个文件</h3>
+<ul>
+<li>首先在<code>terminal</code>做准备<ul>
+<li><code>ls -lah &gt; oeasy.txt</code></li>
+<li><code>cp oeasy.txt o2z.txt</code></li>
+<li><code>vi</code></li>
+<li><code>:arga *.txt</code> </li>
+</ul>
+</li>
+<li>有没有进入参数argument列表<ul>
+<li><code>:args</code></li>
+</ul>
+</li>
+<li>有没有进入缓冲buffer列表？<ul>
+<li><code>:buffers</code></li>
+</ul>
+</li>
+<li>如果<code>:arga */*.txt</code><ul>
+<li>可以加载一层目录下面的<code>txt</code>文件</li>
+</ul>
+</li>
+<li>退出vim之后</li>
+<li>再来观察<ul>
+<li><code>e *.txt</code>不能执行</li>
+<li><code>e</code> 不支持通配符</li>
+<li><code>e o3z.txt</code>可以把文件加载到<code>buffer list</code></li>
+<li>但不进入<code>argument list</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">直接打开</h3>
+<ul>
+<li>多个文件作为<code>argments list</code>参数列表</li>
+<li>在<code>terminal</code>中运行
+        - <code>sudo find / -mindepth 3 -maxdepth 4 -name passwd</code>
+        - 可以用<code>sudo</code>权限找到所有3层目录到4层目录中
+        - 名字含有<code>passwd</code>的文件列表</li>
+<li>这个文件列表可以交给<code>vi</code>作为<code>argments list</code>参数列表<ul>
+<li><code>sudo find / -mindepth 3 -maxdepth 4 -name passwd | xargs vi</code></li>
+</ul>
+</li>
+<li>这样打开之后 <ul>
+<li><code>argments list</code> 参数列表</li>
+<li><code>buffers list</code> 缓冲列表 </li>
+<li>都自动加载好了</li>
+</ul>
+</li>
+<li>如果有不需要的<ul>
+<li>可以<code>:bd4</code>删除<code>缓冲buffer</code></li>
+<li><code>:argd filename</code>来删除<code>参数argument</code></li>
+</ul>
+</li>
+<li>如果有需要添加的<ul>
+<li><code>:e filename</code> 添加<code>缓冲buffer</code>　</li>
+<li><code>:arga filename</code>添加 <code>参数argument</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210808-1628410458195.png" /></p>
+<h2 id="_7">总结</h2>
+<ul>
+<li>我们这次参数列表 <code>arguments list</code></li>
+<li>所谓参数列表指的是 <code>vim</code> 打开的 <code>参数列表</code></li>
+<li>参数会加载到内存中成为 <code>buffer</code></li>
+<li>参数的控制<ul>
+<li><code>:arga filename</code>添加 <code>参数</code></li>
+<li>此操作支持*可以打开多个文件</li>
+<li><code>:argd filename</code>来删除<code>参数</code></li>
+<li><code>:args</code> 查询参数列表</li>
+</ul>
+</li>
+<li>缓冲的控制<ul>
+<li><code>:bd filename</code>来删除<code>缓存</code></li>
+<li><code>:e filename</code>来打开<code>缓存</code></li>
+<li><code>ls</code>可以列出缓存列表</li>
+</ul>
+</li>
+<li>可以在<code>terminal</code>中配合<code>find</code>来找到文件<ul>
+<li>然后作为参数给<code>vim</code></li>
+<li><code>sudo find / -mindepth 3 -maxdepth 4 -name passwd | xargs vi</code></li>
+</ul>
+</li>
+<li>精准地控制了参数列表或者缓冲列表</li>
+<li>这两个可以怎么用呢？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

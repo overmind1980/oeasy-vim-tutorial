@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：读写文件，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解读写文件。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 读写文件">
+    <meta property="og:title" content="oeasy Vim编辑器教程：读写文件，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解读写文件。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">读写文件</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>命令行的光标控制<ul>
+<li>方向键<kbd>⬅️️</kbd><kbd>➡️️️</kbd>可以控制左右移动</li>
+<li><kbd>shift</kbd>+<kbd>⬅️️</kbd><kbd>➡️️️</kbd>按照word左右移动光标</li>
+<li><kbd>ctrl</kbd>+<kbd>b</kbd> 到开头begin</li>
+<li><kbd>ctrl</kbd>+<kbd>e</kbd> 到结尾end</li>
+<li><kbd>ctrl</kbd>+<kbd>w</kbd> 向前删除一个word</li>
+<li><kbd>ctrl</kbd>+<kbd>u</kbd> 删除到开头</li>
+</ul>
+</li>
+<li>历史命令的遍历<ul>
+<li>方向键<kbd>↑️</kbd><kbd>↓️️️</kbd></li>
+</ul>
+</li>
+<li>命令行的历史记录<ul>
+<li><code>:history</code></li>
+<li><code>:his -5</code></li>
+<li><code>:his s</code></li>
+</ul>
+</li>
+<li>进入命令历史记录编辑<ul>
+<li>命令行状态下 <kbd>ctrl</kbd>+<kbd>f</kbd></li>
+<li>或者正常模式下 <kbd>q</kbd><kbd>:</kbd> </li>
+<li>选择、编辑、回车</li>
+</ul>
+</li>
+<li>使用寄存器<ul>
+<li>命令行状态下 <kbd>ctrl</kbd>+<kbd>r</kbd></li>
+<li>然后输入寄存器的名称就可以了</li>
+</ul>
+</li>
+<li>命令模式可以读写文件吗？🤔</li>
+</ul>
+<h3 id="_3">打开文件</h3>
+<ul>
+<li>我们一般打开文件的方法是在 <code>shell</code> 里面<ul>
+<li><code>vi oeasy.txt</code></li>
+</ul>
+</li>
+<li>如果我们直接进入了<code>vi</code>还可以再打开文件吗？<ul>
+<li>可以！</li>
+<li>用<code>:e oeasy.txt</code></li>
+<li>就可以打开<code>oeasy.txt</code></li>
+<li><code>e</code>意味着<code>edit</code></li>
+</ul>
+</li>
+<li>不清楚的话<ul>
+<li>可以<code>:h :e</code>看到手册！</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628311705074.png" /></p>
+<ul>
+<li>如果我们不知道要打开文件的名字<ul>
+<li>可以执行<code>:!ls</code>看到相应的名字</li>
+</ul>
+</li>
+<li>可以打开目录么？</li>
+<li>试试！👊</li>
+</ul>
+<h3 id="_4">打开目录</h3>
+<ul>
+<li>直接 <code>:e .</code></li>
+<li>可以打开当前目录<ul>
+<li><code>.</code> 代表当前目录</li>
+<li><code>:pwd</code> 可以看到当前目录</li>
+<li>就是运行 <code>vi</code> 的目录</li>
+</ul>
+</li>
+<li>上下方向键选择我们需要编辑的文件</li>
+<li>然后回车开始编辑这个文件</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628312428884.png" /></p>
+<h3 id="netrw">netrw插件</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628312428884.png" /></p>
+<h3 id="netrw_1">netrw插件</h3>
+<ul>
+<li>右上角看到插件名称和版本<ul>
+<li>netrew </li>
+<li>v165</li>
+</ul>
+</li>
+<li><code>:h netrw</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628312638624.png" /></p>
+<h3 id="_5">常用命令</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210807-1628312428884.png" /></p>
+<ul>
+<li><code>-</code> 向上一层</li>
+<li><code>D</code> Delete</li>
+<li><code>R</code> Rename</li>
+<li><code>s</code> sort 切换模式</li>
+<li><code>x</code> 特殊 在File Manager中打开</li>
+</ul>
+<h3 id="_6">执行命令</h3>
+<ul>
+<li>有些命令没有快捷键</li>
+<li>新建文件夹<ul>
+<li><code>!mkdir oeasy</code></li>
+</ul>
+</li>
+<li>新建文件<ul>
+<li><code>e oeasy.rs</code></li>
+</ul>
+</li>
+<li>已经打开了一个缓存文件 <code>oeasy.txt</code></li>
+<li>我们可以用 <code>:r</code> 把别的文件读取进来进行读取<ul>
+<li>比如有个 <code>oeasy.css</code> 在当前目录下</li>
+<li>我们可以 <code>:r ~/.vimrc</code></li>
+</ul>
+</li>
+<li><code>:h :r</code> <ul>
+<li>查询r命令的帮助手册</li>
+<li>手册告诉我们<code>r</code>意味着<code>read</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">在指定位置读取文件</h3>
+<ul>
+<li>这样是插入整个文件,当然也可以指定位置<ul>
+<li><code>:9r oeasy.css</code> 就是在第9行下面插入完整的 <code>oeasy.css</code> </li>
+</ul>
+</li>
+<li>还可以把命令的结果读取当前文件 <code>:r !ls</code><ul>
+<li>这会让 <code>!ls</code> 的输出结果流到当前行之下</li>
+<li>复杂的也可以 <code>:r !ls -lah</code></li>
+<li>也可以控制<code>range</code><ul>
+<li><code>:29r !ls -lah</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这样可以把文件当做输出来用 <ul>
+<li>r !echo $PATH</li>
+<li>r !cowsay oeasy</li>
+<li>r !cat /proc/net/tcp </li>
+</ul>
+</li>
+<li>但是我只想要oeasy.css的2-4行怎么办？</li>
+</ul>
+<h3 id="_8">控制读取范围</h3>
+<ul>
+<li>读取的范围可以用sed命令来控制</li>
+<li>我们来试一下</li>
+<li><code>:!sed -n 1,3p oeasy.css</code><ul>
+<li>只读取oeasy.css的前三行</li>
+</ul>
+</li>
+<li>然后我们可以把这个结果 read 进入到当前文件中</li>
+<li><code>:r !sed -n 1,3p oeasy.css</code><ul>
+<li>可以把oeasy.css前三行读取到当前行之下</li>
+</ul>
+</li>
+<li><code>:15r !sed -n 1,3p oeasy.css</code><ul>
+<li>可以把oeasy.css前三行读取到15行之下</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">使用管道</h3>
+<ul>
+<li><code>:!ls -lah  | sed -n 4,9p</code><ul>
+<li>显示ls查询结果的4-9行</li>
+</ul>
+</li>
+<li><code>:r !ls -lah  | sed -n 4,9p</code><ul>
+<li>把ls查询结果的4-9行重定向到当前文件的当前行下方</li>
+</ul>
+</li>
+<li><code>:9r !ls -lah  | sed -n 4,9p</code><ul>
+<li>把ls查询结果的4-9行重定向到当前文件第9行下方</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">固定列宽</h3>
+<ul>
+<li><code>:h gq</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627379061113.png" /></p>
+<h3 id="_11">具体控制</h3>
+<div class="highlight"><pre><span></span><code>#先更新源
+sudo apt update
+#fortune可以输出谚语 在&lt;linux&gt;教程那部分有介绍
+sudo apt install fortune 
+#使用fortune生成谚语
+fortune -l
+#进入vi
+</code></pre></div>
+
+<ul>
+<li><code>:r !fortune -l</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627378098166.png" /></p>
+<ul>
+<li><code>:set nopaste</code></li>
+<li><code>:set textwidth=30</code><ul>
+<li>控制文字宽度为30</li>
+</ul>
+</li>
+<li><code>gq3k</code><ul>
+<li><code>gq</code> 控制宽度</li>
+<li><code>3k</code> 是 {motion}</li>
+<li>指的是本行和上面三行</li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">运行结果</h3>
+<ul>
+<li><code>gq3j</code><ul>
+<li><code>gq</code> 控制宽度</li>
+<li><code>3j</code> 是 {motion}</li>
+<li>指的是本行和上面三行</li>
+</ul>
+</li>
+<li>也可以用<code>gq3</code>回车</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627378229919.png" /></p>
+<ul>
+<li>注意如果是在<code>vi -u NONE</code>的情况下<ul>
+<li>gq3j是可以用的</li>
+<li>gq3回车也可以通用</li>
+<li>motion但是超越了文档的范围也会报错</li>
+</ul>
+</li>
+<li>从这一点来说<ul>
+<li>vim 确实是很好地完善了vi</li>
+</ul>
+</li>
+<li>不过我又想问了<ul>
+<li>那可以再次改变宽度么？</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">改变宽度</h3>
+<ul>
+<li><code>:set textwidth=50</code></li>
+<li><code>gq8k</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627378222783.png" /></p>
+<h3 id="_14">使用管道</h3>
+<div class="highlight"><pre><span></span><code>#先安软件 fortune、boxes、lolcat  在&lt;linux&gt;教程那部分有介绍
+sudo apt install fortune boxes catlol
+#使用fortune生成谚语
+fortune -l
+#把谚语通过管道送入boxes
+fortune -l ｜ boxes -d cat
+#改成彩色
+fortune -l | boxes -d cat | lolcat
+#进入vi
+:r !fortune -l | boxes -d cat
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627377308322.png" /></p>
+<h3 id="_15">扩展命令区</h3>
+<ul>
+<li>可以设置<code>:set cmdheight=3</code>增大命令区高度</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210709-1625803589057.png" />
+- 确实可以增加命令区高度
+- 不过，这并不能从根本上解决问题
+- 回忆一下
+    - 正常模式下可以使用 <kbd>Q</kbd> 进入Ex命令行模式
+        - 然后<code>:visual</code>切换回来
+    - 或者正常模式下q:进入搜索命令的模式
+        - 搜到后，修改好，回车执行</p>
+<h3 id="_16">写文件</h3>
+<ul>
+<li>我们先查<code>:h :w</code> <ul>
+<li><code>:w</code> 意味着 <code>write</code></li>
+<li><code>:w o3z.txt</code> 把当前文件内容写到 <code>o3z.txt</code></li>
+</ul>
+</li>
+<li>加上{range}<ul>
+<li><code>:3,8w o3z.txt</code>把第3到第8行写到 <code>o3z.txt</code></li>
+</ul>
+</li>
+<li>如果<code>o3z.txt</code>不存在怎么办？<ul>
+<li><code>:w! o3z</code> 先建立文件再写入</li>
+<li>强制写</li>
+<li>但是如果已经存在的文件会造成覆盖</li>
+</ul>
+</li>
+<li>想要追加append应该如何<ul>
+<li><code>:w &gt;&gt; o3z.txt</code> 把内容追加写入到 <code>o3z.txt</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_17">面对崩溃</h3>
+<ul>
+<li><code>vi oeasy.txt</code><ul>
+<li>写上一些东西</li>
+<li>然后等一小段时间</li>
+<li>并不保存</li>
+</ul>
+</li>
+<li>新开一个终端<ul>
+<li><code>ls -a .oeasy.txt.*</code></li>
+<li>发现已存了一个.oeasy.txt.swp</li>
+</ul>
+</li>
+<li>把原来的终端关上<ul>
+<li>相当于原来的终端崩溃了</li>
+<li>因为第一个终端没有保存文件</li>
+<li><code>oeasy.txt</code>不存在</li>
+</ul>
+</li>
+<li><code>vi oeasy.txt</code><ul>
+<li>会提醒我虽然没有<code>oeasy.txt</code></li>
+<li>但是替换文件<code>swp</code>是有的</li>
+<li>刚才没存到文件的东西</li>
+<li>这样可以恢复</li>
+</ul>
+</li>
+<li><code>vi -r oeasy.txt</code><ul>
+<li>这样可以恢复</li>
+</ul>
+</li>
+</ul>
+<h3 id="_18">多人编辑</h3>
+<ul>
+<li>一个终端打开并编辑<code>oeasy.txt</code></li>
+<li>另一个终端也想打开并编辑<code>oeasy.txt</code></li>
+<li>这个时候有一些细节</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210712-1626096057252.png" /></p>
+<ul>
+<li>建议<ul>
+<li>观察两个文件的时间</li>
+<li>用较新的文件</li>
+<li>应避免类似的情形</li>
+</ul>
+</li>
+<li>如果需要同时写一个文件<ul>
+<li>建议用 <code>git</code>之类的 版本控制工具</li>
+</ul>
+</li>
+</ul>
+<h2 id="_19">总结</h2>
+<ul>
+<li>我们这次研究了文件读写</li>
+<li>打开是<code>e</code>,edit<ul>
+<li><code>:e oeasy.txt</code></li>
+<li><code>:e .</code></li>
+</ul>
+</li>
+<li>读是<code>:r</code>,read<ul>
+<li><code>:3r o2z.txt</code> <ul>
+<li>在指定位置(3)读取文件</li>
+</ul>
+</li>
+<li><code>:9r !ls -lah</code> <ul>
+<li>在指定位置(9)读shell命令运行结果</li>
+</ul>
+</li>
+<li><code>:r !sed -n 1,3p oeasy.css</code><ul>
+<li>可以把oeasy.css前三行读取到当前行之下</li>
+</ul>
+</li>
+<li><code>:6r !sed -n 1,3p oeasy.css</code><ul>
+<li>在指定位置(6)把oeasy.css(1-3行)读取到当前行之下</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>写是<code>:w</code>,write<ul>
+<li><code>:w o3z.txt</code> <ul>
+<li>直接写</li>
+</ul>
+</li>
+<li><code>:3,8w o3z.txt</code> <ul>
+<li>范围写</li>
+</ul>
+</li>
+<li><code>:w o3z.txt &gt;&gt;</code> <ul>
+<li>追加写</li>
+</ul>
+</li>
+<li><code>:w! o3z</code> <ul>
+<li>强制写</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>命令行可以进行批量替换么？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：范围控制，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解范围控制。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 范围控制">
+    <meta property="og:title" content="oeasy Vim编辑器教程：范围控制，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解范围控制。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">范围控制</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>这次我们主要就是看命令行</li>
+<li>首先是选择一个 <code>[range]</code> 这个范围</li>
+<li>然后进行相应的操作<ul>
+<li><code>:11,30d</code></li>
+<li><code>:2,7y</code></li>
+</ul>
+</li>
+<li>还可以指定寄存器<ul>
+<li><code>:3,40y a</code></li>
+<li><code>:"aP</code></li>
+</ul>
+</li>
+<li>甚至可以用一行就复制或者剪切内容<ul>
+<li><code>:12,30t50</code>，12-30行复制到50行</li>
+<li><code>:3,6m30</code>, 3-6行移动到30行</li>
+</ul>
+</li>
+<li>这个 <code>[range]</code> 还有什么说法吗？🤔</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612177902708.png" /></p>
+<h3 id="_3">查看手册📕</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612182749347.png" /></p>
+<ul>
+<li><code>:h range</code> 可以查看相应的细节</li>
+</ul>
+<h3 id="_4">范围定义</h3>
+<ul>
+<li><code>{number}</code>，比如<code>1,4,7</code>等具体数字<ul>
+<li><code>:3</code> 就是去第<code>3</code>行</li>
+</ul>
+</li>
+<li><code>.</code> 当前行<ul>
+<li><code>1,.</code>从第1行到当前行 </li>
+</ul>
+</li>
+<li><code>$</code> <ul>
+<li><code>.,$</code>从当前行到最后1行</li>
+<li><code>1,$</code>从第1行到最后1行</li>
+<li><code>:1,$d</code></li>
+</ul>
+</li>
+<li><code>%</code> 所有行<ul>
+<li>相当于<code>1,$</code></li>
+<li><code>:%d</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">匹配相关的范围</h3>
+<ul>
+<li><code>/{pattern}[/]</code> 向下查找到的匹配<code>{pattern}</code>的那行</li>
+<li>比如下图中，光标在第1行</li>
+<li><code>:1,/asdf.*/y</code>就会把从第1行到<code>asdf</code>行的内容复制进入剪切板</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612183312502.png" /></p>
+<ul>
+<li><code>?</code>就是向上搜索</li>
+<li>如果光标在第7行</li>
+<li><code>:?asdf?,3d</code><ul>
+<li>就是向上搜索到asdf的匹配行也就是第2行</li>
+<li>删除的就是2-3行</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">例子展示</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210201-1612183650459.png" /></p>
+<ul>
+<li><code>.+3</code> <ul>
+<li>光标之下 <code>3</code> 行</li>
+</ul>
+</li>
+<li><code>/that/+1</code>    <ul>
+<li>向下找到匹配<code>/that/</code>的那行的下 <code>1</code> 行</li>
+</ul>
+</li>
+<li><code>.,$</code> <ul>
+<li>从当前行到末行</li>
+</ul>
+</li>
+<li><code>0;/oeasy/</code> <ul>
+<li>从第 <code>1</code> 行往后找到的第一个 <code>oeasy</code>，包括第一行</li>
+</ul>
+</li>
+<li><code>1;/oeasy/</code>   <ul>
+<li>从第 <code>1</code> 行,开始往后找的第一个 <code>oeasy</code>，不包括第一行</li>
+</ul>
+</li>
+<li>我们经常用到<kbd>/</kbd>、<kbd>?</kbd>、<kbd>,</kbd></li>
+<li>什么才是正确的输入方法呢？</li>
+</ul>
+<h3 id="_7">小细节</h3>
+<ul>
+<li>输入<kbd>/</kbd><ul>
+<li>右手小指往下点一下</li>
+<li>注意这个时候右手的食指还在<kbd>j</kbd>的凸起上</li>
+<li>只挪动小指</li>
+</ul>
+</li>
+<li><kbd>,</kbd><ul>
+<li>右手中指往下点一下</li>
+<li>注意这个时候右手的食指还在<kbd>j</kbd>的凸起上</li>
+<li>只挪动中指 </li>
+<li>保持基本手型基本架子</li>
+<li>坐姿或站姿保证尾闾中正</li>
+<li>调整呼吸</li>
+</ul>
+</li>
+<li><kbd>?</kbd><ul>
+<li>左手小指按下<kbd>Shift</kbd></li>
+<li>右手小指按下<kbd>/</kbd></li>
+</ul>
+</li>
+<li><kbd>:</kbd><ul>
+<li>左手小指按下<kbd>Shift</kbd></li>
+<li>右手小指按下<kbd>;</kbd></li>
+</ul>
+</li>
+<li>这种左右配合感觉非常美妙<ul>
+<li><kbd>Shift</kbd> 尽量都左右配合</li>
+</ul>
+</li>
+<li>以后可以强制练习一下</li>
+<li>比如<code>http://oeasy.org</code><ul>
+<li><code>:</code>用小指</li>
+<li><code>/</code>也用小指的，左右配合</li>
+<li><code>.</code>用的是无名指</li>
+<li>无名指也叫药师指</li>
+<li>感觉多用的话可以提高灵感</li>
+</ul>
+</li>
+</ul>
+<h2 id="_8">总结</h2>
+<ul>
+<li>有了这个<code>range</code>、<code>address</code>我们可以做很多事情<ul>
+<li>跳转<code>:44</code></li>
+</ul>
+</li>
+<li>复制和剪切<ul>
+<li><code>1,3d</code></li>
+<li><code>3,$y</code></li>
+<li><code>%d o</code></li>
+</ul>
+</li>
+<li>配合搜索<ul>
+<li><code>/oeasy/,$y</code></li>
+<li><code>5;/oeasy/d</code></li>
+</ul>
+</li>
+<li>其实还有一种<code>address</code><ul>
+<li>是 <code>mark</code> 标记</li>
+</ul>
+</li>
+<li>还记得 <code>mark</code>标记 是什么意思？🤔</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>

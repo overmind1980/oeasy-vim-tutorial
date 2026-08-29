@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：内容查找 grep，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解源码编译安装vim。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 源码编译安装vim, 内容查找, grep">
+    <meta property="og:title" content="oeasy Vim编辑器教程：内容查找 grep，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解源码编译安装vim。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="grep">内容查找 grep</h1>
+<h2 id="_1">回忆</h2>
+<ul>
+<li>上次我们彻底研究了vim高亮的原理</li>
+<li>各种语法项syntax item<ul>
+<li>关键字keyword</li>
+<li>匹配模式match</li>
+<li>区域region</li>
+</ul>
+</li>
+<li>定义好了之后还可以设置链接成组<ul>
+<li><code>hi def link javaComment Comment</code></li>
+</ul>
+</li>
+<li>然后就可以在颜色文件中具体配色了<ul>
+<li>比如murphy中对于Comment的定义</li>
+<li><code>hi Comment ctermfg=yellow</code></li>
+</ul>
+</li>
+<li>不同的语言可以有不同的语法定义</li>
+<li>这就是vim的语法高亮体系</li>
+<li>当然vim还有各种好玩的插件</li>
+<li>怎么玩呢？</li>
+</ul>
+<h3 id="_2">当前版本</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498086187.png" /></p>
+<ul>
+<li>当前是8.1</li>
+<li>我希望从github下载最新的源码安装vim</li>
+</ul>
+<h3 id="vim">卸载vim</h3>
+<div class="highlight"><pre><span></span><code>sudo apt remove vim vim-runtime vim-tiny vim-common vim-scripts vim-doc
+</code></pre></div>
+
+<ul>
+<li>卸了之后就找不到了</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498186662.png" /></p>
+<h3 id="_3">下载源码</h3>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/vim/vim.git
+</code></pre></div>
+
+<ul>
+<li>从github下载最新的vim源码</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498606428.png" /></p>
+<h3 id="_4">配置代码</h3>
+<div class="highlight"><pre><span></span><code>cd vim
+./configure --with-features=huge --enable-pythoninterp=yes --enable-python3interp=yes
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498681510.png" /></p>
+<h3 id="_5">编译生成</h3>
+<div class="highlight"><pre><span></span><code>sudo make install
+</code></pre></div>
+
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498881974.png" /></p>
+<h3 id="_6">尝试运行</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661498931448.png" /></p>
+<ul>
+<li>vim可以用</li>
+<li>但是vi不可用了</li>
+</ul>
+<h3 id="_7">添加软连接</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661499116054.png" /></p>
+<ul>
+<li>vi  就又可以用了</li>
+<li>配置一下vim环境</li>
+</ul>
+<h3 id="vimrc">~/.vimrc</h3>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661499190100.png" /></p>
+<ul>
+<li>可以添加一些配置信息</li>
+<li>236行往下应该都是关于插件的</li>
+<li>应该调整颜色配置的位置</li>
+</ul>
+<h3 id="_8">颜色配置</h3>
+<ul>
+<li>搜索color</li>
+<li>找到颜色配置合理的位置</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220826-1661499281216.png" /></p>
+<ul>
+<li>整体结束</li>
+</ul>
+<h2 id="_9">总结</h2>
+<ul>
+<li>我们把vim升级了<ul>
+<li>用的是源码编译的方法</li>
+</ul>
+</li>
+<li>主流程   <ul>
+<li>直接下载源码</li>
+<li>配置</li>
+<li>编译并安装</li>
+</ul>
+</li>
+<li>后续<ul>
+<li>然后设置了软连接</li>
+<li>配置了颜色方案</li>
+</ul>
+</li>
+<li>配置里面最后一部分是关于插件的</li>
+<li>插件怎么玩呢？🤔</li>
+<li>下次再说！👋</li>
+</ul>
+    </div>
+</body>
+</html>

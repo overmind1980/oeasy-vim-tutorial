@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：折叠入门，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解折叠 folding。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 折叠, folding, 折叠入门">
+    <meta property="og:title" content="oeasy Vim编辑器教程：折叠入门，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解折叠 folding。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">折叠入门</h1>
+<h2 id="_2">回忆上次</h2>
+<ul>
+<li>上次学习了一种新的容器 <code>tabs</code>选项卡</li>
+<li><code>tabs</code>选项卡 包含多个选项卡<code>tab</code><ul>
+<li>可以列两个<code>tab</code></li>
+<li>一个编写文件</li>
+<li>一个执行指令</li>
+<li>互不影响</li>
+</ul>
+</li>
+<li>每个 <code>tab</code>选项卡 还可以对应多个<code>window</code><ul>
+<li>可以开两个 <code>window</code> 对比不同</li>
+<li>或者在很长的文档上下对比</li>
+<li>新建<code>tab</code> - <code>:tabnew</code></li>
+<li>切换<code>tab</code> - <kbd>g</kbd><kbd>t</kbd>、<kbd>g</kbd><kbd>T</kbd></li>
+<li>指定<code>tab</code> - <code>1gt</code> <code>2gt</code> <code>3gt</code></li>
+<li>关闭<code>tab</code> - <code>:tabc</code></li>
+<li>列表<code>tab</code> - <code>:tabs</code></li>
+</ul>
+</li>
+<li>除了这些之外还有别的容器吗？🤔</li>
+<li>还是有的！</li>
+</ul>
+<h3 id="folding">折叠folding</h3>
+<ul>
+<li>这次的容器<ul>
+<li>不在 <code>buffer</code>缓存 之外</li>
+<li>而在 <code>buffer</code>缓存 内部</li>
+<li>是折叠文字</li>
+</ul>
+</li>
+<li>怎么折叠呢？</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627051713865.png" /></p>
+<ul>
+<li>好比说我们这里有个 <code>css</code> 文件</li>
+<li>在<code>http://github.com/overmind1980/oeasyvim.git</code>里面 </li>
+<li>找到 <code>oeasy.css</code></li>
+</ul>
+<h3 id="_3">创建折叠</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627051997859.png" />
+- <code>zf6G</code>
+    - 报错了</p>
+<p><img alt="图片描述" src="images/uid1190679-20211123-1637668672985.png" /></p>
+<ul>
+<li><code>:h E350</code></li>
+</ul>
+<h3 id="e350">E350</h3>
+<p><img alt="图片描述" src="images/uid1190679-20211123-1637668704806.png" /></p>
+<ul>
+<li><code>:set foldmethod?</code></li>
+<li><code>:h foldmethod</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211123-1637671539589.png" /></p>
+<h3 id="_4">手动模式</h3>
+<ul>
+<li>把折叠模式设置为manual<ul>
+<li><code>:set foldmethod=manual</code></li>
+</ul>
+</li>
+<li>我们的<code>folding</code>折叠都和字母z相关<ul>
+<li>因为 <code>z</code> 就像一摞纸张打包之后的样子</li>
+<li><code>zf</code> 就是打包 <code>fold</code></li>
+<li><code>zf</code> 后面可以加 <code>motion</code></li>
+</ul>
+</li>
+<li><code>zf4G</code> <ul>
+<li>从光标位置到第4行</li>
+<li>打一个包</li>
+<li>然后我们就可以看到这几行变成了一行</li>
+</ul>
+</li>
+<li>真的发生了折叠！ 😝</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210723-1627052411049.png" /></p>
+<h3 id="_5">开关折叠</h3>
+<ul>
+<li>我们可以把光标放到折叠之后的那一行</li>
+<li><code>zo</code> 可以打开折叠<ul>
+<li>第一个<code>z</code> 是折叠</li>
+<li>第二个<code>o</code>  是 <code>open</code>打开</li>
+</ul>
+</li>
+<li>
+<p><code>zc</code> 可以关闭</p>
+<ul>
+<li>第一个<code>z</code> 是折叠</li>
+<li>第二个<code>c</code> 是 <code>close</code>关闭</li>
+</ul>
+</li>
+<li>
+<p>这两个是折叠最常用的命令</p>
+<ul>
+<li>打开 </li>
+<li>关闭</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">折叠树</h3>
+<ul>
+<li>我们可以设置左侧折叠树<code>foldcolumn</code><ul>
+<li><code>:set foldcolumn=4</code></li>
+<li>就在最左边有4列专门负责打开和关闭折叠的显示<ul>
+<li>+是关闭</li>
+<li>-是打开</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以反复横跳来玩<ul>
+<li>只要有+、-的地方就可以zc、zo</li>
+</ul>
+</li>
+<li>多重折叠<ul>
+<li>可以折叠带有折叠的行</li>
+<li>也就是折叠的嵌套</li>
+</ul>
+</li>
+<li>折叠多了容易乱</li>
+<li>我们要手动删除折叠</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211123-1637676564114.png" /></p>
+<h3 id="_7">取消和再次折叠</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627084786031.png" /></p>
+<ul>
+<li>删除折叠的快捷键是 <code>zd</code><ul>
+<li>顾名思义
+-<code>z</code> 是折叠</li>
+<li><code>d</code> 是删除</li>
+</ul>
+</li>
+<li>来试试</li>
+<li>在左侧<code>foldcolumn</code>是<code>+</code>的地方<ul>
+<li>使用命令zd删除当前光标位置对应的折叠</li>
+</ul>
+</li>
+<li>如果折叠是嵌套的<ul>
+<li>先删除内层的折叠</li>
+</ul>
+</li>
+<li><code>zD</code> 是递归地删除折叠<ul>
+<li>可以把当前光标的递归折叠都删除</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627085128856.png" /></p>
+<ul>
+<li>如果折叠都被删没有了<ul>
+<li>可以先 <code>zf2j</code> 创建一些折叠</li>
+</ul>
+</li>
+<li>好，我们把所有的折叠都删干净了</li>
+<li>然后我们试试创建折叠更好的方法</li>
+</ul>
+<h3 id="_8">利用{}创建折叠</h3>
+<ul>
+<li><code>zf</code>是创建折叠</li>
+<li><code>zf2j</code>中的<code>2j</code>是<code>motion</code></li>
+<li>可以在{}内使用<code>zfa{</code>创建当前标记的折叠</li>
+<li>可用<code>zfi{</code>创建折叠</li>
+<li>效果如下图</li>
+<li>试一下</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20211123-1637676740595.png" /></p>
+<ul>
+<li>能不能一把打开所有的折叠呢？</li>
+</ul>
+<h3 id="_9">折叠层次</h3>
+<ul>
+<li>有这样一个属性叫做<code>foldlevel</code></li>
+<li>折叠层次</li>
+<li>到底怎么用呢？</li>
+<li><code>:set foldlevel=0</code><ul>
+<li>折叠都关了</li>
+</ul>
+</li>
+<li><code>:set foldlevel=1</code><ul>
+<li>折叠都开了</li>
+</ul>
+</li>
+<li>还是挺方便的</li>
+<li>不过每个大括号都要自己创造折叠<ul>
+<li>是否能够自动创建折叠呢？</li>
+</ul>
+</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210724-1627086064715.png" /></p>
+<h3 id="_10">缩进折叠</h3>
+<ul>
+<li>首先我们退出当前这个文件</li>
+<li>然后重新打开</li>
+<li>打开之后先观察当前的折叠模式<ul>
+<li><code>:set foldmethod?</code></li>
+</ul>
+</li>
+<li>如果是manual<ul>
+<li><code>:set foldmethod=indent</code></li>
+<li>把他强制设置为缩进折叠</li>
+<li>可以把这句话写进<code>~/.vimrc</code>这样每次都是缩进折叠了</li>
+<li>我觉得缩进折叠还是很方便的</li>
+</ul>
+</li>
+<li><code>:set foldcolumn=4</code><ul>
+<li>出现折叠树</li>
+</ul>
+</li>
+<li><code>:set foldlevel=0</code><ul>
+<li>全部隐藏</li>
+</ul>
+</li>
+<li><code>:set foldlevel=1</code><ul>
+<li>全部打开</li>
+</ul>
+</li>
+<li>indent折叠要求缩进必须严格符合要求<ul>
+<li><code>gg=G</code>可以帮助你控制缩进</li>
+</ul>
+</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>这次我们讲的是折叠<ul>
+<li>这是vim6.0时候提供的功能</li>
+<li>目的是把细节忽略</li>
+<li>只显示文档的主干</li>
+</ul>
+</li>
+<li>折叠有很多options<ul>
+<li><code>foldlevel</code> - 显示折叠层次</li>
+<li><code>foldcolumn</code> - 折叠树宽度</li>
+<li><code>foldmethod</code> - 折叠方式<ul>
+<li><code>manual</code> - 手动</li>
+<li><code>indent</code> - 缩进</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>折叠的定义<ul>
+<li><code>zf2j</code><ul>
+<li>当前行和下面两行建立折叠</li>
+</ul>
+</li>
+<li><code>zfa{</code><ul>
+<li>用大括号(包含)建立折叠</li>
+</ul>
+</li>
+<li><code>zfi{</code><ul>
+<li>用大括号(不包含)建立折叠</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>折叠的删除<ul>
+<li><code>zd</code></li>
+</ul>
+</li>
+<li>折叠的打开和关闭<ul>
+<li><code>zo</code> open</li>
+<li><code>zc</code> close</li>
+<li><code>:set foldlevel=1</code> 设置折叠层次</li>
+</ul>
+</li>
+<li>这个缩进折叠可以对于程序文件使用么？🤔</li>
+<li>下次再说！</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20220430-1651290723832.png" /></p>
+    </div>
+</body>
+</html>

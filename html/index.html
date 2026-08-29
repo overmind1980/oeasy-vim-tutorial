@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oeasyvim - 在线教程</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+
+.layout { display: flex; height: 100vh; }
+
+/* 左侧导航 */
+.sidebar {
+    width: 320px;
+    min-width: 260px;
+    background: #1e1e2e;
+    color: #cdd6f4;
+    overflow-y: auto;
+    border-right: 1px solid #313244;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-header {
+    padding: 18px 20px;
+    background: #181825;
+    border-bottom: 1px solid #313244;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: .5px;
+    color: #f5c2e7;
+}
+.sidebar-header small {
+    display: block;
+    margin-top: 4px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #a6adc8;
+}
+.search-box {
+    margin: 12px 14px 6px;
+    padding: 8px 12px;
+    background: #313244;
+    border: 1px solid #45475a;
+    border-radius: 6px;
+    color: #cdd6f4;
+    font-size: 13px;
+    outline: none;
+    width: calc(100% - 28px);
+}
+.search-box::placeholder { color: #6c7086; }
+.search-box:focus { border-color: #89b4fa; }
+
+.tree { padding: 8px 0; flex: 1; }
+.tree ul { list-style: none; padding-left: 18px; }
+.tree > ul { padding-left: 0; }
+.tree li { line-height: 1.5; }
+.tree .node {
+    display: flex;
+    align-items: center;
+    padding: 4px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    user-select: none;
+    transition: background .15s;
+}
+.tree .node:hover { background: #313244; }
+.tree .node.active { background: #45475a; color: #f9e2af; font-weight: 500; }
+.tree .node .arrow {
+    display: inline-block;
+    width: 14px;
+    font-size: 10px;
+    color: #6c7086;
+    transition: transform .15s;
+    flex-shrink: 0;
+}
+.tree .node.collapsed .arrow { transform: rotate(-90deg); }
+.tree .node .icon { margin-right: 6px; font-size: 13px; }
+.tree .node.dir { color: #89b4fa; font-weight: 500; }
+.tree .node.file { color: #cdd6f4; }
+.tree .node.file.active { color: #f9e2af; }
+.tree ul.hidden { display: none; }
+
+/* 右侧内容 */
+.content { flex: 1; background: #fff; }
+.content iframe { width: 100%; height: 100%; border: 0; display: block; }
+.welcome {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    color: #555;
+}
+.welcome h1 { color: #333; margin-bottom: 12px; font-size: 28px; }
+.welcome p { font-size: 15px; color: #888; }
+
+/* 滚动条 */
+.sidebar::-webkit-scrollbar { width: 8px; }
+.sidebar::-webkit-scrollbar-track { background: #1e1e2e; }
+.sidebar::-webkit-scrollbar-thumb { background: #45475a; border-radius: 4px; }
+.sidebar::-webkit-scrollbar-thumb:hover { background: #585b70; }
+</style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            OEASY Vim 教程
+            <small>oeasyvim · oeasy 在线教程</small>
+        </div>
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索页面...">
+        <div class="tree" id="tree"></div>
+    </aside>
+    <main class="content">
+        <iframe id="viewer" src="about:blank"></iframe>
+    </main>
+</div>
+
+<script>
+const TREE_DATA = [{"name": "001", "children": [{"name": "001", "children": [{"name": "001_存活下来", "path": "001/001/001_存活下来.html"}, {"name": "002_使用帮助", "path": "001/001/002_使用帮助.html"}, {"name": "003_打开文件", "path": "001/001/003_打开文件.html"}, {"name": "004_深入帮助", "path": "001/001/004_深入帮助.html"}, {"name": "005_插入模式", "path": "001/001/005_插入模式.html"}]}, {"name": "002", "children": [{"name": "006_保存修改", "path": "001/002/006_保存修改.html"}, {"name": "007_从头插入", "path": "001/002/007_从头插入.html"}, {"name": "008_追加文本", "path": "001/002/008_追加文本.html"}, {"name": "009_换行插入", "path": "001/002/009_换行插入.html"}]}]}, {"name": "002", "children": [{"name": "001", "children": [{"name": "010_基本移动", "path": "002/001/010_基本移动.html"}, {"name": "011_向前向后", "path": "002/001/011_向前向后.html"}, {"name": "012_词头词尾", "path": "002/001/012_词头词尾.html"}, {"name": "013_大词小词", "path": "002/001/013_大词小词.html"}, {"name": "014_行头行尾", "path": "002/001/014_行头行尾.html"}, {"name": "015_行内查找", "path": "002/001/015_行内查找.html"}, {"name": "016_行内贴靠", "path": "002/001/016_行内贴靠.html"}, {"name": "017_向上向下", "path": "002/001/017_向上向下.html"}]}, {"name": "002", "children": [{"name": "018_跳到某行", "path": "002/002/018_跳到某行.html"}, {"name": "019_使用标记", "path": "002/002/019_使用标记.html"}, {"name": "020_显示标尺", "path": "002/002/020_显示标尺.html"}, {"name": "021_状态横条", "path": "002/002/021_状态横条.html"}, {"name": "022_配置文件", "path": "002/002/022_配置文件.html"}, {"name": "023_配色方案", "path": "002/002/023_配色方案.html"}, {"name": "024_自定颜色", "path": "002/002/024_自定颜色.html"}, {"name": "025_更多颜色", "path": "002/002/025_更多颜色.html"}, {"name": "026_缩进设置", "path": "002/002/026_缩进设置.html"}, {"name": "027_文件类型", "path": "002/002/027_文件类型.html"}, {"name": "028_水平移动", "path": "002/002/028_水平移动.html"}]}, {"name": "003", "children": [{"name": "029_垂直翻页", "path": "002/003/029_垂直翻页.html"}, {"name": "030_屏位行号", "path": "002/003/030_屏位行号.html"}, {"name": "031_文字区块", "path": "002/003/031_文字区块.html"}, {"name": "032_函数跳转", "path": "002/003/032_函数跳转.html"}, {"name": "033_查找文本", "path": "002/003/033_查找文本.html"}, {"name": "034_查找进阶", "path": "002/003/034_查找进阶.html"}, {"name": "035_正则表达", "path": "002/003/035_正则表达.html"}]}]}, {"name": "003", "children": [{"name": "001", "children": [{"name": "036_插入字符", "path": "003/001/036_插入字符.html"}, {"name": "037_删除字符", "path": "003/001/037_删除字符.html"}, {"name": "038_配合移动", "path": "003/001/038_配合移动.html"}, {"name": "039_剪切粘贴", "path": "003/001/039_剪切粘贴.html"}, {"name": "040_复制粘贴", "path": "003/001/040_复制粘贴.html"}, {"name": "041_各寄存器", "path": "003/001/041_各寄存器.html"}, {"name": "042_剪切进入", "path": "003/001/042_剪切进入.html"}, {"name": "043_替换模式", "path": "003/001/043_替换模式.html"}, {"name": "044_综合练习", "path": "003/001/044_综合练习.html"}]}, {"name": "002", "children": [{"name": "045_按行编辑", "path": "003/002/045_按行编辑.html"}, {"name": "046_范围控制", "path": "003/002/046_范围控制.html"}, {"name": "047_使用标记", "path": "003/002/047_使用标记.html"}, {"name": "048_ed由来", "path": "003/002/048_ed由来.html"}, {"name": "049_命令进阶", "path": "003/002/049_命令进阶.html"}, {"name": "050_命令行效率", "path": "003/002/050_命令行效率.html"}, {"name": "051_读写文件", "path": "003/002/051_读写文件.html"}, {"name": "052_正则查找", "path": "003/002/052_正则查找.html"}, {"name": "053_批量替换", "path": "003/002/053_批量替换.html"}, {"name": "054_匹配替换", "path": "003/002/054_匹配替换.html"}, {"name": "055_参数替换", "path": "003/002/055_参数替换.html"}]}, {"name": "003", "children": [{"name": "056_字符可视", "path": "003/003/056_字符可视.html"}, {"name": "057_行可视化", "path": "003/003/057_行可视化.html"}, {"name": "058_块可视化", "path": "003/003/058_块可视化.html"}, {"name": "059_vim诞生", "path": "003/003/059_vim诞生.html"}, {"name": "060_编辑总结", "path": "003/003/060_编辑总结.html"}]}]}, {"name": "004", "children": [{"name": "001", "children": [{"name": "061_vim选项", "path": "004/001/061_vim选项.html"}, {"name": "062_编辑过程", "path": "004/001/062_编辑过程.html"}, {"name": "063_缓冲_buffer", "path": "004/001/063_缓冲_buffer.html"}, {"name": "064_window分屏", "path": "004/001/064_window分屏.html"}, {"name": "065_参数_argument", "path": "004/001/065_参数_argument.html"}, {"name": "066_批处理操作", "path": "004/001/066_批处理操作.html"}, {"name": "067_vimdiff", "path": "004/001/067_vimdiff.html"}, {"name": "068_批量替换", "path": "004/001/068_批量替换.html"}, {"name": "069_标签页_tab", "path": "004/001/069_标签页_tab.html"}, {"name": "070_折叠_folding", "path": "004/001/070_折叠_folding.html"}, {"name": "071_折叠细节", "path": "004/001/071_折叠细节.html"}]}, {"name": "002", "children": [{"name": "072_视图_view", "path": "004/002/072_视图_view.html"}, {"name": "073_缩写_abbreviation", "path": "004/002/073_缩写_abbreviation.html"}, {"name": "074_映射_map", "path": "004/002/074_映射_map.html"}, {"name": "075_功能键_Fn_映射_map_进阶", "path": "004/002/075_功能键_Fn_映射_map_进阶.html"}, {"name": "076_组合键映射_map", "path": "004/002/076_组合键映射_map.html"}, {"name": "077_会话_session", "path": "004/002/077_会话_session.html"}, {"name": "078_保留环境_viminfo", "path": "004/002/078_保留环境_viminfo.html"}, {"name": "079_操作系统文件格式_fileformat", "path": "004/002/079_操作系统文件格式_fileformat.html"}, {"name": "080_编码格式_encoding", "path": "004/002/080_编码格式_encoding.html"}]}, {"name": "003", "children": [{"name": "081_宏_macro", "path": "004/003/081_宏_macro.html"}, {"name": "082_宏_macro_进阶", "path": "004/003/082_宏_macro_进阶.html"}, {"name": "083_函数_function", "path": "004/003/083_函数_function.html"}, {"name": "084_表达式_Expression", "path": "004/003/084_表达式_Expression.html"}, {"name": "085_命令_command", "path": "004/003/085_命令_command.html"}, {"name": "086_全局命令_global", "path": "004/003/086_全局命令_global.html"}, {"name": "087_外部命令_external_Command", "path": "004/003/087_外部命令_external_Command.html"}, {"name": "088_内容查找grep命令", "path": "004/003/088_内容查找grep命令.html"}, {"name": "089_自动命令_autocmd", "path": "004/003/089_自动命令_autocmd.html"}, {"name": "090_高亮细节_Highlight", "path": "004/003/090_高亮细节_Highlight.html"}, {"name": "091_语法定义_syntax", "path": "004/003/091_语法定义_syntax.html"}]}]}, {"name": "005", "children": [{"name": "001", "children": [{"name": "092_源码编译安装vim", "path": "005/001/092_源码编译安装vim.html"}, {"name": "093_插件管理_vim-plug", "path": "005/001/093_插件管理_vim-plug.html"}, {"name": "094_路径管理_nerdtree", "path": "005/001/094_路径管理_nerdtree.html"}, {"name": "095_新插件平台_coc", "path": "005/001/095_新插件平台_coc.html"}, {"name": "096_自动配对_auto_pairs", "path": "005/001/096_自动配对_auto_pairs.html"}, {"name": "097_目前vimrc配置", "path": "005/001/097_目前vimrc配置.html"}]}]}, {"name": "006", "children": [{"name": "001", "children": [{"name": "098_编程入门", "path": "006/001/098_编程入门.html"}, {"name": "099_缩进表达式", "path": "006/001/099_缩进表达式.html"}]}]}, {"name": "index", "path": "index.html"}];
+
+function buildTree(data, parent) {
+    const ul = document.createElement('ul');
+    data.forEach(item => {
+        const li = document.createElement('li');
+        
+        if (item.children) {
+            // 目录
+            const node = document.createElement('div');
+            node.className = 'node dir';
+            node.innerHTML = `<span class="arrow">▼</span><span class="icon">📁</span><span class="label">${item.name}</span>`;
+            node.onclick = (e) => {
+                e.stopPropagation();
+                const sub = node.nextElementSibling;
+                if (sub.classList.contains('hidden')) {
+                    sub.classList.remove('hidden');
+                    node.classList.remove('collapsed');
+                } else {
+                    sub.classList.add('hidden');
+                    node.classList.add('collapsed');
+                }
+            };
+            li.appendChild(node);
+            const childUl = buildTree(item.children, li);
+            li.appendChild(childUl);
+        } else {
+            // 文件
+            const node = document.createElement('div');
+            node.className = 'node file';
+            node.innerHTML = `<span class="arrow"></span><span class="icon">📄</span><span class="label">${item.name}</span>`;
+            node.onclick = (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.node.active').forEach(n => n.classList.remove('active'));
+                node.classList.add('active');
+                const viewer = document.getElementById('viewer');
+                viewer.removeAttribute('srcdoc');
+                viewer.src = item.path;
+            };
+            li.appendChild(node);
+        }
+        ul.appendChild(li);
+    });
+    return ul;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tree = document.getElementById('tree');
+    tree.appendChild(buildTree(TREE_DATA, tree));
+
+    // 初始欢迎页（用 srcdoc，不影响后续 .src 赋值）
+    document.getElementById('viewer').srcdoc =
+        '<div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+        'background:#fafafa;color:#555;font-family:-apple-system,Segoe UI,PingFang SC,sans-serif;">' +
+        '<h1 style="color:#333;margin-bottom:12px;font-size:28px;">👋 OEASY Vim 教程</h1>' +
+        '<p style="font-size:15px;color:#888;">← 从左侧选择一个章节开始学习</p>' +
+        '</div>';
+
+    // 搜索
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        const allNodes = document.querySelectorAll('.node');
+        allNodes.forEach(n => {
+            const label = n.querySelector('.label').textContent.toLowerCase();
+            const match = label.includes(q);
+            n.style.display = match || !q ? '' : 'none';
+            // 父目录展开
+            if (match) {
+                let p = n.parentElement;
+                while (p) {
+                    if (p.classList && p.classList.contains('hidden')) p.classList.remove('hidden');
+                    const prev = p.previousElementSibling;
+                    if (prev && prev.classList && prev.classList.contains('node')) {
+                        prev.classList.remove('collapsed');
+                    }
+                    p = p.parentElement;
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

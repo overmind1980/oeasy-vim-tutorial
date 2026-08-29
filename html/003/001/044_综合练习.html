@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oeasy Vim编辑器教程：综合练习，零基础系统学习</title>
+    <meta name="description" content="oeasy系统化教程，详解综合练习。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta name="keywords" content="oeasy, Vim教程, Vim编辑器, Vim入门, 文本编辑, Vim配置, Vim脚本, 高效编程, oeasy教程, 综合练习">
+    <meta property="og:title" content="oeasy Vim编辑器教程：综合练习，零基础系统学习">
+    <meta property="og:description" content="oeasy系统化教程，详解综合练习。oeasy系统化Vim编辑器教程，涵盖模式切换、光标移动、文本编辑、插件配置、脚本编程等核心内容，带你高效掌握Vim编辑器使用技巧。 搜索oeasy，获取全套教程，快速掌握相关技能。">
+    <meta property="og:type" content="article">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <div class="container">
+        
+<h1 id="_1">综合练习</h1>
+<h2 id="_2">回忆上节课内容🤔</h2>
+<ul>
+<li>上次我们学到了各种的替换模式<ul>
+<li><kbd>r</kbd>，替换当前光标的字符</li>
+<li><kbd>R</kbd>，进入替换模式</li>
+<li><kbd>~</kbd>，改变大小写</li>
+</ul>
+</li>
+<li>这次来个综合练习吧！</li>
+<li>我们这次要完成这样一个任务<ul>
+<li>我们有的时候需要写日志<ul>
+<li>System.out.println("[debug]1=====");</li>
+</ul>
+</li>
+<li>但是这些日志,如何快速插入</li>
+<li>并且自动编号呢？</li>
+<li>我们来试试</li>
+</ul>
+</li>
+</ul>
+<h3 id="_3">加法操作</h3>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612101778185.png" /></p>
+<ul>
+<li>首先输入好基本内容，如上图</li>
+<li>并且在System那一行<kbd>y</kbd><kbd>y</kbd></li>
+<li>然后<kbd>p</kbd>进行粘贴</li>
+<li>然后<kbd>ctrl</kbd>+<kbd>a</kbd></li>
+<li>将具体的数字加1</li>
+<li>这到底是为什么？🧐</li>
+</ul>
+<h3 id="_4">查询帮助</h3>
+<ul>
+<li><code>h CTRL-A</code>查询快捷键作用</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625455124299.png" /></p>
+<ul>
+<li>然后再<kbd>p</kbd>进行粘贴</li>
+<li>然后<kbd>3</kbd><kbd>ctrl</kbd>+<kbd>a</kbd>，将原来的1加3得到4</li>
+<li>如果是减法的话，可以用<kbd>ctrl</kbd>+<kbd>x</kbd>实现</li>
+</ul>
+<h3 id="_5">减法操作</h3>
+<ul>
+<li>首先是已经存在的内容，如图</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210131-1612102206977.png" /></p>
+<ul>
+<li>我希望快速添加一条 .news 的记录，其中 margin:30px;<ul>
+<li>首先<kbd>y</kbd><kbd>2</kbd><kbd>j</kbd>复制3行</li>
+<li>然后<kbd>G</kbd>到最后一行</li>
+<li>小写<kbd>p</kbd>把新内容粘贴在后面</li>
+<li><kbd>l</kbd>向右移动到<code>b</code>字符</li>
+<li><kbd>c</kbd><kbd>w</kbd>，剪切blog</li>
+<li>并把模式切换到插入模式</li>
+<li>输入news<kbd>esc</kbd></li>
+<li><kbd>j</kbd>,向下1行</li>
+<li><kbd>f</kbd><kbd>4</kbd>，光标跳转到<code>4</code></li>
+<li><kbd>r</kbd><kbd>3</kbd>,光标所在字符修改为<code>3</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">还是刚才的操作</h3>
+<ul>
+<li><kbd>u</kbd>撤销回来</li>
+<li>在margin行的任意位置</li>
+<li>最后一步变成 10<kbd>ctrl</kbd>+<kbd>x</kbd></li>
+<li>试一下效果</li>
+<li>查看帮助</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210705-1625455417982.png" /></p>
+<ul>
+<li><kbd>ctrl</kbd>+<kbd>a</kbd>都在Normal正常模式下做的</li>
+<li>如果是在插入模式下做</li>
+<li>什么效果呢</li>
+</ul>
+<h3 id="_7">重复插入</h3>
+<ul>
+<li>先来搜索一下</li>
+<li><code>:h i_CTRL-a</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627306345119.png" /></p>
+<ul>
+<li>我们来试试</li>
+</ul>
+<h3 id="_8">来试试</h3>
+<ul>
+<li>打开<code>oeasy.java</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627306628326.png" /></p>
+<ul>
+<li><kbd>i</kbd>进入插入模式</li>
+<li>插入<code>oeasy</code></li>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd>结束插入模式</li>
+<li>这个时候寄存器<code>".</code>中的内容为<code>oeasy</code></li>
+<li>正常模式下把光标移动到下面位置</li>
+<li>再进入插入模式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210726-1627306792103.png" /></p>
+<ul>
+<li>然后<kbd>ctrl</kbd>+<kbd>a</kbd>就可以把<code>".</code>寄存器的内容插上去了</li>
+<li>相当于插入模式下<kbd>ctrl</kbd>+<kbd>r</kbd>  <kbd>.</kbd></li>
+<li>也相当于正常模式下<code>".p</code></li>
+<li>就是把.寄存器里面的东西粘贴上来</li>
+</ul>
+<h3 id="_9">一次命令</h3>
+<ul>
+<li>插入模式下有一种 <code>一次命令模式</code></li>
+<li>快捷键是 <kbd>ctrl</kbd>+<kbd>o</kbd></li>
+<li><code>:h i_ctrl-o</code></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627395771154.png" /></p>
+<ul>
+<li>插入模式下，执行一次命令</li>
+<li>然后回到插入模式</li>
+<li>比如光标在如下位置，模式为插入</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627395720447.png" /></p>
+<ul>
+<li>原来的方法是<ul>
+<li><kbd>ctrl</kbd>+<kbd>c</kbd></li>
+<li>先退回到正常模式</li>
+<li><code>d2w</code>可以把两个单词删除</li>
+<li><kbd>i</kbd>并进入插入模式</li>
+</ul>
+</li>
+<li>不止一种思路</li>
+<li>灵活多变</li>
+</ul>
+<h3 id="_10">试试一次命令模式</h3>
+<ul>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627395882556.png" /></p>
+<ul>
+<li>执行一次正常模式命令<code>d2w</code> </li>
+<li>执行之后还是保持在插入模式</li>
+</ul>
+<p><img alt="图片描述" src="images/uid1190679-20210727-1627395975125.png" /></p>
+<ul>
+<li>如果想删到oeasy之前的位置就可以<ul>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+<li>d/oeasy 回车</li>
+<li>然后会自动回到插入模式</li>
+</ul>
+</li>
+<li>也许你可试试如何才能让按键更少</li>
+<li>就像用更少的杆数让高尔夫球进洞一样<ul>
+<li>http://www.vimgolf.com/</li>
+</ul>
+</li>
+</ul>
+<h2 id="_11">总结</h2>
+<ul>
+<li>这次我们主要就是综合运用</li>
+<li>很好玩的，更快速的解决问题</li>
+<li>进行计算<ul>
+<li><kbd>ctrl</kbd>+<kbd>a</kbd>，将具体的数字加1</li>
+<li><kbd>ctrl</kbd>+<kbd>x</kbd>，将具体的数字减1</li>
+<li><kbd>5</kbd><kbd>ctrl</kbd>+<kbd>a</kbd>，将具体的数字加5</li>
+</ul>
+</li>
+<li>一次命令模式<ul>
+<li><kbd>ctrl</kbd>+<kbd>o</kbd></li>
+<li>插入模式下执行一次命令，然后回到插入模式</li>
+</ul>
+</li>
+<li>下次我们进入新的领域<ul>
+<li>命令行编辑～</li>
+</ul>
+</li>
+<li>下次再说 👋</li>
+</ul>
+    </div>
+</body>
+</html>
